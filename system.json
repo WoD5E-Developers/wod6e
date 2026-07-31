@@ -51,6 +51,7 @@
       ],
       "paths": [
         "styling",
+        "templates",
         "lang"
       ]
     }

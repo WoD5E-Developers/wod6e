@@ -31,11 +31,8 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     attributes: {
       template: 'systems/wod6e/templates/core/actors/parts/attributes.hbs'
     },
-    vitae: {
-      template: 'systems/wod6e/templates/core/actors/parts/vitae.hbs'
-    },
-    willpower: {
-      template: 'systems/wod6e/templates/core/actors/parts/willpower.hbs'
+    resources: {
+      template: 'systems/wod6e/templates/core/actors/parts/resources.hbs'
     },
     humanityScale: {
       template: 'systems/wod6e/templates/splats/vampire/actors/parts/humanity-scale.hbs'
@@ -104,11 +101,8 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
       case 'attributes':
         return this.prepareAttributesContext(context, actor)
 
-      case 'vitae':
-        return this.prepareVitaeContext(context, actor)
-
-      case 'willpower':
-        return this.prepareWillpowerContext(context, actor)
+      case 'resources':
+        return this.prepareResourcesContext(context, actor)
 
       case 'settings':
         return this.prepareSettingsContext(context, actor)

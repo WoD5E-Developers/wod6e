@@ -1,0 +1,31 @@
+/* Vampire Actor Sheet */
+.actor.sheet.vampire {
+  .window-content {
+    display: grid;
+    grid-template-columns:
+      minmax(300px, 1fr)
+      minmax(50px, 1fr)
+      minmax(300px, 1fr);
+    grid-template-areas:
+      "navigation navigation navigation"
+      "header header header"
+      "attributes attributes attributes"
+      "resources resources resources"
+      "humanityScale humanityScale humanityScale"
+      "leftColumn middleColumn rightColumn"
+      "leftColumn middleColumn rightColumn"
+      "leftColumn middleColumn rightColumn"
+      "leftColumn middleColumn rightColumn"
+      "leftColumn middleColumn rightColumn"
+      "disciplines disciplines rightColumn";
+    padding: 0;
+  }
+}
+
+[data-application-part="humanityScale"] {
+  grid-area: humanityScale;
+}
+
+[data-application-part="disciplines"] {
+  grid-area: disciplines;
+}

@@ -130,20 +130,65 @@
   color: var(--system-color-8);
 }
 
+/* Vampire Actor Sheet */
+.actor.sheet.vampire .window-content {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(50px, 1fr) minmax(300px, 1fr);
+  grid-template-areas: "navigation navigation navigation" "header header header" "attributes attributes attributes" "resources resources resources" "humanityScale humanityScale humanityScale" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "disciplines disciplines rightColumn";
+  padding: 0;
+}
+[data-application-part="humanityScale"] {
+  grid-area: humanityScale;
+}
+[data-application-part="disciplines"] {
+  grid-area: disciplines;
+}
+
 :root {
   --vampire-color-1: #650202;
   --vampire-color-2: #d84343;
   --vampire-color-3: #f51f1f;
   --coterie-group-header: rgba(121, 8, 19, 0.8);
 }
-/* Vampire Actor Sheet */
-.actor.sheet.vampire .window-content {
-  display: grid;
-  grid-template-columns: minmax(240px, 1fr) minmax(180px, 0.7fr) minmax(260px, 1fr);
-  grid-template-areas: "navigation navigation navigation" "header header header" "attributes attributes attributes" "vitae vitae willpower" "humanity humanity humanity" "skills avatar lifepaths" "skills avatar clan-traits" "resources items merits" "resources items flaw" "disciplines disciplines nature" "disciplines disciplines beast";
+
+.actor.sheet {
+  min-width: 715px;
 }
-.wod6e.actor.vampire .tab:not(.active) {
+
+.sheet-field {
+  display: flex;
+  align-items: center;
+  min-height: 1.7rem;
+  border-bottom: 1px solid;
+}
+.sheet-field label {
+  margin-right: 0.25rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.sheet-field input {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
+.sheet-part {
+  padding: var(--spacer-16);
+}
+.wod6e.actor .tab:not(.active) {
   display: none;
+}
+[data-application-part="header"] {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(180px, 0.7fr) minmax(260px, 1fr);
+}
+[data-application-part="header"] .middle-header img {
+  margin-left: auto;
+  margin-right: auto;
 }
 [data-application-part="tabs"] {
   grid-area: navigation;
@@ -152,11 +197,22 @@
 [data-application-part="header"] {
   grid-area: header;
 }
+[data-application-part="resources"] {
+  grid-area: resources;
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
+}
 [data-application-part="attributes"] {
   grid-area: attributes;
 }
-[data-application-part="skills"] {
-  grid-area: skills;
+[data-application-part="leftColumn"] {
+  grid-area: leftColumn;
+}
+[data-application-part="middleColumn"] {
+  grid-area: middleColumn;
+}
+[data-application-part="rightColumn"] {
+  grid-area: rightColumn;
 }
 [data-application-part="disciplines"] {
   grid-area: disciplines;

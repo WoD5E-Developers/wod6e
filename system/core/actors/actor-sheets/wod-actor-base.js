@@ -3,8 +3,7 @@ import {
   prepareAttributesContext,
   prepareLimitedContext,
   prepareSettingsContext,
-  prepareVitaeContext,
-  prepareWillpowerContext
+  prepareResourcesContext
 } from '../scripts/prepare-core-partials.js'
 import { ActorUX } from '../scripts/actor-ux.js'
 // Mixin
@@ -291,12 +290,8 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
     return prepareAttributesContext(context, actor)
   }
 
-  prepareVitaeContext(context, actor) {
-    return prepareVitaeContext(context, actor)
-  }
-
-  prepareWillpowerContext(context, actor) {
-    return prepareWillpowerContext(context, actor)
+  prepareResourcesContext(context, actor) {
+    return prepareResourcesContext(context, actor)
   }
 
   prepareSettingsContext(context, actor) {

@@ -5,14 +5,10 @@ export const prepareAttributesContext = async function (context, actor) {
   return context
 }
 
-export const prepareVitaeContext = async function (context, actor) {
+export const prepareResourcesContext = async function (context, actor) {
   const actorVitae = actor.system.vitae
   context.vitae = actorVitae
 
-  return context
-}
-
-export const prepareWillpowerContext = async function (context, actor) {
   const actorWillpower = actor.system.willpower
   context.willpower = actorWillpower
 
