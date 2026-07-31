@@ -214,9 +214,6 @@
 [data-application-part="rightColumn"] {
   grid-area: rightColumn;
 }
-[data-application-part="disciplines"] {
-  grid-area: disciplines;
-}
 [data-application-part="settings"] {
   grid-column: 1 / -1;
 }
