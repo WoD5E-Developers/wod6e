@@ -1,0 +1,26 @@
+{
+  "TYPES": {
+    "Actor": {
+      "vampire": "Vampire"
+    },
+    "Item": {
+      "clan": "Clan",
+      "discipline": "Discipline"
+    }
+  },
+  "WOD6E": {
+    "GamePaused": "Game Paused",
+    "NOTIFICATIONS": {
+      "ConsoleLog": "World of Darkness 6th Edition | {string}",
+      "InitializingSchreckNet": "Initializing SchreckNet",
+      "LoadingSubroutines": "SchreckNet: Loading subroutines",
+      "ShreckNetInitialized": "ShreckNet Initialized - Welcome to the World of Darkness."
+    },
+    "SIDEBARS": {
+      "Changelog": "Changelog",
+      "LicensedUnderDarkPack": "Licensed Under The Dark Pack",
+      "LicensedUnderDarkPackFulltext": "Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit <a href='https://worldofdarkness.com'>worldofdarkness.com</a>.",
+      "ReportAnIssue": "Report An Issue"
+    }
+  }
+}

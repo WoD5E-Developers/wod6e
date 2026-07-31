@@ -1,0 +1,55 @@
+{
+  "name": "wod6e",
+  "version": "1.0.0",
+  "description": "ESLint & other utiltiies for developing World of Darkness 6th Edition",
+  "scripts": {
+    "gulp": "gulp",
+    "eslint": "eslint -c eslint.config.js *",
+    "generate-release": "node system/scripts/maintenance/generate-release-zip.js",
+    "check-highest-changes": "node system/scripts/maintenance/check-highest-changes.js",
+    "test": "vitest",
+    "audit": "npm audit --json > audit.json"
+  },
+  "browserslist": [
+    "last 3 versions"
+  ],
+  "author": "Veilza",
+  "license": "./license",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "npm": ">=11.18.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^8",
+    "@babel/eslint-parser": "^8",
+    "eslint": "^9",
+    "eslint-plugin-hbs": "^1.0.3",
+    "eslint-plugin-import": "^2",
+    "eslint-plugin-prettier": "^5.5.4",
+    "@eslint/compat": "^2.1.0",
+    "globals": "^15.9.0",
+    "gulp": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-less": "^5.0.0",
+    "jsdom": "^28.0.0",
+    "less": "^4.2.0",
+    "vitest": "^4.0.18",
+    "archiver": "^8.0.0"
+  },
+  "main": "gulpfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WoD5E-Developers/wod6e.git"
+  },
+  "keywords": [
+    "vampire-the-masquerade",
+    "world-of-darkness",
+    "foundryvtt",
+    "foundryvtt-system"
+  ],
+  "bugs": {
+    "url": "https://github.com/WoD5E-Developers/wod6e/issues"
+  },
+  "homepage": "https://github.com/WoD5E-Developers/wod6e#readme"
+}

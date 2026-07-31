@@ -1,0 +1,26 @@
+{
+  "TYPES": {
+    "Actor": {
+      "_vampire": ""
+    },
+    "Item": {
+      "_clan": "",
+      "_discipline": ""
+    }
+  },
+  "WOD6E": {
+    "_GamePaused": "",
+    "NOTIFICATIONS": {
+      "_ConsoleLog": "",
+      "_InitializingSchreckNet": "",
+      "_LoadingSubroutines": "",
+      "_ShreckNetInitialized": ""
+    },
+    "SIDEBARS": {
+      "_Changelog": "",
+      "_LicensedUnderDarkPack": "",
+      "_LicensedUnderDarkPackFulltext": "",
+      "_ReportAnIssue": ""
+    }
+  }
+}

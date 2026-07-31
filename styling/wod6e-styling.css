@@ -1,0 +1,166 @@
+@font-face {
+  font-family: 'Martel';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/martel/v12/PN_xRfK9oXHga0XtYQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Martel';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/martel/v12/PN_yRfK9oXHga0XVwe4ahQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuaabWmT.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbWmT.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWub2bWmT.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Amarante';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/amarante/v30/xMQXuF1KTa6EvGx9bq-3.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybuGDoxxrvAnPhYGxksckM2WMCpRjDj-DJGWmmZ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybuGDoxxrvAnPhYGxksckM2WMCpRjDj-DJ0WmmZ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybuGDoxxrvAnPhYGxksckM2WMCpRjDj-DKYXWmZ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybuGDoxxrvAnPhYGxksckM2WMCpRjDj-DKhXWmZ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybgGDoxxrvAnPhYGzMlQLzuMasz6Df2MHGuGQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybgGDoxxrvAnPhYGzMlQLzuMasz6Df2AnGuGQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybgGDoxxrvAnPhYGzMlQLzuMasz6Df27nauGQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Vollkorn';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybgGDoxxrvAnPhYGzMlQLzuMasz6Df213auGQ.ttf) format('truetype');
+}
+/* Pause */
+#pause {
+  background: none;
+}
+#pause img {
+  position: absolute;
+}
+#pause figcaption {
+  margin-top: 150px;
+  font-weight: bold;
+}
+
+/* Variables */
+:root {
+  --system-color-1: #302d5bf0;
+  --system-color-2: #d2dfebf0;
+  --system-color-3: #827dcaf0;
+  --system-color-4: #ededec;
+  --system-color-5: #000;
+  --system-color-6: #fff;
+  --system-color-7: #333;
+  --system-color-8: #c4c4c4;
+  --system-color-9: #e02b2b;
+  --system-color-10: #4b4b4b;
+  --system-color-11: #181818;
+  --base-theme-filter: rgba(24, 51, 103, 0.5);
+}
+#pause figcaption {
+  color: var(--system-color-8);
+}
+
+:root {
+  --vampire-color-1: #650202;
+  --vampire-color-2: #d84343;
+  --vampire-color-3: #f51f1f;
+  --coterie-group-header: rgba(121, 8, 19, 0.8);
+}
+/* Vampire Actor Sheet */
+.actor.sheet.vampire .window-content {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(180px, 0.7fr) minmax(260px, 1fr);
+  grid-template-areas: "navigation navigation navigation" "header header header" "attributes attributes attributes" "vitae vitae willpower" "humanity humanity humanity" "skills avatar lifepaths" "skills avatar clan-traits" "resources items merits" "resources items flaw" "disciplines disciplines nature" "disciplines disciplines beast";
+}
+.wod6e.actor.vampire .tab:not(.active) {
+  display: none;
+}
+[data-application-part="tabs"] {
+  grid-area: navigation;
+  max-height: fit-content;
+}
+[data-application-part="header"] {
+  grid-area: header;
+}
+[data-application-part="attributes"] {
+  grid-area: attributes;
+}
+[data-application-part="skills"] {
+  grid-area: skills;
+}
+[data-application-part="disciplines"] {
+  grid-area: disciplines;
+}
+[data-application-part="settings"] {
+  grid-column: 1 / -1;
+}

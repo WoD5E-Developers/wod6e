@@ -1,0 +1,20 @@
+# IDE
+.idea/
+.vs/
+
+# Node Modules
+node_modules/
+npm-debug.log
+
+# Pack files - we only want to log changes to the .db files
+packs/*
+!*.db
+
+# Release file
+*.zip
+
+# Lock file
+*.lock
+
+# NPM audit file
+audit.json

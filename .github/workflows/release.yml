@@ -1,0 +1,38 @@
+---
+name: Publish-Release
+
+# Run this workflow every time a new release is published
+on:
+    release:
+        types: [released]
+
+permissions: read-all
+
+jobs:
+    publish-release:
+        name: Publish release to Foundry
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: POST release
+            id: myRequest
+            uses: fjogeleit/http-request-action@v1
+            with:
+                url: 'https://foundryvtt.com/_api/packages/release_version/'
+                method: 'POST'
+                customHeaders: '{"Authorization": "${{ secrets.FOUNDRY_API_TOKEN }}"}'
+                preventFailureOnNoResponse: true
+                data:
+                    '{
+                        "id": "wod6e",
+                        "release": {
+                            "version": "${{ github.event.release.tag_name }}",
+                            "manifest": "https://github.com/WoD5E-Developers/wod6e/releases/download/${{ github.event.release.tag_name }}/system.json",
+                            "notes": "https://github.com/WoD5E-Developers/wod6e/releases/tag/${{ github.event.release.tag_name }}",
+                            "compatibility": {
+                                "minimum": "14",
+                                "verified": "14.365",
+                                "maximum": ""
+                            }
+                        }
+                    }'
