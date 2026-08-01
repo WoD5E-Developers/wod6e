@@ -6,6 +6,8 @@ export async function _onSetTrackerValue(event, target) {
 
   if (!Number.isInteger(selectedValue)) return
 
+  if (selectedValue > tracker.max - tracker.disabled) return
+
   // Determine whether to update the value or reduce by one
   // depending on if the user is clicking a filled in dot or
   // not.

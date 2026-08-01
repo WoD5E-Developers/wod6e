@@ -22,7 +22,8 @@ export async function _onDisableTrackerValue(event) {
   // field.
   if (selectedValue > tracker.max - tracker.disabled) {
     await this.actor.update({
-      [`${path}.disabled`]: tracker.disabled - 1
+      [`${path}.disabled`]: tracker.disabled - 1,
+      [`${path}.value`]: Math.clamp(tracker.value, 0, tracker.max - tracker.disabled)
     })
   } else {
     // Otherwise, increase the number of disabled fields by one.
