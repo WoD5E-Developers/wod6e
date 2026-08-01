@@ -180,6 +180,9 @@
 .game.theme-light .actor.sheet .attribute-group-fields {
   background-image: url(/ui/parchment.jpg);
 }
+.game.theme-dark .actor.sheet .attribute-groups {
+  background: #414141;
+}
 .actor.sheet .sheet-part {
   padding-left: var(--spacer-16);
   padding-right: var(--spacer-16);
