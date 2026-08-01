@@ -6,6 +6,8 @@ import {
   prepareResourcesContext
 } from '../scripts/prepare-core-partials.js'
 import { ActorUX } from '../scripts/actor-ux.js'
+import { _onSetTrackerValue } from '../scripts/on-set-tracker-value.js'
+import { _onDisableTrackerValue } from '../scripts/on-disable-tracker-value.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -41,7 +43,9 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
       width: 950,
       height: 1050
     },
-    actions: {},
+    actions: {
+      setTrackerValue: _onSetTrackerValue
+    },
     dragDrop: [
       {
         dragSelector: '[data-drag]',
@@ -225,6 +229,11 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
 
     // Drag and drop functionality
     this.#dragDrop.forEach((d) => d.bind(this.element))
+
+    // Right click to disable tracker dot functionality
+    html.querySelectorAll('.resource-tracker-space').forEach((element) => {
+      element.addEventListener('contextmenu', _onDisableTrackerValue.bind(this))
+    })
   }
 
   #createDragDropHandlers() {

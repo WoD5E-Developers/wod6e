@@ -31,6 +31,10 @@
       "LoadingSubroutines": "SchreckNet: Loading subroutines",
       "ShreckNetInitialized": "ShreckNet Initialized - Welcome to the World of Darkness."
     },
+    "RESOURCES": {
+      "Vitae": "Vitae",
+      "Willpower": "Willpower"
+    },
     "SIDEBARS": {
       "Changelog": "Changelog",
       "LicensedUnderDarkPack": "Licensed Under The Dark Pack",

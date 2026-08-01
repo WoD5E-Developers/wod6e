@@ -1,3 +1,5 @@
+import { generateHealthMax, generateWillpowerMax } from './scripts/resource-max-calculations.js'
+
 /**
  * Extend the base ActorSheet document and put all our base functionality here
  * @extends {Actor}
@@ -64,9 +66,32 @@ export class WoDActor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   async prepareDerivedData() {
+    const actor = this
+    const systemData = actor.system
+
+    // Set health maximum if it isn't already the calculated maximum
+    const healthMaximum = generateHealthMax(actor)
+    if (actor.isOwner && systemData.health.max != healthMaximum) {
+      actor.update({
+        'system.health.max': healthMaximum
+      })
+    }
+
+    // Set willpower maximum if it isn't already the calculated maximum
+    const willpowerMaximum = generateWillpowerMax(actor)
+    if (actor.isOwner && systemData.willpower.max != willpowerMaximum) {
+      actor.update({
+        'system.willpower.max': willpowerMaximum
+      })
+    }
+
     // If the actor is a player, update the default permissions to limited
-    if (this.hasPlayerOwner && !this.getFlag('wod6e', 'manualDefaultOwnership') && game.user.isGM) {
-      this.update({ 'ownership.default': CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED })
+    if (
+      actor.hasPlayerOwner &&
+      !actor.getFlag('wod6e', 'manualDefaultOwnership') &&
+      game.user.isGM
+    ) {
+      actor.update({ 'ownership.default': CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED })
     }
   }
 

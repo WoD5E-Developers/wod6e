@@ -1,5 +1,6 @@
 import { Attributes } from '../../config/attributes.js'
 import { AttributeGroups } from '../../config/attributes-groups.js'
+import { generateTrackers } from './generate-tracker-spaces.js'
 
 export const prepareAttributesContext = async function (context, actor) {
   const attributeGroups = AttributeGroups.getList({})
@@ -23,11 +24,36 @@ export const prepareAttributesContext = async function (context, actor) {
 }
 
 export const prepareResourcesContext = async function (context, actor) {
-  const actorVitae = actor.system.vitae
-  context.vitae = actorVitae
+  const actorHealth = actor.system.health
+  context.health = {
+    // Other splats may call this "Health" in the future
+    // So let's think smartly and just make this a variable
+    // upfront instead of putting it on the sheet
+    label: 'WOD6E.RESOURCES.Vitae',
+    path: 'system.health.value',
+    value: actorHealth.value,
+    max: actorHealth.max,
+    baneful: actorHealth.baneful,
+    trackers: generateTrackers({
+      value: actorHealth.value,
+      max: actorHealth.max,
+      disabled: actorHealth.disabled
+    })
+  }
 
   const actorWillpower = actor.system.willpower
-  context.willpower = actorWillpower
+  context.willpower = {
+    path: 'system.willpower.value',
+    value: actorWillpower.value,
+    max: actorWillpower.max,
+    baneful: actorWillpower.baneful,
+    trackers: generateTrackers({
+      value: actorWillpower.value,
+      max: actorWillpower.max,
+      disabled: actorWillpower.disabled,
+      reverse: true
+    })
+  }
 
   return context
 }

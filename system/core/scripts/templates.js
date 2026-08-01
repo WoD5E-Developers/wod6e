@@ -10,7 +10,7 @@ export const preloadHandlebarsTemplates = async function () {
     'templates/generic/tab-navigation.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/header.hbs',
     'systems/wod6e/templates/core/actors/parts/attributes.hbs',
-    'systems/wod6e/templates/core/actors/parts/vitae.hbs',
+    'systems/wod6e/templates/core/actors/parts/health.hbs',
     'systems/wod6e/templates/core/actors/parts/willpower.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/humanity-scale.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/left-column.hbs',

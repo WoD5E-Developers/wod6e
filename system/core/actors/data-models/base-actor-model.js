@@ -14,15 +14,18 @@ export class WoDActorModel extends foundry.abstract.TypeDataModel {
 
     // Health fields
     schema.health = new fields.SchemaField({
-      baneful: new fields.NumberField({ initial: 0 }),
-      max: new fields.NumberField({ initial: 5 }),
-      value: new fields.NumberField({ initial: 5 })
+      max: new fields.NumberField({ initial: 5, min: 1 }),
+      value: new fields.NumberField({ initial: 5, min: 0 }),
+      disabled: new fields.NumberField({ initial: 0, min: 0 }),
+      canBeDisabled: new fields.BooleanField({ initial: true })
     })
 
     // Willpower fields
     schema.willpower = new fields.SchemaField({
-      max: new fields.NumberField({ initial: 5 }),
-      value: new fields.NumberField({ initial: 5 })
+      max: new fields.NumberField({ initial: 5, min: 1 }),
+      value: new fields.NumberField({ initial: 5, min: 0 }),
+      disabled: new fields.NumberField({ initial: 0, min: 0 }),
+      canBeDisabled: new fields.BooleanField({ initial: false })
     })
 
     // Determines whether an actor sheet has attribute data for processing
