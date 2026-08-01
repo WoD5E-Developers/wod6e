@@ -156,18 +156,18 @@
   min-width: 715px;
 }
 
-.sheet-field {
+.actor.sheet .sheet-field {
   display: flex;
   align-items: center;
   min-height: 1.7rem;
   border-bottom: 1px solid;
 }
-.sheet-field label {
+.actor.sheet .sheet-field label {
   margin-right: 0.25rem;
   font-weight: 600;
   white-space: nowrap;
 }
-.sheet-field input {
+.actor.sheet .sheet-field input {
   flex: 1;
   padding: 0;
   margin: 0;
@@ -177,44 +177,126 @@
   outline: none;
 }
 
-.sheet-part {
-  padding: var(--spacer-16);
+.game.theme-light .actor.sheet .attribute-group-fields {
+  background-image: url(/ui/parchment.jpg);
 }
-.wod6e.actor .tab:not(.active) {
+.actor.sheet .sheet-part {
+  padding-left: var(--spacer-16);
+  padding-right: var(--spacer-16);
+}
+.actor.sheet .tab:not(.active) {
   display: none;
 }
-[data-application-part="header"] {
+.actor.sheet [data-application-part="header"] {
+  grid-area: header;
   display: grid;
-  grid-template-columns: minmax(280px, 1fr) minmax(90px, 1fr) minmax(280px, 1fr);
+  grid-template-columns: minmax(300px, 1fr) minmax(90px, 0.3fr) minmax(300px, 1fr);
 }
-[data-application-part="header"] .middle-header img {
+.actor.sheet [data-application-part="header"] .middle-header img {
+  padding: var(--spacer-16);
   margin-left: auto;
   margin-right: auto;
 }
-[data-application-part="tabs"] {
+.actor.sheet [data-application-part="header"] .left-header,
+.actor.sheet [data-application-part="header"] .right-header,
+.actor.sheet [data-application-part="header"] .middle-header {
+  padding-bottom: 0;
+}
+.actor.sheet [data-application-part="tabs"] {
   grid-area: navigation;
   max-height: fit-content;
 }
-[data-application-part="header"] {
-  grid-area: header;
-}
-[data-application-part="resources"] {
+.actor.sheet [data-application-part="resources"] {
   grid-area: resources;
   display: grid;
   grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
 }
-[data-application-part="attributes"] {
+.actor.sheet [data-application-part="attributes"] {
   grid-area: attributes;
+  margin-top: -50px;
 }
-[data-application-part="leftColumn"] {
+.actor.sheet [data-application-part="attributes"] .attributes-title {
+  margin: 0;
+  font-size: 16pt;
+  text-align: center;
+  text-transform: uppercase;
+}
+.actor.sheet [data-application-part="attributes"] .attribute-groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+}
+.actor.sheet [data-application-part="attributes"] .attribute-groups .attribute-group {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+}
+.actor.sheet [data-application-part="attributes"] .attribute-groups .attribute-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15pt;
+  line-height: 0.6;
+  text-align: center;
+  text-transform: uppercase;
+  color: #CCC;
+  padding: 5px;
+}
+.actor.sheet [data-application-part="attributes"] .attribute-group-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-height: 5.5rem;
+  border-radius: 20px 20px 0 0;
+  background: var(--background);
+}
+.actor.sheet [data-application-part="attributes"] .attribute-field {
+  display: grid;
+  grid-template-rows: 2.5rem auto;
+  align-items: center;
+  justify-items: center;
+  min-width: 0;
+  margin: 0;
+  padding: 0 0.2rem;
+  cursor: pointer;
+}
+.actor.sheet [data-application-part="attributes"] .attribute-field .attribute-value {
+  width: 100%;
+  height: 2.5rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+  font-family: inherit;
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 2.5rem;
+  text-align: center;
+  appearance: textfield;
+}
+.actor.sheet [data-application-part="attributes"] .attribute-field .attribute-label {
+  width: 100%;
+  overflow: hidden;
+  font-size: 10pt;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.actor.sheet [data-application-part="leftColumn"] {
   grid-area: leftColumn;
 }
-[data-application-part="middleColumn"] {
+.actor.sheet [data-application-part="middleColumn"] {
   grid-area: middleColumn;
 }
-[data-application-part="rightColumn"] {
+.actor.sheet [data-application-part="rightColumn"] {
   grid-area: rightColumn;
 }
-[data-application-part="settings"] {
+.actor.sheet [data-application-part="settings"] {
   grid-column: 1 / -1;
 }

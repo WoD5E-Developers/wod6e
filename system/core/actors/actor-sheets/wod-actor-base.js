@@ -38,7 +38,7 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
     },
     classes: ['wod6e', 'actor', 'sheet'],
     position: {
-      width: 800,
+      width: 950,
       height: 1050
     },
     actions: {},

@@ -1,6 +1,23 @@
+import { Attributes } from '../../config/attributes.js'
+import { AttributeGroups } from '../../config/attributes-groups.js'
+
 export const prepareAttributesContext = async function (context, actor) {
-  const actorAttributes = actor.system.attributes
-  context.attributes = actorAttributes
+  const attributeGroups = AttributeGroups.getList({})
+  const attributes = Attributes.getList({})
+
+  context.attributeGroups = Object.entries(attributeGroups)
+    .filter(([, attributeGroup]) => !attributeGroup.hidden)
+    .map(([attributeGroupId, attributeGroup]) => ({
+      id: attributeGroupId,
+      label: attributeGroup.displayName,
+      attributes: Object.entries(attributes)
+        .filter(([, attribute]) => attribute.type === attributeGroupId && !attribute.hidden)
+        .map(([key, attribute]) => ({
+          key,
+          label: attribute.displayName,
+          value: foundry.utils.getProperty(actor, attribute.path)
+        }))
+    }))
 
   return context
 }

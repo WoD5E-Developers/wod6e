@@ -5,19 +5,25 @@ export function vampireFields() {
     // Determines whether an actor sheet has discipline data for processing
     hasDisciplineData: new fields.BooleanField({ initial: true }),
 
-    hunger: new fields.SchemaField({
-      value: new fields.NumberField({ initial: 1 }),
-      max: new fields.NumberField({ initial: 5 })
+    vampire: new fields.SchemaField({
+      date: new fields.SchemaField({
+        embrace: new fields.StringField({ initial: '', nullable: false }),
+        nostalgic: new fields.StringField({ initial: '', nullable: false })
+      }),
+
+      clan: new fields.SchemaField({
+        name: new fields.StringField({ initial: '', nullable: false }),
+        curse: new fields.StringField({ initial: '', nullable: false }),
+        generation: new fields.NumberField({ initial: 0, nullable: false }),
+        sire: new fields.SchemaField({
+          name: new fields.StringField({ initial: '', nullable: false })
+        })
+      })
     }),
 
     humanity: new fields.SchemaField({
-      value: new fields.NumberField({ initial: 7 }),
-      stains: new fields.NumberField({ initial: 0 })
-    }),
-
-    blood: new fields.SchemaField({
-      potency: new fields.NumberField({ initial: 0 }),
-      generation: new fields.StringField({ initial: '' })
+      value: new fields.NumberField({ initial: 7, nullable: false }),
+      stains: new fields.NumberField({ initial: 0, nullable: false })
     }),
 
     disciplines: new fields.ObjectField({

@@ -12,12 +12,6 @@ export class WoDActorModel extends foundry.abstract.TypeDataModel {
     // Locked field, controls whether the sheet is locked or unlocked
     schema.locked = new fields.BooleanField({ initial: false })
 
-    // Determines whether an actor sheet has skill data for processing
-    schema.hasSkillData = new fields.BooleanField({ initial: true })
-
-    // Determines whether an actor sheet has attribute data for processing
-    schema.hasAttributeData = new fields.BooleanField({ initial: true })
-
     // Health fields
     schema.health = new fields.SchemaField({
       aggravated: new fields.NumberField({ initial: 0 }),
@@ -26,11 +20,26 @@ export class WoDActorModel extends foundry.abstract.TypeDataModel {
       value: new fields.NumberField({ initial: 5 })
     })
 
+    // Determines whether an actor sheet has attribute data for processing
+    schema.hasAttributeData = new fields.BooleanField({ initial: true })
+
     // Attribute fields
     schema.attributes = attributeFields()
 
+    // Determines whether an actor sheet has skill data for processing
+    schema.hasSkillData = new fields.BooleanField({ initial: true })
+
     // Skill fields
     schema.skills = skillFields()
+
+    // Age fields
+    schema.age = new fields.SchemaField({
+      apparent: new fields.NumberField({ initial: null, nullable: true }),
+      actual: new fields.NumberField({ initial: null, nullable: true })
+    })
+
+    // Archetype field
+    schema.archetype = new fields.StringField({ initial: '', nullable: false })
 
     // Setting fields
     Object.assign(schema, settingFields())

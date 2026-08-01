@@ -1,60 +1,154 @@
-.sheet-part {
-  padding: var(--spacer-16);
-}
-
-.wod6e.actor .tab:not(.active) {
-  display: none;
-}
-
-[data-application-part="header"] {
-  display: grid;
-  grid-template-columns:
-    minmax(280px, 1fr)
-    minmax(90px, 1fr)
-    minmax(280px, 1fr);
-
-  .middle-header {
-    img {
-      margin-left: auto;
-      margin-right: auto;
+.game.theme-light {
+  .actor.sheet {
+    .attribute-group-fields {
+      background-image: url(/ui/parchment.jpg);
     }
   }
 }
 
+.actor.sheet {
+  .sheet-part {
+    padding-left: var(--spacer-16);
+    padding-right: var(--spacer-16);
+  }
 
-[data-application-part="tabs"] {
-  grid-area: navigation;
-  max-height: fit-content;
-}
+  .tab:not(.active) {
+    display: none;
+  }
 
-[data-application-part="header"] {
-  grid-area: header;
-}
+  [data-application-part="header"] {
+    grid-area: header;
+    display: grid;
+    grid-template-columns:
+      minmax(300px, 1fr)
+      minmax(90px, 0.3fr)
+      minmax(300px, 1fr);
 
-[data-application-part="resources"] {
-  grid-area: resources;
-  display: grid;
-  grid-template-columns:
-    minmax(260px, 1fr)
-    minmax(260px, 1fr);
-}
+    .middle-header {
+      img {
+        padding: var(--spacer-16);
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
 
-[data-application-part="attributes"] {
-  grid-area: attributes;
-}
+    .left-header, .right-header, .middle-header {
+      padding-bottom: 0;
+    }
+  }
 
-[data-application-part="leftColumn"] {
-  grid-area: leftColumn;
-}
+  [data-application-part="tabs"] {
+    grid-area: navigation;
+    max-height: fit-content;
+  }
 
-[data-application-part="middleColumn"] {
-  grid-area: middleColumn;
-}
+  [data-application-part="resources"] {
+    grid-area: resources;
+    display: grid;
+    grid-template-columns:
+      minmax(260px, 1fr)
+      minmax(260px, 1fr);
+  }
 
-[data-application-part="rightColumn"] {
-  grid-area: rightColumn;
-}
+  [data-application-part="attributes"] {
+    grid-area: attributes;
+    margin-top: -50px;
 
-[data-application-part="settings"] {
-  grid-column: 1 / -1;
+    .attributes-title {
+      margin: 0;
+      font-size: 16pt;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .attribute-groups {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      width: 100%;
+      overflow: hidden;
+      background: #000;
+
+      .attribute-group {
+        position: relative;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        min-width: 0;
+      }
+
+      .attribute-group-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15pt;
+        line-height: 0.6;
+        text-align: center;
+        text-transform: uppercase;
+        color: #CCC;
+        padding: 5px;
+      }
+    }
+
+    .attribute-group-fields {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      min-height: 5.5rem;
+      border-radius: 20px 20px 0 0;
+      background: var(--background);
+    }
+
+    .attribute-field {
+      display: grid;
+      grid-template-rows: 2.5rem auto;
+      align-items: center;
+      justify-items: center;
+      min-width: 0;
+      margin: 0;
+      padding: 0 0.2rem;
+      cursor: pointer;
+
+      .attribute-value {
+        width: 100%;
+        height: 2.5rem;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        outline: none;
+        background: transparent;
+        box-shadow: none;
+        font-family: inherit;
+        font-size: 1.45rem;
+        font-weight: 600;
+        line-height: 2.5rem;
+        text-align: center;
+        appearance: textfield;
+      }
+
+      .attribute-label {
+        width: 100%;
+        overflow: hidden;
+        font-size: 10pt;
+        text-align: center;
+        text-overflow: ellipsis;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  [data-application-part="leftColumn"] {
+    grid-area: leftColumn;
+  }
+
+  [data-application-part="middleColumn"] {
+    grid-area: middleColumn;
+  }
+
+  [data-application-part="rightColumn"] {
+    grid-area: rightColumn;
+  }
+
+  [data-application-part="settings"] {
+    grid-column: 1 / -1;
+  }
 }

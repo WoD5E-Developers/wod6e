@@ -10,6 +10,21 @@
   },
   "WOD6E": {
     "GamePaused": "Game Paused",
+    "ATTRIBUTES": {
+      "Attributes": "Attributes",
+      "Charisma": "Charisma",
+      "Composure": "Composure",
+      "Dexterity": "Dexterity",
+      "Intelligence": "Intelligence",
+      "Manipulation": "Manipulation",
+      "Mental": "Mental",
+      "Physical": "Physical",
+      "Resolve": "Resolve",
+      "Social": "Social",
+      "Stamina": "Stamina",
+      "Strength": "Strength",
+      "Wits": "Wits"
+    },
     "NOTIFICATIONS": {
       "ConsoleLog": "World of Darkness 6th Edition | {string}",
       "InitializingSchreckNet": "Initializing SchreckNet",
@@ -21,6 +36,10 @@
       "LicensedUnderDarkPack": "Licensed Under The Dark Pack",
       "LicensedUnderDarkPackFulltext": "Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit <a href='https://worldofdarkness.com'>worldofdarkness.com</a>.",
       "ReportAnIssue": "Report An Issue"
+    },
+    "TABS": {
+      "Main": "Main",
+      "Settings": "Settings"
     }
   }
 }

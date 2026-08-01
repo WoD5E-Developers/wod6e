@@ -3,5 +3,39 @@
   data-group="primary"
   data-tab="main"
 >
-  Attributes
+  <h2 class="attributes-title">
+    {{localize 'WOD6E.ATTRIBUTES.Attributes'}}
+  </h2>
+  <div class="attribute-groups">
+    {{#each attributeGroups as |group|}}
+    <section
+      class="attribute-group"
+      data-attribute-group="{{ group.id }}"
+    >
+      <header class="attribute-group-header">
+        {{localize group.label}}
+      </header>
+      <div class="attribute-group-fields">
+        {{#each group.attributes as |attribute|}}
+        <label
+          class="attribute-field"
+          data-attribute="{{ attribute.key }}"
+        >
+          <input
+            class="attribute-value"
+            type="number"
+            name="system.attributes.{{ attribute.key }}.value"
+            value="{{ attribute.value }}"
+            min="0"
+            step="1"
+          />
+          <span class="attribute-label">
+            {{localize attribute.label}}
+          </span>
+        </label>
+        {{/each}}
+      </div>
+    </section>
+    {{/each}}
+  </div>
 </section>

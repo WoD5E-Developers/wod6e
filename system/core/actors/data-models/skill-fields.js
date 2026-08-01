@@ -2,15 +2,14 @@ const fields = foundry.data.fields
 
 // Main export, a TypedObjectField with the Skill Field's data model
 export function skillFields() {
-  return new fields.TypedObjectField(skillValueField())
+  return new fields.TypedObjectField(skillValueField(), {
+    initial: createInitialSkills()
+  })
 }
 
 function skillValueField() {
   return new fields.SchemaField({
-    value: new fields.NumberField({ initial: 0 }),
-    active: new fields.BooleanField({ initial: false }),
-    description: new fields.HTMLField({ initial: '' }),
-    macroUuid: new fields.StringField({ initial: '' })
+    value: new fields.NumberField({ initial: 0, min: 0, max: 10, integer: true, nullable: false })
   })
 }
 
@@ -27,9 +26,6 @@ export function createInitialSkills() {
 
 export function createInitialSkillValue() {
   return {
-    value: 0,
-    active: false,
-    description: '',
-    macroUuid: ''
+    value: 0
   }
 }

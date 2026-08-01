@@ -10,6 +10,21 @@
   },
   "WOD6E": {
     "_GamePaused": "",
+    "ATTRIBUTES": {
+      "_Attributes": "",
+      "_Charisma": "",
+      "_Composure": "",
+      "_Dexterity": "",
+      "_Intelligence": "",
+      "_Manipulation": "",
+      "_Mental": "",
+      "_Physical": "",
+      "_Resolve": "",
+      "_Social": "",
+      "_Stamina": "",
+      "_Strength": "",
+      "_Wits": ""
+    },
     "NOTIFICATIONS": {
       "_ConsoleLog": "",
       "_InitializingSchreckNet": "",
@@ -21,6 +36,10 @@
       "_LicensedUnderDarkPack": "",
       "_LicensedUnderDarkPackFulltext": "",
       "_ReportAnIssue": ""
+    },
+    "TABS": {
+      "_Main": "",
+      "_Settings": ""
     }
   }
 }

@@ -67,12 +67,12 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
         {
           id: 'main',
           icon: 'fa-solid fa-user',
-          label: 'WOD6E.Tabs.Main'
+          label: 'WOD6E.TABS.Main'
         },
         {
           id: 'settings',
           icon: 'fa-solid fa-gears',
-          label: 'WOD6E.Tabs.Settings'
+          label: 'WOD6E.TABS.Settings'
         }
       ],
       initial: 'main'

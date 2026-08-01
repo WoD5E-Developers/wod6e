@@ -1,6 +1,11 @@
 export const prepareHeaderContext = async function (context, actor) {
   const actorData = actor.system
 
+  context.name = actor.name
+  context.archetype = actorData.archetype
+  context.age = actorData.age
+  context.vampire = actorData.vampire
+
   return context
 }
 

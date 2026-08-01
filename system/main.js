@@ -12,6 +12,7 @@ import { WoDActorBase } from './core/actors/actor-sheets/wod-actor-base.js'
 // WOD6E Definitions
 import { Systems } from './core/config/systems.js'
 import { Attributes } from './core/config/attributes.js'
+import { AttributeGroups } from './core/config/attributes-groups.js'
 import { Skills } from './core/config/skills.js'
 import { ActorTypes } from './core/config/actor-types.js'
 import { ItemTypes } from './core/config/item-types.js'
@@ -27,6 +28,7 @@ window.WOD6E = {
   WoDActorModel,
   Systems,
   Attributes,
+  AttributeGroups,
   Skills
 }
 

@@ -2,13 +2,14 @@ const fields = foundry.data.fields
 
 // Main export, a TypedObjectField with the Attribute Field's data model
 export function attributeFields() {
-  return new fields.TypedObjectField(attributeValueField())
+  return new fields.TypedObjectField(attributeValueField(), {
+    initial: createInitialAttributes()
+  })
 }
 
 function attributeValueField() {
   return new fields.SchemaField({
-    value: new fields.NumberField({ initial: 1 }),
-    active: new fields.BooleanField({ initial: false })
+    value: new fields.NumberField({ initial: 1, min: 0, max: 10, integer: true, nullable: false })
   })
 }
 
@@ -25,22 +26,6 @@ export function createInitialAttributes() {
 
 export function createInitialAttributeValue() {
   return {
-    value: 0,
-    active: false,
-    bonuses: []
+    value: 1
   }
-}
-
-export function standardDiceFields() {
-  return {
-    physical: createAttributeSchema(),
-    social: createAttributeSchema(),
-    mental: createAttributeSchema()
-  }
-}
-
-function createAttributeSchema() {
-  return new fields.SchemaField({
-    value: new fields.NumberField({ initial: 1 })
-  })
 }
