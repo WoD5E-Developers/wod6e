@@ -13,9 +13,10 @@ export function vampireFields() {
 
       clan: new fields.SchemaField({
         name: new fields.StringField({ initial: '', nullable: false }),
-        curse: new fields.StringField({ initial: '', nullable: false }),
-        generation: new fields.NumberField({ initial: 0, nullable: false })
+        curse: new fields.StringField({ initial: '', nullable: false })
       }),
+
+      generation: new fields.NumberField({ initial: null, nullable: true }),
 
       sire: new fields.SchemaField({
         name: new fields.StringField({ initial: '', nullable: false })
