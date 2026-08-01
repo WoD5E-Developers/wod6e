@@ -3,9 +3,18 @@
   "printWidth": 100,
   "tabWidth": 2,
   "trailingComma": "none",
-  "semi": true,
+  "semi": false,
   "arrowParens": "always",
   "endOfLine": "auto",
-  "htmlWhitespaceSensitivity": "ignore",
-  "bracketSameLine": false
+  "overrides": [
+    {
+      "files": ["*.hbs"],
+      "options": {
+        "parser": "angular",
+        "htmlWhitespaceSensitivity": "ignore",
+        "bracketSameLine": false,
+        "singleAttributePerLine": true
+      }
+    }
+  ]
 }
