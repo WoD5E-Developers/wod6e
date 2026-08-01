@@ -14,7 +14,7 @@ export class WoDActorModel extends foundry.abstract.TypeDataModel {
 
     // Health fields
     schema.health = new fields.SchemaField({
-      aggravated: new fields.NumberField({ initial: 0 }),
+      baneful: new fields.NumberField({ initial: 0 }),
       superficial: new fields.NumberField({ initial: 0 }),
       max: new fields.NumberField({ initial: 5 }),
       value: new fields.NumberField({ initial: 5 })
