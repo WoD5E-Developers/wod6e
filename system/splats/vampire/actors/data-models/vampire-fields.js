@@ -28,8 +28,7 @@ export function vampireFields() {
       }),
 
       disciplines: new fields.ObjectField({
-        initial: {},
-        validate: false
+        initial: {}
       })
     })
   }
