@@ -1,5 +1,9 @@
 {
   "WOD6E": {
-    "VAMPIRE": {}
+    "VAMPIRE": {
+      "_HumanityScale": "",
+      "_Monstrous": "",
+      "_Mortal": ""
+    }
   }
 }

@@ -1,4 +1,11 @@
-export function generateTrackers({ value, max, disabled = 0, groupSize = 5, reverse = false }) {
+export function generateTrackers({
+  value,
+  max,
+  disabled = 0,
+  groupSize = 5,
+  reverse = false,
+  onlyCurrentValueSelected = false
+}) {
   // Maximum can't go below 1
   max = Math.max(1, max)
   // We can't have more disabled than the max value
@@ -19,14 +26,21 @@ export function generateTrackers({ value, max, disabled = 0, groupSize = 5, reve
     const position = index + 1
     const trackerValue = reverse ? max - index : position
     const isDisabled = position > usableMaximum
+    let filled
+    if (!onlyCurrentValueSelected) {
+      filled = reverse ? trackerValue <= value : position <= value
+    } else {
+      filled = trackerValue === value
+    }
 
     const trackerSpace = {
       position,
       trackerValue,
-      filled: reverse ? trackerValue <= value : position <= value,
+      filled,
       disabled: isDisabled,
       title: isDisabled ? `Disabled due to Baneful damage` : `Set health to ${position}`,
-      disabledState: isDisabled ? 'disabled' : ''
+      disabledState: isDisabled ? 'disabled' : '',
+      middle: onlyCurrentValueSelected ? trackerValue === Math.ceil(max / 2) : false
     }
 
     return trackerSpace

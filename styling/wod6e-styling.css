@@ -109,9 +109,9 @@
 #pause figcaption {
   margin-top: 150px;
   font-weight: bold;
+  color: var(--system-color-8);
 }
 
-/* Variables */
 :root {
   --system-color-1: #302d5bf0;
   --system-color-2: #d2dfebf0;
@@ -124,16 +124,109 @@
   --system-color-9: #e02b2b;
   --system-color-10: #4b4b4b;
   --system-color-11: #181818;
-  --base-theme-filter: rgba(24, 51, 103, 0.5);
-  --tracker-background: #d8eaf4;
-  --tracker-text: #24475e;
-  --tracker-border: #41667e;
-  --tracker-filled: #41667e;
-  --tracker-disabled: #24475e;
-  --tracker-disabled-dark: #d8eaf4;
 }
-#pause figcaption {
-  color: var(--system-color-8);
+
+/* Variables */
+.game.theme-dark {
+  --tracker-background: #d8eaf4;
+  --tracker-text: #fdfdfd;
+  --tracker-border: #fdfdfd;
+  --tracker-filled: #fdfdfd;
+  --tracker-disabled: #fdfdfdde;
+  --tracker-disabled-dark: #fff;
+  --humanity-border: #ccc;
+  --humanity-text: #ccc;
+  --humanity-filled: #ccc;
+  --humanity-empty: rgba(135, 138, 139, 0.14);
+  --humanity-hover: rgba(157, 161, 163, 0.28);
+}
+.game.theme-dark .actor.sheet .attribute-groups {
+  background: #414141;
+}
+.game.theme-dark .resource-tracker-space::before {
+  background: var(--tracker-disabled-dark);
+}
+.game.theme-dark .resource-tracker-space::after {
+  background: var(--tracker-disabled-dark);
+}
+
+/* Variables */
+.game.theme-light {
+  --tracker-background: #d8eaf4;
+  --tracker-text: #000;
+  --tracker-border: #000;
+  --tracker-filled: #000;
+  --tracker-disabled: #000000de;
+  --tracker-disabled-dark: #fff;
+  --humanity-border: #000;
+  --humanity-text: #000;
+  --humanity-filled: #000;
+  --humanity-empty: rgba(65, 102, 126, 0.14);
+  --humanity-hover: rgba(65, 102, 126, 0.28);
+}
+.game.theme-light .actor.sheet .attribute-group-fields {
+  background-image: url(/ui/parchment.jpg);
+}
+.game.theme-light .resource-tracker-space::before {
+  background: var(--tracker-disabled);
+}
+.game.theme-light .resource-tracker-space::after {
+  background: var(--tracker-disabled);
+}
+
+.humanity-tracker {
+  width: 100%;
+  color: var(--humanity-text);
+}
+.humanity-tracker .humanity-tracker-header {
+  margin-bottom: 14px;
+  color: var(--humanity-text);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+.humanity-tracker .humanity-scale {
+  display: grid;
+  grid-template-columns: minmax(110px, auto) minmax(0, 1fr) minmax(90px, auto);
+  align-items: center;
+  gap: 20px;
+  min-height: 62px;
+  padding: 10px 22px;
+  border: 3px solid var(--humanity-border);
+  background: transparent;
+}
+.humanity-tracker .humanity-scale-label {
+  overflow: hidden;
+  color: var(--humanity-text);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.75px;
+  line-height: 1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.humanity-tracker .humanity-scale-label-left {
+  text-align: left;
+}
+.humanity-tracker .humanity-scale-label-right {
+  text-align: right;
+}
+.humanity-tracker .resource-tracker-spaces {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-width: 0;
+  width: 100%;
+}
+.humanity-tracker .resource-tracker-space.middle {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 /* Vampire Actor Sheet */
@@ -146,17 +239,12 @@
 }
 [data-application-part="humanityScale"] {
   grid-area: humanityScale;
+  margin-top: -40px;
 }
 [data-application-part="disciplines"] {
   grid-area: disciplines;
 }
 
-:root {
-  --vampire-color-1: #650202;
-  --vampire-color-2: #d84343;
-  --vampire-color-3: #f51f1f;
-  --coterie-group-header: rgba(121, 8, 19, 0.8);
-}
 
 .actor.sheet {
   min-width: 715px;
@@ -183,12 +271,6 @@
   outline: none;
 }
 
-.game.theme-light .actor.sheet .attribute-group-fields {
-  background-image: url(/ui/parchment.jpg);
-}
-.game.theme-dark .actor.sheet .attribute-groups {
-  background: #414141;
-}
 .actor.sheet .sheet-part {
   padding-left: var(--spacer-16);
   padding-right: var(--spacer-16);
@@ -311,18 +393,6 @@
   grid-column: 1 / -1;
 }
 
-.game.theme-light .resource-tracker-space::before {
-  background: var(--tracker-disabled);
-}
-.game.theme-light .resource-tracker-space::after {
-  background: var(--tracker-disabled);
-}
-.game.theme-dark .resource-tracker-space::before {
-  background: var(--tracker-disabled-dark);
-}
-.game.theme-dark .resource-tracker-space::after {
-  background: var(--tracker-disabled-dark);
-}
 .resource-trackers {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr);

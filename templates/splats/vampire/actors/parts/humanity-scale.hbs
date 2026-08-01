@@ -1,7 +1,44 @@
 <section
-  class="sheet-part tab {{ tabs.main.cssClass }}"
+  class="sheet-part tab humanity-section {{ tabs.main.cssClass }}"
   data-group="primary"
   data-tab="main"
 >
-  Humanity scale
+  <div
+    class="resource-tracker humanity-tracker"
+    data-resource="vampire.humanity"
+    data-path="system.vampire.humanity"
+  >
+    <header class="humanity-tracker-header">
+      {{localize 'WOD6E.VAMPIRE.HumanityScale'}}
+    </header>
+
+    <div class="humanity-scale">
+      <span class="humanity-scale-label humanity-scale-label-left">
+        {{localize 'WOD6E.VAMPIRE.Monstrous'}}
+      </span>
+
+      <div class="resource-tracker-spaces">
+        {{#each humanity.trackers as |group|}}
+        <div class="resource-tracker-group">
+          {{#each group as |space|}}
+          <button
+            type="button"
+            class="resource-tracker-space humanity-position-{{
+              space.position
+            }} {{#if space.filled}}filled{{/if}} {{#if space.disabled}}tracker-disabled{{/if}} {{#if space.middle}}middle{{/if}}"
+            data-action="setTrackerValue"
+            data-resource-path="system.vampire.humanity"
+            data-value="{{ space.position }}"
+            title="{{ space.title }}"
+          ></button>
+          {{/each}}
+        </div>
+        {{/each}}
+      </div>
+
+      <span class="humanity-scale-label humanity-scale-label-right">
+        {{localize 'WOD6E.VAMPIRE.Mortal'}}
+      </span>
+    </div>
+  </div>
 </section>

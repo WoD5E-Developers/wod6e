@@ -1,3 +1,5 @@
+import { generateTrackers } from '../../../../../core/actors/scripts/generate-tracker-spaces.js'
+
 export const prepareHeaderContext = async function (context, actor) {
   const actorData = actor.system
 
@@ -11,30 +13,32 @@ export const prepareHeaderContext = async function (context, actor) {
 
 export const prepareHumanityScaleContext = async function (context, actor) {
   const actorData = actor.system
+  const humanity = actorData.vampire.humanity
+
+  context.humanity = {
+    trackers: generateTrackers({
+      value: humanity.value,
+      max: humanity.max,
+      groupSize: 100,
+      onlyCurrentValueSelected: true
+    })
+  }
 
   return context
 }
 
-export const prepareLeftColumnContext = async function (context, actor) {
-  const actorData = actor.system
-
+export const prepareLeftColumnContext = async function (context) {
   return context
 }
 
-export const prepareMiddleColumnContext = async function (context, actor) {
-  const actorData = actor.system
-
+export const prepareMiddleColumnContext = async function (context) {
   return context
 }
 
-export const prepareRightColumnContext = async function (context, actor) {
-  const actorData = actor.system
-
+export const prepareRightColumnContext = async function (context) {
   return context
 }
 
-export const prepareDisciplinesContext = async function (context, actor) {
-  const actorData = actor.system
-
+export const prepareDisciplinesContext = async function (context) {
   return context
 }

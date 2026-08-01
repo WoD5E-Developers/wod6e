@@ -1,0 +1,33 @@
+/* Variables */
+.game.theme-dark {
+  // Trackers
+  --tracker-background: #d8eaf4;
+  --tracker-text: #fdfdfd;
+  --tracker-border: #fdfdfd;
+  --tracker-filled: #fdfdfd;
+  --tracker-disabled: #fdfdfdde;
+  --tracker-disabled-dark: #fff;
+
+  // Humanity tracker
+  --humanity-border: #ccc;
+  --humanity-text: #ccc;
+  --humanity-filled: #ccc;
+  --humanity-empty: rgba(135, 138, 139, 0.14);
+  --humanity-hover: rgba(157, 161, 163, 0.28);
+
+  .actor.sheet {
+    .attribute-groups {
+      background: #414141;
+    }
+  }
+
+  .resource-tracker-space {
+    &::before {
+      background: var(--tracker-disabled-dark);
+    }
+
+    &::after {
+      background: var(--tracker-disabled-dark);
+    }
+  }
+}
