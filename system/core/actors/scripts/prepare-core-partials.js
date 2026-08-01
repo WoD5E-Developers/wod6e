@@ -1,10 +1,8 @@
-import { Attributes } from '../../config/attributes.js'
-import { AttributeGroups } from '../../config/attributes-groups.js'
-import { generateTrackers } from './generate-tracker-spaces.js'
+import { generateTrackers } from './generate-trackers.js'
 
 export const prepareAttributesContext = async function (context, actor) {
-  const attributeGroups = AttributeGroups.getList({})
-  const attributes = Attributes.getList({})
+  const attributeGroups = WOD6E.AttributeGroups.getList({})
+  const attributes = WOD6E.Attributes.getList({})
 
   context.attributeGroups = Object.entries(attributeGroups)
     .filter(([, attributeGroup]) => !attributeGroup.hidden)

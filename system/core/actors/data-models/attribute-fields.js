@@ -9,7 +9,8 @@ export function attributeFields() {
 
 function attributeValueField() {
   return new fields.SchemaField({
-    value: new fields.NumberField({ initial: 1, min: 0, max: 10, integer: true, nullable: false })
+    max: new fields.NumberField({ initial: 5, min: 1, integer: true, nullable: false }),
+    value: new fields.NumberField({ initial: 1, min: 0, integer: true, nullable: false })
   })
 }
 
@@ -26,6 +27,7 @@ export function createInitialAttributes() {
 
 export function createInitialAttributeValue() {
   return {
-    value: 1
+    value: 1,
+    max: 5
   }
 }

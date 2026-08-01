@@ -18,7 +18,9 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/splats/vampire/actors/parts/right-column.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/disciplines.hbs',
     'systems/wod6e/templates/core/actors/parts/settings.hbs',
-    'systems/wod6e/templates/core/actors/parts/limited-sheet.hbs'
+    'systems/wod6e/templates/core/actors/parts/limited-sheet.hbs',
+
+    'systems/wod6e/templates/core/actors/parts/skills.hbs'
   ]
 
   /* Load the template parts

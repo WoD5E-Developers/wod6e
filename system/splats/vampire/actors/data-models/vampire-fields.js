@@ -23,9 +23,9 @@ export function vampireFields() {
       }),
 
       humanity: new fields.SchemaField({
-        max: new fields.NumberField({ initial: 7, min: 1 }),
-        value: new fields.NumberField({ initial: 4, min: 0 }),
-        disabled: new fields.NumberField({ initial: 0, min: 0 }),
+        max: new fields.NumberField({ initial: 7, min: 1, integer: true, nullable: false }),
+        value: new fields.NumberField({ initial: 4, min: 0, integer: true, nullable: false }),
+        disabled: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
         canBeDisabled: new fields.BooleanField({ initial: false })
       }),
 

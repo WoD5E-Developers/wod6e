@@ -66,23 +66,26 @@ export class WoDActor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   async prepareDerivedData() {
+    super.prepareDerivedData()
     const actor = this
     const systemData = actor.system
 
-    // Set health maximum if it isn't already the calculated maximum
-    const healthMaximum = generateHealthMax(actor)
-    if (actor.isOwner && systemData.health.max != healthMaximum) {
-      actor.update({
-        'system.health.max': healthMaximum
-      })
+    if (systemData.health) {
+      systemData.health.max = generateHealthMax(this)
+      systemData.health.value = Math.clamp(
+        systemData.health.value,
+        0,
+        systemData.health.max - systemData.health.disabled
+      )
     }
 
-    // Set willpower maximum if it isn't already the calculated maximum
-    const willpowerMaximum = generateWillpowerMax(actor)
-    if (actor.isOwner && systemData.willpower.max != willpowerMaximum) {
-      actor.update({
-        'system.willpower.max': willpowerMaximum
-      })
+    if (systemData.willpower) {
+      systemData.willpower.max = generateWillpowerMax(this)
+      systemData.willpower.value = Math.clamp(
+        systemData.willpower.value,
+        0,
+        systemData.willpower.max - systemData.willpower.disabled
+      )
     }
 
     // If the actor is a player, update the default permissions to limited
@@ -91,7 +94,7 @@ export class WoDActor extends Actor {
       !actor.getFlag('wod6e', 'manualDefaultOwnership') &&
       game.user.isGM
     ) {
-      actor.update({ 'ownership.default': CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED })
+      await actor.update({ 'ownership.default': CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED })
     }
   }
 

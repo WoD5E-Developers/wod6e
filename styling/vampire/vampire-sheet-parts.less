@@ -1,6 +1,7 @@
 /* Vampire Actor Sheet */
 .actor.sheet.vampire {
   .window-content {
+    overflow-y: scroll;
     display: grid;
     grid-template-rows: min-content;
     grid-template-columns:
@@ -25,7 +26,6 @@
 
 [data-application-part="humanityScale"] {
   grid-area: humanityScale;
-  margin-top: -40px;
 }
 
 [data-application-part="disciplines"] {

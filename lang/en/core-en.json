@@ -41,6 +41,22 @@
       "LicensedUnderDarkPackFulltext": "Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit <a href='https://worldofdarkness.com'>worldofdarkness.com</a>.",
       "ReportAnIssue": "Report An Issue"
     },
+    "SKILLS": {
+      "Athletics": "Athletics",
+      "Awareness": "Awareness",
+      "Craft": "Craft",
+      "Expression": "Expression",
+      "Fighting": "Fighting",
+      "Investigation": "Investigation",
+      "Knowledge": "Knowledge",
+      "Medicine": "Medicine",
+      "Persuasion": "Persuasion",
+      "Sabotage": "Sabotage",
+      "Shooting": "Shooting",
+      "Skills": "Skills",
+      "Subterfuge": "Subterfuge",
+      "Survival": "Survival"
+    },
     "TABS": {
       "Main": "Main",
       "Settings": "Settings"
