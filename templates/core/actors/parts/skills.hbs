@@ -1,9 +1,9 @@
 <section
-  class="sheet-part tab skills-section {{ tabs.main.cssClass }}"
+  class="sheet-part tab skills-section resource-tracker {{ tabs.main.cssClass }}"
   data-group="primary"
   data-tab="main"
 >
-  <header class="skills-header">
+  <header class="skills-header resource-tracker-header">
     {{localize 'WOD6E.SKILLS.Skills'}}
   </header>
 
@@ -29,13 +29,13 @@
         {{/if}}
       </button>
 
-      <div class="skill-tracker">
+      <div class="skill-tracker resource-tracker-spaces">
         {{#each skill.trackers as |group|}}
-        <div class="skill-tracker-group">
+        <div class="skill-tracker-group resource-tracker-group">
           {{#each group as |space|}}
           <button
             type="button"
-            class="skill-tracker-space {{#if space.filled}}filled{{/if}}"
+            class="skill-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}"
             data-action="setTrackerValue"
             data-resource-path="system.skills.{{ skill.key }}"
             data-value="{{ space.trackerValue }}"
