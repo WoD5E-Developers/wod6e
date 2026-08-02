@@ -97,7 +97,7 @@ export class ActorUX {
         !(actorType === 'group' && whitelist.includes(actor.system.groupType))
       ) {
         ui.notifications.warn(
-          game.i18n.format('WOD6E.ItemsList.ItemCannotBeDroppedOnActor', {
+          game.i18n.format('WOD6E.ITEMS.ItemCannotBeDroppedOnActor', {
             string1: itemType,
             string2: actorType
           })
@@ -109,7 +109,7 @@ export class ActorUX {
       // If the blacklist contains any entries, we can check to make sure this actor type isn't disallowed for the item
       if (!foundry.utils.isEmpty(blacklist) && blacklist.indexOf(actorType) > -1) {
         ui.notifications.warn(
-          game.i18n.format('WOD6E.ItemsList.ItemCannotBeDroppedOnActor', {
+          game.i18n.format('WOD6E.ITEMS.ItemCannotBeDroppedOnActor', {
             string1: itemType,
             string2: actorType
           })

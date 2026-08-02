@@ -566,3 +566,50 @@
 .willpower-tracker .resource-tracker-spaces {
   justify-content: flex-end;
 }
+
+.item.sheet .window-content {
+  padding: 0;
+}
+.item.sheet .item-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+}
+.item.sheet .item-header .item-image {
+  border: 1px solid var(--tracker-border);
+  max-width: 100px;
+  max-height: 100px;
+  height: fit-content;
+  width: fit-content;
+  margin-right: 0;
+  margin: 5px;
+}
+.item.sheet .item-header .header-fields {
+  flex: 1;
+  margin-top: auto;
+}
+.item.sheet .item-header .header-fields .itemname {
+  font-size: 35px;
+  font-family: var(--font-h1);
+}
+.item.sheet .item-header .header-fields .header-details {
+  padding: 5px;
+}
+.item.sheet .item-header .item-resource {
+  text-wrap: nowrap;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.item.sheet section.tab {
+  padding: 10px 10px 0px 10px;
+  overflow-y: scroll;
+  height: 100%;
+}
+.item.sheet .setting-field {
+  padding: 5px;
+}
+.item.sheet .source-page-input {
+  min-width: 75px;
+}

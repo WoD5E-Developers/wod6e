@@ -1,0 +1,48 @@
+<header class="item-header">
+  <img
+    class="item-image"
+    data-action="editImage"
+    src="{{ img }}"
+    data-edit="img"
+    title="{{ name }}"
+    alt="Item Image"
+  />
+  <div class="header-fields">
+    {{#if locked}}
+    <h1>{{ name }}</h1>
+    {{else}}
+    <input
+      name="name"
+      type="text"
+      value="{{ name }}"
+      placeholder="{{localize 'WOD6E.Name'}}"
+    />
+    {{/if}}
+    <div class="flexrow">
+      <div class="flexcol level flex-center item-resource">
+        <div>
+          <b>{{localize "WOD6E.RESOURCES.Value"}}</b>
+        </div>
+        <input
+          name="system.value"
+          value="{{ value }}"
+          type="number"
+          min="0"
+          max="10"
+        />
+      </div>
+      <!-- Select the type this feature belongs to -->
+      <div class="flexcol feature-type flex-center item-resource">
+        <label>
+          <b>{{localize "WOD6E.RESOURCES.ResourceType"}}</b>
+        </label>
+        <select
+          name="system.resourceType"
+          data-type="String"
+        >
+          {{selectOptions resourceTypeOptions selected=resourceTypeSelected}}
+        </select>
+      </div>
+    </div>
+  </div>
+</header>

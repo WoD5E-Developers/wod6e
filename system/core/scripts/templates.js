@@ -9,7 +9,7 @@ export const preloadHandlebarsTemplates = async function () {
     // Generic partials
     'templates/generic/tab-navigation.hbs',
 
-    // Core templates
+    // Core actor templates
     'systems/wod6e/templates/core/actors/parts/attributes.hbs',
     'systems/wod6e/templates/core/actors/parts/health.hbs',
     'systems/wod6e/templates/core/actors/parts/willpower.hbs',
@@ -19,12 +19,18 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/actors/parts/equipment.hbs',
     'systems/wod6e/templates/core/actors/parts/skills.hbs',
     'systems/wod6e/templates/core/actors/parts/lifepaths.hbs',
-    'systems/wod6e/templates/splats/vampire/actors/parts/clan-traits.hbs',
     'systems/wod6e/templates/core/actors/parts/merits.hbs',
     'systems/wod6e/templates/core/actors/parts/flaws.hbs',
     'systems/wod6e/templates/core/actors/parts/resources.hbs',
 
-    // Vampire templates
+    // Core item templates
+    'systems/wod6e/templates/core/items/resource-item-sheet.hbs',
+    'systems/wod6e/templates/core/items/parts/data-item-id.hbs',
+    'systems/wod6e/templates/core/items/parts/description.hbs',
+    'systems/wod6e/templates/core/items/parts/item-settings.hbs',
+    'systems/wod6e/templates/core/items/parts/source.hbs',
+
+    // Vampire actor templates
     'systems/wod6e/templates/splats/vampire/actors/parts/header.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/humanity-scale.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/left-column.hbs',
@@ -32,7 +38,8 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/splats/vampire/actors/parts/right-column.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/disciplines.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/nature.hbs',
-    'systems/wod6e/templates/splats/vampire/actors/parts/beast.hbs'
+    'systems/wod6e/templates/splats/vampire/actors/parts/beast.hbs',
+    'systems/wod6e/templates/splats/vampire/actors/parts/clan-traits.hbs'
   ]
 
   /* Load the template parts

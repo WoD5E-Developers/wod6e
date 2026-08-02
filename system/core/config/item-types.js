@@ -1,5 +1,8 @@
 // Base definition class
+import { ResourceItemModel } from '../items/data-models/resource-item-model.js'
+import { ResourceItemSheet } from '../items/item-sheets/resource-item-sheet.js'
 import { BaseDefinitionClass } from './base-definition-class.js'
+import { ResourceTypes } from './resource-types.js'
 
 /*
  *   Each item type is defined through here; this includes the item's label,
@@ -18,6 +21,17 @@ export class ItemTypes extends BaseDefinitionClass {
   // Run any necessary compilation on ready
   static onReady() {
     ItemTypes.initializeLabels()
+  }
+
+  static resource = {
+    label: 'TYPES.Item.resource',
+    img: 'systems/wod6e/assets/icons/items/feature.svg',
+    types: ['resource'],
+    sheetClass: ResourceItemSheet,
+    sheetModel: ResourceItemModel,
+    splat: 'core',
+    subtypes: ResourceTypes,
+    subtypePath: 'resourceType'
   }
 }
 

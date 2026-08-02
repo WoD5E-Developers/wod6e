@@ -5,11 +5,13 @@
     },
     "Item": {
       "_clan": "",
-      "_discipline": ""
+      "_discipline": "",
+      "_resource": ""
     }
   },
   "WOD6E": {
     "_GamePaused": "",
+    "_Name": "",
     "ATTRIBUTES": {
       "_Attributes": "",
       "_Charisma": "",
@@ -31,6 +33,12 @@
     "FLAWS": {
       "_Flaws": ""
     },
+    "ITEMS": {
+      "_DataItemId": "",
+      "_GenerateDataItemID": "",
+      "_PageNumber": "",
+      "_Sourcebook": ""
+    },
     "LIFEPATHS": {
       "_Lifepaths": ""
     },
@@ -45,8 +53,13 @@
     },
     "RESOURCES": {
       "_Baneful": "",
+      "_PhysicalAssets": "",
       "_Resources": "",
+      "_ResourceType": "",
+      "_SocialAssets": "",
+      "_Value": "",
       "_Vitae": "",
+      "_Wealth": "",
       "_Willpower": ""
     },
     "SIDEBARS": {
@@ -72,6 +85,7 @@
       "_Survival": ""
     },
     "TABS": {
+      "_Description": "",
       "_Main": "",
       "_Settings": ""
     }

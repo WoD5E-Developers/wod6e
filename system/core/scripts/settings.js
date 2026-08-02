@@ -94,7 +94,7 @@ export const loadSettings = async function () {
 }
 
 function _rerenderStorytellerWindow() {
-  const storytellerWindow = Object.values(ui.windows).filter((w) => w.id === 'wod5e-storyteller')[0]
+  const storytellerWindow = Object.values(ui.windows).filter((w) => w.id === 'wod6e-storyteller')[0]
 
   if (storytellerWindow) {
     storytellerWindow.render()

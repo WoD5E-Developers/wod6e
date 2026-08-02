@@ -40,7 +40,9 @@
     "Actor": {
       "vampire": {}
     },
-    "Item": {}
+    "Item": {
+      "resource": {}
+    }
   },
   "flags": {
     "hotReload": {

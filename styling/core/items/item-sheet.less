@@ -1,0 +1,57 @@
+.item.sheet {
+	.window-content {
+		padding: 0;
+	}
+
+	.item-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+    padding: 5px;
+
+		.item-image {
+      border: 1px solid var(--tracker-border);
+			max-width: 100px;
+			max-height: 100px;
+			height: fit-content;
+			width: fit-content;
+			margin-right: 0;
+      margin: 5px;
+		}
+
+		.header-fields {
+			flex: 1;
+			margin-top: auto;
+
+			.itemname {
+				font-size: 35px;
+				font-family: var(--font-h1);
+			}
+
+			.header-details {
+				padding: 5px;
+			}
+		}
+
+		.item-resource {
+			text-wrap: nowrap;
+			margin-left: 5px;
+			margin-right: 5px;
+		}
+	}
+
+	section.tab {
+		padding: 10px 10px 0px 10px;
+		overflow-y: scroll;
+		height: 100%;
+	}
+
+  .setting-field {
+    padding: 5px;
+  }
+
+	.source-page-input {
+		min-width: 75px;
+	}
+}

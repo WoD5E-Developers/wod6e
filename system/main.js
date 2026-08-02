@@ -9,6 +9,11 @@ import { loadSettings } from './core/scripts/settings.js'
 import { WoDActor } from './core/actors/actor.js'
 import { WoDActorModel } from './core/actors/data-models/base-actor-model.js'
 import { WoDActorBase } from './core/actors/actor-sheets/wod-actor-base.js'
+// Item sheets
+import { WoDItemBase } from './core/items/item-sheets/wod-item-base.js'
+import { WoDItemModel } from './core/items/data-models/base-item-model.js'
+// Applications
+import { StorytellerMenu } from './core/applications/storyteller-menu.js'
 // WOD6E Definitions
 import { Systems } from './core/config/systems.js'
 import { Attributes } from './core/config/attributes.js'
@@ -16,7 +21,6 @@ import { AttributeGroups } from './core/config/attributes-groups.js'
 import { Skills } from './core/config/skills.js'
 import { ActorTypes } from './core/config/actor-types.js'
 import { ItemTypes } from './core/config/item-types.js'
-import { StorytellerMenu } from './core/applications/storyteller-menu.js'
 import { ResourceTypes } from './core/config/resource-types.js'
 
 // Register the WOD6E global
@@ -27,6 +31,8 @@ window.WOD6E = {
   },
   WoDActorBase,
   WoDActorModel,
+  WoDItemBase,
+  WoDItemModel,
   Systems,
   Attributes,
   AttributeGroups,
