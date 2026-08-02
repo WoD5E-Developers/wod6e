@@ -48,59 +48,59 @@ export class Disciplines extends BaseDefinitionClass {
   }
 
   static animalism = {
-    label: 'WOD6E.VTM.Animalism'
+    label: 'WOD6E.VAMPIRE.Animalism'
   }
 
   static auspex = {
-    label: 'WOD6E.VTM.Auspex'
+    label: 'WOD6E.VAMPIRE.Auspex'
+  }
+
+  static bloodSorcery = {
+    label: 'WOD6E.VAMPIRE.BloodSorcery'
   }
 
   static celerity = {
-    label: 'WOD6E.VTM.Celerity'
+    label: 'WOD6E.VAMPIRE.Celerity'
+  }
+
+  static corruption = {
+    label: 'WOD6E.VAMPIRE.Corruption'
   }
 
   static dominate = {
-    label: 'WOD6E.VTM.Dominate'
+    label: 'WOD6E.VAMPIRE.Dominate'
   }
 
   static fortitude = {
-    label: 'WOD6E.VTM.Fortitude'
+    label: 'WOD6E.VAMPIRE.Fortitude'
+  }
+
+  static necromancy = {
+    label: 'WOD6E.VAMPIRE.Necromancy'
   }
 
   static obfuscate = {
-    label: 'WOD6E.VTM.Obfuscate'
-  }
-
-  static potence = {
-    label: 'WOD6E.VTM.Potence'
-  }
-
-  static presence = {
-    label: 'WOD6E.VTM.Presence'
-  }
-
-  static protean = {
-    label: 'WOD6E.VTM.Protean'
-  }
-
-  static sorcery = {
-    label: 'WOD6E.VTM.BloodSorcery'
+    label: 'WOD6E.VAMPIRE.Obfuscate'
   }
 
   static oblivion = {
-    label: 'WOD6E.VTM.Oblivion'
+    label: 'WOD6E.VAMPIRE.Oblivion'
   }
 
-  static alchemy = {
-    label: 'WOD6E.VTM.ThinBloodAlchemy'
+  static potence = {
+    label: 'WOD6E.VAMPIRE.Potence'
   }
 
-  static rituals = {
-    label: 'WOD6E.VTM.Rituals'
+  static presence = {
+    label: 'WOD6E.VAMPIRE.Presence'
   }
 
-  static ceremonies = {
-    label: 'WOD6E.VTM.Ceremonies'
+  static tellurgy = {
+    label: 'WOD6E.VAMPIRE.Tellurgy'
+  }
+
+  static vicissitude = {
+    label: 'WOD6E.VAMPIRE.Vicissitude'
   }
 }
 

@@ -1,4 +1,9 @@
-// Base definition class
+// Definition classes
+
+// Item models and sheets
+import { Disciplines } from '../../splats/vampire/config/disciplines.js'
+import { DisciplineItemModel } from '../../splats/vampire/items/data-models/discipline-item-model.js'
+import { DisciplineItemSheet } from '../../splats/vampire/items/item-sheets/discipline-item-sheet.js'
 import { ResourceItemModel } from '../items/data-models/resource-item-model.js'
 import { ResourceItemSheet } from '../items/item-sheets/resource-item-sheet.js'
 import { BaseDefinitionClass } from './base-definition-class.js'
@@ -25,13 +30,24 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static resource = {
     label: 'TYPES.Item.resource',
-    img: 'systems/wod6e/assets/icons/items/feature.svg',
+    img: 'systems/wod6e/assets/icons/items/resource.svg',
     types: ['resource'],
     sheetClass: ResourceItemSheet,
     sheetModel: ResourceItemModel,
     splat: 'core',
     subtypes: ResourceTypes,
     subtypePath: 'resourceType'
+  }
+
+  static discipline = {
+    label: 'TYPES.Item.discipline',
+    img: 'systems/wod6e/assets/icons/items/discipline.svg',
+    types: ['discipline'],
+    sheetClass: DisciplineItemSheet,
+    sheetModel: DisciplineItemModel,
+    splat: 'core',
+    subtypes: Disciplines,
+    subtypePath: 'disciplineType'
   }
 }
 

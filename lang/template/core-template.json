@@ -36,6 +36,7 @@
     "ITEMS": {
       "_DataItemId": "",
       "_GenerateDataItemID": "",
+      "_Level": "",
       "_PageNumber": "",
       "_Sourcebook": ""
     },

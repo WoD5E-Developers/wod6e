@@ -41,7 +41,8 @@
       "vampire": {}
     },
     "Item": {
-      "resource": {}
+      "resource": {},
+      "discipline": {}
     }
   },
   "flags": {

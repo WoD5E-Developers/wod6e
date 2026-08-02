@@ -1,13 +1,28 @@
 {
   "WOD6E": {
     "VAMPIRE": {
+      "_Animalism": "",
+      "_Auspex": "",
       "_Beast": "",
+      "_BloodSorcery": "",
+      "_Celerity": "",
       "_ClanTraits": "",
+      "_Corruption": "",
       "_Disciplines": "",
+      "_DisciplineType": "",
+      "_Dominate": "",
+      "_Fortitude": "",
       "_HumanityScale": "",
       "_Monstrous": "",
       "_Mortal": "",
-      "_Nature": ""
+      "_Nature": "",
+      "_Necromancy": "",
+      "_Obfuscate": "",
+      "_Oblivion": "",
+      "_Potence": "",
+      "_Presence": "",
+      "_Tellurgy": "",
+      "_Vicissitude": ""
     }
   }
 }

@@ -36,6 +36,7 @@
     "ITEMS": {
       "DataItemId": "Data Item ID",
       "GenerateDataItemID": "Generate Data Item ID",
+      "Level": "Level",
       "PageNumber": "Page Number",
       "Sourcebook": "Sourcebook"
     },

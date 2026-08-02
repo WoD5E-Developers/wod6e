@@ -39,7 +39,10 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/splats/vampire/actors/parts/disciplines.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/nature.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/beast.hbs',
-    'systems/wod6e/templates/splats/vampire/actors/parts/clan-traits.hbs'
+    'systems/wod6e/templates/splats/vampire/actors/parts/clan-traits.hbs',
+
+    // Vampire item templates
+    'systems/wod6e/templates/splats/vampire/items/discipline-item-sheet.hbs'
   ]
 
   /* Load the template parts

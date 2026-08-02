@@ -1,6 +1,6 @@
 <header class="item-header">
   <img
-    class="profile-img"
+    class="item-image"
     data-action="editImage"
     src="{{ img }}"
     data-edit="img"
@@ -12,7 +12,6 @@
     <h1>{{ name }}</h1>
     {{else}}
     <input
-      class="itemname"
       name="name"
       type="text"
       value="{{ name }}"
@@ -20,42 +19,28 @@
     />
     {{/if}}
     <div class="flexrow">
-      <!-- Input the level of the discipline -->
       <div class="flexcol level flex-center item-resource">
         <div>
-          <b>
-            {{localize "WOD6E.Level"}}
-          </b>
+          <b>{{localize "WOD6E.ITEMS.Level"}}</b>
         </div>
         <input
           name="system.level"
           value="{{ level }}"
           type="number"
           min="0"
-          max="5"
+          max="10"
         />
       </div>
+      <!-- Select the type this feature belongs to -->
       <div class="flexcol flex-center item-resource">
-        <div>
-          <b>{{localize 'WOD6E.ITEMS.Cost'}}</b>
-        </div>
-        <input
-          name="system.cost"
-          type="number"
-          value="{{ cost }}"
-          placeholder="0"
-        />
-      </div>
-      <!-- Select the discipline this power belongs to -->
-      <div class="flexcol discipline flex-center item-resource">
         <label>
-          <b>{{localize "WOD6E.VTM.DisciplineType"}}</b>
+          <b>{{localize "WOD6E.VAMPIRE.DisciplineType"}}</b>
         </label>
         <select
-          name="system.discipline"
+          name="system.disciplineType"
           data-type="String"
         >
-          {{selectOptions disciplineOptions selected=selectedDiscipline localize=true}}
+          {{selectOptions disciplineTypeOptions selected=disciplineTypeSelected}}
         </select>
       </div>
     </div>
