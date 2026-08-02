@@ -446,16 +446,16 @@
   grid-column: 1 / -1;
 }
 
-.sheet-section .skill-specialties {
+.sheet-section .dot-specialties {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.sheet-section .skill-tracker {
+.sheet-section .dot-tracker {
   align-content: center;
 }
-.sheet-section .skill-tracker .skill-tracker-space {
+.sheet-section .dot-tracker .dot-tracker-space {
   width: 15px;
   min-width: 15px;
   max-width: 15px;
@@ -463,12 +463,12 @@
   min-height: 15px;
   max-height: 15px;
 }
-.sheet-section .skill-tracker .skill-tracker-space:hover,
-.sheet-section .skill-tracker .skill-tracker-space:focus-visible {
+.sheet-section .dot-tracker .dot-tracker-space:hover,
+.sheet-section .dot-tracker .dot-tracker-space:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px rgba(65, 102, 126, 0.18);
 }
-.sheet-section .skill-tracker .skill-tracker-space.filled {
+.sheet-section .dot-tracker .dot-tracker-space.filled {
   box-shadow: inset 0 0 0 2px var(--tracker-background);
 }
 

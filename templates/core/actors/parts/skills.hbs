@@ -25,17 +25,17 @@
         </span>
 
         {{#if skill.specialtyText}}
-        <span class="skill-specialties">({{ skill.specialtyText }})</span>
+        <span class="dot-specialties">({{ skill.specialtyText }})</span>
         {{/if}}
       </button>
 
-      <div class="skill-tracker resource-tracker-spaces">
+      <div class="dot-tracker resource-tracker-spaces">
         {{#each skill.trackers as |group|}}
-        <div class="skill-tracker-group resource-tracker-group">
+        <div class="dot-tracker-group resource-tracker-group">
           {{#each group as |space|}}
           <button
             type="button"
-            class="skill-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}"
+            class="dot-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}"
             data-action="setTrackerValue"
             data-resource-path="system.skills.{{ skill.key }}"
             data-value="{{ space.trackerValue }}"
