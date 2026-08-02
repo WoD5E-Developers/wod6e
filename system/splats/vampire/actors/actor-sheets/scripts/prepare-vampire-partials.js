@@ -39,6 +39,45 @@ export const prepareMiddleColumnContext = async function (context) {
 }
 
 export const prepareRightColumnContext = async function (context) {
+  context.lifepaths = [
+    {
+      name: 'Artist',
+      description:
+        'You were a writer, actor, painter, designer, or operated within some other creative sphere of society.'
+    },
+    {
+      name: 'Criminal',
+      description: 'You made your living by breaking the law.'
+    }
+  ]
+
+  context.clanTraits = [
+    {
+      name: 'Prowess',
+      description: 'You deal extra damage with your punches and melee weapons.'
+    },
+    {
+      name: 'Spark of Rage',
+      description:
+        'You can easily incite anger and violence in others. You can activate this trait.'
+    }
+  ]
+
+  context.merits = [
+    {
+      name: 'Might',
+      description: 'Most feats of strength are effortless for you. You can activate this trait.'
+    }
+  ]
+
+  context.flaws = [
+    {
+      name: 'Uncontrollable Strength',
+      description:
+        "You often can't control your strength, brekaing objects you were trying to use, or hurting those you didn't intend to hurt."
+    }
+  ]
+
   return context
 }
 

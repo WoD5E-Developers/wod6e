@@ -1,0 +1,31 @@
+<section
+  class="sheet-part tab sheet-section {{ tabs.main.cssClass }}"
+  data-group="primary"
+  data-tab="main"
+>
+  <header class="sheet-section-header align-right">
+    {{localize 'WOD6E.FLAWS.Flaws'}}
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each flaws as |flaw|}}
+    <div
+      class="sheet-section-row item-section"
+      data-flaw="{{ flaw.key }}"
+    >
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="sendItemToChat"
+        data-flaw="{{ flaw.key }}"
+        title="Click to post to chat"
+      >
+        <span class="item-name">{{ flaw.name }}.</span>
+      </button>
+      {{#if flaw.description}}
+      <span class="item-description">{{ flaw.description }}</span>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>

@@ -20,7 +20,11 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/actors/parts/settings.hbs',
     'systems/wod6e/templates/core/actors/parts/limited-sheet.hbs',
 
-    'systems/wod6e/templates/core/actors/parts/skills.hbs'
+    'systems/wod6e/templates/core/actors/parts/skills.hbs',
+    'systems/wod6e/templates/core/actors/parts/lifepaths.hbs',
+    'systems/wod6e/templates/splats/vampire/actors/parts/clan-traits.hbs',
+    'systems/wod6e/templates/core/actors/parts/merits.hbs',
+    'systems/wod6e/templates/core/actors/parts/flaws.hbs'
   ]
 
   /* Load the template parts

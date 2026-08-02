@@ -1,0 +1,31 @@
+<section
+  class="sheet-part tab sheet-section {{ tabs.main.cssClass }}"
+  data-group="primary"
+  data-tab="main"
+>
+  <header class="sheet-section-header align-right">
+    {{localize 'WOD6E.MERITS.Merits'}}
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each merits as |merit|}}
+    <div
+      class="sheet-section-row item-section"
+      data-merit="{{ merit.key }}"
+    >
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="sendItemToChat"
+        data-merit="{{ merit.key }}"
+        title="Click to post to chat"
+      >
+        <span class="item-name">{{ merit.name }}.</span>
+      </button>
+      {{#if merit.description}}
+      <span class="item-description">{{ merit.description }}</span>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>

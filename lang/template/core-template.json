@@ -25,6 +25,15 @@
       "_Strength": "",
       "_Wits": ""
     },
+    "FLAWS": {
+      "_Flaws": ""
+    },
+    "LIFEPATHS": {
+      "_Lifepaths": ""
+    },
+    "MERITS": {
+      "_Merits": ""
+    },
     "NOTIFICATIONS": {
       "_ConsoleLog": "",
       "_InitializingSchreckNet": "",

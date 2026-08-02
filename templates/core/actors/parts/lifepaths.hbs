@@ -1,0 +1,31 @@
+<section
+  class="sheet-part tab sheet-section {{ tabs.main.cssClass }}"
+  data-group="primary"
+  data-tab="main"
+>
+  <header class="sheet-section-header align-right">
+    {{localize 'WOD6E.LIFEPATHS.Lifepaths'}}
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each lifepaths as |lifepath|}}
+    <div
+      class="sheet-section-row item-section"
+      data-lifepath="{{ lifepath.key }}"
+    >
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="sendItemToChat"
+        data-lifepath="{{ lifepath.key }}"
+        title="Click to post to chat"
+      >
+        <span class="item-name">{{ lifepath.name }}.</span>
+      </button>
+      {{#if lifepath.description}}
+      <span class="item-description">{{ lifepath.description }}</span>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>

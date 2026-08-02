@@ -25,6 +25,15 @@
       "Strength": "Strength",
       "Wits": "Wits"
     },
+    "FLAWS": {
+      "Flaws": "Flaws"
+    },
+    "LIFEPATHS": {
+      "Lifepaths": "Lifepaths"
+    },
+    "MERITS": {
+      "Merits": "Merits"
+    },
     "NOTIFICATIONS": {
       "ConsoleLog": "World of Darkness 6th Edition | {string}",
       "InitializingSchreckNet": "Initializing SchreckNet",

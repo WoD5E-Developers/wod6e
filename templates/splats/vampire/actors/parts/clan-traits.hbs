@@ -1,0 +1,31 @@
+<section
+  class="sheet-part tab sheet-section {{ tabs.main.cssClass }}"
+  data-group="primary"
+  data-tab="main"
+>
+  <header class="sheet-section-header align-right">
+    {{localize 'WOD6E.VAMPIRE.ClanTraits'}}
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each clanTraits as |trait|}}
+    <div
+      class="sheet-section-row item-section"
+      data-lifepath="{{ trait.key }}"
+    >
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="sendItemToChat"
+        data-lifepath="{{ trait.key }}"
+        title="Click to post to chat"
+      >
+        <span class="item-name">{{ trait.name }}.</span>
+      </button>
+      {{#if trait.description}}
+      <span class="item-description">{{ trait.description }}</span>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>

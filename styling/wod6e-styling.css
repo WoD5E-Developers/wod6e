@@ -248,6 +248,10 @@
 .actor.sheet {
   min-width: 715px;
 }
+.actor.sheet .align-right {
+  justify-content: right;
+  text-align: right;
+}
 .actor.sheet .sheet-section {
   width: 100%;
   color: var(--tracker-text);
@@ -258,10 +262,16 @@
   width: 100%;
   padding: 3px;
 }
-.actor.sheet .sheet-section .sheet-section-list .sheet-section-row {
+.actor.sheet .sheet-section .sheet-section-list .sheet-section-row.resource-tracker {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 10px;
+}
+.actor.sheet .sheet-section .sheet-section-list .sheet-section-row.item-section {
+  display: ruby;
+}
+.actor.sheet .sheet-section .sheet-section-list .sheet-section-row.item-section .item-name {
+  font-weight: 800;
 }
 .actor.sheet .sheet-section-header {
   margin: 0;
@@ -366,7 +376,6 @@
   text-transform: uppercase;
   white-space: nowrap;
 }
-
 
 .actor.sheet .sheet-field {
   display: flex;

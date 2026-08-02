@@ -1,6 +1,11 @@
 .actor.sheet {
   min-width: 715px;
 
+  .align-right {
+    justify-content: right;
+    text-align: right;
+  }
+
   .sheet-section {
     width: 100%;
     color: var(--tracker-text);
@@ -11,10 +16,18 @@
       width: 100%;
       padding: 3px;
 
-      .sheet-section-row {
+      .sheet-section-row.resource-tracker {
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto;
         gap: 10px;
+      }
+
+      .sheet-section-row.item-section {
+        display: ruby;
+
+        .item-name {
+          font-weight: 800;
+        }
       }
     }
   }
