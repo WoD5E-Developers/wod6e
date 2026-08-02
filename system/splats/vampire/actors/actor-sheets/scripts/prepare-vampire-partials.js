@@ -18,6 +18,7 @@ export const prepareHumanityScaleContext = async function (context, actor) {
 
   context.humanity = {
     trackers: generateTrackers({
+      name: game.i18n.localize('WOD6E.VAMPIRE.Humanity'),
       value: humanity.value,
       max: humanity.max,
       groupSize: 100,

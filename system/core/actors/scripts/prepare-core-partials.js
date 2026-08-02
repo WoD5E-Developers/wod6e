@@ -33,6 +33,8 @@ export const prepareResourcesContext = async function (context, actor) {
     max: actorHealth.max,
     baneful: actorHealth.baneful,
     trackers: generateTrackers({
+      name: game.i18n.localize('WOD6E.RESOURCES.Vitae'),
+      damageName: game.i18n.localize('WOD6E.RESOURCES.Baneful'),
       value: actorHealth.value,
       max: actorHealth.max,
       disabled: actorHealth.disabled
@@ -46,6 +48,7 @@ export const prepareResourcesContext = async function (context, actor) {
     max: actorWillpower.max,
     baneful: actorWillpower.baneful,
     trackers: generateTrackers({
+      name: game.i18n.localize('WOD6E.RESOURCES.Willpower'),
       value: actorWillpower.value,
       max: actorWillpower.max,
       disabled: actorWillpower.disabled,

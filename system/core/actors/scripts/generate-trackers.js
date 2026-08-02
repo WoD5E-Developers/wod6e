@@ -1,4 +1,6 @@
 export function generateTrackers({
+  name = '',
+  damageName = '',
   value,
   max,
   disabled = 0,
@@ -38,7 +40,7 @@ export function generateTrackers({
       trackerValue,
       filled,
       disabled: isDisabled,
-      title: isDisabled ? `Disabled due to Baneful damage` : `Set health to ${position}`,
+      title: isDisabled ? `Disabled due to ${damageName} damage` : `Set ${name} to ${position}`,
       disabledState: isDisabled ? 'disabled' : '',
       middle: onlyCurrentValueSelected ? trackerValue === Math.ceil(max / 2) : false
     }
