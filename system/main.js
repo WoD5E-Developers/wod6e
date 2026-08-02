@@ -17,6 +17,7 @@ import { Skills } from './core/config/skills.js'
 import { ActorTypes } from './core/config/actor-types.js'
 import { ItemTypes } from './core/config/item-types.js'
 import { StorytellerMenu } from './core/applications/storyteller-menu.js'
+import { ResourceTypes } from './core/config/resource-types.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -29,7 +30,8 @@ window.WOD6E = {
   Systems,
   Attributes,
   AttributeGroups,
-  Skills
+  Skills,
+  ResourceTypes
 }
 
 // Anything that needs to be ran alongside the initialisation of the world

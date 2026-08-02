@@ -1,4 +1,5 @@
 import { generateTrackers } from '../../../../../core/actors/scripts/generate-trackers.js'
+import { prepareResources } from '../../../../../core/actors/scripts/prepare-resources.js'
 import { prepareSkills } from '../../../../../core/actors/scripts/prepare-skills.js'
 
 export const prepareHeaderContext = async function (context, actor) {
@@ -31,6 +32,7 @@ export const prepareHumanityScaleContext = async function (context, actor) {
 
 export const prepareLeftColumnContext = async function (context, actor) {
   context.skills = prepareSkills(actor)
+  context.resources = prepareResources(actor)
 
   return context
 }

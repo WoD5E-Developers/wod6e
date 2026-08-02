@@ -1,0 +1,51 @@
+<section
+  class="sheet-part tab sheet-section resource-tracker {{ tabs.main.cssClass }}"
+  data-group="primary"
+  data-tab="main"
+>
+  <header class="sheet-section-header resource-tracker-header">
+    {{localize 'WOD6E.RESOURCES.Resources'}}
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each resources as |resource|}}
+    <div
+      class="sheet-section-row resource-tracker"
+      data-resource="{{ resource.key }}"
+    >
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="rollSkill"
+        data-resource="{{ resource.key }}"
+        title="{{localize resource.label}}"
+      >
+        <span class="resource-name">
+          {{localize resource.label}}
+        </span>
+
+        {{#if resource.specialtyText}}
+        <span class="resource-specialties">({{ resource.specialtyText }})</span>
+        {{/if}}
+      </button>
+
+      <div class="resource-tracker resource-tracker-spaces">
+        {{#each resource.trackers as |group|}}
+        <div class="resource-tracker-group resource-tracker-group">
+          {{#each group as |space|}}
+          <button
+            type="button"
+            class="resource-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}"
+            data-action="setTrackerValue"
+            data-resource-path="system.resources.{{ resource.key }}"
+            data-value="{{ space.trackerValue }}"
+            title="{{ space.title }}"
+          ></button>
+          {{/each}}
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>

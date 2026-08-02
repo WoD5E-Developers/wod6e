@@ -3,6 +3,7 @@ import { StorytellerMenu } from '../applications/storyteller-menu.js'
 import { Attributes } from '../config/attributes.js'
 import { Skills } from '../config/skills.js'
 import { Disciplines } from '../../splats/vampire/config/disciplines.js'
+import { ResourceTypes } from '../config/resource-types.js'
 
 /**
  * Define all game settings here
@@ -35,6 +36,10 @@ export const loadSettings = async function () {
     discipline: {
       defCategory: 'Disciplines',
       defClass: Disciplines
+    },
+    resourceTypes: {
+      defCategory: 'ResourceTypes',
+      defClass: ResourceTypes
     }
   }
 
