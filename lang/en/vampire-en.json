@@ -4,7 +4,9 @@
       "ClanTraits": "Clan Traits",
       "HumanityScale": "Humanity Scale",
       "Monstrous": "Monstrous",
-      "Mortal": "Mortal"
+      "Mortal": "Mortal",
+      "Nature": "Nature",
+      "Beast": "Beast"
     }
   }
 }

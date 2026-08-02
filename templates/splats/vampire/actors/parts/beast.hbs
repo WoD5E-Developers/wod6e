@@ -1,0 +1,31 @@
+<section
+  class="sheet-part tab sheet-section {{ tabs.main.cssClass }}"
+  data-group="primary"
+  data-tab="main"
+>
+  <header class="sheet-section-header align-right">
+    {{localize 'WOD6E.VAMPIRE.Beast'}}
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each beasts as |beast|}}
+    <div
+      class="sheet-section-row item-section"
+      data-beast="{{ beast.key }}"
+    >
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="sendItemToChat"
+        data-beast="{{ beast.key }}"
+        title="Click to post to chat"
+      >
+        <span class="item-name bolded">{{ beast.name }}.</span>
+      </button>
+      {{#if beast.description}}
+      <span class="item-description">{{ beast.description }}</span>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>

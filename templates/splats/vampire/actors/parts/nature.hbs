@@ -1,0 +1,31 @@
+<section
+  class="sheet-part tab sheet-section {{ tabs.main.cssClass }}"
+  data-group="primary"
+  data-tab="main"
+>
+  <header class="sheet-section-header align-right">
+    {{localize 'WOD6E.VAMPIRE.Nature'}}
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each natures as |nature|}}
+    <div
+      class="sheet-section-row item-section"
+      data-nature="{{ nature.key }}"
+    >
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="sendItemToChat"
+        data-nature="{{ nature.key }}"
+        title="Click to post to chat"
+      >
+        <span class="item-name bolded">{{ nature.name }}.</span>
+      </button>
+      {{#if nature.description}}
+      <span class="item-description">{{ nature.description }}</span>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>
