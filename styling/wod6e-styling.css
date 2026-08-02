@@ -234,7 +234,7 @@
   display: grid;
   grid-template-rows: min-content;
   grid-template-columns: minmax(300px, 1fr) minmax(50px, 1fr) minmax(300px, 1fr);
-  grid-template-areas: "navigation navigation navigation" "header header header" "attributes attributes attributes" "resources resources resources" "humanityScale humanityScale humanityScale" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "disciplines disciplines rightColumn";
+  grid-template-areas: "navigation navigation navigation" "header header header" "attributes attributes attributes" "healthWillpower healthWillpower healthWillpower" "humanityScale humanityScale humanityScale" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "disciplines disciplines rightColumn";
   padding: 0;
 }
 [data-application-part="humanityScale"] {
@@ -425,8 +425,8 @@
   grid-area: navigation;
   max-height: fit-content;
 }
-.actor.sheet [data-application-part="resources"] {
-  grid-area: resources;
+.actor.sheet [data-application-part="healthWillpower"] {
+  grid-area: healthWillpower;
   display: grid;
   grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
 }

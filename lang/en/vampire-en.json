@@ -1,12 +1,12 @@
 {
   "WOD6E": {
     "VAMPIRE": {
+      "Beast": "Beast",
       "ClanTraits": "Clan Traits",
       "HumanityScale": "Humanity Scale",
       "Monstrous": "Monstrous",
       "Mortal": "Mortal",
-      "Nature": "Nature",
-      "Beast": "Beast"
+      "Nature": "Nature"
     }
   }
 }
