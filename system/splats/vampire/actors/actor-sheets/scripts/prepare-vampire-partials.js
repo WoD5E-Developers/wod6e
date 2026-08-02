@@ -35,6 +35,18 @@ export const prepareLeftColumnContext = async function (context, actor) {
 }
 
 export const prepareMiddleColumnContext = async function (context) {
+  context.equipment = [
+    {
+      name: 'Butterfly Knife (Light Melee, 2 damage)'
+    },
+    {
+      name: 'Stolen Car Keys'
+    },
+    {
+      name: 'Fake ID (Marie Lynn)'
+    }
+  ]
+
   return context
 }
 

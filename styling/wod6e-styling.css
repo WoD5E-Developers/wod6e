@@ -252,6 +252,10 @@
   justify-content: right;
   text-align: right;
 }
+.actor.sheet .align-center {
+  justify-content: center;
+  text-align: center;
+}
 .actor.sheet .sheet-section {
   width: 100%;
   color: var(--tracker-text);
@@ -270,8 +274,11 @@
 .actor.sheet .sheet-section .sheet-section-list .sheet-section-row.item-section {
   display: ruby;
 }
-.actor.sheet .sheet-section .sheet-section-list .sheet-section-row.item-section .item-name {
+.actor.sheet .sheet-section .sheet-section-list .sheet-section-row.item-section .item-name.bolded {
   font-weight: 800;
+}
+.actor.sheet .actor-avatar {
+  border: 1px solid var(--tracker-border);
 }
 .actor.sheet .sheet-section-header {
   margin: 0;

@@ -25,6 +25,9 @@
       "Strength": "Strength",
       "Wits": "Wits"
     },
+    "EQUIPMENT": {
+      "Equipment": "Equipment"
+    },
     "FLAWS": {
       "Flaws": "Flaws"
     },

@@ -6,6 +6,11 @@
     text-align: right;
   }
 
+  .align-center {
+    justify-content: center;
+    text-align: center;
+  }
+
   .sheet-section {
     width: 100%;
     color: var(--tracker-text);
@@ -26,10 +31,16 @@
         display: ruby;
 
         .item-name {
-          font-weight: 800;
+          &.bolded {
+            font-weight: 800;
+          }
         }
       }
     }
+  }
+
+  .actor-avatar {
+    border: 1px solid var(--tracker-border);
   }
 
   .sheet-section-header {

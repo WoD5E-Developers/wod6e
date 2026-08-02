@@ -3,28 +3,25 @@
   data-group="primary"
   data-tab="main"
 >
-  <header class="sheet-section-header align-right">
-    {{localize 'WOD6E.LIFEPATHS.Lifepaths'}}
+  <header class="sheet-section-header align-center">
+    {{localize 'WOD6E.EQUIPMENT.Equipment'}}
   </header>
 
   <div class="sheet-section-list">
-    {{#each lifepaths as |lifepath|}}
+    {{#each equipment as |item|}}
     <div
       class="sheet-section-row item-section"
-      data-lifepath="{{ lifepath.key }}"
+      data-flaw="{{ item.key }}"
     >
       <button
         type="button"
         class="sheet-section-label"
         data-action="sendItemToChat"
-        data-lifepath="{{ lifepath.key }}"
+        data-flaw="{{ item.key }}"
         title="Click to post to chat"
       >
-        <span class="item-name bolded">{{ lifepath.name }}.</span>
+        <span class="item-name">{{ item.name }}</span>
       </button>
-      {{#if lifepath.description}}
-      <span class="item-description">{{ lifepath.description }}</span>
-      {{/if}}
     </div>
     {{/each}}
   </div>
