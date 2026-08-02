@@ -1,13 +1,14 @@
 // Actor UX functions
-import {
-  prepareAttributesContext,
-  prepareLimitedContext,
-  prepareSettingsContext,
-  prepareResourcesContext
-} from '../scripts/prepare-core-partials.js'
+
 import { ActorUX } from '../scripts/actor-ux.js'
 import { _onSetTrackerValue } from '../scripts/on-set-tracker-value.js'
 import { _onDisableTrackerValue } from '../scripts/on-disable-tracker-value.js'
+import {
+  prepareAttributesContext,
+  prepareLimitedContext,
+  prepareResourcesContext,
+  prepareSettingsContext
+} from '../scripts/prepare-core-partials.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 

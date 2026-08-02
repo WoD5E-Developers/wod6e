@@ -1,8 +1,8 @@
 import { generateTrackers } from './generate-trackers.js'
 
 export const prepareAttributesContext = async function (context, actor) {
-  const attributeGroups = WOD6E.AttributeGroups.getList({})
-  const attributes = WOD6E.Attributes.getList({})
+  const attributeGroups = WOD6E.configs.AttributeGroups.getList({})
+  const attributes = WOD6E.configs.Attributes.getList({})
 
   context.attributeGroups = Object.entries(attributeGroups)
     .filter(([, attributeGroup]) => !attributeGroup.hidden)

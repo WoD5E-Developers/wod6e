@@ -3,9 +3,10 @@ import {
   prepareDescriptionContext,
   prepareItemSettingsContext
 } from '../scripts/prepare-partials.js'
-// Base item sheet to extend from
 import { WoDItemBase } from './wod-item-base.js'
-import { ResourceTypes } from '../../config/resource-types.js'
+
+// Base item sheet to extend from
+
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -53,10 +54,10 @@ export class ResourceItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
     const item = this.item
     const itemData = item.system
 
-    data.value = itemData.value
+    data.value = itemData?.value || 0
 
-    data.resourceTypeOptions = ResourceTypes.getList({})
-    data.resourceTypeSelected = itemData.resourceType
+    data.resourceTypeOptions = WOD6E.configs.ResourceTypes.getList({})
+    data.resourceTypeSelected = itemData?.resourceType
 
     return data
   }

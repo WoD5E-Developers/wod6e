@@ -19,7 +19,7 @@ function skillValueField() {
 export function createInitialSkills() {
   const skills = {}
 
-  for (const key of Object.keys(WOD6E.Skills.getList({}))) {
+  for (const key of Object.keys(WOD6E.configs.Skills.getList({}))) {
     skills[key] = createInitialSkillValue()
   }
 

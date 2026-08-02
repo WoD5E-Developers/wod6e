@@ -81,17 +81,17 @@ export const loadHelpers = async function () {
 
   // Helper to define attributes lists
   Handlebars.registerHelper('getAttributesList', function () {
-    return WOD6E.Attributes.getList({})
+    return WOD6E.configs.Attributes.getList({})
   })
 
   // Helper to define skills lists
   Handlebars.registerHelper('getSkillsList', function () {
-    return WOD6E.Skills.getList({})
+    return WOD6E.configs.Skills.getList({})
   })
 
   // Helper to define disciplines lists
   Handlebars.registerHelper('getDisciplinesList', function () {
-    return WOD6E.Disciplines.getList({})
+    return WOD6E.configs.Disciplines.getList({})
   })
 
   // Check whether an object is empty or not

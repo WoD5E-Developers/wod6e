@@ -1,7 +1,7 @@
 import { generateTrackers } from './generate-trackers.js'
 
 export function prepareSkills(actor) {
-  const skills = WOD6E.Skills.getList({})
+  const skills = WOD6E.configs.Skills.getList({})
   const actorSkills = actor?.system?.skills || {}
 
   const preparedSkills = Object.entries(skills)

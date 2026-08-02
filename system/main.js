@@ -22,6 +22,18 @@ import { Skills } from './core/config/skills.js'
 import { ActorTypes } from './core/config/actor-types.js'
 import { ItemTypes } from './core/config/item-types.js'
 import { ResourceTypes } from './core/config/resource-types.js'
+import { Disciplines } from './splats/vampire/config/disciplines.js'
+import {
+  prepareDescriptionContext,
+  prepareItemSettingsContext
+} from './core/items/scripts/prepare-partials.js'
+import {
+  prepareAttributesContext,
+  prepareLimitedContext,
+  prepareResourcesContext,
+  prepareSettingsContext
+} from './core/actors/scripts/prepare-core-partials.js'
+import { BaseDefinitionClass } from './core/config/base-definition-class.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -29,15 +41,35 @@ window.WOD6E = {
   applications: {
     StorytellerMenu
   },
-  WoDActorBase,
-  WoDActorModel,
-  WoDItemBase,
-  WoDItemModel,
-  Systems,
-  Attributes,
-  AttributeGroups,
-  Skills,
-  ResourceTypes
+  configs: {
+    BaseDefinitionClass,
+    Systems,
+    Attributes,
+    AttributeGroups,
+    Skills,
+    ResourceTypes,
+    Disciplines,
+    ItemTypes,
+    ActorTypes
+  },
+  actors: {
+    WoDActorBase,
+    WoDActorModel,
+    contextPreparation: {
+      prepareAttributesContext,
+      prepareResourcesContext,
+      prepareSettingsContext,
+      prepareLimitedContext
+    }
+  },
+  items: {
+    WoDItemBase,
+    WoDItemModel,
+    contextPreparation: {
+      prepareDescriptionContext,
+      prepareItemSettingsContext
+    }
+  }
 }
 
 // Anything that needs to be ran alongside the initialisation of the world

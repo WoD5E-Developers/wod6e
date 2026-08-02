@@ -18,7 +18,7 @@ function attributeValueField() {
 export function createInitialAttributes() {
   const attributes = {}
 
-  for (const key of Object.keys(WOD6E.Attributes.getList({}))) {
+  for (const key of Object.keys(WOD6E.configs.Attributes.getList({}))) {
     attributes[key] = createInitialAttributeValue()
   }
 
