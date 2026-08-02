@@ -1,3 +1,50 @@
 .actor.sheet {
   min-width: 715px;
+
+  .sheet-section {
+    width: 100%;
+    color: var(--tracker-text);
+
+    .sheet-section-list {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 3px;
+
+      .sheet-section-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+      }
+    }
+  }
+
+  .sheet-section-header {
+    margin: 0;
+    padding-left: 5px;
+    border-bottom: 2px solid var(--tracker-border);
+    color: var(--tracker-text);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .sheet-section-label {
+    justify-content: flex-start;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    color: var(--tracker-text);
+    font-size: 15px;
+    font-weight: 400;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--tracker-text);
+      text-shadow: 0 0 4px rgb(65 102 126 / 35%);
+      outline: none;
+      box-shadow: none;
+    }
+  }
 }

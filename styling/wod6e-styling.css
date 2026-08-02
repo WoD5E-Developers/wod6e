@@ -248,6 +248,47 @@
 .actor.sheet {
   min-width: 715px;
 }
+.actor.sheet .sheet-section {
+  width: 100%;
+  color: var(--tracker-text);
+}
+.actor.sheet .sheet-section .sheet-section-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 3px;
+}
+.actor.sheet .sheet-section .sheet-section-list .sheet-section-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+.actor.sheet .sheet-section-header {
+  margin: 0;
+  padding-left: 5px;
+  border-bottom: 2px solid var(--tracker-border);
+  color: var(--tracker-text);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.actor.sheet .sheet-section-label {
+  justify-content: flex-start;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--tracker-text);
+  font-size: 15px;
+  font-weight: 400;
+}
+.actor.sheet .sheet-section-label:hover,
+.actor.sheet .sheet-section-label:focus-visible {
+  color: var(--tracker-text);
+  text-shadow: 0 0 4px rgba(65, 102, 126, 0.35);
+  outline: none;
+  box-shadow: none;
+}
 
 [data-application-part="attributes"] {
   grid-area: attributes;
@@ -326,6 +367,7 @@
   white-space: nowrap;
 }
 
+
 .actor.sheet .sheet-field {
   display: flex;
   align-items: center;
@@ -388,57 +430,16 @@
   grid-column: 1 / -1;
 }
 
-.skills-section {
-  width: 100%;
-  color: var(--tracker-text);
-}
-.skills-section .skills-header {
-  margin: 0;
-  padding-left: 5px;
-  border-bottom: 2px solid var(--tracker-border);
-  color: var(--tracker-text);
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1;
-  text-transform: uppercase;
-}
-.skills-section .skills-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 3px;
-}
-.skills-section .skills-list .skill-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
-}
-.skills-section .skills-list .skill-row .skill-label {
-  justify-content: flex-start;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  color: var(--tracker-text);
-  font-size: 15px;
-  font-weight: 400;
-}
-.skills-section .skills-list .skill-row .skill-label:hover,
-.skills-section .skills-list .skill-row .skill-label:focus-visible {
-  color: var(--tracker-text);
-  text-shadow: 0 0 4px rgba(65, 102, 126, 0.35);
-  outline: none;
-  box-shadow: none;
-}
-.skills-section .skill-specialties {
+.sheet-section .skill-specialties {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.skills-section .skill-tracker {
+.sheet-section .skill-tracker {
   align-content: center;
 }
-.skills-section .skill-tracker .skill-tracker-space {
+.sheet-section .skill-tracker .skill-tracker-space {
   width: 15px;
   min-width: 15px;
   max-width: 15px;
@@ -446,12 +447,12 @@
   min-height: 15px;
   max-height: 15px;
 }
-.skills-section .skill-tracker .skill-tracker-space:hover,
-.skills-section .skill-tracker .skill-tracker-space:focus-visible {
+.sheet-section .skill-tracker .skill-tracker-space:hover,
+.sheet-section .skill-tracker .skill-tracker-space:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px rgba(65, 102, 126, 0.18);
 }
-.skills-section .skill-tracker .skill-tracker-space.filled {
+.sheet-section .skill-tracker .skill-tracker-space.filled {
   box-shadow: inset 0 0 0 2px var(--tracker-background);
 }
 

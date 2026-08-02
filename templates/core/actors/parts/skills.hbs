@@ -1,21 +1,21 @@
 <section
-  class="sheet-part tab skills-section resource-tracker {{ tabs.main.cssClass }}"
+  class="sheet-part tab sheet-section resource-tracker {{ tabs.main.cssClass }}"
   data-group="primary"
   data-tab="main"
 >
-  <header class="skills-header resource-tracker-header">
+  <header class="sheet-section-header resource-tracker-header">
     {{localize 'WOD6E.SKILLS.Skills'}}
   </header>
 
-  <div class="skills-list">
+  <div class="sheet-section-list">
     {{#each skills as |skill|}}
     <div
-      class="skill-row"
+      class="sheet-section-row"
       data-skill="{{ skill.key }}"
     >
       <button
         type="button"
-        class="skill-label"
+        class="sheet-section-label"
         data-action="rollSkill"
         data-skill="{{ skill.key }}"
         title="{{localize skill.label}}"
