@@ -143,6 +143,9 @@
 .game.theme-dark .actor.sheet .attribute-groups {
   background: #414141;
 }
+.game.theme-dark .actor.sheet img.vampire-symbol {
+  filter: invert(1);
+}
 .game.theme-dark .resource-tracker-space::before {
   background: var(--tracker-disabled-dark);
 }
