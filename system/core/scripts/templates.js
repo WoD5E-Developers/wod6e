@@ -31,6 +31,12 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/items/parts/item-settings.hbs',
     'systems/wod6e/templates/core/items/parts/source.hbs',
 
+    // Core application templates
+    'systems/wod6e/templates/core/applications/compendium-browser/sidebar.hbs',
+    'systems/wod6e/templates/core/applications/compendium-browser/body.hbs',
+    'systems/wod6e/templates/core/applications/compendium-browser/parts/filter-splats.hbs',
+    'systems/wod6e/templates/core/applications/compendium-browser/parts/filter-types.hbs',
+
     // Vampire actor templates
     'systems/wod6e/templates/splats/vampire/actors/parts/header.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/humanity-scale.hbs',

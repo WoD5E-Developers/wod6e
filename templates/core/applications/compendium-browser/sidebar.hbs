@@ -1,0 +1,16 @@
+<div class="compendium-browser-sidebar flexcol">
+  <div class="search-section">
+    <input
+      type="text"
+      name="search"
+      class="search-input"
+      placeholder="Search..."
+      data-action="search"
+      value="{{ textFilter }}"
+    />
+  </div>
+  <div class="search-filters">
+    {{> "systems/wod6e/templates/core/applications/compendium-browser/parts/filter-splats.hbs"}}
+    {{> "systems/wod6e/templates/core/applications/compendium-browser/parts/filter-types.hbs"}}
+  </div>
+</div>

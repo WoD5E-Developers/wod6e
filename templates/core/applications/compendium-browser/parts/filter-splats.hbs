@@ -1,0 +1,22 @@
+<div class="compendium-filter filters-section" data-filter-type="splats">
+  <div class="filter-group">
+    <div class="compendium-filter-toggle clickable-button" data-action="toggleDropdown">
+      {{localize 'WOD6E.System'}}
+      {{#if splatFilterStatus}}
+        <i class="fa-solid fa-chevron-up"></i>
+      {{else}}
+        <i class="fa-solid fa-chevron-down"></i>
+      {{/if}}
+    </div>
+    {{#if splatFilterStatus}}
+      <div class="compendium-filter-dropdown">
+        {{#each splatFilterOptions as |option|}}
+          <label class="compendium-filter-option flexrow">
+            <input type="checkbox" data-id="{{option.id}}" data-filter-priority="primary" data-action="updateFilter"{{#if option.enabled}} checked{{/if}}/>
+            <span>{{option.label}}</span>
+          </label>
+        {{/each}}
+      </div>
+    {{/if}}
+  </div>
+</div>

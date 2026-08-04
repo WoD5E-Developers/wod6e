@@ -44,6 +44,9 @@ export const prepareMiddleColumnContext = async function (context) {
 }
 
 export const prepareRightColumnContext = async function (context) {
+  const clan = context.clan
+  const clanData = clan?.system || {}
+
   context.lifepaths = []
 
   context.clanTraits = []
@@ -54,7 +57,16 @@ export const prepareRightColumnContext = async function (context) {
 
   context.nature = []
 
-  context.beast = []
+  context.beast = [
+    {
+      name: `${clan?.name} Beast: ${clanData?.beast?.name}`,
+      description: clanData?.beast?.description
+    },
+    {
+      name: `${clan?.name} Frenzy: ${clanData?.frenzy?.name}`,
+      description: clanData?.frenzy?.description
+    }
+  ]
 
   return context
 }

@@ -10,8 +10,21 @@
     }
   },
   "WOD6E": {
+    "Core": "Core",
     "GamePaused": "Game Paused",
+    "ItemType": "Item Type",
     "Name": "Name",
+    "NewString": "New {string}",
+    "NoneSelected": "None Selected",
+    "System": "System",
+    "APPLICATIONS": {
+      "CompendiumBrowser": "Compendium Browser",
+      "CompendiumBrowserControlHint": "Opens the compendium browser.",
+      "CompendiumBrowserControlLabel": "Opens the World of Darkness 6e compendium browser.",
+      "ConfigureSources": "Configure Sources",
+      "NoResultsFound": "No Results Found",
+      "SidebarLabel": "WOD6E Compendium Browser"
+    },
     "ATTRIBUTES": {
       "Attributes": "Attributes",
       "Charisma": "Charisma",

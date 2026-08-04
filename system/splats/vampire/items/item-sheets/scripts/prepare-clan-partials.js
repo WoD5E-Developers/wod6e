@@ -2,7 +2,7 @@ export const prepareBeastContext = async function (context, item) {
   // Tab data
   context.tab = context.tabs.beast
 
-  const itemData = item.system
+  const itemData = item?.system
 
   context.beast = itemData?.beast || {}
   context.enrichedBeastDescription =
@@ -15,7 +15,7 @@ export const prepareCurseContext = async function (context, item) {
   // Tab data
   context.tab = context.tabs.curse
 
-  const itemData = item.system
+  const itemData = item?.system
 
   context.curse = itemData?.curse || {}
   context.enrichedCurseDescription =
@@ -28,7 +28,7 @@ export const prepareFrenzyContext = async function (context, item) {
   // Tab data
   context.tab = context.tabs.frenzy
 
-  const itemData = item.system
+  const itemData = item?.system
 
   context.frenzy = itemData?.frenzy || {}
   context.enrichedFrenzyDescription =

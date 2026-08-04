@@ -83,7 +83,12 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     // Top-level variables
     const context = await super._prepareContext()
 
+    // Top-level variables
+    const actor = this.actor
+
     context.tabs = this._prepareTabs('primary')
+
+    context.clan = actor.items.filter((item) => item.type === 'clan')[0]
 
     return context
   }

@@ -34,6 +34,7 @@ import {
   prepareSettingsContext
 } from './core/actors/scripts/prepare-core-partials.js'
 import { BaseDefinitionClass } from './core/config/base-definition-class.js'
+import { loadControls } from './core/scripts/controls.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -122,6 +123,9 @@ Hooks.once('init', async function () {
 
   // Load settings into Foundry
   loadSettings()
+
+  // Load keybindings
+  loadControls()
 })
 
 // Anything that needs to run once the world is fully loaded

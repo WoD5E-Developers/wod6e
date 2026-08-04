@@ -9,6 +9,8 @@ import {
   prepareResourcesContext,
   prepareSettingsContext
 } from '../scripts/prepare-core-partials.js'
+import { _onCreateItem, _onSearchItem } from '../scripts/item-actions.js'
+import { _onOpenItem } from '../../applications/compendium-browser/scripts/on-open-item.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -45,7 +47,10 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
       height: 1050
     },
     actions: {
-      setTrackerValue: _onSetTrackerValue
+      setTrackerValue: _onSetTrackerValue,
+      createItem: _onCreateItem,
+      searchItem: _onSearchItem,
+      openItem: _onOpenItem
     },
     dragDrop: [
       {

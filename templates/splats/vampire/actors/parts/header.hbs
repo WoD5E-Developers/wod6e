@@ -67,18 +67,58 @@
     >
       <div class="sheet-field">
         <label>Clan:</label>
+        {{#if clan}}
         <input
           type="text"
-          name="system.vampire.clan.name"
-          value="{{ vampire.clan.name }}"
+          disabled
+          value="{{ clan.name }}"
         />
+        <div
+          class="actor-item-display clickable"
+          data-uuid="{{ clan.uuid }}"
+          data-action="openItem"
+          data-type="Item"
+          data-drag="true"
+          data-document-uuid="{{ clan.uuid }}"
+        >
+          <img
+            class="result-image"
+            src="{{ clan.img }}"
+            alt="{{ clan.name }}"
+          />
+        </div>
+        {{else}}
+        <input
+          type="text"
+          disabled
+          value="{{ clan.name }}"
+        />
+        <div>
+          <a
+            class="search-data-item"
+            data-action="searchItem"
+            title="{{localize 'WOD5E.Search'}}"
+            data-type="clan"
+          >
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </a>
+          <a
+            class="item-create"
+            data-action="createItem"
+            title="{{localize 'WOD5E.Add'}}"
+            data-type="clan"
+          >
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+        {{/if}}
       </div>
       <div class="sheet-field">
         <label>Clan Curse:</label>
         <input
           type="text"
-          name="system.vampire.clan.curse"
-          value="{{ vampire.clan.curse }}"
+          disabled
+          value="{{ clan.system.curse.name }}"
         />
       </div>
       <div class="sheet-field">

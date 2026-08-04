@@ -79,21 +79,6 @@ export const loadHelpers = async function () {
     return arr.join(',')
   })
 
-  // Helper to define attributes lists
-  Handlebars.registerHelper('getAttributesList', function () {
-    return WOD6E.configs.Attributes.getList({})
-  })
-
-  // Helper to define skills lists
-  Handlebars.registerHelper('getSkillsList', function () {
-    return WOD6E.configs.Skills.getList({})
-  })
-
-  // Helper to define disciplines lists
-  Handlebars.registerHelper('getDisciplinesList', function () {
-    return WOD6E.configs.Disciplines.getList({})
-  })
-
   // Check whether an object is empty or not
   Handlebars.registerHelper('isNotEmpty', function (obj) {
     return Object.keys(obj).length > 0
@@ -104,18 +89,6 @@ export const loadHelpers = async function () {
     return value === test ? attr : ''
   })
 
-  Handlebars.registerHelper('sortAbilities', function (unordered = {}) {
-    if (!game.settings.get('wod6e', 'chatRollerSortAbilities')) {
-      return unordered
-    }
-    return Object.keys(unordered)
-      .sort()
-      .reduce((obj, key) => {
-        obj[key] = unordered[key]
-        return obj
-      }, {})
-  })
-
   Handlebars.registerHelper('numLoop', function (num, options) {
     let ret = ''
 
@@ -124,5 +97,22 @@ export const loadHelpers = async function () {
     }
 
     return ret
+  })
+
+  // This is a quick and simple helper to only return the first sentence of a field's description.
+  Handlebars.registerHelper('descriptionShort', function (text) {
+    if (!text) return ''
+
+    // Strip HTML tags
+    const plainText = String(text)
+      .replace(/<[^>]*>/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+
+    // Find the first period
+    const periodIndex = plainText.indexOf('.')
+
+    // Return the first sentence (including the period)
+    return periodIndex >= 0 ? plainText.slice(0, periodIndex + 1).trim() : plainText
   })
 }

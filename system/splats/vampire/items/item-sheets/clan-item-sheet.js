@@ -106,7 +106,7 @@ export class ClanItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
 
     context.selectedDisciplinesText = selectedDisciplineLabels.length
       ? selectedDisciplineLabels.join(', ')
-      : game.i18n.localize('WOD6E.Common.NoneSelected')
+      : game.i18n.localize('WOD6E.NoneSelected')
 
     return context
   }

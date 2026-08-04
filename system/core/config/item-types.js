@@ -62,7 +62,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['discipline'],
     sheetClass: DisciplineItemSheet,
     sheetModel: DisciplineItemModel,
-    splat: 'core',
+    splat: 'vampire',
     subtypes: Disciplines,
     subtypePath: 'disciplineType'
   }

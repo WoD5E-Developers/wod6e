@@ -10,8 +10,21 @@
     }
   },
   "WOD6E": {
+    "_Core": "",
     "_GamePaused": "",
+    "_ItemType": "",
     "_Name": "",
+    "_NewString": "",
+    "_NoneSelected": "",
+    "_System": "",
+    "APPLICATIONS": {
+      "_CompendiumBrowser": "",
+      "_CompendiumBrowserControlHint": "",
+      "_CompendiumBrowserControlLabel": "",
+      "_ConfigureSources": "",
+      "_NoResultsFound": "",
+      "_SidebarLabel": ""
+    },
     "ATTRIBUTES": {
       "_Attributes": "",
       "_Charisma": "",
