@@ -99,7 +99,6 @@
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybgGDoxxrvAnPhYGzMlQLzuMasz6Df213auGQ.ttf) format('truetype');
 }
-/* Pause */
 #pause {
   background: none;
 }
@@ -110,6 +109,9 @@
   margin-top: 150px;
   font-weight: bold;
   color: var(--system-color-8);
+}
+.compendium-sidebar .wod5e-compendium-search {
+  margin: 0 8px 0 8px;
 }
 
 :root {

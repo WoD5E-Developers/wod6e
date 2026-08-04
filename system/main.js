@@ -35,6 +35,7 @@ import {
 } from './core/actors/scripts/prepare-core-partials.js'
 import { BaseDefinitionClass } from './core/config/base-definition-class.js'
 import { loadControls } from './core/scripts/controls.js'
+import { WoDCompendiumDirectory } from './core/ui/wod-compendium.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -79,6 +80,7 @@ Hooks.once('init', async function () {
   CONFIG.Actor.documentClass = WoDActor
   // Custom UI implementations
   CONFIG.ui.settings = WoDSettings
+  CONFIG.ui.compendium = WoDCompendiumDirectory
   CONFIG.ui.pause = WoDPause
 
   // Loop through each entry in the actorTypesList and register their sheet classes
