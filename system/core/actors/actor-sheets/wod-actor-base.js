@@ -235,6 +235,9 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
     html.querySelectorAll('.resource-tracker-space').forEach((element) => {
       element.addEventListener('contextmenu', _onDisableTrackerValue.bind(this))
     })
+
+    // Restore scroll positions from previous render cycle
+    ActorUX._restoreScrollPositions(this)
   }
 
   #createDragDropHandlers() {

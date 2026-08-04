@@ -1,0 +1,20 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}">
+  <div class="sheet-field">
+    <label>Name</label>
+    <input
+      type="text"
+      name="system.frenzy.name"
+      value="{{ frenzy.name }}"
+      placeholder="{{localize 'WOD6E.Name'}}"
+    />
+  </div>
+  <div class="prose-mirror-section">
+    <div class="prose-mirror-header">
+        Description
+    </div>
+    <prose-mirror name="system.frenzy.description" value="{{frenzy.description}}"
+        toggled="true" compact="true">
+        {{{enrichedFrenzyDescription}}}
+    </prose-mirror>
+  </div>
+</section>

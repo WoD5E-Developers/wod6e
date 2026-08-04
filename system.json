@@ -42,6 +42,7 @@
     },
     "Item": {
       "resource": {},
+      "clan": {},
       "discipline": {}
     }
   },

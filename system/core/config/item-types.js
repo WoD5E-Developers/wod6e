@@ -1,13 +1,18 @@
 // Definition classes
 
 // Item models and sheets
+import { BaseDefinitionClass } from './base-definition-class.js'
+// Resource
+import { ResourceTypes } from './resource-types.js'
+import { ResourceItemModel } from '../items/data-models/resource-item-model.js'
+import { ResourceItemSheet } from '../items/item-sheets/resource-item-sheet.js'
+// Clan
+import { ClanItemModel } from '../../splats/vampire/items/data-models/clan-item-model.js'
+import { ClanItemSheet } from '../../splats/vampire/items/item-sheets/clan-item-sheet.js'
+// Discipline
 import { Disciplines } from '../../splats/vampire/config/disciplines.js'
 import { DisciplineItemModel } from '../../splats/vampire/items/data-models/discipline-item-model.js'
 import { DisciplineItemSheet } from '../../splats/vampire/items/item-sheets/discipline-item-sheet.js'
-import { ResourceItemModel } from '../items/data-models/resource-item-model.js'
-import { ResourceItemSheet } from '../items/item-sheets/resource-item-sheet.js'
-import { BaseDefinitionClass } from './base-definition-class.js'
-import { ResourceTypes } from './resource-types.js'
 
 /*
  *   Each item type is defined through here; this includes the item's label,
@@ -37,6 +42,18 @@ export class ItemTypes extends BaseDefinitionClass {
     splat: 'core',
     subtypes: ResourceTypes,
     subtypePath: 'resourceType'
+  }
+
+  static clan = {
+    label: 'TYPES.Item.clan',
+    img: '',
+    types: ['clan'],
+    sheetClass: ClanItemSheet,
+    restrictedActorTypes: ['vampire'],
+    excludedActorTypes: ['spc'],
+    limitOnePerActor: true,
+    sheetModel: ClanItemModel,
+    splat: 'vampire'
   }
 
   static discipline = {

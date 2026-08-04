@@ -1,6 +1,9 @@
 // Various button functions
 import { _onFormatDataId } from '../scripts/on-format-data-id.js'
 import { _onSyncFromDataItem, _onSyncToDataItems } from '../scripts/item-syncing.js'
+import { _onDocumentPointerDown } from '../../fields/multiselect.js'
+import { ItemUX } from '../scripts/item-ux.js'
+import { ActorUX } from '../../actors/scripts/actor-ux.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -13,6 +16,8 @@ export class WoDItemBase extends HandlebarsApplicationMixin(
 ) {
   constructor(options = {}) {
     super(options)
+
+    this._dropdownStates = new Set()
   }
 
   static DEFAULT_OPTIONS = {
@@ -27,7 +32,7 @@ export class WoDItemBase extends HandlebarsApplicationMixin(
     classes: ['wod6e', 'item', 'sheet'],
     position: {
       width: 530,
-      height: 400
+      height: 485
     },
     actions: {
       formatDataId: _onFormatDataId,
@@ -132,5 +137,23 @@ export class WoDItemBase extends HandlebarsApplicationMixin(
 
     // Update the item data
     await this.item.update(submitData)
+  }
+
+  _preRender() {
+    // Save scroll position of this render cycle
+    ActorUX._saveScrollPositions(this)
+
+    // Save dropdown states of this render cycle
+    ItemUX._saveDropdownStates(this)
+  }
+
+  async _onRender() {
+    // Multiselect dropdown listeners and things
+    this._boundMultiSelectOutsideClick ??= _onDocumentPointerDown.bind(this)
+    document.addEventListener('pointerdown', this._boundMultiSelectOutsideClick)
+    ItemUX._restoreDropdownStates(this)
+
+    // Restore scroll positions from previous render cycle
+    ActorUX._restoreScrollPositions(this)
   }
 }

@@ -48,16 +48,16 @@ export class DisciplineItemSheet extends HandlebarsApplicationMixin(WoDItemBase)
 
   async _prepareContext() {
     // Top-level variables
-    const data = await super._prepareContext()
+    const context = await super._prepareContext()
     const item = this.item
     const itemData = item.system
 
-    data.level = itemData?.level || 1
+    context.level = itemData?.level || 1
 
-    data.disciplineTypeOptions = WOD6E.configs.Disciplines.getList({})
-    data.disciplineTypeSelected = itemData?.disciplineType
+    context.disciplineTypeOptions = WOD6E.configs.Disciplines.getList({})
+    context.disciplineTypeSelected = itemData?.disciplineType
 
-    return data
+    return context
   }
 
   async _preparePartContext(partId, context, options) {

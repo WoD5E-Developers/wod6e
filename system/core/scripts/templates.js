@@ -8,6 +8,7 @@ export const preloadHandlebarsTemplates = async function () {
   const templatePaths = [
     // Generic partials
     'templates/generic/tab-navigation.hbs',
+    'systems/wod6e/templates/core/fields/multi-select.hbs',
 
     // Core actor templates
     'systems/wod6e/templates/core/actors/parts/attributes.hbs',
@@ -42,7 +43,12 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/splats/vampire/actors/parts/clan-traits.hbs',
 
     // Vampire item templates
-    'systems/wod6e/templates/splats/vampire/items/discipline-item-sheet.hbs'
+    'systems/wod6e/templates/splats/vampire/items/discipline-item-sheet.hbs',
+    'systems/wod6e/templates/splats/vampire/items/clan-item-sheet.hbs',
+    'systems/wod6e/templates/splats/vampire/items/parts/clan-beast.hbs',
+    'systems/wod6e/templates/splats/vampire/items/parts/clan-curse.hbs',
+    'systems/wod6e/templates/splats/vampire/items/parts/clan-discipline-selection.hbs',
+    'systems/wod6e/templates/splats/vampire/items/parts/clan-frenzy.hbs'
   ]
 
   /* Load the template parts
