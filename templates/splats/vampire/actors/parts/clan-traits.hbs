@@ -11,19 +11,18 @@
     {{#each clanTraits as |trait|}}
     <div
       class="sheet-section-row item-section"
-      data-lifepath="{{ trait.key }}"
+      data-lifepath="{{ trait.uuid }}"
     >
       <button
         type="button"
         class="sheet-section-label"
         data-action="sendItemToChat"
-        data-lifepath="{{ trait.key }}"
         title="Click to post to chat"
       >
         <span class="item-name bolded">{{ trait.name }}.</span>
       </button>
       {{#if trait.description}}
-      <span class="item-description">{{ trait.description }}</span>
+      <span class="item-description">{{ descriptionShort trait.description }}</span>
       {{/if}}
     </div>
     {{/each}}

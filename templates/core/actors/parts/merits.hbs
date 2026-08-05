@@ -11,19 +11,18 @@
     {{#each merits as |merit|}}
     <div
       class="sheet-section-row item-section"
-      data-merit="{{ merit.key }}"
+      data-merit="{{ merit.uuid }}"
     >
       <button
         type="button"
         class="sheet-section-label"
         data-action="sendItemToChat"
-        data-merit="{{ merit.key }}"
         title="Click to post to chat"
       >
         <span class="item-name bolded">{{ merit.name }}.</span>
       </button>
       {{#if merit.description}}
-      <span class="item-description">{{ merit.description }}</span>
+      <span class="item-description">{{ descriptionShort merit.description }}</span>
       {{/if}}
     </div>
     {{/each}}

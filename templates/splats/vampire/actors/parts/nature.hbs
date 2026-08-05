@@ -11,13 +11,12 @@
     {{#each nature as |natureFeature|}}
     <div
       class="sheet-section-row item-section"
-      data-nature="{{ natureFeature.key }}"
+      data-nature="{{ natureFeature.uuid }}"
     >
       <button
         type="button"
         class="sheet-section-label"
         data-action="sendItemToChat"
-        data-nature="{{ natureFeature.key }}"
         title="Click to post to chat"
       >
         <span class="item-name bolded">{{ natureFeature.name }}.</span>

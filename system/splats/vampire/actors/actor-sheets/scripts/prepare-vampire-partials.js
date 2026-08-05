@@ -37,31 +37,89 @@ export const prepareLeftColumnContext = async function (context, actor) {
   return context
 }
 
-export const prepareMiddleColumnContext = async function (context) {
-  context.equipment = []
+export const prepareMiddleColumnContext = async function (context, actor) {
+  const equipment = actor.items.filter((item) => item.type === 'equipment')
+  context.equipment = await Promise.all(
+    equipment.map(async (item) => ({
+      uuid: item.uuid,
+      name: item.name,
+      img: item.img,
+      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        item.system.description ?? ''
+      )
+    }))
+  )
 
   return context
 }
 
-export const prepareRightColumnContext = async function (context) {
-  context.lifepaths = []
+export const prepareRightColumnContext = async function (context, actor) {
+  const lifepaths = actor.items.filter((item) => item.type === 'lifepath')
+  context.lifepaths = await Promise.all(
+    lifepaths.map(async (lifepath) => ({
+      uuid: lifepath.uuid,
+      name: lifepath.name,
+      img: lifepath.img,
+      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        lifepath.system.description ?? ''
+      )
+    }))
+  )
 
-  context.clanTraits = []
+  const clanTraits = actor.items.filter((item) => item.type === 'clanTrait')
+  context.clanTraits = await Promise.all(
+    clanTraits.map(async (clanTrait) => ({
+      uuid: clanTrait.uuid,
+      name: clanTrait.name,
+      img: clanTrait.img,
+      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        clanTrait.system.description ?? ''
+      )
+    }))
+  )
 
-  context.merits = []
+  const merits = actor.items.filter((item) => item.type === 'merit')
+  context.merits = await Promise.all(
+    merits.map(async (merit) => ({
+      uuid: merit.uuid,
+      name: merit.name,
+      img: merit.img,
+      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        merit.system.description ?? ''
+      )
+    }))
+  )
 
-  context.flaws = []
+  const flaws = actor.items.filter((item) => item.type === 'flaw')
+  context.flaws = await Promise.all(
+    flaws.map(async (flaw) => ({
+      uuid: flaw.uuid,
+      name: flaw.name,
+      img: flaw.img,
+      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        flaw.system.description ?? ''
+      )
+    }))
+  )
 
   const nature = context.nature
   const natureData = nature?.system || {}
   context.nature = [
     {
+      uuid: nature?.uuid,
       name: `${nature?.name}`,
-      description: natureData?.description
+      img: nature?.img,
+      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        natureData?.description ?? ''
+      )
     },
     {
+      uuid: nature?.uuid,
       name: `${nature?.name} Outburst: ${natureData?.outburst?.name}`,
-      description: natureData?.outburst?.description
+      img: nature?.img,
+      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        natureData?.outburst?.description ?? ''
+      )
     }
   ]
 
@@ -69,12 +127,20 @@ export const prepareRightColumnContext = async function (context) {
   const clanData = clan?.system || {}
   context.beast = [
     {
+      uuid: clan?.uuid,
       name: `${clan?.name} Beast: ${clanData?.beast?.name}`,
-      description: clanData?.beast?.description
+      img: clan?.img,
+      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        clanData?.beast?.description ?? ''
+      )
     },
     {
+      uuid: clan?.uuid,
       name: `${clan?.name} Frenzy: ${clanData?.frenzy?.name}`,
-      description: clanData?.frenzy?.description
+      img: clan?.img,
+      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        clanData?.frenzy?.description ?? ''
+      )
     }
   ]
 

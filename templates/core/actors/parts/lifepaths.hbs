@@ -11,19 +11,18 @@
     {{#each lifepaths as |lifepath|}}
     <div
       class="sheet-section-row item-section"
-      data-lifepath="{{ lifepath.key }}"
+      data-lifepath="{{ lifepath.uuid }}"
     >
       <button
         type="button"
         class="sheet-section-label"
         data-action="sendItemToChat"
-        data-lifepath="{{ lifepath.key }}"
         title="Click to post to chat"
       >
         <span class="item-name bolded">{{ lifepath.name }}.</span>
       </button>
       {{#if lifepath.description}}
-      <span class="item-description">{{ lifepath.description }}</span>
+      <span class="item-description">{{ descriptionShort lifepath.description }}</span>
       {{/if}}
     </div>
     {{/each}}

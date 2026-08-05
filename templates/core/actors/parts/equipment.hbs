@@ -11,13 +11,12 @@
     {{#each equipment as |item|}}
     <div
       class="sheet-section-row item-section"
-      data-flaw="{{ item.key }}"
+      data-flaw="{{ item.uuid }}"
     >
       <button
         type="button"
         class="sheet-section-label"
         data-action="sendItemToChat"
-        data-flaw="{{ item.key }}"
         title="Click to post to chat"
       >
         <span class="item-name">{{ item.name }}</span>

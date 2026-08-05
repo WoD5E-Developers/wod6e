@@ -11,13 +11,12 @@
     {{#each beast as |beastFeature|}}
     <div
       class="sheet-section-row item-section"
-      data-beast="{{ beastFeature.key }}"
+      data-beast="{{ beastFeature.uuid }}"
     >
       <button
         type="button"
         class="sheet-section-label"
         data-action="sendItemToChat"
-        data-beast="{{ beastFeature.key }}"
         title="Click to post to chat"
       >
         <span class="item-name bolded">{{{ beastFeature.name }}}.</span>
