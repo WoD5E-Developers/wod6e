@@ -5,6 +5,7 @@
     },
     "Item": {
       "_clan": "",
+      "_clanTrait": "",
       "_discipline": "",
       "_resource": ""
     }

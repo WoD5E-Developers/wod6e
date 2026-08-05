@@ -1,0 +1,12 @@
+<div class="item-name">
+  {{#if locked}}
+  <h1>{{ name }}</h1>
+  {{else}}
+  <input
+    name="name"
+    type="text"
+    value="{{ name }}"
+    placeholder="{{localize 'WOD6E.Name'}}"
+  />
+  {{/if}}
+</div>

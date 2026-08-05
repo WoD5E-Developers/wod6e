@@ -13,6 +13,8 @@ import { ClanItemSheet } from '../../splats/vampire/items/item-sheets/clan-item-
 import { Disciplines } from '../../splats/vampire/config/disciplines.js'
 import { DisciplineItemModel } from '../../splats/vampire/items/data-models/discipline-item-model.js'
 import { DisciplineItemSheet } from '../../splats/vampire/items/item-sheets/discipline-item-sheet.js'
+import { ClanTraitItemSheet } from '../../splats/vampire/items/item-sheets/clan-trait-item-sheet.js'
+import { ClanTraitItemModel } from '../../splats/vampire/items/data-models/clan-trait-item-model.js'
 
 /*
  *   Each item type is defined through here; this includes the item's label,
@@ -49,10 +51,19 @@ export class ItemTypes extends BaseDefinitionClass {
     img: '',
     types: ['clan'],
     sheetClass: ClanItemSheet,
-    restrictedActorTypes: ['vampire'],
-    excludedActorTypes: ['spc'],
-    limitOnePerActor: true,
     sheetModel: ClanItemModel,
+    restrictedActorTypes: ['vampire'],
+    limitOnePerActor: true,
+    splat: 'vampire'
+  }
+
+  static clanTrait = {
+    label: 'TYPES.Item.clanTrait',
+    img: '',
+    types: ['clanTrait'],
+    sheetClass: ClanTraitItemSheet,
+    sheetModel: ClanTraitItemModel,
+    restrictedActorTypes: ['vampire'],
     splat: 'vampire'
   }
 

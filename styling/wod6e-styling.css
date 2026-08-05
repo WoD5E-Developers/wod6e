@@ -700,23 +700,26 @@
   margin-left: 15px;
 }
 
-.multi-select {
+.multi-select-section {
+  min-width: stretch;
+}
+.multi-select-section .multi-select {
   position: relative;
   width: 100%;
 }
-.multi-select .multi-select-trigger {
+.multi-select-section .multi-select .multi-select-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   cursor: pointer;
 }
-.multi-select .multi-select-value {
+.multi-select-section .multi-select .multi-select-value {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.multi-select .multi-select-dropdown {
+.multi-select-section .multi-select .multi-select-dropdown {
   position: absolute;
   z-index: 100;
   top: 100%;
@@ -727,28 +730,28 @@
   background: var(--multiselect-background);
   border: 1px solid var(--multiselect-border);
 }
-.multi-select .multi-select-dropdown[hidden] {
+.multi-select-section .multi-select .multi-select-dropdown[hidden] {
   display: none;
 }
-.multi-select button:hover {
+.multi-select-section .multi-select button:hover {
   background: var(--multiselect-hover-background);
   border: 1px solid var(--multiselect-hover-border);
   color: var(--multiselect-hover-color);
 }
-.multi-select .multi-select-option {
+.multi-select-section .multi-select .multi-select-option {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 5px;
   cursor: pointer;
 }
-.multi-select .multi-select-option > input {
+.multi-select-section .multi-select .multi-select-option > input {
   margin: 0;
 }
-.multi-select .multi-select-option > input::before {
+.multi-select-section .multi-select .multi-select-option > input::before {
   color: var(--multiselect-border);
 }
-.multi-select .multi-select-option > input:checked::after {
+.multi-select-section .multi-select .multi-select-option > input:checked::after {
   color: var(--multiselect-checked-color);
 }
 
@@ -784,15 +787,25 @@
   border-color: var(--color-border-highlight);
 }
 
+.item.sheet .item-header {
+  display: grid;
+  grid-template-rows: min-content;
+  grid-template-columns: minmax(100px, 0fr) minmax(150px, 1fr) minmax(150px, 1fr);
+  grid-template-areas: "itemImage itemName itemName" "itemImage itemHeaderFields itemHeaderFields";
+}
+.item.sheet .item-image {
+  grid-area: itemImage;
+}
+.item.sheet .item-name {
+  grid-area: itemName;
+  padding: 10px;
+}
+.item.sheet .header-fields {
+  grid-area: itemHeaderFields;
+  padding: 10px;
+}
 .item.sheet .window-content {
   padding: 5px;
-}
-.item.sheet .item-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 5px;
 }
 .item.sheet .item-header .item-image {
   border: 1px solid var(--tracker-border);
@@ -804,17 +817,17 @@
   margin: 5px;
 }
 .item.sheet .item-header .header-fields {
-  flex: 1;
-  margin-top: auto;
-}
-.item.sheet .item-header .header-fields .itemname {
-  font-size: 35px;
-  font-family: var(--font-h1);
+  display: flex;
+  flex-direction: row;
 }
 .item.sheet .item-header .item-resource {
+  flex-grow: 1;
   text-wrap: nowrap;
-  margin-left: 5px;
-  margin-right: 5px;
+  flex-basis: min-content;
+}
+.item.sheet .item-header .item-resource input[type="number"] {
+  max-width: 40px;
+  text-align: center;
 }
 .item.sheet section.tab {
   padding: 10px 10px 0px 10px;

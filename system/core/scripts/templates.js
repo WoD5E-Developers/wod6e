@@ -26,6 +26,8 @@ export const preloadHandlebarsTemplates = async function () {
 
     // Core item templates
     'systems/wod6e/templates/core/items/resource-item-sheet.hbs',
+    'systems/wod6e/templates/core/items/parts/item-image.hbs',
+    'systems/wod6e/templates/core/items/parts/item-name.hbs',
     'systems/wod6e/templates/core/items/parts/data-item-id.hbs',
     'systems/wod6e/templates/core/items/parts/description.hbs',
     'systems/wod6e/templates/core/items/parts/item-settings.hbs',

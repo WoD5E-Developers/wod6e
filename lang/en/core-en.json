@@ -5,6 +5,7 @@
     },
     "Item": {
       "clan": "Clan",
+      "clanTrait": "Clan Trait",
       "discipline": "Discipline",
       "resource": "Resource"
     }
