@@ -1,9 +1,13 @@
 // Preparation functions
 import {
+  prepareIndulgingContext,
+  prepareOutburstContext
+} from './scripts/prepare-nature-partials.js'
+import {
   prepareDescriptionContext,
   prepareItemSettingsContext
-} from '../scripts/prepare-partials.js'
-import { WoDItemBase } from './wod-item-base.js'
+} from '../../../../core/items/scripts/prepare-partials.js'
+import { WoDItemBase } from '../../../../core/items/item-sheets/wod-item-base.js'
 
 // Base item sheet to extend from
 
@@ -28,7 +32,13 @@ export class NatureItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
       template: 'templates/generic/tab-navigation.hbs'
     },
     description: {
-      template: 'systems/wod6e/templates/core/items/parts/description.hbs'
+      template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
+    },
+    indulging: {
+      template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
+    },
+    outburst: {
+      template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
     },
     settings: {
       template: 'systems/wod6e/templates/core/items/parts/item-settings.hbs'
@@ -40,6 +50,16 @@ export class NatureItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
       id: 'description',
       group: 'primary',
       label: 'WOD6E.TABS.Description'
+    },
+    indulging: {
+      id: 'indulging',
+      group: 'primary',
+      label: 'WOD6E.TABS.Indulging'
+    },
+    outburst: {
+      id: 'outburst',
+      group: 'primary',
+      label: 'WOD6E.TABS.Outburst'
     },
     settings: {
       id: 'settings',
@@ -69,6 +89,10 @@ export class NatureItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
       // Stats
       case 'description':
         return prepareDescriptionContext(context, item)
+      case 'indulging':
+        return prepareIndulgingContext(context, item)
+      case 'outburst':
+        return prepareOutburstContext(context, item)
       case 'settings':
         return prepareItemSettingsContext(context, item)
     }

@@ -13,18 +13,24 @@ import { ClanItemSheet } from '../../splats/vampire/items/item-sheets/clan-item-
 import { Disciplines } from '../../splats/vampire/config/disciplines.js'
 import { DisciplineItemModel } from '../../splats/vampire/items/data-models/discipline-item-model.js'
 import { DisciplineItemSheet } from '../../splats/vampire/items/item-sheets/discipline-item-sheet.js'
+// Clan Trait
 import { ClanTraitItemSheet } from '../../splats/vampire/items/item-sheets/clan-trait-item-sheet.js'
 import { ClanTraitItemModel } from '../../splats/vampire/items/data-models/clan-trait-item-model.js'
+// Equipment
 import { EquipmentItemSheet } from '../items/item-sheets/equipment-item-sheet.js'
 import { EquipmentItemModel } from '../items/data-models/equipment-item-model.js'
+// Flaw
 import { FlawItemSheet } from '../items/item-sheets/flaw-item-sheet.js'
 import { FlawItemModel } from '../items/data-models/flaw-item-model.js'
+// Lifepath
 import { LifepathItemSheet } from '../items/item-sheets/lifepath-item-sheet.js'
 import { LifepathItemModel } from '../items/data-models/lifepath-item-model.js'
+// Merit
 import { MeritItemSheet } from '../items/item-sheets/merit-item-sheet.js'
 import { MeritItemModel } from '../items/data-models/merit-item-model.js'
-import { NatureItemSheet } from '../items/item-sheets/nature-item-sheet.js'
-import { NatureItemModel } from '../items/data-models/nature-item-model.js'
+// Nature
+import { NatureItemSheet } from '../../splats/vampire/items/item-sheets/nature-item-sheet.js'
+import { NatureItemModel } from '../../splats/vampire/items/data-models/nature-item-model.js'
 
 /*
  *   Each item type is defined through here; this includes the item's label,
@@ -98,7 +104,8 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['nature'],
     sheetClass: NatureItemSheet,
     sheetModel: NatureItemModel,
-    splat: 'core'
+    limitOnePerActor: true,
+    splat: 'vampire'
   }
 
   static clan = {

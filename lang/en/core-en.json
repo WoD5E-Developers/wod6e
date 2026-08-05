@@ -107,7 +107,9 @@
     "TABS": {
       "Description": "Description",
       "Main": "Main",
-      "Settings": "Settings"
+      "Settings": "Settings",
+      "Outburst": "Outburst",
+      "Indulging": "Indulging"
     }
   }
 }

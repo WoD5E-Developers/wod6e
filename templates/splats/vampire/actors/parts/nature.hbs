@@ -8,22 +8,22 @@
   </header>
 
   <div class="sheet-section-list">
-    {{#each natures as |nature|}}
+    {{#each nature as |natureFeature|}}
     <div
       class="sheet-section-row item-section"
-      data-nature="{{ nature.key }}"
+      data-nature="{{ natureFeature.key }}"
     >
       <button
         type="button"
         class="sheet-section-label"
         data-action="sendItemToChat"
-        data-nature="{{ nature.key }}"
+        data-nature="{{ natureFeature.key }}"
         title="Click to post to chat"
       >
-        <span class="item-name bolded">{{ nature.name }}.</span>
+        <span class="item-name bolded">{{ natureFeature.name }}.</span>
       </button>
-      {{#if nature.description}}
-      <span class="item-description">{{ nature.description }}</span>
+      {{#if natureFeature.description}}
+      <span class="item-description">{{{ descriptionShort natureFeature.description }}}</span>
       {{/if}}
     </div>
     {{/each}}

@@ -14,7 +14,7 @@ export const prepareBeastContext = async function (context, item) {
 
   context.description = await buildEnrichedField({
     path: 'system.description',
-    field: itemData?.description
+    value: itemData?.description
   })
 
   return context
@@ -34,7 +34,7 @@ export const prepareCurseContext = async function (context, item) {
 
   context.description = await buildEnrichedField({
     path: 'system.description',
-    field: itemData?.description
+    value: itemData?.description
   })
 
   return context
@@ -54,7 +54,7 @@ export const prepareFrenzyContext = async function (context, item) {
 
   context.description = await buildEnrichedField({
     path: 'system.description',
-    field: itemData?.description
+    value: itemData?.description
   })
 
   return context

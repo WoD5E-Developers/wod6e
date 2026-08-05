@@ -89,6 +89,7 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     context.tabs = this._prepareTabs('primary')
 
     context.clan = actor.items.filter((item) => item.type === 'clan')[0]
+    context.nature = actor.items.filter((item) => item.type === 'nature')[0]
 
     return context
   }

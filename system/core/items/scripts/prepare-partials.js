@@ -9,7 +9,7 @@ export const prepareDescriptionContext = async function (context, item) {
   // Part-specific data
   context.description = await buildEnrichedField({
     path: 'system.description',
-    field: itemData?.description
+    value: itemData?.description
   })
 
   return context
