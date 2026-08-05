@@ -9,9 +9,6 @@ export class WoDActorModel extends foundry.abstract.TypeDataModel {
 
     const schema = {}
 
-    // Locked field, controls whether the sheet is locked or unlocked
-    schema.locked = new fields.BooleanField({ initial: false })
-
     // Health fields
     schema.health = new fields.SchemaField({
       max: new fields.NumberField({ initial: 5, min: 1, integer: true, nullable: false }),

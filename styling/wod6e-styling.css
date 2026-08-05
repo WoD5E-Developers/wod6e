@@ -113,6 +113,9 @@
 .compendium-sidebar .wod5e-compendium-search {
   margin: 0 8px 0 8px;
 }
+.clickable {
+  cursor: pointer;
+}
 
 :root {
   --system-color-1: #302d5bf0;
@@ -284,9 +287,6 @@
 .actor.sheet .align-center {
   justify-content: center;
   text-align: center;
-}
-.actor.sheet .clickable {
-  cursor: pointer;
 }
 .actor.sheet .sheet-section {
   width: 100%;

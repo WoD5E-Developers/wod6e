@@ -99,7 +99,6 @@ export class WoDItemBase extends HandlebarsApplicationMixin(
     let canDeleteItem = true
     if (actor) {
       // Here, we check if the user owns the actor (if there is a actor as the item's parent)
-      // If so, go by the actor's locked state
       const userOwnsActor =
         actor?.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER) ?? false
 

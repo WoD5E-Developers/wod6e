@@ -11,6 +11,7 @@ import {
 } from '../scripts/prepare-core-partials.js'
 import { _onCreateItem, _onSearchItem } from '../scripts/item-actions.js'
 import { _onOpenItem } from '../../applications/compendium-browser/scripts/on-open-item.js'
+import { _onEditImage } from '../scripts/on-edit-image.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -47,6 +48,7 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
       height: 1050
     },
     actions: {
+      editImage: _onEditImage,
       setTrackerValue: _onSetTrackerValue,
       createItem: _onCreateItem,
       searchItem: _onSearchItem,
@@ -102,13 +104,6 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
     // Prepare items
     await this.prepareItems(actor)
 
-    let locked = true
-    const userOwnsActor =
-      actor?.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER) ?? false
-    if (userOwnsActor) {
-      locked = actorData.locked
-    }
-
     // Transform any data needed for sheet rendering
     return {
       ...data,
@@ -120,8 +115,7 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
 
       settings: actorData.settings,
 
-      isOwner: actor.isOwner,
-      locked
+      isOwner: actor.isOwner
     }
   }
 
@@ -214,13 +208,6 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
 
     // Update the window title (since ActorSheetV2 doesn't do it automatically)
     this.window.title.textContent = this.title
-
-    // Toggle whether the sheet is locked or not
-    if (this.actor.system.locked) {
-      html.classList.add('locked')
-    } else {
-      html.classList.remove('locked')
-    }
 
     // Drag and drop functionality
     this.#dragDrop.forEach((d) => d.bind(this.element))
