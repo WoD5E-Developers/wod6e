@@ -64,6 +64,7 @@
       "ConfirmOverwriteString": "This action will overwrite {string} existing items. Are you sure you want to proceed?",
       "DataItemId": "Data Item ID",
       "DataItemIdCannotBeEmpty": "Data Item ID cannot be empty. Please go to the item's Settings tab and click the \"Generate Data Item ID\" button.",
+      "DeleteItem": "Delete Item",
       "GenerateDataItemID": "Generate Data Item ID",
       "Level": "Level",
       "NoItemsFound": "There were no items found associated with Data Item ID \"{dataItemId}.\"",

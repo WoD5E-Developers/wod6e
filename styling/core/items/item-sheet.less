@@ -17,12 +17,10 @@
 
 	.item-name {
 		grid-area: itemName;
-		padding: 10px;
 	}
 
 	.header-fields {
 		grid-area: itemHeaderFields;
-		padding: 10px;
 	}
 }
 
@@ -33,6 +31,21 @@
 	}
 
 	.item-header {
+		.item-name {
+			padding: 10px;
+			display: flex;
+			flex-direction: row;
+
+			.item-delete {
+				font-size: 15pt;
+				max-width: 15px;
+			}
+		}
+
+		.header-fields {
+			padding: 10px;
+		}
+
 		.item-image {
       border: 1px solid var(--tracker-border);
 			max-width: 100px;

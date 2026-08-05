@@ -811,14 +811,24 @@
 }
 .item.sheet .item-name {
   grid-area: itemName;
-  padding: 10px;
 }
 .item.sheet .header-fields {
   grid-area: itemHeaderFields;
-  padding: 10px;
 }
 .item.sheet .window-content {
   padding: 5px;
+}
+.item.sheet .item-header .item-name {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+.item.sheet .item-header .item-name .item-delete {
+  font-size: 15pt;
+  max-width: 15px;
+}
+.item.sheet .item-header .header-fields {
+  padding: 10px;
 }
 .item.sheet .item-header .item-image {
   border: 1px solid var(--tracker-border);

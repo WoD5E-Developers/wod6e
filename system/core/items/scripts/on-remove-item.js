@@ -5,7 +5,7 @@ export const _onRemoveItem = async function (event) {
 
   // Define the content of the Dialog
   const content = `<p>
-    ${game.i18n.format('WOD6E.ConfirmDeleteDescription', {
+    ${game.i18n.format('WOD6E.ITEMS.ConfirmDeleteDescription', {
       string: item.name
     })}
   </p>`
@@ -13,7 +13,7 @@ export const _onRemoveItem = async function (event) {
   // Prompt a dialog for the user to confirm they want to delete the item
   const confirmDelete = await foundry.applications.api.DialogV2.wait({
     window: {
-      title: game.i18n.localize('WOD6E.ConfirmDelete')
+      title: game.i18n.localize('WOD6E.ITEMS.ConfirmDelete')
     },
     classes: ['wod6e', 'dialog'],
     content,

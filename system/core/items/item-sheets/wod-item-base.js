@@ -95,8 +95,8 @@ export class WoDItemBase extends HandlebarsApplicationMixin(
     // Prepare tabs
     data.tabs = this.getTabs()
 
-    // Determine whether the item is locked from the user or not based on permissions
-    let locked = true
+    // Determine whether the item can be deleted by the user or not based on permissions
+    let canDeleteItem = true
     if (actor) {
       // Here, we check if the user owns the actor (if there is a actor as the item's parent)
       // If so, go by the actor's locked state
@@ -104,16 +104,16 @@ export class WoDItemBase extends HandlebarsApplicationMixin(
         actor?.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER) ?? false
 
       if (userOwnsActor) {
-        locked = actor?.system?.locked
+        canDeleteItem = true
       }
     } else {
       // Here, we're checking if the user owns the item (in the case the item has no parent actor)
-      // If the user can edit the item, we set locked to false
+      // If the user can edit the item, we set canDeleteItem to true
       const userCanEditItem =
         item?.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER) ?? false
 
       if (userCanEditItem) {
-        locked = false
+        canDeleteItem = true
       }
     }
 
@@ -124,7 +124,7 @@ export class WoDItemBase extends HandlebarsApplicationMixin(
       name: item.name,
       img: item.img,
 
-      locked,
+      canDeleteItem,
 
       dataItemId: item.getFlag('wod6e', 'dataItemId') || '',
 
