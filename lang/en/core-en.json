@@ -16,6 +16,8 @@
     }
   },
   "WOD6E": {
+    "Cancel": "Cancel",
+    "Confirm": "Confirm",
     "Core": "Core",
     "Create": "Create",
     "GamePaused": "Game Paused",
@@ -25,6 +27,7 @@
     "NoneSelected": "None Selected",
     "Search": "Search",
     "System": "System",
+    "ViewItem": "View Item",
     "APPLICATIONS": {
       "CompendiumBrowser": "Compendium Browser",
       "CompendiumBrowserControlHint": "Opens the compendium browser.",
@@ -55,11 +58,19 @@
       "Flaws": "Flaws"
     },
     "ITEMS": {
+      "ConfirmDelete": "Confirm Delete",
+      "ConfirmDeleteDescription": "Are you sure you want to delete <b>{string}</b>? This cannot be undone.",
+      "ConfirmOverwrite": "Confirm Overwrite",
+      "ConfirmOverwriteString": "This action will overwrite {string} existing items. Are you sure you want to proceed?",
       "DataItemId": "Data Item ID",
+      "DataItemIdCannotBeEmpty": "Data Item ID cannot be empty. Please go to the item's Settings tab and click the \"Generate Data Item ID\" button.",
       "GenerateDataItemID": "Generate Data Item ID",
       "Level": "Level",
+      "NoItemsFound": "There were no items found associated with Data Item ID \"{dataItemId}.\"",
       "PageNumber": "Page Number",
-      "Sourcebook": "Sourcebook"
+      "Sourcebook": "Sourcebook",
+      "SyncFromDataItem": "Sync From Data Item",
+      "SyncToDataItems": "Sync To Data Items"
     },
     "LIFEPATHS": {
       "Lifepaths": "Lifepaths"

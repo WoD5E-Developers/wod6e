@@ -285,6 +285,9 @@
   justify-content: center;
   text-align: center;
 }
+.actor.sheet .clickable {
+  cursor: pointer;
+}
 .actor.sheet .sheet-section {
   width: 100%;
   color: var(--tracker-text);

@@ -16,6 +16,8 @@
     }
   },
   "WOD6E": {
+    "_Cancel": "",
+    "_Confirm": "",
     "_Core": "",
     "_Create": "",
     "_GamePaused": "",
@@ -25,6 +27,7 @@
     "_NoneSelected": "",
     "_Search": "",
     "_System": "",
+    "_ViewItem": "",
     "APPLICATIONS": {
       "_CompendiumBrowser": "",
       "_CompendiumBrowserControlHint": "",
@@ -55,11 +58,19 @@
       "_Flaws": ""
     },
     "ITEMS": {
+      "_ConfirmDelete": "",
+      "_ConfirmDeleteDescription": "",
+      "_ConfirmOverwrite": "",
+      "_ConfirmOverwriteString": "",
       "_DataItemId": "",
+      "_DataItemIdCannotBeEmpty": "",
       "_GenerateDataItemID": "",
       "_Level": "",
+      "_NoItemsFound": "",
       "_PageNumber": "",
-      "_Sourcebook": ""
+      "_Sourcebook": "",
+      "_SyncFromDataItem": "",
+      "_SyncToDataItems": ""
     },
     "LIFEPATHS": {
       "_Lifepaths": ""

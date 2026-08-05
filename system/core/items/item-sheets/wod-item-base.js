@@ -4,6 +4,7 @@ import { _onSyncFromDataItem, _onSyncToDataItems } from '../scripts/item-syncing
 import { _onDocumentPointerDown } from '../../fields/multiselect.js'
 import { ItemUX } from '../scripts/item-ux.js'
 import { ActorUX } from '../../actors/scripts/actor-ux.js'
+import { _onRemoveItem } from '../scripts/on-remove-item.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -37,7 +38,8 @@ export class WoDItemBase extends HandlebarsApplicationMixin(
     actions: {
       formatDataId: _onFormatDataId,
       syncFromDataItem: _onSyncFromDataItem,
-      syncToDataItems: _onSyncToDataItems
+      syncToDataItems: _onSyncToDataItems,
+      removeItem: _onRemoveItem
     }
   }
 

@@ -105,7 +105,7 @@ export const prepareRightColumnContext = async function (context, actor) {
   const nature = context.nature
   if (nature) {
     const natureData = nature?.system || {}
-    context.nature = [
+    context.natureFeatures = [
       {
         uuid: nature?.uuid,
         name: `${nature?.name}`,

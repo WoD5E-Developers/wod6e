@@ -9,7 +9,7 @@ export const _onCreateItem = async function (event, target) {
 
   if (!type) return
 
-  const name = game.i18n.format('NewString', {
+  const name = game.i18n.format('WOD6E.NewString', {
     string: game.i18n.localize(`TYPES.Item.${type}`)
   })
 
