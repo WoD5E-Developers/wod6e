@@ -7,6 +7,11 @@
       "clan": "Clan",
       "clanTrait": "Clan Trait",
       "discipline": "Discipline",
+      "equipment": "Equipment",
+      "flaw": "Flaw",
+      "lifepath": "Lifepath",
+      "merit": "Merit",
+      "nature": "Nature",
       "resource": "Resource"
     }
   },

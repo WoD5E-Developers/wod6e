@@ -15,6 +15,16 @@ import { DisciplineItemModel } from '../../splats/vampire/items/data-models/disc
 import { DisciplineItemSheet } from '../../splats/vampire/items/item-sheets/discipline-item-sheet.js'
 import { ClanTraitItemSheet } from '../../splats/vampire/items/item-sheets/clan-trait-item-sheet.js'
 import { ClanTraitItemModel } from '../../splats/vampire/items/data-models/clan-trait-item-model.js'
+import { EquipmentItemSheet } from '../items/item-sheets/equipment-item-sheet.js'
+import { EquipmentItemModel } from '../items/data-models/equipment-item-model.js'
+import { FlawItemSheet } from '../items/item-sheets/flaw-item-sheet.js'
+import { FlawItemModel } from '../items/data-models/flaw-item-model.js'
+import { LifepathItemSheet } from '../items/item-sheets/lifepath-item-sheet.js'
+import { LifepathItemModel } from '../items/data-models/lifepath-item-model.js'
+import { MeritItemSheet } from '../items/item-sheets/merit-item-sheet.js'
+import { MeritItemModel } from '../items/data-models/merit-item-model.js'
+import { NatureItemSheet } from '../items/item-sheets/nature-item-sheet.js'
+import { NatureItemModel } from '../items/data-models/nature-item-model.js'
 
 /*
  *   Each item type is defined through here; this includes the item's label,
@@ -37,13 +47,58 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static resource = {
     label: 'TYPES.Item.resource',
-    img: 'systems/wod6e/assets/icons/items/resource.svg',
+    img: '',
     types: ['resource'],
     sheetClass: ResourceItemSheet,
     sheetModel: ResourceItemModel,
     splat: 'core',
     subtypes: ResourceTypes,
     subtypePath: 'resourceType'
+  }
+
+  static equipment = {
+    label: 'TYPES.Item.equipment',
+    img: '',
+    types: ['equipment'],
+    sheetClass: EquipmentItemSheet,
+    sheetModel: EquipmentItemModel,
+    splat: 'core'
+  }
+
+  static flaw = {
+    label: 'TYPES.Item.flaw',
+    img: '',
+    types: ['flaw'],
+    sheetClass: FlawItemSheet,
+    sheetModel: FlawItemModel,
+    splat: 'core'
+  }
+
+  static lifepath = {
+    label: 'TYPES.Item.lifepath',
+    img: '',
+    types: ['lifepath'],
+    sheetClass: LifepathItemSheet,
+    sheetModel: LifepathItemModel,
+    splat: 'core'
+  }
+
+  static merit = {
+    label: 'TYPES.Item.merit',
+    img: '',
+    types: ['merit'],
+    sheetClass: MeritItemSheet,
+    sheetModel: MeritItemModel,
+    splat: 'core'
+  }
+
+  static nature = {
+    label: 'TYPES.Item.nature',
+    img: '',
+    types: ['nature'],
+    sheetClass: NatureItemSheet,
+    sheetModel: NatureItemModel,
+    splat: 'core'
   }
 
   static clan = {

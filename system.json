@@ -41,7 +41,13 @@
       "vampire": {}
     },
     "Item": {
+      "equipment": {},
+      "flaw": {},
+      "lifepath": {},
+      "merit": {},
+      "nature": {},
       "resource": {},
+
       "clan": {},
       "clanTrait": {},
       "discipline": {}
