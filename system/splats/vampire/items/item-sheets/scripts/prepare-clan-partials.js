@@ -1,12 +1,21 @@
+import { buildEnrichedField } from '../../../../../core/items/scripts/build-enriched-field.js'
+
 export const prepareBeastContext = async function (context, item) {
   // Tab data
   context.tab = context.tabs.beast
 
   const itemData = item?.system
 
-  context.beast = itemData?.beast || {}
-  context.enrichedBeastDescription =
-    await foundry.applications.ux.TextEditor.implementation.enrichHTML(itemData?.beast?.description)
+  // Part-specific data
+  context.descriptionName = {
+    path: 'system.beast.name',
+    value: itemData?.beast?.name || ''
+  }
+
+  context.description = await buildEnrichedField({
+    path: 'system.description',
+    field: itemData?.description
+  })
 
   return context
 }
@@ -17,9 +26,16 @@ export const prepareCurseContext = async function (context, item) {
 
   const itemData = item?.system
 
-  context.curse = itemData?.curse || {}
-  context.enrichedCurseDescription =
-    await foundry.applications.ux.TextEditor.implementation.enrichHTML(itemData?.curse?.description)
+  // Part-specific data
+  context.descriptionName = {
+    path: 'system.curse.name',
+    value: itemData?.curse?.name || ''
+  }
+
+  context.description = await buildEnrichedField({
+    path: 'system.description',
+    field: itemData?.description
+  })
 
   return context
 }
@@ -30,11 +46,16 @@ export const prepareFrenzyContext = async function (context, item) {
 
   const itemData = item?.system
 
-  context.frenzy = itemData?.frenzy || {}
-  context.enrichedFrenzyDescription =
-    await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-      itemData?.frenzy?.description
-    )
+  // Part-specific data
+  context.descriptionName = {
+    path: 'system.frenzy.name',
+    value: itemData?.frenzy?.name || ''
+  }
+
+  context.description = await buildEnrichedField({
+    path: 'system.description',
+    field: itemData?.description
+  })
 
   return context
 }

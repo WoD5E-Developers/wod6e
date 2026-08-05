@@ -29,7 +29,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/items/parts/item-image.hbs',
     'systems/wod6e/templates/core/items/parts/item-name.hbs',
     'systems/wod6e/templates/core/items/parts/data-item-id.hbs',
-    'systems/wod6e/templates/core/items/parts/description.hbs',
+    'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs',
     'systems/wod6e/templates/core/items/parts/item-settings.hbs',
     'systems/wod6e/templates/core/items/parts/source.hbs',
 
@@ -53,10 +53,7 @@ export const preloadHandlebarsTemplates = async function () {
     // Vampire item templates
     'systems/wod6e/templates/splats/vampire/items/discipline-item-sheet.hbs',
     'systems/wod6e/templates/splats/vampire/items/clan-item-sheet.hbs',
-    'systems/wod6e/templates/splats/vampire/items/parts/clan-beast.hbs',
-    'systems/wod6e/templates/splats/vampire/items/parts/clan-curse.hbs',
-    'systems/wod6e/templates/splats/vampire/items/parts/clan-discipline-selection.hbs',
-    'systems/wod6e/templates/splats/vampire/items/parts/clan-frenzy.hbs'
+    'systems/wod6e/templates/splats/vampire/items/parts/clan-discipline-selection.hbs'
   ]
 
   /* Load the template parts

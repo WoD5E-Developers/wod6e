@@ -28,7 +28,7 @@ export class MeritItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
       template: 'templates/generic/tab-navigation.hbs'
     },
     description: {
-      template: 'systems/wod6e/templates/core/items/parts/description.hbs'
+      template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
     },
     settings: {
       template: 'systems/wod6e/templates/core/items/parts/item-settings.hbs'

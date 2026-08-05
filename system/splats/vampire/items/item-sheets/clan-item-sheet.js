@@ -38,16 +38,16 @@ export class ClanItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
       template: 'templates/generic/tab-navigation.hbs'
     },
     description: {
-      template: 'systems/wod6e/templates/core/items/parts/description.hbs'
+      template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
     },
     beast: {
-      template: 'systems/wod6e/templates/splats/vampire/items/parts/clan-beast.hbs'
+      template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
     },
     curse: {
-      template: 'systems/wod6e/templates/splats/vampire/items/parts/clan-curse.hbs'
+      template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
     },
     frenzy: {
-      template: 'systems/wod6e/templates/splats/vampire/items/parts/clan-frenzy.hbs'
+      template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
     },
     settings: {
       template: 'systems/wod6e/templates/core/items/parts/item-settings.hbs'

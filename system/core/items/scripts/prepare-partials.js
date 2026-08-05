@@ -1,3 +1,5 @@
+import { buildEnrichedField } from './build-enriched-field.js'
+
 export const prepareDescriptionContext = async function (context, item) {
   const itemData = item.system
 
@@ -5,10 +7,10 @@ export const prepareDescriptionContext = async function (context, item) {
   context.tab = context.tabs.description
 
   // Part-specific data
-  context.description = itemData?.description
-  context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-    itemData?.description
-  )
+  context.description = await buildEnrichedField({
+    path: 'system.description',
+    field: itemData?.description
+  })
 
   return context
 }
