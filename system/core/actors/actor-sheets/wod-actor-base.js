@@ -128,17 +128,6 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
   async prepareItems(sheetData) {
     // Make an array to store item-based modifiers
     sheetData.system.itemModifiers = []
-
-    // Do data manipulation we need to do for ALL items here
-    sheetData.items.forEach(async (item) => {
-      // Enrich item descriptions
-      if (item.system?.description) {
-        item.system.enrichedDescription =
-          await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-            item.system.description
-          )
-      }
-    })
   }
 
   static async onSubmitActorForm(event, form, formData) {
