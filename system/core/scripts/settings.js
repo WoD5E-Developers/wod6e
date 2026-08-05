@@ -1,4 +1,4 @@
-import { StorytellerMenu } from '../applications/storyteller-menu.js'
+//import { StorytellerMenu } from '../applications/storyteller-menu.js'
 /* Definitions */
 import { Attributes } from '../config/attributes.js'
 import { Skills } from '../config/skills.js'
@@ -15,6 +15,7 @@ export const loadSettings = async function () {
   */
 
   // Register the storyteller menu
+  /**
   game.settings.registerMenu('wod6e', 'storytellerMenu', {
     name: game.i18n.localize('WOD6E.Settings.StorytellerMenu'),
     hint: game.i18n.localize('WOD6E.Settings.StorytellerMenuHint'),
@@ -23,6 +24,7 @@ export const loadSettings = async function () {
     type: StorytellerMenu,
     restricted: true
   })
+   */
 
   const modCustomList = {
     attribute: {
