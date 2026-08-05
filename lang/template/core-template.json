@@ -17,11 +17,13 @@
   },
   "WOD6E": {
     "_Core": "",
+    "_Create": "",
     "_GamePaused": "",
     "_ItemType": "",
     "_Name": "",
     "_NewString": "",
     "_NoneSelected": "",
+    "_Search": "",
     "_System": "",
     "APPLICATIONS": {
       "_CompendiumBrowser": "",
@@ -106,7 +108,9 @@
     },
     "TABS": {
       "_Description": "",
+      "_Indulging": "",
       "_Main": "",
+      "_Outburst": "",
       "_Settings": ""
     }
   }

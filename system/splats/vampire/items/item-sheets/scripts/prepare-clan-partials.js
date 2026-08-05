@@ -13,8 +13,8 @@ export const prepareBeastContext = async function (context, item) {
   }
 
   context.description = await buildEnrichedField({
-    path: 'system.description',
-    value: itemData?.description
+    path: 'system.beast.description',
+    value: itemData?.beast?.description
   })
 
   return context
@@ -33,8 +33,8 @@ export const prepareCurseContext = async function (context, item) {
   }
 
   context.description = await buildEnrichedField({
-    path: 'system.description',
-    value: itemData?.description
+    path: 'system.curse.description',
+    value: itemData?.curse?.description
   })
 
   return context
@@ -53,8 +53,8 @@ export const prepareFrenzyContext = async function (context, item) {
   }
 
   context.description = await buildEnrichedField({
-    path: 'system.description',
-    value: itemData?.description
+    path: 'system.frenzy.description',
+    value: itemData?.frenzy?.description
   })
 
   return context

@@ -17,11 +17,13 @@
   },
   "WOD6E": {
     "Core": "Core",
+    "Create": "Create",
     "GamePaused": "Game Paused",
     "ItemType": "Item Type",
     "Name": "Name",
     "NewString": "New {string}",
     "NoneSelected": "None Selected",
+    "Search": "Search",
     "System": "System",
     "APPLICATIONS": {
       "CompendiumBrowser": "Compendium Browser",
@@ -106,10 +108,10 @@
     },
     "TABS": {
       "Description": "Description",
+      "Indulging": "Indulging",
       "Main": "Main",
-      "Settings": "Settings",
       "Outburst": "Outburst",
-      "Indulging": "Indulging"
+      "Settings": "Settings"
     }
   }
 }

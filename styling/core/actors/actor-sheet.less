@@ -2,6 +2,11 @@
   min-width: 715px;
 
   .align-right {
+    justify-content: left;
+    text-align: left;
+  }
+
+  .align-right {
     justify-content: right;
     text-align: right;
   }
@@ -44,6 +49,8 @@
   }
 
   .sheet-section-header {
+    display: flex;
+    flex-direction: row;
     margin: 0;
     padding-left: 5px;
     border-bottom: 2px solid var(--tracker-border);
@@ -52,6 +59,10 @@
     font-weight: 700;
     line-height: 1;
     text-transform: uppercase;
+
+    .sheet-section-name, .sheet-section-data-actions {
+      flex-grow: 1;
+    }
   }
 
   .sheet-section-label {

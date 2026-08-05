@@ -103,46 +103,58 @@ export const prepareRightColumnContext = async function (context, actor) {
   )
 
   const nature = context.nature
-  const natureData = nature?.system || {}
-  context.nature = [
-    {
-      uuid: nature?.uuid,
-      name: `${nature?.name}`,
-      img: nature?.img,
-      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        natureData?.description ?? ''
-      )
-    },
-    {
-      uuid: nature?.uuid,
-      name: `${nature?.name} Outburst: ${natureData?.outburst?.name}`,
-      img: nature?.img,
-      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        natureData?.outburst?.description ?? ''
-      )
-    }
-  ]
+  if (nature) {
+    const natureData = nature?.system || {}
+    context.nature = [
+      {
+        uuid: nature?.uuid,
+        name: `${nature?.name}`,
+        img: nature?.img,
+        description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+          natureData?.description ?? ''
+        )
+      },
+      {
+        uuid: nature?.uuid,
+        name: `${nature?.name} Outburst: ${natureData?.outburst?.name || 'None'}`,
+        img: nature?.img,
+        description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+          natureData?.outburst?.description ?? ''
+        )
+      }
+    ]
+  } else {
+    context.nature = []
+  }
 
   const clan = context.clan
-  const clanData = clan?.system || {}
-  context.beast = [
-    {
-      uuid: clan?.uuid,
-      name: `${clan?.name} Beast: ${clanData?.beast?.name}`,
-      img: clan?.img,
-      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        clanData?.beast?.description ?? ''
-      )
-    },
-    {
-      uuid: clan?.uuid,
-      name: `${clan?.name} Frenzy: ${clanData?.frenzy?.name}`,
-      img: clan?.img,
-      description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        clanData?.frenzy?.description ?? ''
-      )
-    }
-  ]
+  if (clan) {
+    const clanData = clan?.system || {}
+    context.beast = [
+      {
+        uuid: clan?.uuid,
+        name: `${clan?.name} Beast: ${clanData?.beast?.name || 'None'}`,
+        img: clan?.img,
+        description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+          clanData?.beast?.description ?? ''
+        )
+      },
+      {
+        uuid: clan?.uuid,
+        name: `${clan?.name} Frenzy: ${clanData?.frenzy?.name || 'None'}`,
+        img: clan?.img,
+        description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+          clanData?.frenzy?.description ?? ''
+        )
+      }
+    ]
+  } else {
+    context.beast = [
+      {
+        name: 'No clan chosen'
+      }
+    ]
+  }
 
   return context
 }

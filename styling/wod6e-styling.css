@@ -274,6 +274,10 @@
   min-width: 715px;
 }
 .actor.sheet .align-right {
+  justify-content: left;
+  text-align: left;
+}
+.actor.sheet .align-right {
   justify-content: right;
   text-align: right;
 }
@@ -306,6 +310,8 @@
   border: 1px solid var(--tracker-border);
 }
 .actor.sheet .sheet-section-header {
+  display: flex;
+  flex-direction: row;
   margin: 0;
   padding-left: 5px;
   border-bottom: 2px solid var(--tracker-border);
@@ -314,6 +320,10 @@
   font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
+}
+.actor.sheet .sheet-section-header .sheet-section-name,
+.actor.sheet .sheet-section-header .sheet-section-data-actions {
+  flex-grow: 1;
 }
 .actor.sheet .sheet-section-label {
   justify-content: flex-start;

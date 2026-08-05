@@ -3,8 +3,28 @@
   data-group="primary"
   data-tab="main"
 >
-  <header class="sheet-section-header align-right">
-    {{localize 'WOD6E.VAMPIRE.Nature'}}
+  <header class="sheet-section-header">
+    <div class="sheet-section-name align-left">
+      {{localize 'WOD6E.VAMPIRE.Nature'}}
+    </div>
+    <div class="sheet-section-data-actions align-right">
+      <a
+        class="search-data-item"
+        data-action="searchItem"
+        title="{{localize 'WOD6E.Search'}}"
+        data-type="nature"
+      >
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+      <a
+        class="item-create"
+        data-action="createItem"
+        title="{{localize 'WOD6E.Create'}}"
+        data-type="nature"
+      >
+        <i class="fas fa-plus"></i>
+      </a>
+    </div>
   </header>
 
   <div class="sheet-section-list">
