@@ -108,14 +108,13 @@ export class ActionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
     context.actionDistanceOptions = WOD6E.configs.ActionDistances.getList({})
     context.actionDistanceSelected = itemData?.distance || ''
 
-    context.actionTypeOptions = [
-      {
-        key: 'untyped',
-        label: 'WOD6E.ACTIONS.Untyped'
+    context.actionTypeOptions = {
+      untyped: {
+        label: game.i18n.localize('WOD6E.ACTIONS.Untyped')
       },
-      ...Object.values(WOD6E.configs.AttributeGroups.getList({}))
-    ]
-    context.actionTypeSelected = itemData?.type
+      ...WOD6E.configs.AttributeGroups.getList({})
+    }
+    context.actionTypeSelected = itemData?.actionType || 'untyped'
 
     return context
   }
