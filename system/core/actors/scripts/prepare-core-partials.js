@@ -59,6 +59,41 @@ export const prepareResourcesContext = async function (context, actor) {
   return context
 }
 
+export const prepareActionsContext = async function (context, actor) {
+  // Tab data
+  context.tab = context.tabs.actions
+
+  // Construct the action groupings
+  const actionGroups = WOD6E.configs.ActionGroups.getList({})
+  context.actionGroups = Object.entries(actionGroups).map(([key, group]) => ({
+    key,
+    label: group.label,
+    actions: []
+  }))
+  const groups = new Map(context.actionGroups.map((group) => [group.key, group]))
+
+  // Populate actions
+  for (const action of actor.items.filter((item) => item.type === 'action')) {
+    const group = action?.system?.group || 'general'
+
+    const actionGroup = groups.get(group)
+
+    if (!actionGroup) continue
+
+    actionGroup.actions.push({
+      id: action.id,
+      uuid: action.uuid,
+      name: action.name,
+      description: action.system.description,
+      activation: action.system.activation,
+      role: action.system.role,
+      type: action.system.actionType
+    })
+  }
+
+  return context
+}
+
 export const prepareSettingsContext = async function (context, actor) {
   const actorSettings = actor.system.settings
   context.settings = actorSettings

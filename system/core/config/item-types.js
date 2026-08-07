@@ -16,6 +16,9 @@ import { DisciplineItemSheet } from '../../splats/vampire/items/item-sheets/disc
 // Clan Trait
 import { ClanTraitItemSheet } from '../../splats/vampire/items/item-sheets/clan-trait-item-sheet.js'
 import { ClanTraitItemModel } from '../../splats/vampire/items/data-models/clan-trait-item-model.js'
+// Action
+import { ActionItemSheet } from '../items/item-sheets/action-item-sheet.js'
+import { ActionItemModel } from '../items/data-models/action-item-model.js'
 // Equipment
 import { EquipmentItemSheet } from '../items/item-sheets/equipment-item-sheet.js'
 import { EquipmentItemModel } from '../items/data-models/equipment-item-model.js'
@@ -31,6 +34,7 @@ import { MeritItemModel } from '../items/data-models/merit-item-model.js'
 // Nature
 import { NatureItemSheet } from '../../splats/vampire/items/item-sheets/nature-item-sheet.js'
 import { NatureItemModel } from '../../splats/vampire/items/data-models/nature-item-model.js'
+import { ActionGroups } from './action-groups.js'
 
 /*
  *   Each item type is defined through here; this includes the item's label,
@@ -60,6 +64,17 @@ export class ItemTypes extends BaseDefinitionClass {
     splat: 'core',
     subtypes: ResourceTypes,
     subtypePath: 'resourceType'
+  }
+
+  static action = {
+    label: 'TYPES.Item.action',
+    img: '',
+    types: ['action'],
+    sheetClass: ActionItemSheet,
+    sheetModel: ActionItemModel,
+    splat: 'core',
+    subtypes: ActionGroups,
+    subtypePath: 'group'
   }
 
   static equipment = {

@@ -1,0 +1,24 @@
+<section
+  class="tab {{ tab.cssClass }}"
+  data-tab="{{ tab.id }}"
+  data-group="{{ tab.group }}"
+>
+  <div class="flexcol action-activation flex-center item-resource">
+    <select
+      name="system.activation"
+      data-type="String"
+    >
+      {{selectOptions actionActivationOptions selected=activationSelected}}
+    </select>
+  </div>
+
+  <div class="flexcol action-distance flex-center item-resource">
+    <label>
+      <b>{{localize "WOD6E.ACTIONS.Distance"}}</b>
+    </label>
+
+    <select name="system.distance">
+      {{selectOptions actionDistanceOptions selected=actionDistanceSelected}}
+    </select>
+  </div>
+</section>

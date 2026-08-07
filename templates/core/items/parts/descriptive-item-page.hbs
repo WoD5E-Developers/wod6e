@@ -11,9 +11,11 @@
   </div>
   {{/if}}
   <div class="prose-mirror-section">
+    {{#if descriptionName}}
     <div class="prose-mirror-header">
         Description
     </div>
+    {{/if}}
     <prose-mirror name="{{ description.path }}" value="{{description.value}}"
         toggled="true" compact="true">
         {{{description.enriched}}}

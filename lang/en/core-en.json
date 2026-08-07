@@ -4,6 +4,7 @@
       "vampire": "Vampire"
     },
     "Item": {
+      "action": "Action",
       "clan": "Clan",
       "clanTrait": "Clan Trait",
       "discipline": "Discipline",
@@ -24,10 +25,45 @@
     "ItemType": "Item Type",
     "Name": "Name",
     "NewString": "New {string}",
+    "None": "None",
     "NoneSelected": "None Selected",
     "Search": "Search",
     "System": "System",
     "ViewItem": "View Item",
+    "ACTIONS": {
+      "Action": "Action",
+      "Actions": "Actions",
+      "ActionType": "Action Type",
+      "Activation": "Activation",
+      "Attack": "Attack",
+      "AttributeOrNPCLevel": "Target Attribute or NPC Level",
+      "Category": "Category",
+      "Close": "Close",
+      "Defense": "Defense",
+      "Downtime": "Downtime",
+      "Exploration": "Exploration",
+      "Far": "Far",
+      "Fixed": "Fixed",
+      "General": "General",
+      "MinorAction": "Minor Action",
+      "NPCLevel": "NPC Level",
+      "Physical": "Physical",
+      "Prolonged": "Prolonged",
+      "Reaction": "Reaction",
+      "Role": "Role",
+      "Self": "Self",
+      "Short": "Short",
+      "Social": "Social",
+      "Special": "Special",
+      "Storyteller": "Storyteller Determined",
+      "TargetAttribute": "Target Attribute",
+      "TargetHighestAttribute": "Target's Highest Attribute",
+      "Touch": "Touch",
+      "Unlimited": "Unlimited",
+      "Untyped": "Untyped",
+      "Utility": "Utility",
+      "Variable": "Variable"
+    },
     "APPLICATIONS": {
       "CompendiumBrowser": "Compendium Browser",
       "CompendiumBrowserControlHint": "Opens the compendium browser.",
@@ -119,11 +155,16 @@
       "Survival": "Survival"
     },
     "TABS": {
+      "Actions": "Actions",
+      "Activation": "Activation",
       "Description": "Description",
+      "Difficulty": "Difficulty",
+      "Distance": "Distance",
       "Indulging": "Indulging",
       "Main": "Main",
       "Outburst": "Outburst",
-      "Settings": "Settings"
+      "Settings": "Settings",
+      "Tests": "Tests"
     }
   }
 }

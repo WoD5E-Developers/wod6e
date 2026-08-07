@@ -165,7 +165,7 @@ export class StorytellerMenu extends FormApplication {
       // Attributes
       game.settings.set('wod6e', 'modifiedAttributes', modifications.attribute)
       game.settings.set('wod6e', 'customAttributes', custom.attribute)
-      // SKills
+      // Skills
       game.settings.set('wod6e', 'modifiedSkills', modifications.skill)
       game.settings.set('wod6e', 'customSkills', custom.skill)
       // Disciplines

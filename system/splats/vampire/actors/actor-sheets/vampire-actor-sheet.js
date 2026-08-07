@@ -29,26 +29,8 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     main: {
       template: 'systems/wod6e/templates/splats/vampire/actors/vampire-sheet-body.hbs'
     },
-    attributes: {
-      template: 'systems/wod6e/templates/core/actors/parts/attributes.hbs'
-    },
-    healthWillpower: {
-      template: 'systems/wod6e/templates/core/actors/parts/health-willpower.hbs'
-    },
-    humanityScale: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/humanity-scale.hbs'
-    },
-    leftColumn: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/left-column.hbs'
-    },
-    middleColumn: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/middle-column.hbs'
-    },
-    rightColumn: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/right-column.hbs'
-    },
-    disciplines: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/disciplines.hbs'
+    actions: {
+      template: 'systems/wod6e/templates/core/actors/parts/actions.hbs'
     },
     settings: {
       template: 'systems/wod6e/templates/core/actors/parts/settings.hbs'
@@ -69,6 +51,11 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
           id: 'main',
           icon: 'fa-solid fa-user',
           label: 'WOD6E.TABS.Main'
+        },
+        {
+          id: 'actions',
+          icon: 'fa-solid fa-user',
+          label: 'WOD6E.TABS.Actions'
         }
       ],
       initial: 'main'
@@ -99,12 +86,9 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
 
     // Prepare each page context
     switch (partId) {
-      // Core partials
-      case 'attributes':
-        return this.prepareAttributesContext(context, actor)
-
-      case 'healthWillpower':
-        return this.prepareResourcesContext(context, actor)
+      // Tabs
+      case 'actions':
+        return prepareActionsContext(context, actor)
 
       case 'settings':
         return this.prepareSettingsContext(context, actor)

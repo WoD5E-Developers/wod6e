@@ -41,6 +41,7 @@
       "vampire": {}
     },
     "Item": {
+      "action": {},
       "equipment": {},
       "flaw": {},
       "lifepath": {},
