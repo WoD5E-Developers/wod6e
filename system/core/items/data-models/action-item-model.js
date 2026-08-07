@@ -7,7 +7,6 @@ export class ActionItemModel extends WoDItemModel {
     const schema = super.defineSchema()
 
     // All the below options are associated with a definition file
-
     schema.group = new fields.StringField({
       initial: 'general'
     })
