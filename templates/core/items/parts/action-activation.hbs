@@ -4,17 +4,20 @@
   data-group="{{ tab.group }}"
 >
   <div class="flexcol action-activation flex-center item-resource">
+    <label>
+      <b>{{localize "WOD6E.ACTIONS.ActivationType"}}</b>
+    </label>
     <select
       name="system.activation"
       data-type="String"
     >
-      {{selectOptions actionActivationOptions selected=activationSelected}}
+      {{selectOptions actionActivationOptions selected=actionActivationSelected}}
     </select>
   </div>
 
   <div class="flexcol action-distance flex-center item-resource">
     <label>
-      <b>{{localize "WOD6E.ACTIONS.Distance"}}</b>
+      <b>{{localize "WOD6E.ACTIONS.ActivationDistance"}}</b>
     </label>
 
     <select name="system.distance">

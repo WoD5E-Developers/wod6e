@@ -6,7 +6,7 @@ import { Disciplines } from '../../splats/vampire/config/disciplines.js'
 import { ResourceTypes } from '../config/resource-types.js'
 import { ActionGroups } from '../config/action-groups.js'
 import { ActionRoles } from '../config/action-roles.js'
-import { ActionActivations } from '../config/action-activations.js'
+import { ActionActivations } from '../config/action-activation-types.js'
 import { ActionDifficulties } from '../config/action-difficulties.js'
 import { ActionDistances } from '../config/action-distances.js'
 

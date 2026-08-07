@@ -40,6 +40,8 @@
       "Category": "Category",
       "Close": "Close",
       "Defense": "Defense",
+      "ActivationDistance": "Activation Distance",
+      "ActivationType": "Activation Type",
       "Downtime": "Downtime",
       "Exploration": "Exploration",
       "Far": "Far",
