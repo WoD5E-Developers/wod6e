@@ -6,27 +6,34 @@ export const _onCreateItem = async function (event, target) {
 
   const actor = this.actor
   const type = target.dataset.type
+  const subtype = target.dataset.subtype
 
   if (!type) return
+
+  const itemTypes = WOD6E.configs.ItemTypes.getList({})
+  const itemType = itemTypes[type]
 
   const name = game.i18n.format('WOD6E.NewString', {
     string: game.i18n.localize(`TYPES.Item.${type}`)
   })
 
-  await Item.create(
-    {
-      name,
-      type,
-      flags: {
-        wod5e: {
-          dataItemId: `${type}-${formatDataItemId(name)}`
-        }
+  const itemData = {
+    name,
+    type,
+    flags: {
+      wod6e: {
+        dataItemId: `${type}-${formatDataItemId(name)}`
       }
-    },
-    {
-      parent: actor
     }
-  )
+  }
+
+  if (subtype && itemType?.subtypePath) {
+    foundry.utils.setProperty(itemData, `system.${itemType.subtypePath}`, subtype)
+  }
+
+  await Item.create(itemData, {
+    parent: actor
+  })
 }
 
 // Open up the compendium browser with the specified item type filtered down to
