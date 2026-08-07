@@ -3,11 +3,7 @@
     padding: 6px;
   }
 
-  .tab:not(.active) {
-    display: none;
-  }
-
-  [data-application-part="header"] {
+  [data-actor-section="header"] {
     grid-area: header;
     display: grid;
     grid-template-columns:
@@ -24,12 +20,12 @@
     }
   }
 
-  [data-application-part="tabs"] {
+  [data-actor-section="tabs"] {
     grid-area: navigation;
     max-height: fit-content;
   }
 
-  [data-application-part="healthWillpower"] {
+  [data-actor-section="healthWillpower"] {
     grid-area: healthWillpower;
     display: grid;
     grid-template-columns:
@@ -37,23 +33,23 @@
       minmax(260px, 1fr);
   }
 
-  [data-application-part="attributes"] {
+  [data-actor-section="attributes"] {
     grid-area: attributes;
   }
 
-  [data-application-part="leftColumn"] {
+  [data-actor-section="leftColumn"] {
     grid-area: leftColumn;
   }
 
-  [data-application-part="middleColumn"] {
+  [data-actor-section="middleColumn"] {
     grid-area: middleColumn;
   }
 
-  [data-application-part="rightColumn"] {
+  [data-actor-section="rightColumn"] {
     grid-area: rightColumn;
   }
 
-  [data-application-part="settings"] {
+  [data-actor-section="settings"] {
     grid-column: 1 / -1;
   }
 }

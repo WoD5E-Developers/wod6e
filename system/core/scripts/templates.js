@@ -12,6 +12,7 @@ export const preloadHandlebarsTemplates = async function () {
 
     // Core actor templates
     'systems/wod6e/templates/core/actors/parts/attributes.hbs',
+    'systems/wod6e/templates/core/actors/parts/health-willpower.hbs',
     'systems/wod6e/templates/core/actors/parts/health.hbs',
     'systems/wod6e/templates/core/actors/parts/willpower.hbs',
     'systems/wod6e/templates/core/actors/parts/settings.hbs',
@@ -25,7 +26,6 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/actors/parts/resources.hbs',
 
     // Core item templates
-    'systems/wod6e/templates/core/items/resource-item-sheet.hbs',
     'systems/wod6e/templates/core/items/parts/item-image.hbs',
     'systems/wod6e/templates/core/items/parts/item-name.hbs',
     'systems/wod6e/templates/core/items/parts/data-item-id.hbs',

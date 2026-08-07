@@ -1,5 +1,6 @@
 // Base actor sheet to extend from
 import { WoDActorBase } from '../../../../core/actors/actor-sheets/wod-actor-base.js'
+import { prepareActionsContext } from '../../../../core/actors/scripts/prepare-core-partials.js'
 import {
   prepareDisciplinesContext,
   prepareHeaderContext,
@@ -25,8 +26,8 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     tabs: {
       template: 'templates/generic/tab-navigation.hbs'
     },
-    header: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/header.hbs'
+    main: {
+      template: 'systems/wod6e/templates/splats/vampire/actors/vampire-sheet-body.hbs'
     },
     attributes: {
       template: 'systems/wod6e/templates/core/actors/parts/attributes.hbs'
@@ -111,24 +112,18 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
       case 'limited':
         return this.prepareLimitedContext(context, actor)
 
-      // Partials specific to each actor sheet
-      case 'header':
-        return prepareHeaderContext(context, actor)
+      // Main body
+      case 'main':
+        context = await this.prepareAttributesContext(context, actor)
+        context = await this.prepareResourcesContext(context, actor)
+        context = await prepareHeaderContext(context, actor)
+        context = await prepareHumanityScaleContext(context, actor)
+        context = await prepareLeftColumnContext(context, actor)
+        context = await prepareMiddleColumnContext(context, actor)
+        context = await prepareRightColumnContext(context, actor)
+        context = await prepareDisciplinesContext(context, actor)
 
-      case 'humanityScale':
-        return prepareHumanityScaleContext(context, actor)
-
-      case 'leftColumn':
-        return prepareLeftColumnContext(context, actor)
-
-      case 'middleColumn':
-        return prepareMiddleColumnContext(context, actor)
-
-      case 'rightColumn':
-        return prepareRightColumnContext(context, actor)
-
-      case 'disciplines':
-        return prepareDisciplinesContext(context, actor)
+        return context
     }
 
     return context

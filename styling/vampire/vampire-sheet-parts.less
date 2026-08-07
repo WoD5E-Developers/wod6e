@@ -2,6 +2,9 @@
 .actor.sheet.vampire {
   .window-content {
     overflow-y: scroll;
+  }
+
+  .vampire-sheet-body {
     display: grid;
     grid-template-rows: min-content;
     grid-template-columns:
@@ -9,7 +12,6 @@
       minmax(50px, 1fr)
       minmax(300px, 1fr);
     grid-template-areas:
-      "navigation navigation navigation"
       "header header header"
       "attributes attributes attributes"
       "healthWillpower healthWillpower healthWillpower"
@@ -20,14 +22,15 @@
       "leftColumn middleColumn rightColumn"
       "leftColumn middleColumn rightColumn"
       "disciplines disciplines rightColumn";
-    padding: 0;
+    flex: 1;
+    flex-flow: column nowrap;
   }
 }
 
-[data-application-part="humanityScale"] {
+[data-actor-section="humanityScale"] {
   grid-area: humanityScale;
 }
 
-[data-application-part="disciplines"] {
+[data-actor-section="disciplines"] {
   grid-area: disciplines;
 }

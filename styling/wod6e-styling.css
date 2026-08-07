@@ -116,6 +116,10 @@
 .clickable {
   cursor: pointer;
 }
+.actor.sheet .tab:not(.active),
+.item.sheet .tab:not(.active) {
+  display: none !important;
+}
 
 :root {
   --system-color-1: #302d5bf0;
@@ -259,16 +263,19 @@
 /* Vampire Actor Sheet */
 .actor.sheet.vampire .window-content {
   overflow-y: scroll;
+}
+.actor.sheet.vampire .vampire-sheet-body {
   display: grid;
   grid-template-rows: min-content;
   grid-template-columns: minmax(300px, 1fr) minmax(50px, 1fr) minmax(300px, 1fr);
-  grid-template-areas: "navigation navigation navigation" "header header header" "attributes attributes attributes" "healthWillpower healthWillpower healthWillpower" "humanityScale humanityScale humanityScale" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "disciplines disciplines rightColumn";
-  padding: 0;
+  grid-template-areas: "header header header" "attributes attributes attributes" "healthWillpower healthWillpower healthWillpower" "humanityScale humanityScale humanityScale" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "leftColumn middleColumn rightColumn" "disciplines disciplines rightColumn";
+  flex: 1;
+  flex-flow: column nowrap;
 }
-[data-application-part="humanityScale"] {
+[data-actor-section="humanityScale"] {
   grid-area: humanityScale;
 }
-[data-application-part="disciplines"] {
+[data-actor-section="disciplines"] {
   grid-area: disciplines;
 }
 
@@ -356,29 +363,29 @@
   word-break: break-word;
 }
 
-[data-application-part="attributes"] {
+[data-actor-section="attributes"] {
   grid-area: attributes;
 }
-[data-application-part="attributes"] .attributes-title {
+[data-actor-section="attributes"] .attributes-title {
   margin: 0;
   font-size: 16pt;
   text-align: center;
   text-transform: uppercase;
 }
-[data-application-part="attributes"] .attribute-groups {
+[data-actor-section="attributes"] .attribute-groups {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   width: 100%;
   overflow: hidden;
   background: #000;
 }
-[data-application-part="attributes"] .attribute-groups .attribute-group {
+[data-actor-section="attributes"] .attribute-groups .attribute-group {
   position: relative;
   display: grid;
   grid-template-rows: auto 1fr;
   min-width: 0;
 }
-[data-application-part="attributes"] .attribute-groups .attribute-group-header {
+[data-actor-section="attributes"] .attribute-groups .attribute-group-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -389,14 +396,14 @@
   color: #CCC;
   padding: 5px;
 }
-[data-application-part="attributes"] .attribute-group-fields {
+[data-actor-section="attributes"] .attribute-group-fields {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   min-height: 5.5rem;
   border-radius: 20px 20px 0 0;
   background: var(--background);
 }
-[data-application-part="attributes"] .attribute-field {
+[data-actor-section="attributes"] .attribute-field {
   display: grid;
   grid-template-rows: 2.5rem auto;
   align-items: center;
@@ -406,7 +413,7 @@
   padding: 0 0.2rem;
   cursor: pointer;
 }
-[data-application-part="attributes"] .attribute-field .attribute-value {
+[data-actor-section="attributes"] .attribute-field .attribute-value {
   width: 100%;
   height: 2.5rem;
   margin: 0;
@@ -423,7 +430,7 @@
   text-align: center;
   appearance: textfield;
 }
-[data-application-part="attributes"] .attribute-field .attribute-label {
+[data-actor-section="attributes"] .attribute-field .attribute-label {
   width: 100%;
   overflow: hidden;
   font-size: 10pt;
@@ -457,41 +464,38 @@
 .actor.sheet .sheet-part {
   padding: 6px;
 }
-.actor.sheet .tab:not(.active) {
-  display: none;
-}
-.actor.sheet [data-application-part="header"] {
+.actor.sheet [data-actor-section="header"] {
   grid-area: header;
   display: grid;
   grid-template-columns: minmax(300px, 1fr) minmax(90px, 0.3fr) minmax(300px, 1fr);
 }
-.actor.sheet [data-application-part="header"] .middle-header img {
+.actor.sheet [data-actor-section="header"] .middle-header img {
   padding: var(--spacer-16);
   margin-left: auto;
   margin-right: auto;
 }
-.actor.sheet [data-application-part="tabs"] {
+.actor.sheet [data-actor-section="tabs"] {
   grid-area: navigation;
   max-height: fit-content;
 }
-.actor.sheet [data-application-part="healthWillpower"] {
+.actor.sheet [data-actor-section="healthWillpower"] {
   grid-area: healthWillpower;
   display: grid;
   grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
 }
-.actor.sheet [data-application-part="attributes"] {
+.actor.sheet [data-actor-section="attributes"] {
   grid-area: attributes;
 }
-.actor.sheet [data-application-part="leftColumn"] {
+.actor.sheet [data-actor-section="leftColumn"] {
   grid-area: leftColumn;
 }
-.actor.sheet [data-application-part="middleColumn"] {
+.actor.sheet [data-actor-section="middleColumn"] {
   grid-area: middleColumn;
 }
-.actor.sheet [data-application-part="rightColumn"] {
+.actor.sheet [data-actor-section="rightColumn"] {
   grid-area: rightColumn;
 }
-.actor.sheet [data-application-part="settings"] {
+.actor.sheet [data-actor-section="settings"] {
   grid-column: 1 / -1;
 }
 
