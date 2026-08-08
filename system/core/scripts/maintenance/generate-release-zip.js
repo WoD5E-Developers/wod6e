@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import archiver from 'archiver'
+import { ZipArchive } from 'archiver'
 
 // Output file
 const outputFile = 'wod6e.zip'
@@ -16,10 +16,10 @@ if (fs.existsSync(outputFile)) {
 const files = ['LICENSE.md', 'README.md', 'system.json']
 
 // All important directories to the system
-const directories = ['assets', 'display', 'lang', 'lib', 'macros', 'packs', 'system']
+const directories = ['assets', 'lang', 'packs', 'styling', 'system', 'templates']
 
 const output = fs.createWriteStream(outputFile)
-const archive = archiver('zip', {
+const archive = new ZipArchive('zip', {
   zlib: {
     level: 9
   }
