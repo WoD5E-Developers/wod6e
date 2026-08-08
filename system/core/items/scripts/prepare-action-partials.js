@@ -93,11 +93,11 @@ export async function prepareActionActivationContext(context, item) {
 
   // Activation dropdown
   context.actionActivationOptions = WOD6E.configs.ActionActivations.getList({})
-  context.actionActivationSelected = itemData?.activation || ''
+  context.actionActivationSelected = itemData?.activation?.activationType || ''
 
   // Distance dropdown
   context.actionDistanceOptions = WOD6E.configs.ActionDistances.getList({})
-  context.actionDistanceSelected = itemData?.distance || ''
+  context.actionDistanceSelected = itemData?.activation?.distance || ''
 
   return context
 }

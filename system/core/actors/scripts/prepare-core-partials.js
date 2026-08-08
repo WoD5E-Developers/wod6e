@@ -85,7 +85,7 @@ export const prepareActionsContext = async function (context, actor) {
       uuid: action.uuid,
       name: action.name,
       description: action.system.description,
-      activation: action.system.activation,
+      activation: action.system.activation.activationType,
       role: action.system.role,
       type: action.system.actionType
     })

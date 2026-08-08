@@ -1,4 +1,7 @@
 import { WoDItemModel } from './base-item-model.js'
+import { activationFields } from './fields/activation-fields.js'
+import { difficultyFields } from './fields/difficulty-fields.js'
+import { testFields } from './fields/test-fields.js'
 
 const fields = foundry.data.fields
 
@@ -11,9 +14,7 @@ export class ActionItemModel extends WoDItemModel {
       initial: 'general'
     })
 
-    schema.activation = new fields.StringField({
-      initial: 'action'
-    })
+    schema.activation = activationFields()
 
     schema.role = new fields.StringField({
       initial: 'utility'
@@ -23,66 +24,10 @@ export class ActionItemModel extends WoDItemModel {
       initial: 'untyped'
     })
 
-    schema.distance = new fields.StringField({
-      initial: 'none'
-    })
-
-    schema.difficulty = new fields.SchemaField({
-      type: new fields.StringField({
-        initial: 'variable'
-      }),
-      fixed: new fields.NumberField({
-        initial: null,
-        min: 0,
-        integer: true,
-        nullable: true
-      }),
-      attribute: new fields.StringField({
-        initial: ''
-      }),
-      useNpcLevel: new fields.BooleanField({
-        initial: false
-      }),
-      description: new fields.HTMLField({
-        initial: ''
-      })
-    })
+    schema.difficulty = difficultyFields()
 
     // One or more dicepools
-    schema.test = new fields.SchemaField({
-      description: new fields.StringField({
-        initial: ''
-      }),
-      attributes: new fields.SetField(
-        new fields.StringField({
-          blank: false,
-          nullable: false
-        }),
-        {
-          initial: []
-        }
-      ),
-
-      skills: new fields.SetField(
-        new fields.StringField({
-          blank: false,
-          nullable: false
-        }),
-        {
-          initial: []
-        }
-      ),
-
-      disciplines: new fields.SetField(
-        new fields.StringField({
-          blank: false,
-          nullable: false
-        }),
-        {
-          initial: []
-        }
-      )
-    })
+    schema.test = testFields()
 
     // Result text should stay flexible because action outcomes vary heavily
     schema.result = new fields.HTMLField({
@@ -99,19 +44,6 @@ export class ActionItemModel extends WoDItemModel {
 
     schema.specialRules = new fields.HTMLField({
       initial: ''
-    })
-
-    // Used by attacks
-    schema.damage = new fields.SchemaField({
-      resource: new fields.StringField({
-        initial: ''
-      }),
-      formula: new fields.StringField({
-        initial: ''
-      }),
-      extraSuccesses: new fields.BooleanField({
-        initial: false
-      })
     })
 
     // Useful for identifying actions that require special circumstances
