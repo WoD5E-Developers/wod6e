@@ -15,8 +15,8 @@ export const prepareHeaderContext = async function (context, actor) {
 
 export const prepareHumanityScaleContext = async function (context, actor) {
   const actorData = actor.system
-  const humanity = actorData.vampire.humanity
 
+  const humanity = actorData.vampire.humanity
   context.humanity = {
     trackers: generateTrackers({
       name: game.i18n.localize('WOD6E.VAMPIRE.Humanity'),
@@ -24,6 +24,27 @@ export const prepareHumanityScaleContext = async function (context, actor) {
       max: humanity.max,
       groupSize: 100,
       onlyCurrentValueSelected: true
+    })
+  }
+
+  const nature = actorData.vampire.nature
+  context.natureTracker = {
+    trackers: generateTrackers({
+      name: game.i18n.localize('WOD6E.VAMPIRE.Nature'),
+      value: nature.value,
+      max: nature.max,
+      groupSize: 5
+    })
+  }
+
+  const beast = actorData.vampire.beast
+  context.beastTracker = {
+    trackers: generateTrackers({
+      name: game.i18n.localize('WOD6E.VAMPIRE.Beast'),
+      value: beast.value,
+      max: beast.max,
+      groupSize: 5,
+      reverse: true
     })
   }
 

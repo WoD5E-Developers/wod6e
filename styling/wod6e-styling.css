@@ -247,7 +247,7 @@
   border: 3px solid var(--humanity-border);
   background: transparent;
 }
-.humanity-tracker .humanity-scale-label {
+.humanity-tracker .humanity-scale-side .humanity-scale-side-label {
   overflow: hidden;
   color: var(--humanity-text);
   font-size: 20px;
@@ -257,12 +257,8 @@
   text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
-}
-.humanity-tracker .humanity-scale-label-left {
-  text-align: left;
-}
-.humanity-tracker .humanity-scale-label-right {
-  text-align: right;
+  text-align: center;
+  padding-top: 5px;
 }
 .humanity-tracker .resource-tracker-spaces {
   display: flex;
@@ -533,7 +529,7 @@
   grid-column: 1 / -1;
 }
 
-.sheet-section .dot-specialties {
+.sheet-section .dot-focuses {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -752,6 +748,7 @@
   margin-left: 15px;
 }
 
+.application.dialog .skill-configuration-list,
 .application.dialog .power-visibility-list {
   display: grid;
   grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr);

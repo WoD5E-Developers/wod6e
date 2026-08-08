@@ -5,6 +5,10 @@
   data-actor-section="skills"
 >
   <header class="sheet-section-header resource-tracker-header">
+    <a class="align-right clickable" data-action="configureSkillFocuses" title="{{localize "WOD6E.SKILLS.ConfigureSkillFocuses"}}">
+        <i class="fas fa-edit"></i>
+    </a>
+
     {{localize 'WOD6E.SKILLS.Skills'}}
   </header>
 
@@ -25,8 +29,8 @@
           {{ skill.label }}
         </span>
 
-        {{#if skill.specialtyText}}
-        <span class="dot-specialties">({{ skill.specialtyText }})</span>
+        {{#if skill.focusesText}}
+        <span class="dot-focuses">({{ skill.focusesText }})</span>
         {{/if}}
       </button>
 

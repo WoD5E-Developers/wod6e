@@ -7,7 +7,6 @@ export function prepareResources(actor) {
       const itemData = item.system
       const value = itemData?.dots?.value ?? 0
       const max = itemData?.dots?.max ?? 5
-      const specialties = itemData?.specialties ?? []
 
       const trackers = generateTrackers({
         name: item.name,
@@ -21,8 +20,6 @@ export function prepareResources(actor) {
         name: item.name,
         path: `system.dots.value`,
         value,
-        specialties,
-        specialtyText: specialties.join(', '),
         trackers
       }
     })
