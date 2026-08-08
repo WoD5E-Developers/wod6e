@@ -21,7 +21,6 @@ export async function _onToggleMultiSelectOption(event, target) {
   if (!document?.isOwner) return
 
   const currentValues = new Set(foundry.utils.getProperty(document, fieldPath) ?? [])
-  console.log(currentValues)
 
   // Either push or remove the current target from the currentValues to update the list
   if (target.checked) {
