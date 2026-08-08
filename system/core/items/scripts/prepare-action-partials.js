@@ -1,66 +1,68 @@
-export async function prepareActionTestsContext(context, item) {
+export async function prepareActionTestContext(context, item) {
   const itemData = item.system
 
   // Tab data
-  context.tab = context.tabs.tests
+  context.tab = context.tabs.test
 
-  const attributeOptions = WOD6E.configs.Attributes.getList({})
-  const skillOptions = WOD6E.configs.Skills.getList({})
-  const disciplineOptions = WOD6E.configs.Disciplines.getList({})
+  const test = itemData.test
 
-  context.tests = (itemData.tests ?? []).map((test, index) => {
-    const selectedAttributes = new Set(test.attributes ?? [])
-    const selectedSkills = new Set(test.skills ?? [])
-    const selectedDisciplines = new Set(test.disciplines ?? [])
+  // Attributes
+  const selectedAttributes = new Set(test.attributes ?? [])
+  const attributeOptions = Object.entries(WOD6E.configs.Attributes.getList({}))
+    .filter(([, attribute]) => !attribute.hidden)
+    .map(([key, attribute]) => ({
+      key,
+      label: attribute.displayName,
+      selected: selectedAttributes.has(key)
+    }))
+  const selectedAttributeLabels = attributeOptions
+    .filter((attribute) => attribute.selected)
+    .map((attribute) => attribute.label)
 
-    const preparedAttributes = Object.entries(attributeOptions)
-      .filter(([, attribute]) => !attribute.hidden)
-      .map(([key, attribute]) => ({
-        key,
-        label: attribute.displayName,
-        selected: selectedAttributes.has(key)
-      }))
+  // Skills
+  const selectedSkills = new Set(test.skills ?? [])
+  const skillOptions = Object.entries(WOD6E.configs.Skills.getList({}))
+    .filter(([, skill]) => !skill.hidden)
+    .map(([key, skill]) => ({
+      key,
+      label: skill.displayName,
+      selected: selectedSkills.has(key)
+    }))
+  const selectedSkillLabels = skillOptions
+    .filter((skill) => skill.selected)
+    .map((skill) => skill.label)
 
-    const preparedSkills = Object.entries(skillOptions)
-      .filter(([, skill]) => !skill.hidden)
-      .map(([key, skill]) => ({
-        key,
-        label: skill.displayName,
-        selected: selectedSkills.has(key)
-      }))
+  // Disciplines
+  const selectedDisciplines = new Set(test.disciplines ?? [])
+  const disciplineOptions = Object.entries(WOD6E.configs.Disciplines.getList({}))
+    .filter(([, discipline]) => !discipline.hidden)
+    .map(([key, discipline]) => ({
+      key,
+      label: discipline.displayName,
+      selected: selectedDisciplines.has(key)
+    }))
+  const selectedDisciplineLabels = disciplineOptions
+    .filter((discipline) => discipline.selected)
+    .map((discipline) => discipline.label)
 
-    const preparedDisciplines = Object.entries(disciplineOptions)
-      .filter(([, discipline]) => !discipline.hidden)
-      .map(([key, discipline]) => ({
-        key,
-        label: discipline.displayName,
-        selected: selectedDisciplines.has(key)
-      }))
+  context.test = {
+    description: test.description ?? '',
 
-    return {
-      index,
-      description: test.description ?? '',
+    attributeOptions,
+    selectedAttributesText: selectedAttributeLabels.length
+      ? selectedAttributeLabels.join(', ')
+      : game.i18n.localize('WOD6E.NoneSelected'),
 
-      attributeOptions: preparedAttributes,
-      skillOptions: preparedSkills,
-      disciplineOptions: preparedDisciplines,
+    skillOptions,
+    selectedSkillsText: selectedSkillLabels.length
+      ? selectedSkillLabels.join(', ')
+      : game.i18n.localize('WOD6E.NoneSelected'),
 
-      selectedAttributesText: preparedAttributes
-        .filter((option) => option.selected)
-        .map((option) => option.label)
-        .join(', '),
-
-      selectedSkillsText: preparedSkills
-        .filter((option) => option.selected)
-        .map((option) => option.label)
-        .join(', '),
-
-      selectedDisciplinesText: preparedDisciplines
-        .filter((option) => option.selected)
-        .map((option) => option.label)
-        .join(', ')
-    }
-  })
+    disciplineOptions,
+    selectedDisciplinesText: selectedDisciplineLabels.length
+      ? selectedDisciplineLabels.join(', ')
+      : game.i18n.localize('WOD6E.NoneSelected')
+  }
 
   return context
 }

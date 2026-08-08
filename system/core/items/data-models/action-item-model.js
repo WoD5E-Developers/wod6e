@@ -49,8 +49,39 @@ export class ActionItemModel extends WoDItemModel {
     })
 
     // One or more dicepools
-    schema.tests = new fields.ArrayField(testField(), {
-      initial: []
+    schema.test = new fields.SchemaField({
+      description: new fields.StringField({
+        initial: ''
+      }),
+      attributes: new fields.SetField(
+        new fields.StringField({
+          blank: false,
+          nullable: false
+        }),
+        {
+          initial: []
+        }
+      ),
+
+      skills: new fields.SetField(
+        new fields.StringField({
+          blank: false,
+          nullable: false
+        }),
+        {
+          initial: []
+        }
+      ),
+
+      disciplines: new fields.SetField(
+        new fields.StringField({
+          blank: false,
+          nullable: false
+        }),
+        {
+          initial: []
+        }
+      )
     })
 
     // Result text should stay flexible because action outcomes vary heavily
@@ -90,41 +121,4 @@ export class ActionItemModel extends WoDItemModel {
 
     return schema
   }
-}
-
-function testField() {
-  return new fields.SchemaField({
-    description: new fields.StringField({
-      initial: ''
-    }),
-    attributes: new fields.SetField(
-      new fields.StringField({
-        blank: false,
-        nullable: false
-      }),
-      {
-        initial: []
-      }
-    ),
-
-    skills: new fields.SetField(
-      new fields.StringField({
-        blank: false,
-        nullable: false
-      }),
-      {
-        initial: []
-      }
-    ),
-
-    disciplines: new fields.SetField(
-      new fields.StringField({
-        blank: false,
-        nullable: false
-      }),
-      {
-        initial: []
-      }
-    )
-  })
 }

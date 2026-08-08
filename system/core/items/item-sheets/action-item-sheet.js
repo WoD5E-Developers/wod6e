@@ -1,9 +1,8 @@
 // Preparation functions
-import { _onAddTest, _onDeleteTest } from '../scripts/action-buttons.js'
 import {
   prepareActionActivationContext,
   prepareActionDifficultyContext,
-  prepareActionTestsContext
+  prepareActionTestContext
 } from '../scripts/prepare-action-partials.js'
 import {
   prepareDescriptionContext,
@@ -26,10 +25,7 @@ export class ActionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
     position: {
       width: 660
     },
-    actions: {
-      addTest: _onAddTest,
-      deleteTest: _onDeleteTest
-    }
+    actions: {}
   }
 
   static PARTS = {
@@ -42,8 +38,8 @@ export class ActionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
     description: {
       template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
     },
-    tests: {
-      template: 'systems/wod6e/templates/core/items/parts/action-tests.hbs'
+    test: {
+      template: 'systems/wod6e/templates/core/items/parts/action-test.hbs'
     },
     difficulty: {
       template: 'systems/wod6e/templates/core/items/parts/action-difficulty.hbs'
@@ -62,10 +58,10 @@ export class ActionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
       group: 'primary',
       label: 'WOD6E.TABS.Description'
     },
-    tests: {
-      id: 'tests',
+    test: {
+      id: 'test',
       group: 'primary',
-      label: 'WOD6E.TABS.Tests'
+      label: 'WOD6E.TABS.Test'
     },
     difficulty: {
       id: 'difficulty',
@@ -119,8 +115,8 @@ export class ActionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
       case 'description':
         return prepareDescriptionContext(context, item)
 
-      case 'tests':
-        return prepareActionTestsContext(context, item)
+      case 'test':
+        return prepareActionTestContext(context, item)
 
       case 'difficulty':
         return prepareActionDifficultyContext(context, item)
