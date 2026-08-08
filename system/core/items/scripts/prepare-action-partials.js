@@ -1,8 +1,6 @@
 export async function prepareActionTestsContext(context, item) {
   const itemData = item.system
 
-  console.log(itemData.tests[0])
-
   // Tab data
   context.tab = context.tabs.tests
 
@@ -38,12 +36,6 @@ export async function prepareActionTestsContext(context, item) {
         label: discipline.displayName,
         selected: selectedDisciplines.has(key)
       }))
-
-    console.log(`Preparing test ${index}`, {
-      rawAttributes: test.attributes,
-      selectedAttributes,
-      preparedAttributes
-    })
 
     return {
       index,
