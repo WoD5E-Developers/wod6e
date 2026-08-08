@@ -27,7 +27,7 @@ If you'd like to help contribute localization updates, you can either open up an
 
 [![Dark Pack]][Dark Pack URL]
 
-Licensed World of Darkness materials will not be provided as this system is provided for public usage, for free. We have made every effort to keep the Dark Pack guidelines as posted at [Dark Pack Agreement].
+We have made every effort to keep the Dark Pack guidelines as posted at [Dark Pack Agreement]. Content that is acceptable under the Dark Pack Agreement may be included as the system develops, but game rules and game content will not be provided in full under any circumstances.
 
 # System License
 
