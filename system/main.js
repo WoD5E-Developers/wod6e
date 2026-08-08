@@ -9,13 +9,38 @@ import { loadSettings } from './core/scripts/settings.js'
 import { WoDActor } from './core/actors/actor.js'
 import { WoDActorModel } from './core/actors/data-models/base-actor-model.js'
 import { WoDActorBase } from './core/actors/actor-sheets/wod-actor-base.js'
+// Item sheets
+import { WoDItemBase } from './core/items/item-sheets/wod-item-base.js'
+import { WoDItemModel } from './core/items/data-models/base-item-model.js'
+// Applications
+import { StorytellerMenu } from './core/applications/storyteller-menu.js'
 // WOD6E Definitions
 import { Systems } from './core/config/systems.js'
 import { Attributes } from './core/config/attributes.js'
+import { AttributeGroups } from './core/config/attributes-groups.js'
 import { Skills } from './core/config/skills.js'
 import { ActorTypes } from './core/config/actor-types.js'
 import { ItemTypes } from './core/config/item-types.js'
-import { StorytellerMenu } from './core/applications/storyteller-menu.js'
+import { ResourceTypes } from './core/config/resource-types.js'
+import { Disciplines } from './splats/vampire/config/disciplines.js'
+import {
+  prepareDescriptionContext,
+  prepareItemSettingsContext
+} from './core/items/scripts/prepare-partials.js'
+import {
+  prepareAttributesContext,
+  prepareLimitedContext,
+  prepareResourcesContext,
+  prepareSettingsContext
+} from './core/actors/scripts/prepare-core-partials.js'
+import { BaseDefinitionClass } from './core/config/base-definition-class.js'
+import { loadControls } from './core/scripts/controls.js'
+import { WoDCompendiumDirectory } from './core/ui/wod-compendium.js'
+import { ActionGroups } from './core/config/action-groups.js'
+import { Activations } from './core/config/activation-types.js'
+import { ActionRoles } from './core/config/action-roles.js'
+import { Difficulties } from './core/config/difficulties.js'
+import { Distances } from './core/config/distances.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -23,11 +48,40 @@ window.WOD6E = {
   applications: {
     StorytellerMenu
   },
-  WoDActorBase,
-  WoDActorModel,
-  Systems,
-  Attributes,
-  Skills
+  configs: {
+    BaseDefinitionClass,
+    Systems,
+    Attributes,
+    AttributeGroups,
+    Skills,
+    ResourceTypes,
+    Disciplines,
+    ItemTypes,
+    ActorTypes,
+    ActionGroups,
+    Activations,
+    ActionRoles,
+    Difficulties,
+    Distances
+  },
+  actors: {
+    WoDActorBase,
+    WoDActorModel,
+    contextPreparation: {
+      prepareAttributesContext,
+      prepareResourcesContext,
+      prepareSettingsContext,
+      prepareLimitedContext
+    }
+  },
+  items: {
+    WoDItemBase,
+    WoDItemModel,
+    contextPreparation: {
+      prepareDescriptionContext,
+      prepareItemSettingsContext
+    }
+  }
 }
 
 // Anything that needs to be ran alongside the initialisation of the world
@@ -36,6 +90,7 @@ Hooks.once('init', async function () {
   CONFIG.Actor.documentClass = WoDActor
   // Custom UI implementations
   CONFIG.ui.settings = WoDSettings
+  CONFIG.ui.compendium = WoDCompendiumDirectory
   CONFIG.ui.pause = WoDPause
 
   // Loop through each entry in the actorTypesList and register their sheet classes
@@ -80,6 +135,9 @@ Hooks.once('init', async function () {
 
   // Load settings into Foundry
   loadSettings()
+
+  // Load keybindings
+  loadControls()
 })
 
 // Anything that needs to run once the world is fully loaded
@@ -113,22 +171,4 @@ Hooks.once('ready', async function () {
       string: game.i18n.localize('WOD6E.NOTIFICATIONS.ShreckNetInitialized')
     })
   )
-})
-
-// Whenever an actor updates, we want to check for if the 'locked' variable changes
-// and then we want to re-render the item as part of this since items can be
-// in a read-only state (derived from the actor itself)
-Hooks.on('updateActor', (actor, changes) => {
-  // Check if the 'system.locked' property is changed
-  if (!foundry.utils.hasProperty(changes, 'system.locked')) return
-
-  // Re-render all item sheets with the actor as the parent
-  const activeWindows = foundry.applications.api.ApplicationV2.instances()
-  const activeActorItemWindows = [...activeWindows].filter((application) => {
-    const item = application.document
-    return application.rendered && item?.parent?.uuid === actor.uuid
-  })
-  for (const app of activeActorItemWindows) {
-    app.render(false)
-  }
 })

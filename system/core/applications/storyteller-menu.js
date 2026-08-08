@@ -7,9 +7,9 @@ export class StorytellerMenu extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       title: game.i18n.localize('WOD6E.Settings.StorytellerMenu'),
-      id: 'wod5e-storyteller',
-      classes: ['wod5e'],
-      template: 'systems/wod5e/display/ui/storyteller-menu.hbs',
+      id: 'wod6e-storyteller',
+      classes: ['wod6e'],
+      template: 'systems/wod6e/display/ui/storyteller-menu.hbs',
       width: 500,
       height: 450,
       resizable: true,
@@ -46,7 +46,7 @@ export class StorytellerMenu extends FormApplication {
       },
       discipline: {
         newModTitle: game.i18n.format('WOD6E.Settings.NewStringModification', {
-          string: game.i18n.localize('WOD6E.VTM.Discipline')
+          string: game.i18n.localize('WOD6E.VAMPIRE.Discipline')
         }),
         defCategory: 'Disciplines',
         labelCategory: 'DisciplinesList',
@@ -68,14 +68,14 @@ export class StorytellerMenu extends FormApplication {
     }
 
     // Grab the modifications from the game settings and add them to the application data
-    data.attributeModifications = game.settings.get('wod5e', 'modifiedAttributes')
-    data.skillModifications = game.settings.get('wod5e', 'modifiedSkills')
-    data.disciplineModifications = game.settings.get('wod5e', 'modifiedDisciplines')
+    data.attributeModifications = game.settings.get('wod6e', 'modifiedAttributes')
+    data.skillModifications = game.settings.get('wod6e', 'modifiedSkills')
+    data.disciplineModifications = game.settings.get('wod6e', 'modifiedDisciplines')
 
     // Grab the custom features from the game settings and add them to the application data
-    data.customAttributes = game.settings.get('wod5e', 'customAttributes')
-    data.customSkills = game.settings.get('wod5e', 'customSkills')
-    data.customDisciplines = game.settings.get('wod5e', 'customDisciplines')
+    data.customAttributes = game.settings.get('wod6e', 'customAttributes')
+    data.customSkills = game.settings.get('wod6e', 'customSkills')
+    data.customDisciplines = game.settings.get('wod6e', 'customDisciplines')
 
     return data
   }
@@ -95,7 +95,7 @@ export class StorytellerMenu extends FormApplication {
     }
 
     const addCustomItem = async (listKey, label) => {
-      const list = await game.settings.get('wod5e', listKey)
+      const list = await game.settings.get('wod6e', listKey)
       const newItem = {
         id: foundry.utils.randomID(8),
         label
@@ -108,7 +108,7 @@ export class StorytellerMenu extends FormApplication {
 
       // Push the default item into the main list and save the new setting
       list.push(newItem)
-      await game.settings.set('wod5e', listKey, list)
+      await game.settings.set('wod6e', listKey, list)
     }
 
     handleClick('.add-mod-button', ({ type }) => this._onGenerateModPrompt(type))
@@ -163,14 +163,14 @@ export class StorytellerMenu extends FormApplication {
       })
 
       // Attributes
-      game.settings.set('wod5e', 'modifiedAttributes', modifications.attribute)
-      game.settings.set('wod5e', 'customAttributes', custom.attribute)
-      // SKills
-      game.settings.set('wod5e', 'modifiedSkills', modifications.skill)
-      game.settings.set('wod5e', 'customSkills', custom.skill)
+      game.settings.set('wod6e', 'modifiedAttributes', modifications.attribute)
+      game.settings.set('wod6e', 'customAttributes', custom.attribute)
+      // Skills
+      game.settings.set('wod6e', 'modifiedSkills', modifications.skill)
+      game.settings.set('wod6e', 'customSkills', custom.skill)
       // Disciplines
-      game.settings.set('wod5e', 'modifiedDisciplines', modifications.discipline)
-      game.settings.set('wod5e', 'customDisciplines', custom.discipline)
+      game.settings.set('wod6e', 'modifiedDisciplines', modifications.discipline)
+      game.settings.set('wod6e', 'customDisciplines', custom.discipline)
     })
   }
 
@@ -183,13 +183,13 @@ export class StorytellerMenu extends FormApplication {
   // Function for rendering the dialog for adding a new modification
   async _onRenderPromptDialog(type, list, title) {
     const modifiedKey = `modified${this.listKeys[type].defCategory}`
-    const modifiedList = await game.settings.get('wod5e', modifiedKey)
+    const modifiedList = await game.settings.get('wod6e', modifiedKey)
 
     const effectiveList = Object.fromEntries(
       Object.entries(list).filter((item) => !modifiedList.some((mod) => mod.id === item[0]))
     )
 
-    const template = 'systems/wod5e/display/ui/select-dialog.hbs'
+    const template = 'systems/wod6e/display/ui/select-dialog.hbs'
     const content = await foundry.applications.handlebars.renderTemplate(template, {
       options: effectiveList
     })
@@ -215,24 +215,24 @@ export class StorytellerMenu extends FormApplication {
       const id = result.optionSelect
       const label = list[id]?.label || id
       modifiedList.push({ id, label, rename: '', hidden: false })
-      await game.settings.set('wod5e', modifiedKey, modifiedList)
+      await game.settings.set('wod6e', modifiedKey, modifiedList)
     }
   }
 
   // Function for removing a change
   async _onRemoveChange(type, id) {
     const modifiedKey = `modified${this.listKeys[type].defCategory}`
-    let modifiedList = await game.settings.get('wod5e', modifiedKey)
+    let modifiedList = await game.settings.get('wod6e', modifiedKey)
     modifiedList = modifiedList.filter((item) => item.id !== id)
-    await game.settings.set('wod5e', modifiedKey, modifiedList)
+    await game.settings.set('wod6e', modifiedKey, modifiedList)
   }
 
   // Function for removing a custom feature
   async _onRemoveCustom(type, id) {
     const customKey = `custom${this.listKeys[type].defCategory}`
     delete this.listKeys[type].defClass[id]
-    let customList = await game.settings.get('wod5e', customKey)
+    let customList = await game.settings.get('wod6e', customKey)
     customList = customList.filter((item) => item.id !== id)
-    await game.settings.set('wod5e', customKey, customList)
+    await game.settings.set('wod6e', customKey, customList)
   }
 }

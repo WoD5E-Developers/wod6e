@@ -1,0 +1,52 @@
+<section
+  class="sheet-part sheet-section"
+  data-group="primary"
+  data-tab="main"
+  data-actor-section="skills"
+>
+  <header class="sheet-section-header resource-tracker-header">
+    {{localize 'WOD6E.SKILLS.Skills'}}
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each skills as |skill|}}
+    <div
+      class="sheet-section-row resource-tracker"
+      data-skill="{{ skill.key }}"
+    >
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="rollSkill"
+        data-skill="{{ skill.key }}"
+        title="{{localize skill.label}}"
+      >
+        <span class="skill-name">
+          {{ skill.label }}
+        </span>
+
+        {{#if skill.specialtyText}}
+        <span class="dot-specialties">({{ skill.specialtyText }})</span>
+        {{/if}}
+      </button>
+
+      <div class="dot-tracker resource-tracker-spaces">
+        {{#each skill.trackers as |group|}}
+        <div class="dot-tracker-group resource-tracker-group">
+          {{#each group as |space|}}
+          <button
+            type="button"
+            class="dot-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}"
+            data-action="setTrackerValue"
+            data-resource-path="system.skills.{{ skill.key }}"
+            data-value="{{ space.trackerValue }}"
+            title="{{ space.title }}"
+          ></button>
+          {{/each}}
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>

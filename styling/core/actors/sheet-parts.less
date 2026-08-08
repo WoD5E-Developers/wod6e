@@ -1,0 +1,55 @@
+.actor.sheet {
+  .sheet-part {
+    padding: 6px;
+  }
+
+  [data-actor-section="header"] {
+    grid-area: header;
+    display: grid;
+    grid-template-columns:
+      minmax(300px, 1fr)
+      minmax(90px, 0.3fr)
+      minmax(300px, 1fr);
+
+    .middle-header {
+      img {
+        padding: var(--spacer-16);
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
+  [data-actor-section="tabs"] {
+    grid-area: navigation;
+    max-height: fit-content;
+  }
+
+  [data-actor-section="healthWillpower"] {
+    grid-area: healthWillpower;
+    display: grid;
+    grid-template-columns:
+      minmax(260px, 1fr)
+      minmax(260px, 1fr);
+  }
+
+  [data-actor-section="attributes"] {
+    grid-area: attributes;
+  }
+
+  [data-actor-section="leftColumn"] {
+    grid-area: leftColumn;
+  }
+
+  [data-actor-section="middleColumn"] {
+    grid-area: middleColumn;
+  }
+
+  [data-actor-section="rightColumn"] {
+    grid-area: rightColumn;
+  }
+
+  [data-actor-section="settings"] {
+    grid-column: 1 / -1;
+  }
+}

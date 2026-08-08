@@ -1,0 +1,49 @@
+/* Variables */
+.game.theme-light {
+  // Trackers
+  --tracker-background: #d8eaf4;
+  --tracker-text: #000;
+  --tracker-border: #000;
+  --tracker-filled: #000;
+  --tracker-disabled: #000000de;
+  --tracker-disabled-dark: #fff;
+
+  // Fields
+  --multiselect-background: #d5cbab;
+  --multiselect-border: #000;
+  --multiselect-hover-background: #ffffff18;
+  --multiselect-hover-border: #000;
+  --multiselect-hover-color: #020202;
+  --multiselect-checked-border: #CCC;
+  --multiselect-checked-color: #fd0000;
+
+  // ProseMirror
+  --prosemirror-wod6e-background: rgba(0, 0, 0, 0.05);
+  --prosemirror-wod6e-border: #020202;
+
+  // Applications
+  --compendium-browser-footer-background: #ccc;
+
+  // Humanity tracker
+  --humanity-border: #000;
+  --humanity-text: #000;
+  --humanity-filled: #000;
+  --humanity-empty: rgb(65 102 126 / 14%);
+  --humanity-hover: rgb(65 102 126 / 28%);
+
+  .actor.sheet {
+    .attribute-group-fields {
+      background-image: url(/ui/parchment.jpg);
+    }
+  }
+
+  .resource-tracker-space {
+    &::before {
+      background: var(--tracker-disabled);
+    }
+
+    &::after {
+      background: var(--tracker-disabled);
+    }
+  }
+}

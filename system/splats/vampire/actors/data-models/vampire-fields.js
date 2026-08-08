@@ -1,3 +1,5 @@
+import { disciplineFields } from './fields/discipline-fields.js'
+
 const fields = foundry.data.fields
 
 export function vampireFields() {
@@ -5,24 +7,31 @@ export function vampireFields() {
     // Determines whether an actor sheet has discipline data for processing
     hasDisciplineData: new fields.BooleanField({ initial: true }),
 
-    hunger: new fields.SchemaField({
-      value: new fields.NumberField({ initial: 1 }),
-      max: new fields.NumberField({ initial: 5 })
-    }),
+    vampire: new fields.SchemaField({
+      date: new fields.SchemaField({
+        embrace: new fields.StringField({ initial: '', nullable: false }),
+        nostalgic: new fields.StringField({ initial: '', nullable: false })
+      }),
 
-    humanity: new fields.SchemaField({
-      value: new fields.NumberField({ initial: 7 }),
-      stains: new fields.NumberField({ initial: 0 })
-    }),
+      clan: new fields.SchemaField({
+        name: new fields.StringField({ initial: '', nullable: false }),
+        curse: new fields.StringField({ initial: '', nullable: false })
+      }),
 
-    blood: new fields.SchemaField({
-      potency: new fields.NumberField({ initial: 0 }),
-      generation: new fields.StringField({ initial: '' })
-    }),
+      generation: new fields.NumberField({ initial: null, nullable: true }),
 
-    disciplines: new fields.ObjectField({
-      initial: {},
-      validate: false
+      sire: new fields.SchemaField({
+        name: new fields.StringField({ initial: '', nullable: false })
+      }),
+
+      humanity: new fields.SchemaField({
+        max: new fields.NumberField({ initial: 7, min: 1, integer: true, nullable: false }),
+        value: new fields.NumberField({ initial: 4, min: 0, integer: true, nullable: false }),
+        disabled: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
+        canBeDisabled: new fields.BooleanField({ initial: false })
+      }),
+
+      disciplines: disciplineFields()
     })
   }
 }

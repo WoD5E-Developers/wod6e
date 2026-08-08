@@ -1,0 +1,45 @@
+<header class="item-header">
+  {{> "systems/wod6e/templates/core/items/parts/item-image.hbs"}}
+  {{> "systems/wod6e/templates/core/items/parts/item-name.hbs"}}
+
+  <div class="header-fields">
+    <div class="flexcol action-category flex-center item-resource">
+      <label>
+        <b>{{localize "WOD6E.ACTIONS.Category"}}</b>
+      </label>
+
+      <select
+        name="system.group"
+        data-type="String"
+      >
+        {{selectOptions actionGroupOptions selected=actionGroupSelected}}
+      </select>
+    </div>
+
+    <div class="flexcol action-role flex-center item-resource">
+      <label>
+        <b>{{localize "WOD6E.ACTIONS.Role"}}</b>
+      </label>
+
+      <select
+        name="system.role"
+        data-type="String"
+      >
+        {{selectOptions actionRoleOptions selected=roleSelected}}
+      </select>
+    </div>
+
+    <div class="flexcol action-type flex-center item-resource">
+      <label>
+        <b>{{localize "WOD6E.ACTIONS.ActionType"}}</b>
+      </label>
+
+      <select
+        name="system.actionType"
+        data-type="String"
+      >
+        {{selectOptions actionTypeOptions selected=actionTypeSelected}}
+      </select>
+    </div>
+  </div>
+</header>

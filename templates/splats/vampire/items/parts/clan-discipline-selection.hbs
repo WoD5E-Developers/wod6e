@@ -1,0 +1,11 @@
+<div class="form-group clan-disciplines multi-select-section">
+  <label>
+    <b>{{localize 'WOD6E.VAMPIRE.Disciplines'}}</b>
+  </label>
+
+  {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
+    fieldPath='system.vampire.disciplines'
+    options=disciplineOptions
+    selectedText=selectedDisciplinesText
+  }}
+</div>

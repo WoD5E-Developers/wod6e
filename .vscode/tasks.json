@@ -28,6 +28,13 @@
 			"problemMatcher": [],
 			"label": "WOD6E: Run NPM Audit",
 			"detail": "audit --json > audit.json"
+		},
+		{
+			"type": "npm",
+			"script": "convert-packs",
+			"problemMatcher": [],
+			"label": "WOD6E: Convert packs to JSON for better change tracking",
+			"detail": "npm run convert-packs"
 		}
 	]
 }

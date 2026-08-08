@@ -1,0 +1,59 @@
+<section
+  class="sheet-part sheet-section"
+  data-group="primary"
+  data-tab="main"
+  data-actor-section="flaws"
+>
+  <header class="sheet-section-header">
+    <div class="sheet-section-name align-left">
+      {{localize 'WOD6E.FLAWS.Flaws'}}
+    </div>
+    <div class="sheet-section-data-actions align-right">
+      <a
+        class="search-data-item"
+        data-action="searchItem"
+        title="{{localize 'WOD6E.Search'}}"
+        data-type="flaw"
+      >
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+      <a
+        class="item-create"
+        data-action="createItem"
+        title="{{localize 'WOD6E.Create'}}"
+        data-type="flaw"
+      >
+        <i class="fas fa-plus"></i>
+      </a>
+    </div>
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each flaws as |flaw|}}
+    <div
+      class="sheet-section-row item-section"
+      data-flaw="{{ flaw.uuid }}"
+    >
+      <a
+        class="item-open"
+        data-action="openItem"
+        title="{{localize 'WOD6E.ViewItem'}}"
+        data-uuid="{{ flaw.uuid }}"
+      >
+        <i class="fas fa-book"></i>
+      </a>
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="sendItemToChat"
+        title="Click to post to chat"
+      >
+        <span class="item-name bolded">{{ flaw.name }}.</span>
+      </button>
+      {{#if flaw.description}}
+      <span class="item-description">{{{ descriptionShort flaw.description }}}</span>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>

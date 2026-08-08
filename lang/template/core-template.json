@@ -4,23 +4,181 @@
       "_vampire": ""
     },
     "Item": {
+      "_action": "",
       "_clan": "",
-      "_discipline": ""
+      "_clanTrait": "",
+      "_discipline": "",
+      "_equipment": "",
+      "_flaw": "",
+      "_lifepath": "",
+      "_merit": "",
+      "_nature": "",
+      "_resource": ""
     }
   },
   "WOD6E": {
+    "_AddString": "",
+    "_Cancel": "",
+    "_ConfigureString": "",
+    "_Confirm": "",
+    "_Core": "",
+    "_Create": "",
+    "_Delete": "",
+    "_Description": "",
     "_GamePaused": "",
+    "_ItemType": "",
+    "_Name": "",
+    "_NewString": "",
+    "_None": "",
+    "_NoneSelected": "",
+    "_Search": "",
+    "_SelectString": "",
+    "_System": "",
+    "_ViewItem": "",
+    "ACTIONS": {
+      "_Action": "",
+      "_Actions": "",
+      "_ActionType": "",
+      "_Activation": "",
+      "_ActivationDistance": "",
+      "_ActivationType": "",
+      "_AddTest": "",
+      "_Attack": "",
+      "_AttributeOrNPCLevel": "",
+      "_Category": "",
+      "_Close": "",
+      "_Defense": "",
+      "_Downtime": "",
+      "_Exploration": "",
+      "_Far": "",
+      "_Fixed": "",
+      "_General": "",
+      "_Instantaneous": "",
+      "_MinorAction": "",
+      "_NPCLevel": "",
+      "_OneNight": "",
+      "_OneScene": "",
+      "_OneTurn": "",
+      "_Permanent": "",
+      "_Physical": "",
+      "_Prolonged": "",
+      "_Reaction": "",
+      "_Role": "",
+      "_Self": "",
+      "_Short": "",
+      "_Social": "",
+      "_Special": "",
+      "_Storyteller": "",
+      "_TargetAttribute": "",
+      "_TargetHighestAttribute": "",
+      "_Test": "",
+      "_Touch": "",
+      "_Unlimited": "",
+      "_Untyped": "",
+      "_Utility": "",
+      "_Variable": ""
+    },
+    "APPLICATIONS": {
+      "_CompendiumBrowser": "",
+      "_CompendiumBrowserControlHint": "",
+      "_CompendiumBrowserControlLabel": "",
+      "_CompendiumBrowserSidebarLabel": "",
+      "_ConfigureSources": "",
+      "_NoResultsFound": ""
+    },
+    "ATTRIBUTES": {
+      "_Attributes": "",
+      "_Charisma": "",
+      "_Composure": "",
+      "_Dexterity": "",
+      "_Intelligence": "",
+      "_Manipulation": "",
+      "_Mental": "",
+      "_Physical": "",
+      "_Resolve": "",
+      "_Social": "",
+      "_Stamina": "",
+      "_Strength": "",
+      "_Wits": ""
+    },
+    "EQUIPMENT": {
+      "_Equipment": ""
+    },
+    "FLAWS": {
+      "_Flaws": ""
+    },
+    "ITEMS": {
+      "_ConfirmDelete": "",
+      "_ConfirmDeleteDescription": "",
+      "_ConfirmOverwrite": "",
+      "_ConfirmOverwriteString": "",
+      "_DataItemId": "",
+      "_DataItemIdCannotBeEmpty": "",
+      "_DeleteItem": "",
+      "_GenerateDataItemID": "",
+      "_Level": "",
+      "_NoItemsFound": "",
+      "_PageNumber": "",
+      "_Sourcebook": "",
+      "_SyncFromDataItem": "",
+      "_SyncToDataItems": ""
+    },
+    "LIFEPATHS": {
+      "_Lifepaths": ""
+    },
+    "MERITS": {
+      "_Merits": ""
+    },
     "NOTIFICATIONS": {
       "_ConsoleLog": "",
       "_InitializingSchreckNet": "",
       "_LoadingSubroutines": "",
       "_ShreckNetInitialized": ""
     },
+    "RESOURCES": {
+      "_Baneful": "",
+      "_PhysicalAssets": "",
+      "_Resources": "",
+      "_ResourceType": "",
+      "_SocialAssets": "",
+      "_Value": "",
+      "_Vitae": "",
+      "_Wealth": "",
+      "_Willpower": ""
+    },
     "SIDEBARS": {
       "_Changelog": "",
       "_LicensedUnderDarkPack": "",
       "_LicensedUnderDarkPackFulltext": "",
       "_ReportAnIssue": ""
+    },
+    "SKILLS": {
+      "_Athletics": "",
+      "_Awareness": "",
+      "_Craft": "",
+      "_Expression": "",
+      "_Fighting": "",
+      "_Investigation": "",
+      "_Knowledge": "",
+      "_Medicine": "",
+      "_Persuasion": "",
+      "_Sabotage": "",
+      "_Shooting": "",
+      "_Skills": "",
+      "_Subterfuge": "",
+      "_Survival": ""
+    },
+    "TABS": {
+      "_Actions": "",
+      "_Activation": "",
+      "_Description": "",
+      "_Difficulty": "",
+      "_Distance": "",
+      "_Indulging": "",
+      "_Main": "",
+      "_Outburst": "",
+      "_Settings": "",
+      "_Test": ""
     }
   }
 }

@@ -1,0 +1,24 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}">
+  {{#if descriptionName}}
+  <div class="sheet-field">
+    <label>Name</label>
+    <input
+      type="text"
+      name="{{ descriptionName.path }}"
+      value="{{ descriptionName.value }}"
+      placeholder="{{localize 'WOD6E.Name'}}"
+    />
+  </div>
+  {{/if}}
+  <div class="prose-mirror-section">
+    {{#if descriptionName}}
+    <div class="prose-mirror-header">
+        Description
+    </div>
+    {{/if}}
+    <prose-mirror name="{{ description.path }}" value="{{description.value}}"
+        toggled="true" compact="true">
+        {{{description.enriched}}}
+    </prose-mirror>
+  </div>
+</section>

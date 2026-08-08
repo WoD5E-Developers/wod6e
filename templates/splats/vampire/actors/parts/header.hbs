@@ -1,3 +1,151 @@
-<section class="sheet-part tab {{tabs.main.cssClass}}" data-group="primary" data-tab="main">
-  Header
+<section
+  class="sheet-part sheet-section"
+  data-group="primary"
+  data-tab="main"
+  data-actor-section="header"
+>
+  <div class="left-header">
+    <section
+      class="sheet-part tab {{ tabs.main.cssClass }}"
+      data-group="primary"
+      data-tab="main"
+    >
+      <div class="sheet-field">
+        <label>Name</label>
+        <input
+          type="text"
+          name="name"
+          value="{{ name }}"
+          placeholder="{{localize 'WOD6E.Name'}}"
+        />
+      </div>
+      <div class="sheet-field">
+        <label>Apparent Age:</label>
+        <input
+          type="text"
+          name="system.age.apparent"
+          value="{{ age.apparent }}"
+        />
+      </div>
+      <div class="sheet-field">
+        <label>Actual Age:</label>
+        <input
+          type="text"
+          name="system.age.actual"
+          value="{{ age.actual }}"
+        />
+      </div>
+      <div class="sheet-field">
+        <label>Date of Embrace:</label>
+        <input
+          type="text"
+          name="system.vampire.date.embrace"
+          value="{{ vampire.date.embrace }}"
+        />
+      </div>
+      <div class="sheet-field">
+        <label>Nostalgic Decade:</label>
+        <input
+          type="text"
+          name="system.vampire.date.nostalgic"
+          value="{{ vampire.date.nostalgic }}"
+        />
+      </div>
+    </section>
+  </div>
+  <div class="middle-header">
+    <img
+      src="/systems/wod6e/assets/actors/VampireSymbol.webp"
+      class="vampire-symbol"
+      height="200px"
+    />
+  </div>
+  <div class="right-header">
+    <section
+      class="sheet-part tab {{ tabs.main.cssClass }}"
+      data-group="primary"
+      data-tab="main"
+    >
+      <div class="sheet-field">
+        <label>Clan:</label>
+        {{#if clan}}
+        <input
+          type="text"
+          disabled
+          value="{{ clan.name }}"
+        />
+        <div
+          class="actor-item-display clickable"
+          data-uuid="{{ clan.uuid }}"
+          data-action="openItem"
+          data-type="Item"
+          data-drag="true"
+          data-document-uuid="{{ clan.uuid }}"
+        >
+          <img
+            class="result-image"
+            src="{{ clan.img }}"
+            alt="{{ clan.name }}"
+          />
+        </div>
+        {{else}}
+        <input
+          type="text"
+          disabled
+          value="{{ clan.name }}"
+        />
+        <div>
+          <a
+            class="search-data-item"
+            data-action="searchItem"
+            title="{{localize 'WOD6E.Search'}}"
+            data-type="clan"
+          >
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </a>
+          <a
+            class="item-create"
+            data-action="createItem"
+            title="{{localize 'WOD6E.Create'}}"
+            data-type="clan"
+          >
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+        {{/if}}
+      </div>
+      <div class="sheet-field">
+        <label>Clan Curse:</label>
+        <input
+          type="text"
+          disabled
+          value="{{ clan.system.curse.name }}"
+        />
+      </div>
+      <div class="sheet-field">
+        <label>Generation (Modifier):</label>
+        <input
+          type="text"
+          name="system.vampire.generation"
+          value="{{ vampire.generation }}"
+        />
+      </div>
+      <div class="sheet-field">
+        <label>Archetype:</label>
+        <input
+          type="text"
+          name="system.archetype"
+          value="{{ archetype }}"
+        />
+      </div>
+      <div class="sheet-field">
+        <label>Sire:</label>
+        <input
+          type="text"
+          name="system.vampire.sire.name"
+          value="{{ vampire.sire.name }}"
+        />
+      </div>
+    </section>
+  </div>
 </section>

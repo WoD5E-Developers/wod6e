@@ -1,20 +1,95 @@
+import { generateTrackers } from './generate-trackers.js'
+
 export const prepareAttributesContext = async function (context, actor) {
-  const actorAttributes = actor.system.attributes
-  context.attributes = actorAttributes
+  const attributeGroups = WOD6E.configs.AttributeGroups.getList({})
+  const attributes = WOD6E.configs.Attributes.getList({})
+
+  context.attributeGroups = Object.entries(attributeGroups)
+    .filter(([, attributeGroup]) => !attributeGroup.hidden)
+    .map(([attributeGroupId, attributeGroup]) => ({
+      id: attributeGroupId,
+      label: attributeGroup.displayName,
+      attributes: Object.entries(attributes)
+        .filter(([, attribute]) => attribute.type === attributeGroupId && !attribute.hidden)
+        .map(([key, attribute]) => ({
+          key,
+          label: attribute.displayName,
+          value: foundry.utils.getProperty(actor, attribute.path)
+        }))
+    }))
 
   return context
 }
 
-export const prepareVitaeContext = async function (context, actor) {
-  const actorVitae = actor.system.vitae
-  context.vitae = actorVitae
+export const prepareResourcesContext = async function (context, actor) {
+  const actorHealth = actor.system.health
+  context.health = {
+    // Other splats may call this "Health" in the future
+    // So let's think smartly and just make this a variable
+    // upfront instead of putting it on the sheet
+    label: 'WOD6E.RESOURCES.Vitae',
+    path: 'system.health.value',
+    value: actorHealth.value,
+    max: actorHealth.max,
+    baneful: actorHealth.baneful,
+    trackers: generateTrackers({
+      name: game.i18n.localize('WOD6E.RESOURCES.Vitae'),
+      damageName: game.i18n.localize('WOD6E.RESOURCES.Baneful'),
+      value: actorHealth.value,
+      max: actorHealth.max,
+      disabled: actorHealth.disabled
+    })
+  }
 
-  return context
-}
-
-export const prepareWillpowerContext = async function (context, actor) {
   const actorWillpower = actor.system.willpower
-  context.willpower = actorWillpower
+  context.willpower = {
+    path: 'system.willpower.value',
+    value: actorWillpower.value,
+    max: actorWillpower.max,
+    baneful: actorWillpower.baneful,
+    trackers: generateTrackers({
+      name: game.i18n.localize('WOD6E.RESOURCES.Willpower'),
+      value: actorWillpower.value,
+      max: actorWillpower.max,
+      disabled: actorWillpower.disabled,
+      reverse: true
+    })
+  }
+
+  return context
+}
+
+export const prepareActionsContext = async function (context, actor) {
+  // Tab data
+  context.tab = context.tabs.actions
+
+  // Construct the action groupings
+  const actionGroups = WOD6E.configs.ActionGroups.getList({})
+  context.actionGroups = Object.entries(actionGroups).map(([key, group]) => ({
+    key,
+    label: group.label,
+    actions: []
+  }))
+  const groups = new Map(context.actionGroups.map((group) => [group.key, group]))
+
+  // Populate actions
+  for (const action of actor.items.filter((item) => item.type === 'action')) {
+    const group = action?.system?.group || 'general'
+
+    const actionGroup = groups.get(group)
+
+    if (!actionGroup) continue
+
+    actionGroup.actions.push({
+      id: action.id,
+      uuid: action.uuid,
+      name: action.name,
+      description: action.system.description,
+      activation: action.system.activation.activationType,
+      role: action.system.role,
+      type: action.system.actionType
+    })
+  }
 
   return context
 }

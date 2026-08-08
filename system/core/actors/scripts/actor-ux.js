@@ -2,29 +2,57 @@ import { ItemTypes } from '../../config/item-types.js'
 import { _onSortItem } from './on-sort-item.js'
 
 export class ActorUX {
-  // Save the current scroll position
-  static async _saveScrollPositions(actor) {
-    const activeList = this.findActiveList(actor)
+  // A list of targets to restore the scroll positions of and their keys
+  static scrollTargets = [
+    {
+      selector: 'section.tab.active',
+      key: () => 'active-tab'
+    },
+    {
+      selector: '.multi-select-dropdown',
+      key: (element, index) =>
+        element.closest('[data-multi-select]')?.dataset.fieldPath ?? `multi-select-${index}`
+    }
+  ]
 
-    if (activeList.length) {
-      actor._scroll = activeList.scrollTop()
+  // Save the current scroll position
+  static _saveScrollPositions(sheet) {
+    sheet._scrollPositions ??= new Map()
+    sheet._scrollPositions.clear()
+
+    for (const target of this.scrollTargets) {
+      $(sheet.element)
+        .find(target.selector)
+        .each((index, element) => {
+          const key = target.key(element, index)
+          const scrollTop = element.scrollTop
+          const scrollLeft = element.scrollLeft
+
+          sheet._scrollPositions.set(key, {
+            scrollTop,
+            scrollLeft
+          })
+        })
     }
   }
 
   // Restore the saved scroll position
-  static async _restoreScrollPositions(actor) {
-    const activeList = this.findActiveList(actor)
+  static _restoreScrollPositions(sheet) {
+    if (!sheet._scrollPositions) return
 
-    if (activeList.length && actor._scroll != null) {
-      activeList.scrollTop(actor._scroll)
+    for (const target of this.scrollTargets) {
+      $(sheet.element)
+        .find(target.selector)
+        .each((index, element) => {
+          const key = target.key(element, index)
+          const savedPosition = sheet._scrollPositions.get(key)
+
+          if (!savedPosition) return
+
+          element.scrollTop = savedPosition.scrollTop
+          element.scrollLeft = savedPosition.scrollLeft
+        })
     }
-  }
-
-  // Get the scroll area of the currently active tab
-  static findActiveList(actor) {
-    const activeList = $(actor.element).find('section.tab.active')
-
-    return activeList
   }
 
   // Save the maxHeight of all collapsible-content elements if it's greater than 0
@@ -97,7 +125,7 @@ export class ActorUX {
         !(actorType === 'group' && whitelist.includes(actor.system.groupType))
       ) {
         ui.notifications.warn(
-          game.i18n.format('WOD6E.ItemsList.ItemCannotBeDroppedOnActor', {
+          game.i18n.format('WOD6E.ITEMS.ItemCannotBeDroppedOnActor', {
             string1: itemType,
             string2: actorType
           })
@@ -109,7 +137,7 @@ export class ActorUX {
       // If the blacklist contains any entries, we can check to make sure this actor type isn't disallowed for the item
       if (!foundry.utils.isEmpty(blacklist) && blacklist.indexOf(actorType) > -1) {
         ui.notifications.warn(
-          game.i18n.format('WOD6E.ItemsList.ItemCannotBeDroppedOnActor', {
+          game.i18n.format('WOD6E.ITEMS.ItemCannotBeDroppedOnActor', {
             string1: itemType,
             string2: actorType
           })

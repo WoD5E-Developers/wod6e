@@ -1,5 +1,7 @@
 // Base actor sheet to extend from
 import { WoDActorBase } from '../../../../core/actors/actor-sheets/wod-actor-base.js'
+import { prepareActionsContext } from '../../../../core/actors/scripts/prepare-core-partials.js'
+import { _onConfigureVisibleDisciplines } from './scripts/on-configure-visible-disciplines.js'
 import {
   prepareDisciplinesContext,
   prepareHeaderContext,
@@ -18,39 +20,20 @@ const { HandlebarsApplicationMixin } = foundry.applications.api
 export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
   static DEFAULT_OPTIONS = {
     classes: ['wod6e', 'actor', 'sheet', 'vampire'],
-    actions: {}
+    actions: {
+      configureVisibleDisciplines: _onConfigureVisibleDisciplines
+    }
   }
 
   static PARTS = {
     tabs: {
       template: 'templates/generic/tab-navigation.hbs'
     },
-    header: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/header.hbs'
+    main: {
+      template: 'systems/wod6e/templates/splats/vampire/actors/vampire-sheet-body.hbs'
     },
-    attributes: {
-      template: 'systems/wod6e/templates/core/actors/parts/attributes.hbs'
-    },
-    vitae: {
-      template: 'systems/wod6e/templates/core/actors/parts/vitae.hbs'
-    },
-    willpower: {
-      template: 'systems/wod6e/templates/core/actors/parts/willpower.hbs'
-    },
-    humanityScale: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/humanity-scale.hbs'
-    },
-    leftColumn: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/left-column.hbs'
-    },
-    middleColumn: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/middle-column.hbs'
-    },
-    rightColumn: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/right-column.hbs'
-    },
-    disciplines: {
-      template: 'systems/wod6e/templates/splats/vampire/actors/parts/disciplines.hbs'
+    actions: {
+      template: 'systems/wod6e/templates/core/actors/parts/actions.hbs'
     },
     settings: {
       template: 'systems/wod6e/templates/core/actors/parts/settings.hbs'
@@ -70,12 +53,12 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
         {
           id: 'main',
           icon: 'fa-solid fa-user',
-          label: 'WOD6E.Tabs.Main'
+          label: 'WOD6E.TABS.Main'
         },
         {
-          id: 'settings',
-          icon: 'fa-solid fa-gears',
-          label: 'WOD6E.Tabs.Settings'
+          id: 'actions',
+          icon: 'fa-solid fa-user',
+          label: 'WOD6E.TABS.Actions'
         }
       ],
       initial: 'main'
@@ -86,7 +69,13 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     // Top-level variables
     const context = await super._prepareContext()
 
+    // Top-level variables
+    const actor = this.actor
+
     context.tabs = this._prepareTabs('primary')
+
+    context.clan = actor.items.filter((item) => item.type === 'clan')[0]
+    context.nature = actor.items.filter((item) => item.type === 'nature')[0]
 
     return context
   }
@@ -100,15 +89,9 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
 
     // Prepare each page context
     switch (partId) {
-      // Core partials
-      case 'attributes':
-        return this.prepareAttributesContext(context, actor)
-
-      case 'vitae':
-        return this.prepareVitaeContext(context, actor)
-
-      case 'willpower':
-        return this.prepareWillpowerContext(context, actor)
+      // Tabs
+      case 'actions':
+        return prepareActionsContext(context, actor)
 
       case 'settings':
         return this.prepareSettingsContext(context, actor)
@@ -116,24 +99,18 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
       case 'limited':
         return this.prepareLimitedContext(context, actor)
 
-      // Partials specific to each actor sheet
-      case 'header':
-        return prepareHeaderContext(context, actor)
+      // Main body
+      case 'main':
+        context = await this.prepareAttributesContext(context, actor)
+        context = await this.prepareResourcesContext(context, actor)
+        context = await prepareHeaderContext(context, actor)
+        context = await prepareHumanityScaleContext(context, actor)
+        context = await prepareLeftColumnContext(context, actor)
+        context = await prepareMiddleColumnContext(context, actor)
+        context = await prepareRightColumnContext(context, actor)
+        context = await prepareDisciplinesContext(context, actor)
 
-      case 'humanityScale':
-        return prepareHumanityScaleContext(context, actor)
-
-      case 'leftColumn':
-        return prepareLeftColumnContext(context, actor)
-
-      case 'middleColumn':
-        return prepareMiddleColumnContext(context, actor)
-
-      case 'rightColumn':
-        return prepareRightColumnContext(context, actor)
-
-      case 'disciplines':
-        return prepareDisciplinesContext(context, actor)
+        return context
     }
 
     return context

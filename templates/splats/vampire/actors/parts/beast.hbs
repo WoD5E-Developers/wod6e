@@ -1,0 +1,43 @@
+<section
+  class="sheet-part sheet-section"
+  data-actor-section="beast"
+>
+  <header class="sheet-section-header">
+    <div class="sheet-section-name align-left">
+      {{localize 'WOD6E.VAMPIRE.Beast'}}
+    </div>
+    {{#if clan}}
+    <div class="sheet-section-data-actions align-right">
+      <a
+        class="item-open"
+        data-action="openItem"
+        title="{{localize 'WOD6E.VAMPIRE.ViewClan'}}"
+        data-uuid="{{clan.uuid}}"
+      >
+        <i class="fas fa-book"></i>
+      </a>
+    </div>
+    {{/if}}
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each beast as |beastFeature|}}
+    <div
+      class="sheet-section-row item-section"
+      data-beast="{{ beastFeature.uuid }}"
+    >
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="sendItemToChat"
+        title="Click to post to chat"
+      >
+        <span class="item-name bolded">{{ beastFeature.name }}.</span>
+      </button>
+      {{#if beastFeature.description}}
+      <span class="item-description">{{{ descriptionShort beastFeature.description }}}</span>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>

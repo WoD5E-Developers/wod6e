@@ -1,3 +1,107 @@
-<section class="sheet-part tab {{tabs.main.cssClass}}" data-group="primary" data-tab="main">
-  Disciplines
+<section
+  class="sheet-part sheet-section"
+  data-group="primary"
+  data-tab="main"
+  data-actor-section="disciplines"
+>
+  <header class="sheet-section-header resource-tracker-header">
+    <div class="sheet-section-name align-left">
+      <a class="align-right clickable" data-action="configureVisibleDisciplines" title="{{localize "WOD6E.VAMPIRE.ConfigureVisibleDisciplines"}}">
+          <i class="fas fa-edit"></i>
+      </a>
+
+      {{localize 'WOD6E.VAMPIRE.Disciplines'}}
+    </div>
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each disciplines as |discipline|}}
+    <div
+      class="sheet-section-row resource-tracker"
+      data-discipline="{{ discipline.key }}"
+    >
+      <div class="sheet-subsection-header">
+        <button
+          type="button"
+          class="sheet-section-label"
+          data-action="rollDiscipline"
+          data-discipline="{{ discipline.key }}"
+          title="{{localize discipline.label}}"
+        >
+          <span class="discipline-name">
+            {{ discipline.label }}
+          </span>
+        </button>
+        <div class="sheet-section-data-actions">
+          <a
+            class="search-data-item"
+            data-action="searchItem"
+            title="{{localize 'WOD6E.Search'}}"
+            data-type="discipline"
+            data-subtype="{{ discipline.key }}"
+          >
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </a>
+          <a
+            class="item-create"
+            data-action="createItem"
+            title="{{localize 'WOD6E.Create'}}"
+            data-type="discipline"
+            data-subtype="{{ discipline.key }}"
+          >
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+
+        <div class="dot-tracker resource-tracker-spaces align-right">
+          {{#each discipline.trackers as |group|}}
+          <div class="dot-tracker-group resource-tracker-group">
+            {{#each group as |space|}}
+            <button
+              type="button"
+              class="dot-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}"
+              data-action="setTrackerValue"
+              data-resource-path="system.vampire.disciplines.{{ discipline.key }}"
+              data-value="{{ space.trackerValue }}"
+              title="{{ space.title }}"
+            ></button>
+            {{/each}}
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    {{#if discipline.powers}}
+    <div class="resource-tracker-items">
+      {{#each discipline.powers as |power|}}
+      <div
+        class="sheet-section-row resource-tracker"
+        data-resource="{{ power.uuid }}"
+      >
+        <div class="resource-name">
+          <a
+            class="item-open"
+            data-action="openItem"
+            title="{{localize 'WOD6E.ViewItem'}}"
+            data-uuid="{{ power.uuid }}"
+          >
+            <i class="fas fa-book"></i>
+          </a>
+          <button
+            type="button"
+            class="sheet-section-label"
+            data-action="rollSkill"
+            title="{{ power.name }}"
+          >
+            <span class="resource-name">
+              {{ power.name }}
+            </span>
+          </button>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+    {{/each}}
+  </div>
 </section>

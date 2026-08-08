@@ -48,138 +48,55 @@ export class Skills extends BaseDefinitionClass {
   }
 
   static athletics = {
-    label: 'WOD6E.SkillsList.Athletics',
-    type: 'physical'
-  }
-
-  static animalken = {
-    label: 'WOD6E.SkillsList.AnimalKen',
-    type: 'social'
-  }
-
-  static academics = {
-    label: 'WOD6E.SkillsList.Academics',
-    type: 'mental'
-  }
-
-  static brawl = {
-    label: 'WOD6E.SkillsList.Brawl',
-    type: 'physical'
-  }
-
-  static etiquette = {
-    label: 'WOD6E.SkillsList.Etiquette',
-    type: 'social'
+    label: 'WOD6E.SKILLS.Athletics'
   }
 
   static awareness = {
-    label: 'WOD6E.SkillsList.Awareness',
-    type: 'mental'
+    label: 'WOD6E.SKILLS.Awareness'
   }
 
   static craft = {
-    label: 'WOD6E.SkillsList.Craft',
-    type: 'physical'
+    label: 'WOD6E.SKILLS.Craft'
   }
 
-  static insight = {
-    label: 'WOD6E.SkillsList.Insight',
-    type: 'social'
+  static expression = {
+    label: 'WOD6E.SKILLS.Expression'
   }
 
-  static finance = {
-    label: 'WOD6E.SkillsList.Finance',
-    type: 'mental'
-  }
-
-  static drive = {
-    label: 'WOD6E.SkillsList.Drive',
-    type: 'physical'
-  }
-
-  static intimidation = {
-    label: 'WOD6E.SkillsList.Intimidation',
-    type: 'social'
+  static fighting = {
+    label: 'WOD6E.SKILLS.Fighting'
   }
 
   static investigation = {
-    label: 'WOD6E.SkillsList.Investigation',
-    type: 'mental'
+    label: 'WOD6E.SKILLS.Investigation'
   }
 
-  static firearms = {
-    label: 'WOD6E.SkillsList.Firearms',
-    type: 'physical'
-  }
-
-  static leadership = {
-    label: 'WOD6E.SkillsList.Leadership',
-    type: 'social'
+  static knowledge = {
+    label: 'WOD6E.SKILLS.Knowledge'
   }
 
   static medicine = {
-    label: 'WOD6E.SkillsList.Medicine',
-    type: 'mental'
-  }
-
-  static larceny = {
-    label: 'WOD6E.SkillsList.Larceny',
-    type: 'physical'
-  }
-
-  static performance = {
-    label: 'WOD6E.SkillsList.Performance',
-    type: 'social'
-  }
-
-  static occult = {
-    label: 'WOD6E.SkillsList.Occult',
-    type: 'mental'
-  }
-
-  static melee = {
-    label: 'WOD6E.SkillsList.Melee',
-    type: 'physical'
+    label: 'WOD6E.SKILLS.Medicine'
   }
 
   static persuasion = {
-    label: 'WOD6E.SkillsList.Persuasion',
-    type: 'social'
+    label: 'WOD6E.SKILLS.Persuasion'
   }
 
-  static politics = {
-    label: 'WOD6E.SkillsList.Politics',
-    type: 'mental'
+  static shooting = {
+    label: 'WOD6E.SKILLS.Shooting'
   }
 
-  static stealth = {
-    label: 'WOD6E.SkillsList.Stealth',
-    type: 'physical'
-  }
-
-  static streetwise = {
-    label: 'WOD6E.SkillsList.Streetwise',
-    type: 'social'
-  }
-
-  static science = {
-    label: 'WOD6E.SkillsList.Science',
-    type: 'mental'
-  }
-
-  static survival = {
-    label: 'WOD6E.SkillsList.Survival',
-    type: 'physical'
+  static sabotage = {
+    label: 'WOD6E.SKILLS.Sabotage'
   }
 
   static subterfuge = {
-    label: 'WOD6E.SkillsList.Subterfuge',
-    type: 'social'
+    label: 'WOD6E.SKILLS.Subterfuge'
   }
 
-  static technology = {
-    label: 'WOD6E.SkillsList.Technology',
-    type: 'mental'
+  static survival = {
+    label: 'WOD6E.SKILLS.Survival'
   }
 }
 

@@ -1,0 +1,36 @@
+/* Vampire Actor Sheet */
+.actor.sheet.vampire {
+  .window-content {
+    overflow-y: scroll;
+  }
+
+  .vampire-sheet-body {
+    display: grid;
+    grid-template-rows: min-content;
+    grid-template-columns:
+      minmax(300px, 1fr)
+      minmax(50px, 1fr)
+      minmax(300px, 1fr);
+    grid-template-areas:
+      "header header header"
+      "attributes attributes attributes"
+      "healthWillpower healthWillpower healthWillpower"
+      "humanityScale humanityScale humanityScale"
+      "leftColumn middleColumn rightColumn"
+      "leftColumn middleColumn rightColumn"
+      "leftColumn middleColumn rightColumn"
+      "leftColumn middleColumn rightColumn"
+      "leftColumn middleColumn rightColumn"
+      "disciplines disciplines rightColumn";
+    flex: 1;
+    flex-flow: column nowrap;
+  }
+}
+
+[data-actor-section="humanityScale"] {
+  grid-area: humanityScale;
+}
+
+[data-actor-section="disciplines"] {
+  grid-area: disciplines;
+}

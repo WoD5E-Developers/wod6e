@@ -4,23 +4,181 @@
       "vampire": "Vampire"
     },
     "Item": {
+      "action": "Action",
       "clan": "Clan",
-      "discipline": "Discipline"
+      "clanTrait": "Clan Trait",
+      "discipline": "Discipline",
+      "equipment": "Equipment",
+      "flaw": "Flaw",
+      "lifepath": "Lifepath",
+      "merit": "Merit",
+      "nature": "Nature",
+      "resource": "Resource"
     }
   },
   "WOD6E": {
+    "AddString": "Add {string}",
+    "Cancel": "Cancel",
+    "ConfigureString": "Configure {string}",
+    "Confirm": "Confirm",
+    "Core": "Core",
+    "Create": "Create",
+    "Delete": "Delete",
+    "Description": "Description",
     "GamePaused": "Game Paused",
+    "ItemType": "Item Type",
+    "Name": "Name",
+    "NewString": "New {string}",
+    "None": "None",
+    "NoneSelected": "None Selected",
+    "Search": "Search",
+    "SelectString": "Select {string}",
+    "System": "System",
+    "ViewItem": "View Item",
+    "ACTIONS": {
+      "Action": "Action",
+      "Actions": "Actions",
+      "ActionType": "Action Type",
+      "Activation": "Activation",
+      "ActivationDistance": "Activation Distance",
+      "ActivationType": "Activation Type",
+      "AddTest": "Add Test",
+      "Attack": "Attack",
+      "AttributeOrNPCLevel": "Target Attribute or NPC Level",
+      "Category": "Category",
+      "Close": "Close",
+      "Defense": "Defense",
+      "Downtime": "Downtime",
+      "Exploration": "Exploration",
+      "Far": "Far",
+      "Fixed": "Fixed",
+      "General": "General",
+      "Instantaneous": "Instantaneous",
+      "MinorAction": "Minor Action",
+      "NPCLevel": "NPC Level",
+      "OneNight": "One Night",
+      "OneScene": "One Scene",
+      "OneTurn": "One Turn",
+      "Permanent": "Permanent",
+      "Physical": "Physical",
+      "Prolonged": "Prolonged",
+      "Reaction": "Reaction",
+      "Role": "Role",
+      "Self": "Self",
+      "Short": "Short",
+      "Social": "Social",
+      "Special": "Special",
+      "Storyteller": "Storyteller Determined",
+      "TargetAttribute": "Target Attribute",
+      "TargetHighestAttribute": "Target's Highest Attribute",
+      "Test": "Test",
+      "Touch": "Touch",
+      "Unlimited": "Unlimited",
+      "Untyped": "Untyped",
+      "Utility": "Utility",
+      "Variable": "Variable"
+    },
+    "APPLICATIONS": {
+      "CompendiumBrowser": "Compendium Browser",
+      "CompendiumBrowserControlHint": "Opens the compendium browser.",
+      "CompendiumBrowserControlLabel": "Opens the World of Darkness 6e compendium browser.",
+      "CompendiumBrowserSidebarLabel": "WOD6E Compendium Browser",
+      "ConfigureSources": "Configure Sources",
+      "NoResultsFound": "No Results Found"
+    },
+    "ATTRIBUTES": {
+      "Attributes": "Attributes",
+      "Charisma": "Charisma",
+      "Composure": "Composure",
+      "Dexterity": "Dexterity",
+      "Intelligence": "Intelligence",
+      "Manipulation": "Manipulation",
+      "Mental": "Mental",
+      "Physical": "Physical",
+      "Resolve": "Resolve",
+      "Social": "Social",
+      "Stamina": "Stamina",
+      "Strength": "Strength",
+      "Wits": "Wits"
+    },
+    "EQUIPMENT": {
+      "Equipment": "Equipment"
+    },
+    "FLAWS": {
+      "Flaws": "Flaws"
+    },
+    "ITEMS": {
+      "ConfirmDelete": "Confirm Delete",
+      "ConfirmDeleteDescription": "Are you sure you want to delete <b>{string}</b>? This cannot be undone.",
+      "ConfirmOverwrite": "Confirm Overwrite",
+      "ConfirmOverwriteString": "This action will overwrite {string} existing items. Are you sure you want to proceed?",
+      "DataItemId": "Data Item ID",
+      "DataItemIdCannotBeEmpty": "Data Item ID cannot be empty. Please go to the item's Settings tab and click the \"Generate Data Item ID\" button.",
+      "DeleteItem": "Delete Item",
+      "GenerateDataItemID": "Generate Data Item ID",
+      "Level": "Level",
+      "NoItemsFound": "There were no items found associated with Data Item ID \"{dataItemId}.\"",
+      "PageNumber": "Page Number",
+      "Sourcebook": "Sourcebook",
+      "SyncFromDataItem": "Sync From Data Item",
+      "SyncToDataItems": "Sync To Data Items"
+    },
+    "LIFEPATHS": {
+      "Lifepaths": "Lifepaths"
+    },
+    "MERITS": {
+      "Merits": "Merits"
+    },
     "NOTIFICATIONS": {
       "ConsoleLog": "World of Darkness 6th Edition | {string}",
       "InitializingSchreckNet": "Initializing SchreckNet",
       "LoadingSubroutines": "SchreckNet: Loading subroutines",
       "ShreckNetInitialized": "ShreckNet Initialized - Welcome to the World of Darkness."
     },
+    "RESOURCES": {
+      "Baneful": "Baneful",
+      "PhysicalAssets": "Physical Assets",
+      "Resources": "Resources",
+      "ResourceType": "Resource Type",
+      "SocialAssets": "Social Assets",
+      "Value": "Value",
+      "Vitae": "Vitae",
+      "Wealth": "Wealth",
+      "Willpower": "Willpower"
+    },
     "SIDEBARS": {
       "Changelog": "Changelog",
       "LicensedUnderDarkPack": "Licensed Under The Dark Pack",
       "LicensedUnderDarkPackFulltext": "Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit <a href='https://worldofdarkness.com'>worldofdarkness.com</a>.",
       "ReportAnIssue": "Report An Issue"
+    },
+    "SKILLS": {
+      "Athletics": "Athletics",
+      "Awareness": "Awareness",
+      "Craft": "Craft",
+      "Expression": "Expression",
+      "Fighting": "Fighting",
+      "Investigation": "Investigation",
+      "Knowledge": "Knowledge",
+      "Medicine": "Medicine",
+      "Persuasion": "Persuasion",
+      "Sabotage": "Sabotage",
+      "Shooting": "Shooting",
+      "Skills": "Skills",
+      "Subterfuge": "Subterfuge",
+      "Survival": "Survival"
+    },
+    "TABS": {
+      "Actions": "Actions",
+      "Activation": "Activation",
+      "Description": "Description",
+      "Difficulty": "Difficulty",
+      "Distance": "Distance",
+      "Indulging": "Indulging",
+      "Main": "Main",
+      "Outburst": "Outburst",
+      "Settings": "Settings",
+      "Test": "Test"
     }
   }
 }

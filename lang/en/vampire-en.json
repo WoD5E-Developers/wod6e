@@ -1,5 +1,32 @@
 {
   "WOD6E": {
-    "VAMPIRE": {}
+    "VAMPIRE": {
+      "Animalism": "Animalism",
+      "Auspex": "Auspex",
+      "Beast": "Beast",
+      "BloodSorcery": "Blood Sorcery",
+      "Celerity": "Celerity",
+      "ClanTraits": "Clan Traits",
+      "ConfigureVisibleDisciplines": "Configure Visible Disciplines",
+      "Corruption": "Corruption",
+      "Curse": "Curse",
+      "Disciplines": "Disciplines",
+      "DisciplineType": "Discipline Type",
+      "Dominate": "Dominate",
+      "Fortitude": "Fortitude",
+      "Frenzy": "Frenzy",
+      "HumanityScale": "Humanity Scale",
+      "Monstrous": "Monstrous",
+      "Mortal": "Mortal",
+      "Nature": "Nature",
+      "Necromancy": "Necromancy",
+      "Obfuscate": "Obfuscate",
+      "Oblivion": "Oblivion",
+      "Potence": "Potence",
+      "Presence": "Presence",
+      "Tellurgy": "Tellurgy",
+      "Vicissitude": "Vicissitude",
+      "ViewClan": "View Clan"
+    }
   }
 }

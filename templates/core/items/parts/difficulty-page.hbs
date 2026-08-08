@@ -1,0 +1,24 @@
+<section
+  class="tab {{ tab.cssClass }}"
+  data-tab="{{ tab.id }}"
+  data-group="{{ tab.group }}"
+>
+  <select name="system.difficulty.type">
+    {{selectOptions actionDifficultyOptions selected=actionDifficultySelected}}
+  </select>
+
+  {{#if difficultyUsesFixedValue}}
+  <input
+    type="number"
+    name="system.difficulty.fixed"
+    value="{{ difficulty.fixed }}"
+    min="0"
+  />
+  {{/if}}
+
+  {{#if difficultyUsesAttribute}}
+  <select name="system.difficulty.attribute">
+    {{selectOptions attributeOptions selected=difficulty.attribute}}
+  </select>
+  {{/if}}
+</section>

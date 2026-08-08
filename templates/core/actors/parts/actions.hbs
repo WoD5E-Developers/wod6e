@@ -1,0 +1,77 @@
+<section
+  class="sheet-part tab section actions-section {{ tabs.actions.cssClass }}"
+  data-group="primary"
+  data-tab="actions"
+>
+  {{#each actionGroups as |group|}}
+  <section
+    class="sheet-section action-group"
+    data-action-group="{{ group.key }}"
+  >
+    <header class="sheet-section-header">
+      <div class="sheet-section-name align-left">
+        {{localize group.label}}
+      </div>
+
+      <div class="sheet-section-data-actions align-right">
+        <a
+          class="search-data-item"
+          data-action="searchItem"
+          data-type="action"
+          data-subtype="{{ group.key }}"
+          title="{{localize 'WOD6E.Search'}}"
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+
+        <a
+          class="item-create"
+          data-action="createItem"
+          data-type="action"
+          data-subtype="{{ group.key }}"
+          title="{{localize 'WOD6E.Create'}}"
+        >
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </header>
+
+    <div class="sheet-section-list">
+      {{#each group.actions as |action|}}
+      <div
+        class="sheet-section-row item-section action-row"
+        data-item-id="{{ action.id }}"
+        data-uuid="{{ action.uuid }}"
+      >
+        <a
+          class="item-open"
+          data-action="openItem"
+          data-uuid="{{ action.uuid }}"
+          title="{{localize 'WOD6E.ViewItem'}}"
+        >
+          <i class="fas fa-book"></i>
+        </a>
+
+        <button
+          type="button"
+          class="sheet-section-label"
+          data-action="sendItemToChat"
+          data-uuid="{{ action.uuid }}"
+          title="{{localize 'WOD6E.PostToChat'}}"
+        >
+          <span class="item-name bolded">
+            {{ action.name }}
+          </span>
+        </button>
+
+        {{#if action.activationLabel}}
+        <span class="action-activation">
+          {{localize action.activationLabel}}
+        </span>
+        {{/if}}
+      </div>
+      {{/each}}
+    </div>
+  </section>
+  {{/each}}
+</section>

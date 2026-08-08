@@ -1,0 +1,36 @@
+<div
+  class="multi-select"
+  data-multi-select
+  data-field-path="{{ fieldPath }}"
+>
+  <button
+    type="button"
+    class="multi-select-trigger"
+    data-action="toggleMultiSelect"
+  >
+    <span class="multi-select-value">
+      {{ selectedText }}
+    </span>
+
+    <i class="fa-solid fa-chevron-down multi-select-icon"></i>
+  </button>
+
+  <div
+    class="multi-select-dropdown"
+    hidden
+  >
+    {{#each options as |option|}}
+    <label class="multi-select-option">
+      <input
+        type="checkbox"
+        value="{{ option.key }}"
+        data-action="toggleMultiSelectOption"
+        {{checked
+        option.selected}}
+      />
+
+      <span>{{ option.label }}</span>
+    </label>
+    {{/each}}
+  </div>
+</div>

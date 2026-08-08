@@ -1,0 +1,18 @@
+<div class="item-name">
+  <input
+    name="name"
+    type="text"
+    value="{{ name }}"
+    placeholder="{{localize 'WOD6E.Name'}}"
+  />
+  {{#if canDeleteItem}}
+  <div class="item-delete">
+    <a
+      data-action="removeItem"
+      title="{{localize 'WOD6E.ITEMS.DeleteItem'}}"
+    >
+      <i class="fas fa-trash"></i>
+    </a>
+  </div>
+  {{/if}}
+</div>

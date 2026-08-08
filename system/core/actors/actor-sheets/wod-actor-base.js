@@ -1,12 +1,17 @@
 // Actor UX functions
+
+import { ActorUX } from '../scripts/actor-ux.js'
+import { _onSetTrackerValue } from '../scripts/on-set-tracker-value.js'
+import { _onDisableTrackerValue } from '../scripts/on-disable-tracker-value.js'
 import {
   prepareAttributesContext,
   prepareLimitedContext,
-  prepareSettingsContext,
-  prepareVitaeContext,
-  prepareWillpowerContext
+  prepareResourcesContext,
+  prepareSettingsContext
 } from '../scripts/prepare-core-partials.js'
-import { ActorUX } from '../scripts/actor-ux.js'
+import { _onCreateItem, _onSearchItem } from '../scripts/item-actions.js'
+import { _onOpenItem } from '../../applications/compendium-browser/scripts/on-open-item.js'
+import { _onEditImage } from '../scripts/on-edit-image.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -39,10 +44,16 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
     },
     classes: ['wod6e', 'actor', 'sheet'],
     position: {
-      width: 800,
+      width: 950,
       height: 1050
     },
-    actions: {},
+    actions: {
+      editImage: _onEditImage,
+      setTrackerValue: _onSetTrackerValue,
+      createItem: _onCreateItem,
+      searchItem: _onSearchItem,
+      openItem: _onOpenItem
+    },
     dragDrop: [
       {
         dragSelector: '[data-drag]',
@@ -93,13 +104,6 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
     // Prepare items
     await this.prepareItems(actor)
 
-    let locked = true
-    const userOwnsActor =
-      actor?.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER) ?? false
-    if (userOwnsActor) {
-      locked = actorData.locked
-    }
-
     // Transform any data needed for sheet rendering
     return {
       ...data,
@@ -111,25 +115,13 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
 
       settings: actorData.settings,
 
-      isOwner: actor.isOwner,
-      locked
+      isOwner: actor.isOwner
     }
   }
 
   async prepareItems(sheetData) {
     // Make an array to store item-based modifiers
     sheetData.system.itemModifiers = []
-
-    // Do data manipulation we need to do for ALL items here
-    sheetData.items.forEach(async (item) => {
-      // Enrich item descriptions
-      if (item.system?.description) {
-        item.system.enrichedDescription =
-          await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-            item.system.description
-          )
-      }
-    })
   }
 
   static async onSubmitActorForm(event, form, formData) {
@@ -217,15 +209,16 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
     // Update the window title (since ActorSheetV2 doesn't do it automatically)
     this.window.title.textContent = this.title
 
-    // Toggle whether the sheet is locked or not
-    if (this.actor.system.locked) {
-      html.classList.add('locked')
-    } else {
-      html.classList.remove('locked')
-    }
-
     // Drag and drop functionality
     this.#dragDrop.forEach((d) => d.bind(this.element))
+
+    // Right click to disable tracker dot functionality
+    html.querySelectorAll('.resource-tracker-space').forEach((element) => {
+      element.addEventListener('contextmenu', _onDisableTrackerValue.bind(this))
+    })
+
+    // Restore scroll positions from previous render cycle
+    ActorUX._restoreScrollPositions(this)
   }
 
   #createDragDropHandlers() {
@@ -291,12 +284,8 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
     return prepareAttributesContext(context, actor)
   }
 
-  prepareVitaeContext(context, actor) {
-    return prepareVitaeContext(context, actor)
-  }
-
-  prepareWillpowerContext(context, actor) {
-    return prepareWillpowerContext(context, actor)
+  prepareResourcesContext(context, actor) {
+    return prepareResourcesContext(context, actor)
   }
 
   prepareSettingsContext(context, actor) {

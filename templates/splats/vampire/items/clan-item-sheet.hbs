@@ -1,10 +1,8 @@
 <header class="item-header">
-    <img class="profile-img" data-action="editImage" src="{{img}}" data-edit="img" title="{{name}}" alt="Item Image" />
-    <div class="header-fields">
-        {{#if locked}}
-            <h1>{{name}}</h1>
-        {{else}}
-            <input class="itemname" name="name" type="text" value="{{name}}" placeholder="{{localize 'WOD6E.Name'}}"/>
-        {{/if}}
-    </div>
+  {{> "systems/wod6e/templates/core/items/parts/item-image.hbs"}}
+  {{> "systems/wod6e/templates/core/items/parts/item-name.hbs"}}
+
+  <div class="header-fields">
+    {{> "systems/wod6e/templates/splats/vampire/items/parts/clan-discipline-selection.hbs"}}
+  </div>
 </header>

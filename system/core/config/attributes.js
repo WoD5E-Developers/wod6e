@@ -48,47 +48,47 @@ export class Attributes extends BaseDefinitionClass {
   }
 
   static strength = {
-    label: 'WOD6E.AttributesList.Strength',
+    label: 'WOD6E.ATTRIBUTES.Strength',
     type: 'physical'
   }
 
   static dexterity = {
-    label: 'WOD6E.AttributesList.Dexterity',
+    label: 'WOD6E.ATTRIBUTES.Dexterity',
     type: 'physical'
   }
 
   static stamina = {
-    label: 'WOD6E.AttributesList.Stamina',
+    label: 'WOD6E.ATTRIBUTES.Stamina',
     type: 'physical'
   }
 
   static charisma = {
-    label: 'WOD6E.AttributesList.Charisma',
+    label: 'WOD6E.ATTRIBUTES.Charisma',
     type: 'social'
   }
 
   static manipulation = {
-    label: 'WOD6E.AttributesList.Manipulation',
+    label: 'WOD6E.ATTRIBUTES.Manipulation',
     type: 'social'
   }
 
   static composure = {
-    label: 'WOD6E.AttributesList.Composure',
+    label: 'WOD6E.ATTRIBUTES.Composure',
     type: 'social'
   }
 
   static intelligence = {
-    label: 'WOD6E.AttributesList.Intelligence',
+    label: 'WOD6E.ATTRIBUTES.Intelligence',
     type: 'mental'
   }
 
   static wits = {
-    label: 'WOD6E.AttributesList.Wits',
+    label: 'WOD6E.ATTRIBUTES.Wits',
     type: 'mental'
   }
 
   static resolve = {
-    label: 'WOD6E.AttributesList.Resolve',
+    label: 'WOD6E.ATTRIBUTES.Resolve',
     type: 'mental'
   }
 }

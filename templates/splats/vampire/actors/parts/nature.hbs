@@ -1,0 +1,64 @@
+<section
+  class="sheet-part sheet-section"
+  data-group="primary"
+  data-tab="main"
+  data-actor-section="nature"
+>
+  <header class="sheet-section-header">
+    <div class="sheet-section-name align-left">
+      {{localize 'WOD6E.VAMPIRE.Nature'}}
+    </div>
+    {{#if nature}}
+    <div class="sheet-section-data-actions align-right">
+      <a
+        class="item-open"
+        data-action="openItem"
+        title="{{localize 'WOD6E.VAMPIRE.ViewClan'}}"
+        data-uuid="{{nature.uuid}}"
+      >
+        <i class="fas fa-book"></i>
+      </a>
+    </div>
+    {{else}}
+    <div class="sheet-section-data-actions align-right">
+      <a
+        class="search-data-item"
+        data-action="searchItem"
+        title="{{localize 'WOD6E.Search'}}"
+        data-type="nature"
+      >
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+      <a
+        class="item-create"
+        data-action="createItem"
+        title="{{localize 'WOD6E.Create'}}"
+        data-type="nature"
+      >
+        <i class="fas fa-plus"></i>
+      </a>
+    </div>
+    {{/if}}
+  </header>
+
+  <div class="sheet-section-list">
+    {{#each natureFeatures as |natureFeature|}}
+    <div
+      class="sheet-section-row item-section"
+      data-nature="{{ natureFeature.uuid }}"
+    >
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="sendItemToChat"
+        title="Click to post to chat"
+      >
+        <span class="item-name bolded">{{ natureFeature.name }}.</span>
+      </button>
+      {{#if natureFeature.description}}
+      <span class="item-description">{{{ descriptionShort natureFeature.description }}}</span>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>

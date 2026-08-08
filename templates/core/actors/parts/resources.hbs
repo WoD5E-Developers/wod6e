@@ -1,0 +1,82 @@
+<section
+  class="sheet-part sheet-section"
+  data-group="primary"
+  data-tab="main"
+  data-actor-section="resources"
+>
+  <header class="sheet-section-header">
+    <div class="sheet-section-name align-left">
+      {{localize 'WOD6E.RESOURCES.Resources'}}
+    </div>
+    <div class="sheet-section-data-actions align-right">
+      <a
+        class="search-data-item"
+        data-action="searchItem"
+        title="{{localize 'WOD6E.Search'}}"
+        data-type="resource"
+      >
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+      <a
+        class="item-create"
+        data-action="createItem"
+        title="{{localize 'WOD6E.Create'}}"
+        data-type="resource"
+      >
+        <i class="fas fa-plus"></i>
+      </a>
+    </div>
+  </header>
+
+  <div class="sheet-section-list resource-tracker">
+    {{#each resources as |resource|}}
+    <div
+      class="sheet-section-row resource-tracker"
+      data-resource="{{ resource.uuid }}"
+    >
+      <div class="resource-name">
+        <a
+          class="item-open"
+          data-action="openItem"
+          title="{{localize 'WOD6E.ViewItem'}}"
+          data-uuid="{{ resource.uuid }}"
+        >
+          <i class="fas fa-book"></i>
+        </a>
+        <button
+          type="button"
+          class="sheet-section-label"
+          data-action="rollSkill"
+          title="{{ resource.name }}"
+        >
+          <span class="resource-name">
+            {{ resource.name }}
+          </span>
+
+          {{#if resource.specialtyText}}
+          <span class="resource-specialties">({{ resource.specialtyText }})</span>
+          {{/if}}
+        </button>
+      </div>
+
+      <div class="dot-tracker resource-tracker-spaces">
+        {{#each resource.trackers as |group|}}
+        <div class="dot-tracker-group resource-tracker-group">
+          {{#each group as |space|}}
+          <button
+            type="button"
+            class="dot-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}"
+            data-action="setTrackerValue"
+            data-uuid="{{ resource.uuid }}"
+            data-resource-path="system.dots"
+            data-value="{{ space.trackerValue }}"
+            title="{{ space.title }}"
+          ></button>
+          {{/each}}
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>

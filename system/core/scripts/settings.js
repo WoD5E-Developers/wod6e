@@ -1,8 +1,14 @@
-import { StorytellerMenu } from '../applications/storyteller-menu.js'
+//import { StorytellerMenu } from '../applications/storyteller-menu.js'
 /* Definitions */
 import { Attributes } from '../config/attributes.js'
 import { Skills } from '../config/skills.js'
 import { Disciplines } from '../../splats/vampire/config/disciplines.js'
+import { ResourceTypes } from '../config/resource-types.js'
+import { ActionGroups } from '../config/action-groups.js'
+import { ActionRoles } from '../config/action-roles.js'
+import { Activations } from '../config/activation-types.js'
+import { Difficulties } from '../config/difficulties.js'
+import { Distances } from '../config/distances.js'
 
 /**
  * Define all game settings here
@@ -14,6 +20,7 @@ export const loadSettings = async function () {
   */
 
   // Register the storyteller menu
+  /**
   game.settings.registerMenu('wod6e', 'storytellerMenu', {
     name: game.i18n.localize('WOD6E.Settings.StorytellerMenu'),
     hint: game.i18n.localize('WOD6E.Settings.StorytellerMenuHint'),
@@ -22,6 +29,7 @@ export const loadSettings = async function () {
     type: StorytellerMenu,
     restricted: true
   })
+   */
 
   const modCustomList = {
     attribute: {
@@ -35,6 +43,30 @@ export const loadSettings = async function () {
     discipline: {
       defCategory: 'Disciplines',
       defClass: Disciplines
+    },
+    resourceTypes: {
+      defCategory: 'ResourceTypes',
+      defClass: ResourceTypes
+    },
+    actionGroups: {
+      defCategory: 'ActionGroups',
+      defClass: ActionGroups
+    },
+    actionRoles: {
+      defCategory: 'ActionRoles',
+      defClass: ActionRoles
+    },
+    activations: {
+      defCategory: 'Activations',
+      defClass: Activations
+    },
+    difficulties: {
+      defCategory: 'Difficulties',
+      defClass: Difficulties
+    },
+    actionDistances: {
+      defCategory: 'Distances',
+      defClass: Distances
     }
   }
 
@@ -89,7 +121,7 @@ export const loadSettings = async function () {
 }
 
 function _rerenderStorytellerWindow() {
-  const storytellerWindow = Object.values(ui.windows).filter((w) => w.id === 'wod5e-storyteller')[0]
+  const storytellerWindow = Object.values(ui.windows).filter((w) => w.id === 'wod6e-storyteller')[0]
 
   if (storytellerWindow) {
     storytellerWindow.render()

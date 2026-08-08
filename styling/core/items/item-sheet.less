@@ -1,0 +1,95 @@
+.item.sheet {
+  .item-header {
+    display: grid;
+    grid-template-rows: min-content;
+    grid-template-columns:
+      minmax(100px, 0fr)
+      minmax(150px, 1fr)
+      minmax(150px, 1fr);
+    grid-template-areas:
+      "itemImage itemName itemName"
+      "itemImage itemHeaderFields itemHeaderFields";
+  }
+
+	.item-image {
+		grid-area: itemImage;
+	}
+
+	.item-name {
+		grid-area: itemName;
+	}
+
+	.header-fields {
+		grid-area: itemHeaderFields;
+	}
+}
+
+
+.item.sheet {
+	.window-content {
+		padding: 5px;
+	}
+
+	.item-header {
+		.item-name {
+			padding: 10px;
+			display: flex;
+			flex-direction: row;
+
+			.item-delete {
+				font-size: 15pt;
+				max-width: 15px;
+			}
+		}
+
+		.header-fields {
+			padding: 10px;
+		}
+
+		.item-image {
+      border: 1px solid var(--tracker-border);
+			max-width: 100px;
+			max-height: 100px;
+			height: fit-content;
+			width: fit-content;
+			margin-right: 0;
+      margin: 5px;
+		}
+
+		.header-fields {
+			display: flex;
+			flex-direction: row;
+		}
+
+		.item-resource {
+			flex-grow: 1;
+			text-wrap: nowrap;
+			flex-basis: min-content;
+
+			input[type="number"] {
+				max-width: 40px;
+				text-align: center;
+			}
+		}
+	}
+
+	section.tab {
+		padding: 10px 10px 0px 10px;
+		overflow-y: scroll;
+		height: 100%;
+	}
+
+	.action-test-header {
+		.action-test-header-label {
+			font-size: 18pt;
+		}
+	}
+
+  .setting-field {
+    padding: 5px;
+  }
+
+	.source-page-input {
+		min-width: 75px;
+	}
+}

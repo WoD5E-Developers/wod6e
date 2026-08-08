@@ -1,0 +1,64 @@
+.multi-select-section {
+  min-width: stretch;
+
+  .multi-select {
+    position: relative;
+    width: 100%;
+
+    .multi-select-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .multi-select-value {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .multi-select-dropdown {
+      position: absolute;
+      z-index: 100;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      max-height: 220px;
+      overflow-y: auto;
+      background: var(--multiselect-background);
+      border: 1px solid var(--multiselect-border);
+
+      &[hidden] {
+        display: none;
+      }
+    }
+
+    button:hover {
+      background: var(--multiselect-hover-background);
+      border: 1px solid var(--multiselect-hover-border);
+      color: var(--multiselect-hover-color);
+    }
+
+    .multi-select-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px;
+      cursor: pointer;
+
+      > input {
+        margin: 0;
+
+        &::before {
+          color: var(--multiselect-border);
+        }
+
+        &:checked::after {
+          color: var(--multiselect-checked-color);
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,37 @@
-<section class="sheet-part tab {{tabs.main.cssClass}}" data-group="primary" data-tab="main">
-  Willpower
+<section
+  class="sheet-part tab willpower-section {{ tabs.main.cssClass }}"
+  data-group="primary"
+  data-tab="main"
+>
+  <div
+    class="resource-tracker willpower-tracker"
+    data-resource="willpower"
+    data-path="{{ willpowerTracker.path }}"
+  >
+    <header class="resource-tracker-header">
+      <span class="resource-tracker-label">
+        {{localize 'WOD6E.RESOURCES.Willpower'}}
+      </span>
+
+      <span class="resource-tracker-total">({{ willpower.max }})</span>
+    </header>
+
+    <div class="resource-tracker-spaces">
+      {{#each willpower.trackers as |group|}}
+      <div class="resource-tracker-group">
+        {{#each group as |space|}}
+        <button
+          type="button"
+          class="resource-tracker-space {{#if space.filled}}filled{{/if}} {{#if space.disabled}}blocked{{/if}}"
+          data-action="setTrackerValue"
+          data-resource-path="system.willpower"
+          data-value="{{ space.trackerValue }}"
+          title="{{ space.title }}"
+          {{space.disabledState}}
+        ></button>
+        {{/each}}
+      </div>
+      {{/each}}
+    </div>
+  </div>
 </section>
