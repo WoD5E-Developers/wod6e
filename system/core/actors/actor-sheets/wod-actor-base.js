@@ -12,6 +12,7 @@ import {
 import { _onCreateItem, _onSearchItem } from '../scripts/item-actions.js'
 import { _onOpenItem } from '../../applications/compendium-browser/scripts/on-open-item.js'
 import { _onEditImage } from '../scripts/on-edit-image.js'
+import { _onConfigureSkillFocuses } from '../scripts/on-configure-skill-focuses.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -52,7 +53,8 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
       setTrackerValue: _onSetTrackerValue,
       createItem: _onCreateItem,
       searchItem: _onSearchItem,
-      openItem: _onOpenItem
+      openItem: _onOpenItem,
+      configureSkillFocuses: _onConfigureSkillFocuses
     },
     dragDrop: [
       {

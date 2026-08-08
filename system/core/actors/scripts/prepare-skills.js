@@ -9,7 +9,7 @@ export function prepareSkills(actor) {
     .map(([key, skill]) => {
       const actorSkill = actorSkills[key]
       const value = actorSkill?.value ?? 0
-      const specialties = actorSkill?.specialties ?? []
+      const focuses = actorSkill?.focuses ?? []
 
       const trackers = generateTrackers({
         name: skill.displayName,
@@ -23,8 +23,8 @@ export function prepareSkills(actor) {
         label: skill.displayName,
         path: `system.skills.${key}.value`,
         value,
-        specialties,
-        specialtyText: specialties.join(', '),
+        focuses,
+        focusesText: focuses.join(', '),
         trackers
       }
     })

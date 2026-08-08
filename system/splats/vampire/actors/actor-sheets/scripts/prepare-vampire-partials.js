@@ -38,7 +38,6 @@ export const prepareHumanityScaleContext = async function (context, actor) {
   }
 
   const beast = actorData.vampire.beast
-  console.log(beast)
   context.beastTracker = {
     trackers: generateTrackers({
       name: game.i18n.localize('WOD6E.VAMPIRE.Beast'),
