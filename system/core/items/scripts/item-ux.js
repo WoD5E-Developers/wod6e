@@ -24,12 +24,10 @@ export class ItemUX {
       .each((index, dropdown) => {
         const dropdownElement = $(dropdown)
         const menuElement = dropdownElement.find('.multi-select-dropdown')
-        const triggerElement = dropdownElement.find('.multi-select-trigger')
         const key = dropdownElement.attr('data-field-path') || index
         const isOpen = item._dropdownStates.has(key)
 
         menuElement.prop('hidden', !isOpen)
-        triggerElement.attr('aria-expanded', String(isOpen))
       })
   }
 }
