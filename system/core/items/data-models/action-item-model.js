@@ -14,8 +14,6 @@ export class ActionItemModel extends WoDItemModel {
       initial: 'general'
     })
 
-    schema.activation = activationFields()
-
     schema.role = new fields.StringField({
       initial: 'utility'
     })
@@ -24,32 +22,9 @@ export class ActionItemModel extends WoDItemModel {
       initial: 'untyped'
     })
 
-    schema.difficulty = difficultyFields()
-
-    // One or more dicepools
+    schema.activation = activationFields()
     schema.test = testFields()
-
-    // Result text should stay flexible because action outcomes vary heavily
-    schema.result = new fields.HTMLField({
-      initial: ''
-    })
-
-    schema.failure = new fields.HTMLField({
-      initial: ''
-    })
-
-    schema.painfulFailure = new fields.HTMLField({
-      initial: ''
-    })
-
-    schema.specialRules = new fields.HTMLField({
-      initial: ''
-    })
-
-    // Useful for identifying actions that require special circumstances
-    schema.requirements = new fields.ArrayField(new fields.StringField(), {
-      initial: []
-    })
+    schema.difficulty = difficultyFields()
 
     return schema
   }

@@ -1,4 +1,5 @@
 import { WoDItemModel } from '../../../../core/items/data-models/base-item-model.js'
+import { testFields } from '../../../../core/items/data-models/fields/test-fields.js'
 
 export class ClanItemModel extends WoDItemModel {
   static defineSchema() {
@@ -30,6 +31,8 @@ export class ClanItemModel extends WoDItemModel {
         initial: []
       }
     )
+
+    schema.test = testFields()
 
     return schema
   }
