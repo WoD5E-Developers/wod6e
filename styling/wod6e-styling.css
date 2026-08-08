@@ -247,7 +247,7 @@
   border: 3px solid var(--humanity-border);
   background: transparent;
 }
-.humanity-tracker .humanity-scale-label {
+.humanity-tracker .humanity-scale-side .humanity-scale-side-label {
   overflow: hidden;
   color: var(--humanity-text);
   font-size: 20px;
@@ -257,12 +257,8 @@
   text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
-}
-.humanity-tracker .humanity-scale-label-left {
-  text-align: left;
-}
-.humanity-tracker .humanity-scale-label-right {
-  text-align: right;
+  text-align: center;
+  padding-top: 5px;
 }
 .humanity-tracker .resource-tracker-spaces {
   display: flex;

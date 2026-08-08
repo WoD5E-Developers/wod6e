@@ -31,6 +31,20 @@ export function vampireFields() {
         canBeDisabled: new fields.BooleanField({ initial: false })
       }),
 
+      nature: new fields.SchemaField({
+        max: new fields.NumberField({ initial: 5, min: 1, integer: true, nullable: false }),
+        value: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
+        disabled: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
+        canBeDisabled: new fields.BooleanField({ initial: false })
+      }),
+
+      beast: new fields.SchemaField({
+        max: new fields.NumberField({ initial: 5, min: 1, integer: true, nullable: false }),
+        value: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
+        disabled: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
+        canBeDisabled: new fields.BooleanField({ initial: false })
+      }),
+
       disciplines: disciplineFields()
     })
   }
