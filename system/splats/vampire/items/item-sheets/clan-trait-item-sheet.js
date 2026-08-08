@@ -5,10 +5,6 @@ import {
 } from '../../../../core/items/scripts/prepare-partials.js'
 // Base item sheet to extend from
 import { WoDItemBase } from '../../../../core/items/item-sheets/wod-item-base.js'
-import {
-  _onToggleMultiSelect,
-  _onToggleMultiSelectOption
-} from '../../../../core/fields/multiselect.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -19,10 +15,7 @@ const { HandlebarsApplicationMixin } = foundry.applications.api
 export class ClanTraitItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
   static DEFAULT_OPTIONS = {
     classes: ['wod6e', 'item', 'sheet'],
-    actions: {
-      toggleMultiSelect: _onToggleMultiSelect,
-      toggleMultiSelectOption: _onToggleMultiSelectOption
-    }
+    actions: {}
   }
 
   static PARTS = {

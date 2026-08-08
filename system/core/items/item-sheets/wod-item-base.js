@@ -1,7 +1,11 @@
 // Various button functions
 import { _onFormatDataId } from '../scripts/on-format-data-id.js'
 import { _onSyncFromDataItem, _onSyncToDataItems } from '../scripts/item-syncing.js'
-import { _onDocumentPointerDown } from '../../fields/multiselect.js'
+import {
+  _onDocumentPointerDown,
+  _onToggleMultiSelect,
+  _onToggleMultiSelectOption
+} from '../../fields/multiselect.js'
 import { ItemUX } from '../scripts/item-ux.js'
 import { ActorUX } from '../../actors/scripts/actor-ux.js'
 import { _onRemoveItem } from '../scripts/on-remove-item.js'
@@ -39,7 +43,9 @@ export class WoDItemBase extends HandlebarsApplicationMixin(
       formatDataId: _onFormatDataId,
       syncFromDataItem: _onSyncFromDataItem,
       syncToDataItems: _onSyncToDataItems,
-      removeItem: _onRemoveItem
+      removeItem: _onRemoveItem,
+      toggleMultiSelect: _onToggleMultiSelect,
+      toggleMultiSelectOption: _onToggleMultiSelectOption
     }
   }
 
