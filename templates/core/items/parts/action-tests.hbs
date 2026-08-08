@@ -56,5 +56,30 @@
       selectedText=test.selectedAttributesText
       }}
     </div>
+
+    <div class="form-group multi-select-section">
+      <label>
+        <b>{{localize 'WOD6E.SKILLS.Skills'}}</b>
+      </label>
+
+      {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
+      fieldPath=(concat 'system.tests.' test.index '.skills')
+      options=test.skillOptions
+      selectedText=test.selectedSkillsText
+      }}
+    </div>
+
+    <div class="form-group multi-select-section">
+      <label>
+        <b>{{localize 'WOD6E.VAMPIRE.Disciplines'}}</b>
+      </label>
+
+      {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
+      fieldPath=(concat 'system.tests.' test.index '.disciplines')
+      options=test.disciplineOptions
+      selectedText=test.selectedDisciplinesText
+      }}
+    </div>
+  </div>
   {{/each}}
 </section>
