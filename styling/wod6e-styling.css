@@ -228,6 +228,10 @@
   width: 100%;
   color: var(--humanity-text);
 }
+.humanity-tracker.resource-tracker .resource-tracker-space {
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
 .humanity-tracker .humanity-tracker-header {
   color: var(--humanity-text);
   font-size: 24px;

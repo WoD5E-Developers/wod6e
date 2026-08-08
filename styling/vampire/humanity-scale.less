@@ -2,6 +2,14 @@
   width: 100%;
   color: var(--humanity-text);
 
+  // Turn the resource tracker dots into diamonds for the humanity dots
+  &.resource-tracker {
+    .resource-tracker-space {
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+  }
+
   .humanity-tracker-header {
     color: var(--humanity-text);
     font-size: 24px;
