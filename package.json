@@ -5,8 +5,8 @@
   "scripts": {
     "gulp": "gulp",
     "eslint": "eslint -c eslint.config.js *",
-    "generate-release": "node system/scripts/maintenance/generate-release-zip.js",
-    "check-highest-changes": "node system/scripts/maintenance/check-highest-changes.js",
+    "generate-release": "node system/core/scripts/maintenance/generate-release-zip.js",
+    "check-highest-changes": "node system/core/scripts/maintenance/check-highest-changes.js",
     "test": "vitest",
     "audit": "npm audit --json > audit.json",
     "convert-clans": "fvtt package unpack -n Clans --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_clans && fvtt package pack -n Clans --inputDirectory ./packs/unpacked/_clans --outputDirectory ./packs --nedb",

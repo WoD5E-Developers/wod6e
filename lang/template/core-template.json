@@ -146,6 +146,10 @@
       "_Wealth": "",
       "_Willpower": ""
     },
+    "SETTINGS": {
+      "_WorldVersion": "",
+      "_WorldVersionHint": ""
+    },
     "SIDEBARS": {
       "_Changelog": "",
       "_LicensedUnderDarkPack": "",

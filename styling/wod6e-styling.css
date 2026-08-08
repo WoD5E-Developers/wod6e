@@ -99,6 +99,9 @@
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybgGDoxxrvAnPhYGzMlQLzuMasz6Df213auGQ.ttf) format('truetype');
 }
+:root {
+  --image-background-color: #858585;
+}
 #pause {
   background: none;
 }
@@ -388,6 +391,7 @@
   max-width: 26px;
   max-height: 26px;
   border: 1px solid var(--tracker-border);
+  background-color: var(--image-background-color);
 }
 .actor.sheet .item-description {
   word-break: break-word;
@@ -668,6 +672,7 @@
   padding: 3px;
 }
 .compendium-browser .compendium-browser-body .results-list .result-item .result-image {
+  background-color: var(--image-background-color);
   flex: 0 0 50px;
   height: 50px;
   width: 50px;
@@ -870,6 +875,7 @@
   padding: 10px;
 }
 .item.sheet .item-header .item-image {
+  background-color: var(--image-background-color);
   border: 1px solid var(--tracker-border);
   max-width: 100px;
   max-height: 100px;

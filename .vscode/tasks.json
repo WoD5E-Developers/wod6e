@@ -6,7 +6,7 @@
 			"script": "generate-release",
 			"problemMatcher": [],
 			"label": "WOD6E: Generate Release File",
-			"detail": "node system/scripts/generate-release-zip.js"
+			"detail": "npm run generate-release"
 		},
 		{
 			"type": "npm",
