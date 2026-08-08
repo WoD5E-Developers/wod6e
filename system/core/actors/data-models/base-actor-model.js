@@ -1,6 +1,6 @@
-import { attributeFields } from './attribute-fields.js'
-import { skillFields } from './skill-fields.js'
-import { settingFields } from './setting-fields.js'
+import { attributeFields } from './fields/attribute-fields.js'
+import { skillFields } from './fields/skill-fields.js'
+import { settingFields } from './fields/setting-fields.js'
 import { vampireFields } from '../../../splats/vampire/actors/data-models/vampire-fields.js'
 
 export class WoDActorModel extends foundry.abstract.TypeDataModel {

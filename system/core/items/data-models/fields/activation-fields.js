@@ -1,17 +1,19 @@
 const fields = foundry.data.fields
 
-// Main export, a TypedObjectField with the Skill Field's data model
 export function activationFields() {
   return new fields.SchemaField({
     activationType: new fields.StringField({
-      initial: 'action'
+      initial: 'none'
     }),
 
     distance: new fields.StringField({
       initial: 'none'
     }),
 
+    duration: new fields.StringField({ initial: '' }),
+
     damage: new fields.SchemaField({
+      dealsDamage: new fields.BooleanField({ initial: false }),
       resource: new fields.StringField({
         initial: ''
       }),

@@ -1,36 +1,34 @@
 import { BaseDefinitionClass } from './base-definition-class.js'
 
-export class ActionDistances extends BaseDefinitionClass {
+export class Distances extends BaseDefinitionClass {
   static modsEnabled = false
-  static defCategory = 'ActionDistances'
+  static defCategory = 'Distances'
 
   // Run any necessary compilation on ready
   static onReady() {
     // Handle adding custom disciplines from the game settings
-    let customActionDistances = game.settings.get('wod6e', 'customActionDistances') || {}
+    let customDistances = game.settings.get('wod6e', 'customDistances') || {}
 
     // Handle adding custom disciplines from any active modules
     const activeModules = game.modules.filter(
       (module) => module.active === true && module.flags.wod6e
     )
     activeModules.forEach((module) => {
-      if (module.flags.wod6e.customActionDistances) {
-        customActionDistances = customActionDistances.concat(
-          module.flags.wod6e.customActionDistances
-        )
+      if (module.flags.wod6e.customDistances) {
+        customDistances = customDistances.concat(module.flags.wod6e.customDistances)
 
         // Log the custom data in the console
         console.log(
-          `World of Darkness 6th Edition | Custom Action Distances added by ${module.id}: ${JSON.stringify(module.flags.wod6e.customActionDistances)}`
+          `World of Darkness 6th Edition | Custom Action Distances added by ${module.id}: ${JSON.stringify(module.flags.wod6e.customDistances)}`
         )
       }
     })
 
-    if (customActionDistances) {
-      ActionDistances.addCustom(customActionDistances)
+    if (customDistances) {
+      Distances.addCustom(customDistances)
     }
 
-    ActionDistances.initializeLabels()
+    Distances.initializeLabels()
   }
 
   static none = {
@@ -67,4 +65,4 @@ export class ActionDistances extends BaseDefinitionClass {
 }
 
 // Hook to call onReady when the game is ready
-Hooks.once('ready', ActionDistances.onReady)
+Hooks.once('ready', Distances.onReady)

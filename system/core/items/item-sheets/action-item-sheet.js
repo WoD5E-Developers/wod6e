@@ -1,11 +1,9 @@
 // Preparation functions
 import {
-  prepareActionActivationContext,
-  prepareActionDifficultyContext,
-  prepareActionTestContext
-} from '../scripts/prepare-action-partials.js'
-import {
   prepareDescriptionContext,
+  prepareTestContext,
+  prepareActivationContext,
+  prepareDifficultyContext,
   prepareItemSettingsContext
 } from '../scripts/prepare-partials.js'
 import { WoDItemBase } from './wod-item-base.js'
@@ -39,13 +37,13 @@ export class ActionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
       template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
     },
     test: {
-      template: 'systems/wod6e/templates/core/items/parts/action-test.hbs'
+      template: 'systems/wod6e/templates/core/items/parts/test-page.hbs'
     },
     difficulty: {
-      template: 'systems/wod6e/templates/core/items/parts/action-difficulty.hbs'
+      template: 'systems/wod6e/templates/core/items/parts/difficulty-page.hbs'
     },
     activation: {
-      template: 'systems/wod6e/templates/core/items/parts/action-activation.hbs'
+      template: 'systems/wod6e/templates/core/items/parts/activation-page.hbs'
     },
     settings: {
       template: 'systems/wod6e/templates/core/items/parts/item-settings.hbs'
@@ -116,13 +114,13 @@ export class ActionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
         return prepareDescriptionContext(context, item)
 
       case 'test':
-        return prepareActionTestContext(context, item)
+        return prepareTestContext(context, item)
 
       case 'difficulty':
-        return prepareActionDifficultyContext(context, item)
+        return prepareDifficultyContext(context, item)
 
       case 'activation':
-        return prepareActionActivationContext(context, item)
+        return prepareActivationContext(context, item)
 
       case 'settings':
         return prepareItemSettingsContext(context, item)

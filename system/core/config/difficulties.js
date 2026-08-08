@@ -1,36 +1,34 @@
 import { BaseDefinitionClass } from './base-definition-class.js'
 
-export class ActionDifficulties extends BaseDefinitionClass {
+export class Difficulties extends BaseDefinitionClass {
   static modsEnabled = false
-  static defCategory = 'ActionDifficulties'
+  static defCategory = 'Difficulties'
 
   // Run any necessary compilation on ready
   static onReady() {
     // Handle adding custom disciplines from the game settings
-    let customActionDifficulties = game.settings.get('wod6e', 'customActionDifficulties') || {}
+    let customDifficulties = game.settings.get('wod6e', 'customDifficulties') || {}
 
     // Handle adding custom disciplines from any active modules
     const activeModules = game.modules.filter(
       (module) => module.active === true && module.flags.wod6e
     )
     activeModules.forEach((module) => {
-      if (module.flags.wod6e.customActionDifficulties) {
-        customActionDifficulties = customActionDifficulties.concat(
-          module.flags.wod6e.customActionDifficulties
-        )
+      if (module.flags.wod6e.customDifficulties) {
+        customDifficulties = customDifficulties.concat(module.flags.wod6e.customDifficulties)
 
         // Log the custom data in the console
         console.log(
-          `World of Darkness 6th Edition | Custom Action Difficulties added by ${module.id}: ${JSON.stringify(module.flags.wod6e.customActionDifficulties)}`
+          `World of Darkness 6th Edition | Custom Difficulties added by ${module.id}: ${JSON.stringify(module.flags.wod6e.customDifficulties)}`
         )
       }
     })
 
-    if (customActionDifficulties) {
-      ActionDifficulties.addCustom(customActionDifficulties)
+    if (customDifficulties) {
+      Difficulties.addCustom(customDifficulties)
     }
 
-    ActionDifficulties.initializeLabels()
+    Difficulties.initializeLabels()
   }
 
   static none = {
@@ -72,4 +70,4 @@ export class ActionDifficulties extends BaseDefinitionClass {
 }
 
 // Hook to call onReady when the game is ready
-Hooks.once('ready', ActionDifficulties.onReady)
+Hooks.once('ready', Difficulties.onReady)

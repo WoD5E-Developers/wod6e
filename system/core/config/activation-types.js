@@ -1,36 +1,38 @@
 import { BaseDefinitionClass } from './base-definition-class.js'
 
-export class ActionActivations extends BaseDefinitionClass {
+export class Activations extends BaseDefinitionClass {
   static modsEnabled = false
-  static defCategory = 'ActionActivations'
+  static defCategory = 'Activations'
 
   // Run any necessary compilation on ready
   static onReady() {
     // Handle adding custom disciplines from the game settings
-    let customActionActivations = game.settings.get('wod6e', 'customActionActivations') || {}
+    let customActivations = game.settings.get('wod6e', 'customActivations') || {}
 
     // Handle adding custom disciplines from any active modules
     const activeModules = game.modules.filter(
       (module) => module.active === true && module.flags.wod6e
     )
     activeModules.forEach((module) => {
-      if (module.flags.wod6e.customActionActivations) {
-        customActionActivations = customActionActivations.concat(
-          module.flags.wod6e.customActionActivations
-        )
+      if (module.flags.wod6e.customActivations) {
+        customActivations = customActivations.concat(module.flags.wod6e.customActivations)
 
         // Log the custom data in the console
         console.log(
-          `World of Darkness 6th Edition | Custom Action Activations added by ${module.id}: ${JSON.stringify(module.flags.wod6e.customActionActivations)}`
+          `World of Darkness 6th Edition | Custom Activations added by ${module.id}: ${JSON.stringify(module.flags.wod6e.customActivations)}`
         )
       }
     })
 
-    if (customActionActivations) {
-      ActionActivations.addCustom(customActionActivations)
+    if (customActivations) {
+      Activations.addCustom(customActivations)
     }
 
-    ActionActivations.initializeLabels()
+    Activations.initializeLabels()
+  }
+
+  static none = {
+    label: 'WOD6E.None'
   }
 
   static action = {
@@ -55,4 +57,4 @@ export class ActionActivations extends BaseDefinitionClass {
 }
 
 // Hook to call onReady when the game is ready
-Hooks.once('ready', ActionActivations.onReady)
+Hooks.once('ready', Activations.onReady)

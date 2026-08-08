@@ -6,9 +6,9 @@ import { Disciplines } from '../../splats/vampire/config/disciplines.js'
 import { ResourceTypes } from '../config/resource-types.js'
 import { ActionGroups } from '../config/action-groups.js'
 import { ActionRoles } from '../config/action-roles.js'
-import { ActionActivations } from '../config/action-activation-types.js'
-import { ActionDifficulties } from '../config/action-difficulties.js'
-import { ActionDistances } from '../config/action-distances.js'
+import { Activations } from '../config/activation-types.js'
+import { Difficulties } from '../config/difficulties.js'
+import { Distances } from '../config/distances.js'
 
 /**
  * Define all game settings here
@@ -56,17 +56,17 @@ export const loadSettings = async function () {
       defCategory: 'ActionRoles',
       defClass: ActionRoles
     },
-    actionActivations: {
-      defCategory: 'ActionActivations',
-      defClass: ActionActivations
+    activations: {
+      defCategory: 'Activations',
+      defClass: Activations
     },
-    actionDifficulties: {
-      defCategory: 'ActionDifficulties',
-      defClass: ActionDifficulties
+    difficulties: {
+      defCategory: 'Difficulties',
+      defClass: Difficulties
     },
     actionDistances: {
-      defCategory: 'ActionDistances',
-      defClass: ActionDistances
+      defCategory: 'Distances',
+      defClass: Distances
     }
   }
 

@@ -37,10 +37,10 @@ import { BaseDefinitionClass } from './core/config/base-definition-class.js'
 import { loadControls } from './core/scripts/controls.js'
 import { WoDCompendiumDirectory } from './core/ui/wod-compendium.js'
 import { ActionGroups } from './core/config/action-groups.js'
-import { ActionActivations } from './core/config/action-activation-types.js'
+import { Activations } from './core/config/activation-types.js'
 import { ActionRoles } from './core/config/action-roles.js'
-import { ActionDifficulties } from './core/config/action-difficulties.js'
-import { ActionDistances } from './core/config/action-distances.js'
+import { Difficulties } from './core/config/difficulties.js'
+import { Distances } from './core/config/distances.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -59,10 +59,10 @@ window.WOD6E = {
     ItemTypes,
     ActorTypes,
     ActionGroups,
-    ActionActivations,
+    Activations,
     ActionRoles,
-    ActionDifficulties,
-    ActionDistances
+    Difficulties,
+    Distances
   },
   actors: {
     WoDActorBase,
