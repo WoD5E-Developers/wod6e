@@ -120,6 +120,21 @@
 .item.sheet .tab:not(.active) {
   display: none !important;
 }
+.actor.sheet .align-left,
+.item.sheet .align-left {
+  justify-content: left;
+  text-align: left;
+}
+.actor.sheet .align-right,
+.item.sheet .align-right {
+  justify-content: right;
+  text-align: right;
+}
+.actor.sheet .align-center,
+.item.sheet .align-center {
+  justify-content: center;
+  text-align: center;
+}
 
 :root {
   --system-color-1: #302d5bf0;
@@ -292,18 +307,6 @@
 
 .actor.sheet {
   min-width: 715px;
-}
-.actor.sheet .align-right {
-  justify-content: left;
-  text-align: left;
-}
-.actor.sheet .align-right {
-  justify-content: right;
-  text-align: right;
-}
-.actor.sheet .align-center {
-  justify-content: center;
-  text-align: center;
 }
 .actor.sheet .sheet-section {
   width: 100%;
@@ -870,6 +873,9 @@
   padding: 10px 10px 0px 10px;
   overflow-y: scroll;
   height: 100%;
+}
+.item.sheet .action-test-header .action-test-header-label {
+  font-size: 18pt;
 }
 .item.sheet .setting-field {
   padding: 5px;

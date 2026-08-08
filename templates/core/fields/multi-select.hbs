@@ -7,16 +7,12 @@
     type="button"
     class="multi-select-trigger"
     data-action="toggleMultiSelect"
-    aria-expanded="false"
   >
     <span class="multi-select-value">
       {{ selectedText }}
     </span>
 
-    <i
-      class="fa-solid fa-chevron-down multi-select-icon"
-      aria-hidden="true"
-    ></i>
+    <i class="fa-solid fa-chevron-down multi-select-icon"></i>
   </button>
 
   <div
@@ -33,7 +29,7 @@
         option.selected}}
       />
 
-      <span>{{localize option.label}}</span>
+      <span>{{ option.label }}</span>
     </label>
     {{/each}}
   </div>
