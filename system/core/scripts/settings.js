@@ -111,8 +111,8 @@ export const loadSettings = async function () {
 
   // World Version, only really needed by developers
   game.settings.register('wod6e', 'worldVersion', {
-    name: game.i18n.localize('WOD6E.Settings.WorldVersion'),
-    hint: game.i18n.localize('WOD6E.Settings.WorldVersionHint'),
+    name: game.i18n.localize('WOD6E.SETTINGS.WorldVersion'),
+    hint: game.i18n.localize('WOD6E.SETTINGS.WorldVersionHint'),
     scope: 'world',
     config: true,
     default: '1.0',

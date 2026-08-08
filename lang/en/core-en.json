@@ -146,6 +146,10 @@
       "Wealth": "Wealth",
       "Willpower": "Willpower"
     },
+    "SETTINGS": {
+      "WorldVersion": "World Version",
+      "WorldVersionHint": "The current world version. You typically won't need to touch this value!"
+    },
     "SIDEBARS": {
       "Changelog": "Changelog",
       "LicensedUnderDarkPack": "Licensed Under The Dark Pack",
