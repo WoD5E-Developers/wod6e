@@ -9,7 +9,7 @@ export function skillFields() {
 
 function skillValueField() {
   return new fields.SchemaField({
-    max: new fields.NumberField({ initial: 10, min: 1, integer: true, nullable: false }),
+    max: new fields.NumberField({ initial: 5, min: 1, integer: true, nullable: false }),
     value: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
     specialties: new fields.ArrayField(new fields.ObjectField())
   })
@@ -29,7 +29,7 @@ export function createInitialSkills() {
 export function createInitialSkillValue() {
   return {
     value: 0,
-    max: 10,
+    max: 5,
     specialties: []
   }
 }

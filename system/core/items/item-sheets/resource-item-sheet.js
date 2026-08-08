@@ -54,7 +54,8 @@ export class ResourceItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
     const item = this.item
     const itemData = item.system
 
-    data.value = itemData?.value || 0
+    data.dots = itemData?.dots?.value || 0
+    data.maxDots = itemData?.dots?.max || 5
 
     data.resourceTypeOptions = WOD6E.configs.ResourceTypes.getList({})
     data.resourceTypeSelected = itemData?.resourceType

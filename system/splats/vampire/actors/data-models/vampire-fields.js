@@ -1,3 +1,5 @@
+import { disciplineFields } from './fields/discipline-fields.js'
+
 const fields = foundry.data.fields
 
 export function vampireFields() {
@@ -29,9 +31,7 @@ export function vampireFields() {
         canBeDisabled: new fields.BooleanField({ initial: false })
       }),
 
-      disciplines: new fields.ObjectField({
-        initial: {}
-      })
+      disciplines: disciplineFields()
     })
   }
 }

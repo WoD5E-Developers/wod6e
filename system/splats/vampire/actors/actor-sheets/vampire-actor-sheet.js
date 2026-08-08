@@ -1,6 +1,7 @@
 // Base actor sheet to extend from
 import { WoDActorBase } from '../../../../core/actors/actor-sheets/wod-actor-base.js'
 import { prepareActionsContext } from '../../../../core/actors/scripts/prepare-core-partials.js'
+import { _onConfigureVisibleDisciplines } from './scripts/on-configure-visible-disciplines.js'
 import {
   prepareDisciplinesContext,
   prepareHeaderContext,
@@ -19,7 +20,9 @@ const { HandlebarsApplicationMixin } = foundry.applications.api
 export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
   static DEFAULT_OPTIONS = {
     classes: ['wod6e', 'actor', 'sheet', 'vampire'],
-    actions: {}
+    actions: {
+      configureVisibleDisciplines: _onConfigureVisibleDisciplines
+    }
   }
 
   static PARTS = {

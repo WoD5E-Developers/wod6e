@@ -26,6 +26,14 @@
           }
         }
       }
+
+      .sheet-section-row {
+        .resource-name {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+      }
     }
   }
 
@@ -34,19 +42,28 @@
   }
 
   .sheet-section-header {
+    font-size: 20px;
+  }
+
+  .sheet-section-header, .sheet-subsection-header {
     display: flex;
     flex-direction: row;
     margin: 0;
     padding-left: 5px;
     border-bottom: 2px solid var(--tracker-border);
     color: var(--tracker-text);
-    font-size: 20px;
     font-weight: 700;
     line-height: 1;
     text-transform: uppercase;
 
     .sheet-section-name, .sheet-section-data-actions {
       flex-grow: 1;
+    }
+
+    .sheet-section-data-actions {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
     }
   }
 
@@ -58,6 +75,7 @@
     color: var(--tracker-text);
     font-size: 15px;
     font-weight: 400;
+    text-wrap-mode: nowrap;
 
     &:hover,
     &:focus-visible {

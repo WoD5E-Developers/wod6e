@@ -1,26 +1,25 @@
 import { generateTrackers } from './generate-trackers.js'
 
 export function prepareResources(actor) {
-  const actorResources = actor?.system?.resources || {}
-
-  const preparedResources = Object.entries(actorResources)
-    .filter(([, resource]) => !resource.hidden)
-    .map(([key, resource]) => {
-      const actorResource = actorResources[key]
-      const value = actorResource?.value ?? 0
-      const specialties = actorResource?.specialties ?? []
+  const preparedResources = actor.items
+    .filter((item) => item.type === 'resource')
+    .map((item) => {
+      const itemData = item.system
+      const value = itemData?.dots?.value ?? 0
+      const max = itemData?.dots?.max ?? 5
+      const specialties = itemData?.specialties ?? []
 
       const trackers = generateTrackers({
-        name: resource.displayName,
+        name: item.name,
         value,
-        max: 5,
+        max,
         groupSize: 5
       })
 
       return {
-        key,
-        label: resource.displayName,
-        path: `system.resources.${key}.value`,
+        uuid: item.uuid,
+        name: item.name,
+        path: `system.dots.value`,
         value,
         specialties,
         specialtyText: specialties.join(', '),

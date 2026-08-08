@@ -28,36 +28,47 @@
     </div>
   </header>
 
-  <div class="sheet-section-list">
+  <div class="sheet-section-list resource-tracker">
     {{#each resources as |resource|}}
     <div
       class="sheet-section-row resource-tracker"
       data-resource="{{ resource.uuid }}"
     >
-      <button
-        type="button"
-        class="sheet-section-label"
-        data-action="rollSkill"
-        title="{{localize resource.label}}"
-      >
-        <span class="resource-name">
-          {{localize resource.label}}
-        </span>
+      <div class="resource-name">
+        <a
+          class="item-open"
+          data-action="openItem"
+          title="{{localize 'WOD6E.ViewItem'}}"
+          data-uuid="{{ resource.uuid }}"
+        >
+          <i class="fas fa-book"></i>
+        </a>
+        <button
+          type="button"
+          class="sheet-section-label"
+          data-action="rollSkill"
+          title="{{ resource.name }}"
+        >
+          <span class="resource-name">
+            {{ resource.name }}
+          </span>
 
-        {{#if resource.specialtyText}}
-        <span class="resource-specialties">({{ resource.specialtyText }})</span>
-        {{/if}}
-      </button>
+          {{#if resource.specialtyText}}
+          <span class="resource-specialties">({{ resource.specialtyText }})</span>
+          {{/if}}
+        </button>
+      </div>
 
-      <div class="resource-tracker resource-tracker-spaces">
+      <div class="dot-tracker resource-tracker-spaces">
         {{#each resource.trackers as |group|}}
-        <div class="resource-tracker-group resource-tracker-group">
+        <div class="dot-tracker-group resource-tracker-group">
           {{#each group as |space|}}
           <button
             type="button"
-            class="resource-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}"
+            class="dot-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}"
             data-action="setTrackerValue"
-            data-resource-path="system.resources.{{ resource.key }}"
+            data-uuid="{{ resource.uuid }}"
+            data-resource-path="system.dots"
             data-value="{{ space.trackerValue }}"
             title="{{ space.title }}"
           ></button>

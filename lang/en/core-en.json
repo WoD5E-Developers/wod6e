@@ -17,7 +17,9 @@
     }
   },
   "WOD6E": {
+    "AddString": "Add {string}",
     "Cancel": "Cancel",
+    "ConfigureString": "Configure {string}",
     "Confirm": "Confirm",
     "Core": "Core",
     "Create": "Create",
@@ -30,6 +32,7 @@
     "None": "None",
     "NoneSelected": "None Selected",
     "Search": "Search",
+    "SelectString": "Select {string}",
     "System": "System",
     "ViewItem": "View Item",
     "ACTIONS": {

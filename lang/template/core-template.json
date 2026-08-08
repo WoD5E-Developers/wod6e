@@ -17,7 +17,9 @@
     }
   },
   "WOD6E": {
+    "_AddString": "",
     "_Cancel": "",
+    "_ConfigureString": "",
     "_Confirm": "",
     "_Core": "",
     "_Create": "",
@@ -30,6 +32,7 @@
     "_None": "",
     "_NoneSelected": "",
     "_Search": "",
+    "_SelectString": "",
     "_System": "",
     "_ViewItem": "",
     "ACTIONS": {

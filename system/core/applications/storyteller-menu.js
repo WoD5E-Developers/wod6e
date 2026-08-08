@@ -46,7 +46,7 @@ export class StorytellerMenu extends FormApplication {
       },
       discipline: {
         newModTitle: game.i18n.format('WOD6E.Settings.NewStringModification', {
-          string: game.i18n.localize('WOD6E.VTM.Discipline')
+          string: game.i18n.localize('WOD6E.VAMPIRE.Discipline')
         }),
         defCategory: 'Disciplines',
         labelCategory: 'DisciplinesList',

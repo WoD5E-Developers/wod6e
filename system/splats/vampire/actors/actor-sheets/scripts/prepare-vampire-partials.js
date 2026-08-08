@@ -159,8 +159,38 @@ export const prepareRightColumnContext = async function (context, actor) {
   return context
 }
 
-export const prepareDisciplinesContext = async function (context) {
-  context.disciplines = []
+export function prepareDisciplinesContext(context, actor) {
+  const disciplines = WOD6E.configs.Disciplines.getList({})
+  const actorDisciplines = actor?.system?.vampire?.disciplines || {}
+
+  const preparedDisciplines = Object.entries(disciplines)
+    .filter(([key, discipline]) => !discipline.hidden && actorDisciplines[key].visible)
+    .map(([key, discipline]) => {
+      const actorDiscipline = actorDisciplines[key]
+      const value = actorDiscipline?.value ?? 0
+      const max = actorDiscipline?.max ?? 5
+      const powers = actor.items.filter(
+        (item) => item.type === 'discipline' && item.system.disciplineType === key
+      )
+
+      const trackers = generateTrackers({
+        name: discipline.displayName,
+        value,
+        max,
+        groupSize: 5
+      })
+
+      return {
+        key,
+        label: discipline.displayName,
+        path: `system.vampire.disciplines.${key}.value`,
+        value,
+        powers,
+        trackers
+      }
+    })
+
+  context.disciplines = preparedDisciplines
 
   return context
 }

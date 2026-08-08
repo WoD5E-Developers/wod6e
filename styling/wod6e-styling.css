@@ -329,24 +329,40 @@
 .actor.sheet .sheet-section .sheet-section-list .sheet-section-row.item-section .item-name.bolded {
   font-weight: 800;
 }
+.actor.sheet .sheet-section .sheet-section-list .sheet-section-row .resource-name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .actor.sheet .actor-avatar {
   border: 1px solid var(--tracker-border);
 }
 .actor.sheet .sheet-section-header {
+  font-size: 20px;
+}
+.actor.sheet .sheet-section-header,
+.actor.sheet .sheet-subsection-header {
   display: flex;
   flex-direction: row;
   margin: 0;
   padding-left: 5px;
   border-bottom: 2px solid var(--tracker-border);
   color: var(--tracker-text);
-  font-size: 20px;
   font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
 }
 .actor.sheet .sheet-section-header .sheet-section-name,
-.actor.sheet .sheet-section-header .sheet-section-data-actions {
+.actor.sheet .sheet-subsection-header .sheet-section-name,
+.actor.sheet .sheet-section-header .sheet-section-data-actions,
+.actor.sheet .sheet-subsection-header .sheet-section-data-actions {
   flex-grow: 1;
+}
+.actor.sheet .sheet-section-header .sheet-section-data-actions,
+.actor.sheet .sheet-subsection-header .sheet-section-data-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 .actor.sheet .sheet-section-label {
   justify-content: flex-start;
@@ -356,6 +372,7 @@
   color: var(--tracker-text);
   font-size: 15px;
   font-weight: 400;
+  text-wrap-mode: nowrap;
 }
 .actor.sheet .sheet-section-label:hover,
 .actor.sheet .sheet-section-label:focus-visible {
@@ -728,6 +745,11 @@
 }
 .compendium-filter .subtype-option {
   margin-left: 15px;
+}
+
+.application.dialog .power-visibility-list {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr);
 }
 
 .multi-select-section {

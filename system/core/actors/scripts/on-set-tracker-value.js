@@ -1,7 +1,10 @@
 export async function _onSetTrackerValue(event, target) {
+  const uuid = target?.dataset?.uuid ?? this.actor.uuid
+  const document = fromUuidSync(uuid)
+
   const path = target.dataset.resourcePath
   const selectedValue = Number(target.dataset.value)
-  const tracker = foundry.utils.getProperty(this.actor, path)
+  const tracker = foundry.utils.getProperty(document, path)
 
   // Some defaults and sanity checking for these values
   const currentValue = tracker?.value || 0
@@ -14,11 +17,11 @@ export async function _onSetTrackerValue(event, target) {
   // depending on if the user is clicking a filled in dot or
   // not.
   if (selectedValue != currentValue) {
-    await this.actor.update({
+    await document.update({
       [`${path}.value`]: Math.clamp(selectedValue, 0, maxValue - disabledValue)
     })
   } else {
-    await this.actor.update({
+    await document.update({
       [`${path}.value`]: Math.clamp(selectedValue - 1, 0, maxValue - disabledValue)
     })
   }

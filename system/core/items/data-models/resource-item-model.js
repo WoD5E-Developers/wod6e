@@ -3,14 +3,17 @@ import { WoDItemModel } from './base-item-model.js'
 export class ResourceItemModel extends WoDItemModel {
   static defineSchema() {
     const fields = foundry.data.fields
-
     const schema = super.defineSchema()
 
-    // Resource value
-    schema.value = new fields.NumberField({ initial: 1, min: 0, integer: true, nullable: false })
+    schema.dots = new fields.SchemaField({
+      max: new fields.NumberField({ initial: 5, min: 1, integer: true, nullable: false }),
+      value: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
+      specialties: new fields.ArrayField(new fields.ObjectField())
+    })
 
-    // Resource type
-    schema.resourceType = new fields.StringField({ initial: 'wealth' })
+    schema.resourceType = new fields.StringField({
+      initial: 'wealth'
+    })
 
     return schema
   }
