@@ -2,6 +2,7 @@
 import {
   prepareDescriptionContext,
   prepareTestContext,
+  prepareDifficultyContext,
   prepareActivationContext,
   prepareItemSettingsContext
 } from '../scripts/prepare-partials.js'
@@ -35,6 +36,9 @@ export class MeritItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
     test: {
       template: 'systems/wod6e/templates/core/items/parts/test-page.hbs'
     },
+    difficulty: {
+      template: 'systems/wod6e/templates/core/items/parts/difficulty-page.hbs'
+    },
     activation: {
       template: 'systems/wod6e/templates/core/items/parts/activation-page.hbs'
     },
@@ -53,6 +57,11 @@ export class MeritItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
       id: 'test',
       group: 'primary',
       label: 'WOD6E.TABS.Test'
+    },
+    difficulty: {
+      id: 'difficulty',
+      group: 'primary',
+      label: 'WOD6E.TABS.Difficulty'
     },
     activation: {
       id: 'activation',
@@ -90,6 +99,9 @@ export class MeritItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
 
       case 'test':
         return prepareTestContext(context, item)
+
+      case 'difficulty':
+        return prepareDifficultyContext(context, item)
 
       case 'activation':
         return prepareActivationContext(context, item)

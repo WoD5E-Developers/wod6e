@@ -1,7 +1,10 @@
 // Preparation functions
 import {
+  prepareActivationContext,
   prepareDescriptionContext,
-  prepareItemSettingsContext
+  prepareDifficultyContext,
+  prepareItemSettingsContext,
+  prepareTestContext
 } from '../../../../core/items/scripts/prepare-partials.js'
 // Base item sheet to extend from
 import { WoDItemBase } from '../../../../core/items/item-sheets/wod-item-base.js'
@@ -28,6 +31,15 @@ export class ClanTraitItemSheet extends HandlebarsApplicationMixin(WoDItemBase) 
     description: {
       template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
     },
+    test: {
+      template: 'systems/wod6e/templates/core/items/parts/test-page.hbs'
+    },
+    difficulty: {
+      template: 'systems/wod6e/templates/core/items/parts/difficulty-page.hbs'
+    },
+    activation: {
+      template: 'systems/wod6e/templates/core/items/parts/activation-page.hbs'
+    },
     settings: {
       template: 'systems/wod6e/templates/core/items/parts/item-settings.hbs'
     }
@@ -38,6 +50,21 @@ export class ClanTraitItemSheet extends HandlebarsApplicationMixin(WoDItemBase) 
       id: 'description',
       group: 'primary',
       label: 'WOD6E.TABS.Description'
+    },
+    test: {
+      id: 'test',
+      group: 'primary',
+      label: 'WOD6E.TABS.Test'
+    },
+    difficulty: {
+      id: 'difficulty',
+      group: 'primary',
+      label: 'WOD6E.TABS.Difficulty'
+    },
+    activation: {
+      id: 'activation',
+      group: 'primary',
+      label: 'WOD6E.TABS.Activation'
     },
     settings: {
       id: 'settings',
@@ -67,7 +94,16 @@ export class ClanTraitItemSheet extends HandlebarsApplicationMixin(WoDItemBase) 
       // Stats
       case 'description':
         return prepareDescriptionContext(context, item)
-      case 'beast':
+
+      case 'test':
+        return prepareTestContext(context, item)
+
+      case 'difficulty':
+        return prepareDifficultyContext(context, item)
+
+      case 'activation':
+        return prepareActivationContext(context, item)
+
       case 'settings':
         return prepareItemSettingsContext(context, item)
     }

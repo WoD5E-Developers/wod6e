@@ -1,4 +1,5 @@
 import { buildEnrichedField } from './build-enriched-field.js'
+import { formatOptionLabel, formatTest } from './format-test-labels.js'
 
 export const prepareDescriptionContext = async function (context, item) {
   const itemData = item.system
@@ -66,19 +67,15 @@ export async function prepareTestContext(context, item) {
     description: test.description ?? '',
 
     attributeOptions,
-    selectedAttributesText: selectedAttributeLabels.length
-      ? selectedAttributeLabels.join(', ')
-      : game.i18n.localize('WOD6E.NoneSelected'),
+    selectedAttributesText: formatOptionLabel(selectedAttributeLabels),
 
     skillOptions,
-    selectedSkillsText: selectedSkillLabels.length
-      ? selectedSkillLabels.join(', ')
-      : game.i18n.localize('WOD6E.NoneSelected'),
+    selectedSkillsText: formatOptionLabel(selectedSkillLabels),
 
     disciplineOptions,
-    selectedDisciplinesText: selectedDisciplineLabels.length
-      ? selectedDisciplineLabels.join(', ')
-      : game.i18n.localize('WOD6E.NoneSelected')
+    selectedDisciplinesText: formatOptionLabel(selectedDisciplineLabels),
+
+    testText: formatTest(selectedAttributeLabels, selectedSkillLabels, selectedDisciplineLabels)
   }
 
   return context
