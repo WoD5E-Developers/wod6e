@@ -3,43 +3,58 @@
   data-tab="{{ tab.id }}"
   data-group="{{ tab.group }}"
 >
-  {{#each tests as |test index|}}
-  <div class="action-test-row">
+  <header class="sheet-section-header">
+    <div class="sheet-section-data-actions align-right">
+      <a
+        data-action="addTest"
+        title="{{localize 'WOD6E.ACTIONS.AddTest'}}"
+      >
+        <i class="fas fa-plus"></i>
+        <span>{{localize 'WOD6E.ACTIONS.AddTest'}}</span>
+      </a>
+    </div>
+  </header>
+
+  {{#each tests as |test|}}
+  <div
+    class="action-test"
+    data-index="{{ test.index }}"
+  >
+    <header class="action-test-header">
+      <span class="action-test-header-label">
+        {{localize 'WOD6E.ACTIONS.Test'}} {{add index 1}}
+      </span>
+
+      <a
+        data-action="deleteTest"
+        data-index="{{ index }}"
+        title="{{localize 'WOD6E.Delete'}}"
+      >
+        <i class="fas fa-trash"></i>
+      </a>
+    </header>
+
+    <div class="form-group multi-select-section">
+      <label>
+        <b>{{localize 'WOD6E.Description'}}</b>
+      </label>
+      <input
+        type="text"
+        name="system.tests.{{ test.index }}.description"
+        value="{{ test.description }}"
+      />
+    </div>
+
     <div class="form-group multi-select-section">
       <label>
         <b>{{localize 'WOD6E.ATTRIBUTES.Attributes'}}</b>
       </label>
 
       {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
-        fieldPath='system.tests.{{ index
-      }}.attributes' options=attributeOptions selectedText=test.attributes }}
+      fieldPath='system.tests.{{test.index}}.attributes'
+      options=test.attributeOptions
+      selectedText=test.selectedAttributesText
+      }}
     </div>
-
-    <div class="form-group multi-select-section">
-      <label>
-        <b>{{localize 'WOD6E.SKILLS.Skills'}}</b>
-      </label>
-
-      {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
-        fieldPath='system.tests.{{ index
-      }}.skills' options=skillOptions selectedText=test.skills }}
-    </div>
-
-    <div class="form-group multi-select-section">
-      <label>
-        <b>{{localize 'WOD6E.VAMPIRE.Disciplines'}}</b>
-      </label>
-
-      {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
-        fieldPath='system.tests.{{ index
-      }}.skills' options=disciplineOptions selectedText=test.disciplines }}
-    </div>
-
-    <input
-      type="text"
-      name="system.tests.{{ index }}.description"
-      value="{{ test.description }}"
-    />
-  </div>
   {{/each}}
 </section>

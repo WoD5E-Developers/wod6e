@@ -94,6 +94,9 @@ export class ActionItemModel extends WoDItemModel {
 
 function testField() {
   return new fields.SchemaField({
+    description: new fields.StringField({
+      initial: ''
+    }),
     attributes: new fields.SetField(
       new fields.StringField({
         blank: false,
@@ -122,10 +125,6 @@ function testField() {
       {
         initial: []
       }
-    ),
-
-    description: new fields.StringField({
-      initial: ''
-    })
+    )
   })
 }

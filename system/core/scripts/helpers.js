@@ -59,6 +59,10 @@ export const loadHelpers = async function () {
     return bool1 && bool2
   })
 
+  Handlebars.registerHelper('add', function (int) {
+    return Number(int) + 2
+  })
+
   Handlebars.registerHelper('x2', function (int) {
     return Number(int) * 2
   })

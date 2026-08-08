@@ -1,4 +1,5 @@
 // Preparation functions
+import { _onAddTest, _onDeleteTest } from '../scripts/action-buttons.js'
 import {
   prepareActionActivationContext,
   prepareActionDifficultyContext,
@@ -25,7 +26,10 @@ export class ActionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
     position: {
       width: 660
     },
-    actions: {}
+    actions: {
+      addTest: _onAddTest,
+      deleteTest: _onDeleteTest
+    }
   }
 
   static PARTS = {
@@ -85,28 +89,12 @@ export class ActionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
     const item = this.item
     const itemData = item.system
 
-    // General
-    context.item = item
-    context.itemData = itemData
-
     // Definition lists
-    context.attributeOptions = WOD6E.configs.Attributes.getList({})
-    context.skillOptions = WOD6E.configs.Skills.getList({})
-
     context.actionGroupOptions = WOD6E.configs.ActionGroups.getList({})
     context.actionGroupSelected = itemData?.group || ''
 
-    context.actionActivationOptions = WOD6E.configs.ActionActivations.getList({})
-    context.actionActivationSelected = itemData?.activation || ''
-
     context.actionRoleOptions = WOD6E.configs.ActionRoles.getList({})
     context.actionRoleSelected = itemData?.role || ''
-
-    context.actionDifficultyOptions = WOD6E.configs.ActionDifficulties.getList({})
-    context.actionDifficultySelected = itemData?.difficulty?.type || ''
-
-    context.actionDistanceOptions = WOD6E.configs.ActionDistances.getList({})
-    context.actionDistanceSelected = itemData?.distance || ''
 
     context.actionTypeOptions = {
       untyped: {
