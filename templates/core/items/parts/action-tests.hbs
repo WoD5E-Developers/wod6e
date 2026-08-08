@@ -51,7 +51,7 @@
       </label>
 
       {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
-      fieldPath='system.tests.{{test.index}}.attributes'
+      fieldPath=(concat 'system.tests.' test.index '.attributes')
       options=test.attributeOptions
       selectedText=test.selectedAttributesText
       }}
