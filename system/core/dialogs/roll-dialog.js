@@ -52,13 +52,15 @@ export class RollDialog {
 
           callback: async (_event, button) => {
             const data = this._getDataFromForm(button.form)
-            const dicePool = _calculateDicePool(actor, data)
+            const rollContext = this._prepareContext({ actor, data }).test
 
-            const roll = new Roll(`${dicePool}d10cs>=6`)
+            const flavor = rollContext.testText
+            const roll = new Roll(`${rollContext.dicePool}d10cs>=6`)
 
             await roll.evaluate()
             await roll.toMessage({
-              speaker: ChatMessage.getSpeaker({ actor })
+              speaker: ChatMessage.getSpeaker({ actor }),
+              flavor
             })
 
             return roll
@@ -140,6 +142,7 @@ export class RollDialog {
         selectedDisciplinesText,
 
         testText,
+        dicePool,
         dicePoolText
       }
     }
@@ -182,48 +185,24 @@ export class RollDialog {
   static _updatePreview(element, actor) {
     if (!element || !actor) return
 
-    const formData = this._getDataFromForm(element)
+    const data = this._getDataFromForm(element)
 
-    const testText = _getTestTextFromFormData(formData)
-    const dicePool = _calculateDicePool(actor, formData)
+    const previewContext = this._prepareContext({ actor, data }).test
 
     const testTextElement = element.querySelector('.roll-test')
+    testTextElement.textContent = previewContext.testText
+
     const dicePoolElement = element.querySelector('.roll-pool-value')
-
-    if (testTextElement) {
-      testTextElement.textContent = testText
-    }
-
-    if (dicePoolElement) {
-      dicePoolElement.textContent = game.i18n.format('WOD6E.ROLL.RollingString', {
-        string: `${dicePool}d10`
-      })
-    }
+    dicePoolElement.textContent = previewContext.dicePoolText
 
     const attributeElement = element.querySelector('.attribute-multi-select .multi-select-value')
-    const attributeOptions = this._prepareOptions({
-      definitions: WOD6E.configs.Attributes.getList({}),
-      selected: formData?.attributes || []
-    })
-    const selectedAttributesText = this._getSelectedText(attributeOptions)
-    attributeElement.textContent = selectedAttributesText
+    attributeElement.textContent = previewContext.selectedAttributesText
 
     const skillElement = element.querySelector('.skill-multi-select .multi-select-value')
-    const skillOptions = this._prepareOptions({
-      definitions: WOD6E.configs.Skills.getList({}),
-      selected: formData?.skills || []
-    })
-    const selectedSkillsText = this._getSelectedText(skillOptions)
-    skillElement.textContent = selectedSkillsText
+    skillElement.textContent = previewContext.selectedSkillsText
 
     const disciplineElement = element.querySelector('.discipline-multi-select .multi-select-value')
-
-    const disciplineOptions = this._prepareOptions({
-      definitions: WOD6E.configs.Disciplines.getList({}),
-      selected: formData?.disciplines || []
-    })
-    const selectedDisciplinesText = this._getSelectedText(disciplineOptions)
-    disciplineElement.textContent = selectedDisciplinesText
+    disciplineElement.textContent = previewContext.selectedDisciplinesText
   }
 
   static _getResult(form, { actor, item }) {
