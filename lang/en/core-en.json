@@ -146,6 +146,11 @@
       "Wealth": "Wealth",
       "Willpower": "Willpower"
     },
+    "ROLL": {
+      "NoTraitsSelected": "No Traits Selected",
+      "Roll": "Roll",
+      "RollingString": "Rolling {string}"
+    },
     "SETTINGS": {
       "WorldVersion": "World Version",
       "WorldVersionHint": "The current world version. You typically won't need to touch this value!"

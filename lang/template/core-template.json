@@ -146,6 +146,11 @@
       "_Wealth": "",
       "_Willpower": ""
     },
+    "ROLL": {
+      "_NoTraitsSelected": "",
+      "_Roll": "",
+      "_RollingString": ""
+    },
     "SETTINGS": {
       "_WorldVersion": "",
       "_WorldVersionHint": ""

@@ -758,6 +758,14 @@
   grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr);
 }
 
+.roll-dialog-header {
+  text-align: center;
+}
+.roll-dialog-header .roll-pool {
+  font-size: 16pt;
+  font-weight: 600;
+}
+
 .multi-select-section {
   min-width: stretch;
 }
