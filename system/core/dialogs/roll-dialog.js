@@ -5,7 +5,7 @@ import {
 } from '../fields/multiselect.js'
 import { ItemUX } from '../items/scripts/item-ux.js'
 import { _calculateDicePool } from './scripts/calculate-dice-pool.js'
-import { _getTestText, _getTestTextFromFormData } from './scripts/get-test-text.js'
+import { _getTestText } from './scripts/get-test-text.js'
 
 const { DialogV2 } = foundry.applications.api
 const { renderTemplate } = foundry.applications.handlebars
