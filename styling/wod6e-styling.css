@@ -786,18 +786,19 @@
   white-space: nowrap;
 }
 .multi-select-section .multi-select .multi-select-dropdown {
-  position: absolute;
-  z-index: 100;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  max-height: 220px;
-  overflow-y: auto;
   background: var(--multiselect-background);
   border: 1px solid var(--multiselect-border);
 }
 .multi-select-section .multi-select .multi-select-dropdown[hidden] {
   display: none;
+}
+.multi-select-section .multi-select .multi-select-dropdown[popover] {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 100;
 }
 .multi-select-section .multi-select button:hover {
   background: var(--multiselect-hover-background);

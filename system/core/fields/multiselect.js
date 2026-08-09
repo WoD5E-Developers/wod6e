@@ -9,6 +9,13 @@ export async function _onToggleMultiSelect(event, target) {
   const hiddenStatus = dropdown.hidden
 
   dropdown.hidden = !hiddenStatus
+  dropdown.togglePopover()
+
+  const rect = target.getBoundingClientRect()
+
+  dropdown.style.left = `${rect.left}px`
+  dropdown.style.top = `${rect.bottom}px`
+  dropdown.style.width = `${rect.width}px`
 }
 
 export async function _onToggleMultiSelectOption(event, target) {
