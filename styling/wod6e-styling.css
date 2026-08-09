@@ -758,22 +758,14 @@
   grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr);
 }
 
-.application.roll-dialog .roll-dialog-header {
+.roll-dialog-header {
   text-align: center;
 }
-.application.roll-dialog .roll-dialog-header .roll-pool {
+.roll-dialog-header .roll-pool {
   font-size: 16pt;
   font-weight: 600;
 }
 
-.application.item,
-.application.roll-dialog {
-  overflow: visible;
-}
-.application.item .window-content,
-.application.roll-dialog .window-content {
-  overflow: visible;
-}
 .multi-select-section {
   min-width: stretch;
 }
@@ -916,6 +908,7 @@
 }
 .item.sheet section.tab {
   padding: 10px 10px 0px 10px;
+  overflow-y: scroll;
   height: 100%;
 }
 .item.sheet .action-test-header .action-test-header-label {
