@@ -1,6 +1,4 @@
 .multi-select-section {
-  min-width: stretch;
-
   .multi-select {
     position: relative;
     width: 100%;
@@ -23,11 +21,8 @@
       background: var(--multiselect-background);
       border: 1px solid var(--multiselect-border);
 
-      &[hidden] {
-        display: none;
-      }
-
       &[popover] {
+        min-width: fit-content;
         position: fixed;
         inset: auto;
         margin: 0;

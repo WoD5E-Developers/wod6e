@@ -41,6 +41,7 @@ import { Activations } from './core/config/activation-types.js'
 import { ActionRoles } from './core/config/action-roles.js'
 import { Difficulties } from './core/config/difficulties.js'
 import { Distances } from './core/config/distances.js'
+import { Durations } from './core/config/durations.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -62,7 +63,8 @@ window.WOD6E = {
     Activations,
     ActionRoles,
     Difficulties,
-    Distances
+    Distances,
+    Durations
   },
   actors: {
     WoDActorBase,
