@@ -752,6 +752,10 @@
   margin-left: 15px;
 }
 
+.wod6e.chat-card .item-name {
+  border-bottom: 1px solid;
+}
+
 .application.dialog .skill-configuration-list,
 .application.dialog .power-visibility-list {
   display: grid;
@@ -766,9 +770,6 @@
   font-weight: 600;
 }
 
-.multi-select-section {
-  min-width: stretch;
-}
 .multi-select-section .multi-select {
   position: relative;
   width: 100%;
@@ -789,10 +790,8 @@
   background: var(--multiselect-background);
   border: 1px solid var(--multiselect-border);
 }
-.multi-select-section .multi-select .multi-select-dropdown[hidden] {
-  display: none;
-}
 .multi-select-section .multi-select .multi-select-dropdown[popover] {
+  min-width: fit-content;
   position: fixed;
   inset: auto;
   margin: 0;

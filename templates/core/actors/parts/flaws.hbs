@@ -46,12 +46,13 @@
         type="button"
         class="sheet-section-label"
         data-action="sendItemToChat"
-        title="Click to post to chat"
+        data-uuid="{{ flaw.uuid }}"
+        title="{{localize 'WOD6E.PostToChat'}}"
       >
         <span class="item-name bolded">{{ flaw.name }}.</span>
       </button>
       {{#if flaw.description}}
-      <span class="item-description">{{{ descriptionShort flaw.description }}}</span>
+      <span class="item-description">{{ descriptionShort flaw.description }}</span>
       {{/if}}
     </div>
     {{/each}}
