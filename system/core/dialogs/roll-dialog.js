@@ -4,6 +4,7 @@ import {
   _onToggleMultiSelectOption
 } from '../fields/multiselect.js'
 import { ItemUX } from '../items/scripts/item-ux.js'
+import { WOD6eTest } from '../scripts/wod6e-test.js'
 import { _calculateDicePool } from './scripts/calculate-dice-pool.js'
 import { _getTestText } from './scripts/get-test-text.js'
 
@@ -54,16 +55,11 @@ export class RollDialog {
             const data = this._getDataFromForm(button.form)
             const rollContext = this._prepareContext({ actor, data }).test
 
-            const flavor = rollContext.testText
-            const roll = new Roll(`${rollContext.dicePool}d10cs>=6`)
-
-            await roll.evaluate()
-            await roll.toMessage({
-              speaker: ChatMessage.getSpeaker({ actor }),
-              flavor
+            return WOD6eTest.executeTest({
+              actor,
+              context: rollContext,
+              flavor: rollContext.testText
             })
-
-            return roll
           }
         }
       ],

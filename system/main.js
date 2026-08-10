@@ -42,6 +42,7 @@ import { ActionRoles } from './core/config/action-roles.js'
 import { Difficulties } from './core/config/difficulties.js'
 import { Distances } from './core/config/distances.js'
 import { Durations } from './core/config/durations.js'
+import { WOD6eRoll } from './core/scripts/wod6e-roll.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -90,6 +91,7 @@ window.WOD6E = {
 Hooks.once('init', async function () {
   // Custom document classes
   CONFIG.Actor.documentClass = WoDActor
+  CONFIG.Dice.rolls.push(WOD6eRoll)
   // Custom UI implementations
   CONFIG.ui.settings = WoDSettings
   CONFIG.ui.compendium = WoDCompendiumDirectory
