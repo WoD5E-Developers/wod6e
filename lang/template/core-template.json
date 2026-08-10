@@ -7,6 +7,7 @@
       "_action": "",
       "_clan": "",
       "_clanTrait": "",
+      "_condition": "",
       "_discipline": "",
       "_equipment": "",
       "_flaw": "",
@@ -17,6 +18,7 @@
     }
   },
   "WOD6E": {
+    "_Add": "",
     "_AddString": "",
     "_Cancel": "",
     "_ConfigureString": "",
@@ -31,8 +33,10 @@
     "_NewString": "",
     "_None": "",
     "_NoneSelected": "",
+    "_Override": "",
     "_Search": "",
     "_SelectString": "",
+    "_Subtract": "",
     "_System": "",
     "_ViewItem": "",
     "ACTIONS": {
@@ -100,6 +104,29 @@
       "_Stamina": "",
       "_Strength": "",
       "_Wits": ""
+    },
+    "CONDITIONS": {
+      "_AddEffect": "",
+      "_AffectsDerived": "",
+      "_BodyPart": "",
+      "_BodyPartPlaceholder": "",
+      "_Category": "",
+      "_CurrentStacks": "",
+      "_Dice": "",
+      "_Difficulty": "",
+      "_Duration": "",
+      "_EffectType": "",
+      "_Escalation": "",
+      "_EscalationPlaceholder": "",
+      "_MaxStacks": "",
+      "_Mode": "",
+      "_Predicates": "",
+      "_SourceUuid": "",
+      "_Stackable": "",
+      "_TargetPlaceholder": "",
+      "_Targets": "",
+      "_TargetUuid": "",
+      "_Value": ""
     },
     "EQUIPMENT": {
       "_Equipment": ""
@@ -184,12 +211,15 @@
     "TABS": {
       "_Actions": "",
       "_Activation": "",
+      "_Condition": "",
       "_Description": "",
       "_Difficulty": "",
       "_Distance": "",
+      "_Effects": "",
       "_Indulging": "",
       "_Main": "",
       "_Outburst": "",
+      "_Restrictions": "",
       "_Settings": "",
       "_Test": ""
     }

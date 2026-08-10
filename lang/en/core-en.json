@@ -7,6 +7,7 @@
       "action": "Action",
       "clan": "Clan",
       "clanTrait": "Clan Trait",
+      "condition": "Condition",
       "discipline": "Discipline",
       "equipment": "Equipment",
       "flaw": "Flaw",
@@ -17,6 +18,7 @@
     }
   },
   "WOD6E": {
+    "Add": "Add",
     "AddString": "Add {string}",
     "Cancel": "Cancel",
     "ConfigureString": "Configure {string}",
@@ -31,8 +33,10 @@
     "NewString": "New {string}",
     "None": "None",
     "NoneSelected": "None Selected",
+    "Override": "Override",
     "Search": "Search",
     "SelectString": "Select {string}",
+    "Subtract": "Subtract",
     "System": "System",
     "ViewItem": "View Item",
     "ACTIONS": {
@@ -100,6 +104,29 @@
       "Stamina": "Stamina",
       "Strength": "Strength",
       "Wits": "Wits"
+    },
+    "CONDITIONS": {
+      "AddEffect": "Add Effect",
+      "AffectsDerived": "Affects Derived Traits",
+      "BodyPart": "Body Part",
+      "BodyPartPlaceholder": "Body Part Placeholder",
+      "Category": "Category",
+      "CurrentStacks": "Current Stacks",
+      "Dice": "Dice",
+      "Difficulty": "Difficulty",
+      "Duration": "Duration",
+      "EffectType": "Effect Type",
+      "Escalation": "Escalation",
+      "EscalationPlaceholder": "Escalation Placeholder",
+      "MaxStacks": "Max Stacks",
+      "Mode": "Mode",
+      "Predicates": "Predicates",
+      "SourceUuid": "Source UUID",
+      "Stackable": "Stackable",
+      "TargetPlaceholder": "Target Placeholder",
+      "Targets": "Targets",
+      "TargetUuid": "Target UUID",
+      "Value": "Value"
     },
     "EQUIPMENT": {
       "Equipment": "Equipment"
@@ -184,12 +211,15 @@
     "TABS": {
       "Actions": "Actions",
       "Activation": "Activation",
+      "Condition": "Condition",
       "Description": "Description",
       "Difficulty": "Difficulty",
       "Distance": "Distance",
+      "Effects": "Effects",
       "Indulging": "Indulging",
       "Main": "Main",
       "Outburst": "Outburst",
+      "Restrictions": "Restrictions",
       "Settings": "Settings",
       "Test": "Test"
     }
