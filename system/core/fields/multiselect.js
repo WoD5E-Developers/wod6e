@@ -6,9 +6,13 @@ export async function _onToggleMultiSelect(event, target) {
 
   if (!multiSelect || !dropdown) return
 
-  const hiddenStatus = dropdown.hidden
+  dropdown.togglePopover()
 
-  dropdown.hidden = !hiddenStatus
+  const rect = target.getBoundingClientRect()
+
+  dropdown.style.left = `${rect.left}px`
+  dropdown.style.top = `${rect.bottom}px`
+  dropdown.style.width = `${rect.width}px`
 }
 
 export async function _onToggleMultiSelectOption(event, target) {
@@ -39,11 +43,6 @@ export function _onDocumentPointerDown(event) {
   if (event.target.closest('.multi-select')) return
 
   document.querySelectorAll('.multi-select-dropdown').forEach((dropdown) => {
-    dropdown.hidden = true
-
-    dropdown
-      .closest('.multi-select')
-      ?.querySelector('.multi-select-trigger')
-      ?.setAttribute('aria-expanded', 'false')
+    dropdown.hidePopover()
   })
 }

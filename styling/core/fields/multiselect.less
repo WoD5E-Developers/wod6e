@@ -1,6 +1,4 @@
 .multi-select-section {
-  min-width: stretch;
-
   .multi-select {
     position: relative;
     width: 100%;
@@ -20,18 +18,17 @@
     }
 
     .multi-select-dropdown {
-      position: absolute;
-      z-index: 100;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      max-height: 220px;
-      overflow-y: auto;
       background: var(--multiselect-background);
       border: 1px solid var(--multiselect-border);
 
-      &[hidden] {
-        display: none;
+      &[popover] {
+        min-width: fit-content;
+        position: fixed;
+        inset: auto;
+        margin: 0;
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 100;
       }
     }
 

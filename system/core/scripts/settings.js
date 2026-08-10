@@ -9,6 +9,7 @@ import { ActionRoles } from '../config/action-roles.js'
 import { Activations } from '../config/activation-types.js'
 import { Difficulties } from '../config/difficulties.js'
 import { Distances } from '../config/distances.js'
+import { Durations } from '../config/durations.js'
 
 /**
  * Define all game settings here
@@ -64,9 +65,13 @@ export const loadSettings = async function () {
       defCategory: 'Difficulties',
       defClass: Difficulties
     },
-    actionDistances: {
+    distances: {
       defCategory: 'Distances',
       defClass: Distances
+    },
+    durations: {
+      defCategory: 'Durations',
+      defClass: Durations
     }
   }
 

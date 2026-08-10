@@ -12,7 +12,7 @@
         class="item-open"
         data-action="openItem"
         title="{{localize 'WOD6E.VAMPIRE.ViewClan'}}"
-        data-uuid="{{clan.uuid}}"
+        data-uuid="{{ clan.uuid }}"
       >
         <i class="fas fa-book"></i>
       </a>
@@ -30,12 +30,13 @@
         type="button"
         class="sheet-section-label"
         data-action="sendItemToChat"
-        title="Click to post to chat"
+        data-uuid="{{ beastFeature.uuid }}"
+        title="{{localize 'WOD6E.PostToChat'}}"
       >
         <span class="item-name bolded">{{ beastFeature.name }}.</span>
       </button>
       {{#if beastFeature.description}}
-      <span class="item-description">{{{ descriptionShort beastFeature.description }}}</span>
+      <span class="item-description">{{ descriptionShort beastFeature.description }}</span>
       {{/if}}
     </div>
     {{/each}}

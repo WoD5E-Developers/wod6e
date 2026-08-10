@@ -40,7 +40,7 @@ export function generateTrackers({
       trackerValue,
       filled,
       disabled: isDisabled,
-      title: isDisabled ? `Disabled due to ${damageName} damage` : `Set ${name} to ${position}`,
+      title: isDisabled ? `Disabled due to ${damageName} damage` : `Set ${name} to ${trackerValue}`,
       disabledState: isDisabled ? 'disabled' : '',
       middle: onlyCurrentValueSelected ? trackerValue === Math.ceil(max / 2) : false
     }

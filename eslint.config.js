@@ -32,6 +32,7 @@ export default defineConfig([
         // Foundry globals
         CONST: 'readonly',
         CONFIG: 'readonly',
+        Roll: 'readonly',
         foundry: 'readonly',
         game: 'readonly',
         ui: 'readonly',

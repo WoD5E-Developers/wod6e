@@ -9,7 +9,7 @@ export class ItemUX {
         const dropdownElement = $(dropdown)
         const menuElement = dropdownElement.find('.multi-select-dropdown')
         const key = dropdownElement.attr('data-field-path') || index
-        const isOpen = !menuElement.prop('hidden')
+        const isOpen = menuElement[0].matches(':popover-open')
 
         if (isOpen) {
           item._dropdownStates.add(key)
@@ -23,11 +23,20 @@ export class ItemUX {
       .find('[data-multi-select]')
       .each((index, dropdown) => {
         const dropdownElement = $(dropdown)
-        const menuElement = dropdownElement.find('.multi-select-dropdown')
         const key = dropdownElement.attr('data-field-path') || index
-        const isOpen = item._dropdownStates.has(key)
 
-        menuElement.prop('hidden', !isOpen)
+        if (!item._dropdownStates.has(key)) return
+
+        const rect = dropdown.getBoundingClientRect()
+        const menu = dropdownElement.find('.multi-select-dropdown')[0]
+
+        if (!menu) return
+
+        menu.style.left = `${rect.left}px`
+        menu.style.top = `${rect.bottom}px`
+        menu.style.width = `${rect.width}px`
+
+        menu.showPopover()
       })
   }
 }

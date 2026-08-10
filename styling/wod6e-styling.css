@@ -228,6 +228,10 @@
   width: 100%;
   color: var(--humanity-text);
 }
+.humanity-tracker.resource-tracker .resource-tracker-space {
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
 .humanity-tracker .humanity-tracker-header {
   color: var(--humanity-text);
   font-size: 24px;
@@ -748,15 +752,24 @@
   margin-left: 15px;
 }
 
+.wod6e.chat-card .item-name {
+  border-bottom: 1px solid;
+}
+
 .application.dialog .skill-configuration-list,
 .application.dialog .power-visibility-list {
   display: grid;
   grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr);
 }
 
-.multi-select-section {
-  min-width: stretch;
+.roll-dialog-header {
+  text-align: center;
 }
+.roll-dialog-header .roll-pool {
+  font-size: 16pt;
+  font-weight: 600;
+}
+
 .multi-select-section .multi-select {
   position: relative;
   width: 100%;
@@ -774,18 +787,17 @@
   white-space: nowrap;
 }
 .multi-select-section .multi-select .multi-select-dropdown {
-  position: absolute;
-  z-index: 100;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  max-height: 220px;
-  overflow-y: auto;
   background: var(--multiselect-background);
   border: 1px solid var(--multiselect-border);
 }
-.multi-select-section .multi-select .multi-select-dropdown[hidden] {
-  display: none;
+.multi-select-section .multi-select .multi-select-dropdown[popover] {
+  min-width: fit-content;
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 100;
 }
 .multi-select-section .multi-select button:hover {
   background: var(--multiselect-hover-background);

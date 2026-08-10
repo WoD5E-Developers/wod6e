@@ -88,11 +88,11 @@ export async function prepareDifficultyContext(context, item) {
   context.tab = context.tabs.difficulty
 
   // Main dropdown
-  context.actionDifficultyOptions = WOD6E.configs.Difficulties.getList({})
-  context.actionDifficultySelected = itemData?.difficulty?.type || ''
+  context.difficultyOptions = WOD6E.configs.Difficulties.getList({})
+  context.difficultySelected = itemData?.difficulty?.type || ''
 
   // Additional options
-  const difficultyType = context.actionDifficultyOptions[context.actionDifficultySelected]
+  const difficultyType = context.difficultyOptions[context.difficultySelected]
   context.showFixedDifficulty = difficultyType?.usesFixedValue ?? false
   context.showAttributeSelector = difficultyType?.usesAttribute ?? false
 

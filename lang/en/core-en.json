@@ -31,6 +31,7 @@
     "NewString": "New {string}",
     "None": "None",
     "NoneSelected": "None Selected",
+    "PostToChat": "Post to chat",
     "Search": "Search",
     "SelectString": "Select {string}",
     "System": "System",
@@ -145,6 +146,12 @@
       "Vitae": "Vitae",
       "Wealth": "Wealth",
       "Willpower": "Willpower"
+    },
+    "ROLL": {
+      "CustomModifier": "Custom Modifier",
+      "NoTraitsSelected": "No Traits Selected",
+      "Roll": "Roll",
+      "RollingString": "Rolling {string}"
     },
     "SETTINGS": {
       "WorldVersion": "World Version",

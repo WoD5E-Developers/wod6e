@@ -24,7 +24,7 @@
         <button
           type="button"
           class="sheet-section-label"
-          data-action="rollDiscipline"
+          data-action="roll"
           data-discipline="{{ discipline.key }}"
           title="{{localize discipline.label}}"
         >
@@ -90,8 +90,9 @@
           <button
             type="button"
             class="sheet-section-label"
-            data-action="rollSkill"
-            title="{{ power.name }}"
+            data-action="sendItemToChat"
+            data-uuid="{{ power.uuid }}"
+            title="{{localize 'WOD6E.PostToChat'}}"
           >
             <span class="resource-name">
               {{ power.name }}

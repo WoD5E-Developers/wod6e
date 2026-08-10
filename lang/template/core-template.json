@@ -31,6 +31,7 @@
     "_NewString": "",
     "_None": "",
     "_NoneSelected": "",
+    "_PostToChat": "",
     "_Search": "",
     "_SelectString": "",
     "_System": "",
@@ -145,6 +146,12 @@
       "_Vitae": "",
       "_Wealth": "",
       "_Willpower": ""
+    },
+    "ROLL": {
+      "_CustomModifier": "",
+      "_NoTraitsSelected": "",
+      "_Roll": "",
+      "_RollingString": ""
     },
     "SETTINGS": {
       "_WorldVersion": "",
