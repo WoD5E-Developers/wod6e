@@ -148,6 +148,7 @@
       "_Willpower": ""
     },
     "ROLL": {
+      "_CustomModifier": "",
       "_NoTraitsSelected": "",
       "_Roll": "",
       "_RollingString": ""

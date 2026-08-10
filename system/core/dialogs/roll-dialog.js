@@ -13,6 +13,7 @@ const { renderTemplate } = foundry.applications.handlebars
 
 export class RollDialog {
   static TEMPLATE = 'systems/wod6e/templates/core/dialogs/roll-dialog.hbs'
+  static customModifier = 0
 
   static async open({ actor, item = null, test = {} } = {}) {
     if (!actor) {
@@ -41,15 +42,10 @@ export class RollDialog {
       },
       buttons: [
         {
-          action: 'cancel',
-          icon: 'fa-solid fa-xmark',
-          label: game.i18n.localize('WOD6E.Cancel')
-        },
-        {
           action: 'roll',
+          default: true,
           icon: 'fa-solid fa-dice-d10',
           label: game.i18n.localize('WOD6E.ROLL.Roll'),
-          default: true,
 
           callback: async (_event, button) => {
             const data = this._getDataFromForm(button.form)
@@ -61,6 +57,11 @@ export class RollDialog {
               flavor: rollContext.testText
             })
           }
+        },
+        {
+          action: 'cancel',
+          icon: 'fa-solid fa-xmark',
+          label: game.i18n.localize('WOD6E.Cancel')
         }
       ],
 
@@ -116,7 +117,8 @@ export class RollDialog {
     const testText = _getTestText({
       attributeOptions,
       skillOptions,
-      disciplineOptions
+      disciplineOptions,
+      customModifier: this.customModifier
     })
 
     const dicePool = _calculateDicePool(actor, data)
@@ -172,9 +174,14 @@ export class RollDialog {
     if (!element) return
 
     element.addEventListener('change', (event) => {
-      if (!event.target.matches('.multi-select-section input')) return
-
-      this._updatePreview(element, actor)
+      // List of things we consider valid inputs
+      if (
+        event.target.matches('.multi-select-section input') ||
+        event.target.matches('.custom-modifier-section input')
+      ) {
+        // Update the preview if any of the above inputs changed
+        this._updatePreview(element, actor)
+      }
     })
   }
 
@@ -224,11 +231,17 @@ export class RollDialog {
     const disciplines = Array.from(
       form.querySelectorAll('[data-field-path="disciplines"] .multi-select-option input:checked')
     ).map((input) => input.value)
+    const customModifier = form.querySelector(
+      '[data-field-path="customModifier"] input'
+    ).valueAsNumber
+
+    this.customModifier = customModifier
 
     return {
       attributes,
       skills,
-      disciplines
+      disciplines,
+      customModifier
     }
   }
 }
