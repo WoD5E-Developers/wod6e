@@ -49,8 +49,16 @@ export function generateTrackers({
   })
 
   const trackerGroups = []
-  for (let index = 0; index < trackerArray.length; index += groupSize) {
-    trackerGroups.push(trackerArray.slice(index, index + groupSize))
+
+  if (reverse) {
+    for (let end = trackerArray.length; end > 0; end -= groupSize) {
+      const start = Math.max(0, end - groupSize)
+      trackerGroups.unshift(trackerArray.slice(start, end))
+    }
+  } else {
+    for (let start = 0; start < trackerArray.length; start += groupSize) {
+      trackerGroups.push(trackerArray.slice(start, start + groupSize))
+    }
   }
 
   return trackerGroups
