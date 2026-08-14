@@ -123,6 +123,13 @@ export const loadSettings = async function () {
     default: '1.0',
     type: String
   })
+
+  game.settings.register('wod6e', 'quickeningDramaTrackerPosition', {
+    scope: 'client',
+    config: false,
+    type: Object,
+    default: {}
+  })
 }
 
 function _rerenderStorytellerWindow() {

@@ -45,9 +45,12 @@ export class WOD6eTest {
 
   static async _processQuickening(actor, roll) {
     const amount = roll.quickeningGained
-
     if (amount <= 0) return
 
-    console.log(`Gained ${amount} Quickening`)
+    const user = game.user
+
+    if (user.character?.id !== actor.id) return
+
+    Hooks.callAll('wod6e.increaseQuickening', user, amount)
   }
 }
