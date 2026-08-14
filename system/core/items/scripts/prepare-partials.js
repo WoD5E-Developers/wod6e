@@ -117,6 +117,12 @@ export async function prepareActivationContext(context, item) {
   context.durationOptions = WOD6E.configs.Durations.getList({})
   context.durationSelected = itemData?.activation?.duration || ''
 
+  // Cost type dropdown and cost amount input
+  context.costTypeOptions = WOD6E.configs.CostTypes.getList({})
+  context.costTypeSelected = itemData?.activation?.cost.type || ''
+
+  context.costAmount = itemData?.activation?.cost.amount || 0
+
   return context
 }
 

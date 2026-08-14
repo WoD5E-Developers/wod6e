@@ -1,6 +1,7 @@
 import { generateTrackers } from '../../../../../core/actors/scripts/generate-trackers.js'
 import { prepareResources } from '../../../../../core/actors/scripts/prepare-resources.js'
 import { prepareSkills } from '../../../../../core/actors/scripts/prepare-skills.js'
+import { generateTestTextFromItem } from '../../../../../core/items/scripts/generate-test-text-from-item.js'
 
 export const prepareHeaderContext = async function (context, actor) {
   const actorData = actor.system
@@ -190,9 +191,20 @@ export function prepareDisciplinesContext(context, actor) {
       const actorDiscipline = actorDisciplines[key]
       const value = actorDiscipline?.value ?? 0
       const max = actorDiscipline?.max ?? 5
-      const powers = actor.items.filter(
-        (item) => item.type === 'discipline' && item.system.disciplineType === key
-      )
+      const powers = actor.items
+        .filter((item) => item.type === 'discipline' && item.system.disciplineType === key)
+        .map((item) => ({
+          ...item,
+          uuid: item.uuid,
+          testText: generateTestTextFromItem(item),
+          cost:
+            item.system?.activation?.cost?.type === 'none'
+              ? game.i18n.localize('WOD6E.None')
+              : game.i18n.format('WOD6E.ITEMS.NumberStringResourceCost', {
+                  number: item.system?.activation?.cost?.amount,
+                  string: item.system?.activation?.cost?.type
+                })
+        }))
 
       const trackers = generateTrackers({
         name: discipline.displayName,

@@ -31,4 +31,26 @@
       {{selectOptions durationOptions selected=durationSelected}}
     </select>
   </div>
+
+  <div class="flexcol action-cost flex-center item-resource">
+    <label>
+      <b>{{localize "WOD6E.ITEMS.Cost"}}</b>
+    </label>
+
+    <div class="flex-group-center flexrow">
+      {{#ifnoteq costTypeSelected 'none'}}
+      <input
+        class="cost-amount"
+        type="number"
+        name="system.activation.cost.amount"
+        value="{{ costAmount }}"
+        min="0"
+        step="1"
+      />
+      {{/ifnoteq}}
+      <select name="system.activation.cost.type">
+        {{selectOptions costTypeOptions selected=costTypeSelected}}
+      </select>
+    </div>
+  </div>
 </section>

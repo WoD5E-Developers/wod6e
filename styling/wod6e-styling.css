@@ -237,7 +237,7 @@
 .humanity-tracker .humanity-tracker-header {
   color: var(--humanity-text);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: bold;
   letter-spacing: 1px;
   line-height: 1;
   text-align: center;
@@ -257,7 +257,7 @@
   overflow: hidden;
   color: var(--humanity-text);
   font-size: 20px;
-  font-weight: 700;
+  font-weight: bold;
   letter-spacing: 0.75px;
   line-height: 1;
   text-overflow: ellipsis;
@@ -298,6 +298,31 @@
 [data-actor-section="disciplines"] {
   grid-area: disciplines;
 }
+[data-actor-section="disciplines"] .discipline-power {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(100px, auto) minmax(70px, auto) minmax(50px, auto) minmax(100px, auto);
+  align-items: center;
+  gap: 12px;
+}
+[data-actor-section="disciplines"] .discipline-power .power-test-text,
+[data-actor-section="disciplines"] .discipline-power .power-cost,
+[data-actor-section="disciplines"] .discipline-power .power-level,
+[data-actor-section="disciplines"] .discipline-power .power-attribute {
+  text-align: center;
+}
+[data-actor-section="disciplines"] .discipline-power .power-test-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  text-wrap-mode: nowrap;
+}
+[data-actor-section="disciplines"] .discipline-power-header {
+  font-weight: bold;
+  text-align: center;
+}
+[data-actor-section="disciplines"] .discipline-power-header > :first-child {
+  text-align: left;
+}
 
 
 .actor.sheet .section.tab.active[data-tab='actions'] {
@@ -332,7 +357,7 @@
   display: ruby;
 }
 .actor.sheet .sheet-section .sheet-section-list .sheet-section-row.item-section .item-name.bolded {
-  font-weight: 800;
+  font-weight: bold;
 }
 .actor.sheet .sheet-section .sheet-section-list .sheet-section-row .resource-name {
   display: flex;
@@ -353,7 +378,7 @@
   padding-left: 5px;
   border-bottom: 2px solid var(--tracker-border);
   color: var(--tracker-text);
-  font-weight: 700;
+  font-weight: bold;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -376,7 +401,7 @@
   box-shadow: none;
   color: var(--tracker-text);
   font-size: 15px;
-  font-weight: 400;
+  font-weight: bold;
   text-wrap-mode: nowrap;
 }
 .actor.sheet .sheet-section-label:hover,
@@ -461,7 +486,7 @@
   box-shadow: none;
   font-family: inherit;
   font-size: 1.45rem;
-  font-weight: 600;
+  font-weight: bold;
   line-height: 2.5rem;
   text-align: center;
   appearance: textfield;
@@ -484,7 +509,7 @@
 }
 .actor.sheet .sheet-field label {
   margin-right: 0.25rem;
-  font-weight: 600;
+  font-weight: bold;
   white-space: nowrap;
 }
 .actor.sheet .sheet-field input {
@@ -579,7 +604,7 @@
   align-items: baseline;
   gap: 5px;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: bold;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -789,7 +814,7 @@
   align-items: center;
   gap: 6px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: bold;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -892,7 +917,7 @@
   justify-content: center;
   min-height: 36px;
   font-size: 28px;
-  font-weight: 700;
+  font-weight: bold;
   line-height: 1;
   text-align: center;
 }
@@ -917,7 +942,7 @@
 }
 .roll-dialog-header .roll-pool {
   font-size: 16pt;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .multi-select-section .multi-select {
@@ -1051,10 +1076,6 @@
   text-wrap: nowrap;
   flex-basis: min-content;
 }
-.item.sheet .item-header .item-resource input[type="number"] {
-  max-width: 40px;
-  text-align: center;
-}
 .item.sheet section.tab {
   padding: 10px 10px 0px 10px;
   overflow-y: scroll;
@@ -1068,4 +1089,8 @@
 }
 .item.sheet .source-page-input {
   min-width: 75px;
+}
+.item.sheet input[type="number"] {
+  max-width: 40px;
+  text-align: center;
 }

@@ -17,8 +17,6 @@ export class DisciplineItemModel extends WoDItemModel {
       initial: 'physical'
     })
 
-    schema.cost = new fields.NumberField({ initial: null, min: 0, integer: true, nullable: true })
-
     schema.activation = activationFields()
     schema.test = testFields()
     schema.difficulty = difficultyFields()
