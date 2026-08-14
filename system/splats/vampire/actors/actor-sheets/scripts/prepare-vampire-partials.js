@@ -204,7 +204,8 @@ export function prepareDisciplinesContext(context, actor) {
                   number: item.system?.activation?.cost?.amount,
                   string: WOD6E.configs.CostTypes.getList({})[item.system?.activation?.cost?.type]
                     .label
-                })
+                }),
+          attribute: WOD6E.configs.AttributeGroups.getList({})[item.system?.attribute].label
         }))
 
       const trackers = generateTrackers({
