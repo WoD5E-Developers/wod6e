@@ -106,12 +106,22 @@ export async function prepareActivationContext(context, item) {
   context.tab = context.tabs.activation
 
   // Activation dropdown
-  context.actionActivationOptions = WOD6E.configs.Activations.getList({})
-  context.actionActivationSelected = itemData?.activation?.activationType || ''
+  context.activationOptions = WOD6E.configs.Activations.getList({})
+  context.activationSelected = itemData?.activation?.activationType || ''
 
   // Distance dropdown
-  context.actionDistanceOptions = WOD6E.configs.Distances.getList({})
-  context.actionDistanceSelected = itemData?.activation?.distance || ''
+  context.distanceOptions = WOD6E.configs.Distances.getList({})
+  context.distanceSelected = itemData?.activation?.distance || ''
+
+  // Duration dropdown
+  context.durationOptions = WOD6E.configs.Durations.getList({})
+  context.durationSelected = itemData?.activation?.duration || ''
+
+  // Cost type dropdown and cost amount input
+  context.costTypeOptions = WOD6E.configs.CostTypes.getList({})
+  context.costTypeSelected = itemData?.activation?.cost.type || ''
+
+  context.costAmount = itemData?.activation?.cost.amount || 0
 
   return context
 }

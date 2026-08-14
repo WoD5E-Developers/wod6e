@@ -8,17 +8,49 @@
       <b>{{localize "WOD6E.ACTIONS.ActivationType"}}</b>
     </label>
     <select name="system.activation.activationType">
-      {{selectOptions actionActivationOptions selected=actionActivationSelected}}
+      {{selectOptions activationOptions selected=activationSelected}}
     </select>
   </div>
 
   <div class="flexcol action-distance flex-center item-resource">
     <label>
-      <b>{{localize "WOD6E.ACTIONS.ActivationDistance"}}</b>
+      <b>{{localize "WOD6E.ACTIONS.Distance"}}</b>
     </label>
 
     <select name="system.activation.distance">
-      {{selectOptions actionDistanceOptions selected=actionDistanceSelected}}
+      {{selectOptions distanceOptions selected=distanceSelected}}
     </select>
+  </div>
+
+  <div class="flexcol action-duration flex-center item-resource">
+    <label>
+      <b>{{localize "WOD6E.ACTIONS.Duration"}}</b>
+    </label>
+
+    <select name="system.activation.duration">
+      {{selectOptions durationOptions selected=durationSelected}}
+    </select>
+  </div>
+
+  <div class="flexcol action-cost flex-center item-resource">
+    <label>
+      <b>{{localize "WOD6E.ITEMS.Cost"}}</b>
+    </label>
+
+    <div class="flex-group-center flexrow">
+      {{#ifnoteq costTypeSelected 'none'}}
+      <input
+        class="cost-amount"
+        type="number"
+        name="system.activation.cost.amount"
+        value="{{ costAmount }}"
+        min="0"
+        step="1"
+      />
+      {{/ifnoteq}}
+      <select name="system.activation.cost.type">
+        {{selectOptions costTypeOptions selected=costTypeSelected}}
+      </select>
+    </div>
   </div>
 </section>
