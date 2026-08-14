@@ -171,6 +171,7 @@
   --prosemirror-wod6e-background: #333332;
   --prosemirror-wod6e-border: #ccc;
   --compendium-browser-footer-background: #524f4f;
+  --resource-adjust-color: #CCC;
   --humanity-border: #ccc;
   --humanity-text: #ccc;
   --humanity-filled: #ccc;
@@ -207,7 +208,8 @@
   --multiselect-checked-color: #fd0000;
   --prosemirror-wod6e-background: rgba(0, 0, 0, 0.05);
   --prosemirror-wod6e-border: #020202;
-  --compendium-browser-footer-background: #ccc;
+  --compendium-browser-footer-background: #CCC;
+  --resource-adjust-color: #000;
   --humanity-border: #000;
   --humanity-text: #000;
   --humanity-filled: #000;
@@ -753,7 +755,6 @@
 }
 
 .quickening-drama-tracker {
-  --resource-adjust-color: #000;
   --quickening-color: #7e580c;
   --quickening-filled: #e9c96b;
   --quickening-empty: rgba(214, 167, 74, 0.2);
@@ -900,7 +901,8 @@
   padding: 8px;
 }
 
-.wod6e.chat-card .item-name {
+.wod6e.chat-card .item-name,
+.wod6e.chat-card .chat-card-name {
   border-bottom: 1px solid;
 }
 

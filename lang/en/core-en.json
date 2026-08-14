@@ -108,6 +108,10 @@
       "Strength": "Strength",
       "Wits": "Wits"
     },
+    "CHAT": {
+      "QuickeningGained": "Quickening Gained",
+      "UserHasGainedAmountQuickening": "{user} has gained {amount} quickening."
+    },
     "EQUIPMENT": {
       "Equipment": "Equipment"
     },

@@ -146,11 +146,11 @@ export class QuickeningDramaTrackerApplication extends HandlebarsApplicationMixi
 
   // Various increase/decrease setters
   static async #onIncreaseQuickening() {
-    await this.#changeQuickening(this, 1)
+    await QuickeningDramaTrackerApplication.#changeQuickening(this, 1)
   }
 
   static async #onDecreaseQuickening() {
-    await this.#changeQuickening(this, -1)
+    await QuickeningDramaTrackerApplication.#changeQuickening(this, -1)
   }
 
   static async #onSetQuickening(event, target) {
@@ -189,3 +189,52 @@ export class QuickeningDramaTrackerApplication extends HandlebarsApplicationMixi
     await user.setFlag('wod6e', 'tracker.dramaHidden', !hidden)
   }
 }
+
+Hooks.on('updateUser', (user) => {
+  if (user.id !== game.user.id) return
+
+  window.WOD6E.applications.quickeningDramaTracker.render()
+})
+
+Hooks.on('getSceneControlButtons', (controls) => {
+  const tokenControls = controls.tokens
+  if (!tokenControls?.tools) return
+
+  tokenControls.tools['quickening-drama-tracker'] = {
+    name: 'quickening-drama-tracker',
+    title: 'WOD6E.APPLICATIONS.QuickeningDramaTracker',
+    icon: 'fa-solid fa-user-pen',
+    order: 100,
+    button: true,
+    onChange: () => {
+      window.WOD6E.applications.quickeningDramaTracker.render({
+        force: true
+      })
+    }
+  }
+})
+
+Hooks.on('wod6e.increaseQuickening', async (user, amount) => {
+  const current = Number(user.getFlag('wod6e', 'quickening') ?? 0)
+
+  const value = Math.clamp(current + amount, 0, 5)
+
+  if (value === current) return
+
+  // Increase quickening value and send out chat message
+  await user.setFlag('wod6e', 'quickening', value)
+  await ChatMessage.create({
+    speaker: ChatMessage.getSpeaker(),
+    content: `
+      <div class="wod6e chat-card">
+        <h4 class="chat-card-name">${game.i18n.localize('WOD6E.CHAT.QuickeningGained')}</h4>
+        <div class="chat-card-description">
+          ${game.i18n.format('WOD6E.CHAT.UserHasGainedAmountQuickening', {
+            user: user.name,
+            amount
+          })}
+        </div>
+      </div>
+    `
+  })
+})

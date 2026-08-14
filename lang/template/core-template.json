@@ -108,6 +108,10 @@
       "_Strength": "",
       "_Wits": ""
     },
+    "CHAT": {
+      "_QuickeningGained": "",
+      "_UserHasGainedAmountQuickening": ""
+    },
     "EQUIPMENT": {
       "_Equipment": ""
     },

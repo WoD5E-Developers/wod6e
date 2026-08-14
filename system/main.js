@@ -186,28 +186,3 @@ Hooks.once('ready', async function () {
     })
   )
 })
-
-// Hooks that utilize updates to persistent applications
-Hooks.on('updateUser', (user) => {
-  if (user.id !== game.user.id) return
-
-  window.WOD6E.applications.quickeningDramaTracker.render()
-})
-
-Hooks.on('getSceneControlButtons', (controls) => {
-  const tokenControls = controls.tokens
-  if (!tokenControls?.tools) return
-
-  tokenControls.tools['quickening-drama-tracker'] = {
-    name: 'quickening-drama-tracker',
-    title: 'WOD6E.APPLICATIONS.QuickeningDramaTracker',
-    icon: 'fa-solid fa-user-pen',
-    order: 100,
-    button: true,
-    onChange: () => {
-      window.WOD6E.applications.quickeningDramaTracker.render({
-        force: true
-      })
-    }
-  }
-})
