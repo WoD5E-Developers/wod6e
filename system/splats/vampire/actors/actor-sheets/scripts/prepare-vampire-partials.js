@@ -186,13 +186,13 @@ export function prepareDisciplinesContext(context, actor) {
   const actorDisciplines = actor?.system?.vampire?.disciplines || {}
 
   const preparedDisciplines = Object.entries(disciplines)
-    .filter(([key, discipline]) => !discipline.hidden && actorDisciplines[key].visible)
+    .filter(([key, discipline]) => !discipline?.hidden && actorDisciplines[key]?.visible)
     .map(([key, discipline]) => {
       const actorDiscipline = actorDisciplines[key]
       const value = actorDiscipline?.value ?? 0
       const max = actorDiscipline?.max ?? 5
       const powers = actor.items
-        .filter((item) => item.type === 'discipline' && item.system.disciplineType === key)
+        .filter((item) => item.type === 'discipline' && item.system?.disciplineType === key)
         .map((item) => ({
           ...item,
           uuid: item.uuid,
@@ -202,7 +202,7 @@ export function prepareDisciplinesContext(context, actor) {
               ? game.i18n.localize('WOD6E.None')
               : game.i18n.format('WOD6E.ITEMS.NumberStringResourceCost', {
                   number: item.system?.activation?.cost?.amount,
-                  string: item.system?.activation?.cost?.type
+                  string: game.i18n.localize(context[item.system?.activation?.cost?.type]?.label)
                 })
         }))
 

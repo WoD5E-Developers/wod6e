@@ -17,6 +17,7 @@
     }
   },
   "WOD6E": {
+    "Add": "Add",
     "AddString": "Add {string}",
     "Cancel": "Cancel",
     "ConfigureString": "Configure {string}",
@@ -208,6 +209,7 @@
       "Distance": "Distance",
       "Indulging": "Indulging",
       "Main": "Main",
+      "Maturing": "Maturing",
       "Outburst": "Outburst",
       "Settings": "Settings",
       "Test": "Test"

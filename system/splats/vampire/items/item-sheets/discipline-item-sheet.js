@@ -8,6 +8,8 @@ import {
 } from '../../../../core/items/scripts/prepare-partials.js'
 // Base item sheet to extend from
 import { WoDItemBase } from '../../../../core/items/item-sheets/wod-item-base.js'
+import { prepareMaturingContext } from './scripts/prepare-discipline-partials.js'
+import { _onAddMaturing, _onRemoveMaturing } from './scripts/maturing-buttons.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -18,7 +20,10 @@ const { HandlebarsApplicationMixin } = foundry.applications.api
 export class DisciplineItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
   static DEFAULT_OPTIONS = {
     classes: ['wod6e', 'item', 'sheet'],
-    actions: {}
+    actions: {
+      addMaturing: _onAddMaturing,
+      removeMaturing: _onRemoveMaturing
+    }
   }
 
   static PARTS = {
@@ -30,6 +35,9 @@ export class DisciplineItemSheet extends HandlebarsApplicationMixin(WoDItemBase)
     },
     description: {
       template: 'systems/wod6e/templates/core/items/parts/descriptive-item-page.hbs'
+    },
+    maturing: {
+      template: 'systems/wod6e/templates/splats/vampire/items/parts/discipline-maturing-page.hbs'
     },
     test: {
       template: 'systems/wod6e/templates/core/items/parts/test-page.hbs'
@@ -50,6 +58,11 @@ export class DisciplineItemSheet extends HandlebarsApplicationMixin(WoDItemBase)
       id: 'description',
       group: 'primary',
       label: 'WOD6E.TABS.Description'
+    },
+    maturing: {
+      id: 'maturing',
+      group: 'primary',
+      label: 'WOD6E.TABS.Maturing'
     },
     test: {
       id: 'test',
@@ -102,6 +115,9 @@ export class DisciplineItemSheet extends HandlebarsApplicationMixin(WoDItemBase)
       // Stats
       case 'description':
         return prepareDescriptionContext(context, item)
+
+      case 'maturing':
+        return prepareMaturingContext(context, item)
 
       case 'test':
         return prepareTestContext(context, item)

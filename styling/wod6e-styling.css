@@ -127,16 +127,19 @@
 .item.sheet .align-left {
   justify-content: left;
   text-align: left;
+  justify-items: left;
 }
 .actor.sheet .align-right,
 .item.sheet .align-right {
   justify-content: right;
   text-align: right;
+  justify-items: right;
 }
 .actor.sheet .align-center,
 .item.sheet .align-center {
   justify-content: center;
   text-align: center;
+  justify-items: center;
 }
 
 :root {
