@@ -1,0 +1,80 @@
+<div class="quickening-drama-tracker-body">
+  {{#if showQuickening}}
+  <section class="resource-tracker quickening-tracker">
+    <header class="resource-header">
+      <div class="resource-title">
+        <i class="fa-solid fa-bolt"></i>
+        <span>{{localize "WOD6E.RESOURCES.Quickening"}}</span>
+      </div>
+    </header>
+
+    <div class="quickening-content">
+      <button
+        type="button"
+        class="resource-adjust"
+        data-action="decreaseQuickening"
+      >
+        <i class="fa-solid fa-minus"></i>
+      </button>
+
+      <div class="quickening-points">
+        {{#each quickeningTracker}}
+        <button
+          type="button"
+          class="quickening-point {{#if selected}}selected{{/if}}"
+          data-action="setQuickening"
+          data-value="{{ value }}"
+        ></button>
+        {{/each}}
+      </div>
+
+      <button
+        type="button"
+        class="resource-adjust"
+        data-action="increaseQuickening"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </section>
+  {{/if}}
+
+  {{#if showDrama}}
+  <section class="resource-tracker drama-tracker">
+    <header class="resource-header">
+      <div class="resource-title">
+        <i class="fa-solid fa-masks-theater"></i>
+        <span>{{localize "WOD6E.RESOURCES.Drama"}}</span>
+      </div>
+    </header>
+
+    <div class="drama-content">
+      <button
+        type="button"
+        class="resource-adjust"
+        data-action="decreaseDrama"
+      >
+        <i class="fa-solid fa-minus"></i>
+      </button>
+
+      <span class="drama-value">
+        {{ drama.value }}
+      </span>
+
+      <button
+        type="button"
+        class="resource-adjust"
+        data-action="increaseDrama"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </section>
+  {{/if}}
+
+  {{#if showNoCharacterSelectedText }}
+  <section class="no-character-selected-text">
+    {{localize "WOD6E.APPLICATIONS.NoCharacterSelectedText" }}
+  </section>
+  {{/if}}
+</div>
