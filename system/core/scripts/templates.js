@@ -54,7 +54,8 @@ export const preloadHandlebarsTemplates = async function () {
     // Vampire item templates
     'systems/wod6e/templates/splats/vampire/items/discipline-item-sheet.hbs',
     'systems/wod6e/templates/splats/vampire/items/clan-item-sheet.hbs',
-    'systems/wod6e/templates/splats/vampire/items/parts/clan-discipline-selection.hbs'
+    'systems/wod6e/templates/splats/vampire/items/parts/clan-discipline-selection.hbs',
+    'systems/wod6e/templates/splats/vampire/items/parts/discipline-maturing-page.hbs'
   ]
 
   /* Load the template parts

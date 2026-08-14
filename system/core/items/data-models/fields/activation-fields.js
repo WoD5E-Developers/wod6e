@@ -23,6 +23,13 @@ export function activationFields() {
       extraSuccesses: new fields.BooleanField({
         initial: false
       })
+    }),
+
+    cost: new fields.SchemaField({
+      amount: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
+      type: new fields.StringField({
+        initial: 'none'
+      })
     })
   })
 }

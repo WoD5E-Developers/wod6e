@@ -44,6 +44,7 @@ import { Distances } from './core/config/distances.js'
 import { Durations } from './core/config/durations.js'
 import { WOD6eRoll } from './core/scripts/wod6e-roll.js'
 import { QuickeningDramaTrackerApplication } from './core/applications/quickening-drama-tracker/quickening-drama-tracker.js'
+import { CostTypes } from './core/config/cost-types.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -66,7 +67,8 @@ window.WOD6E = {
     ActionRoles,
     Difficulties,
     Distances,
-    Durations
+    Durations,
+    CostTypes
   },
   actors: {
     WoDActorBase,

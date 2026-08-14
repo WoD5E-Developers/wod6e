@@ -33,4 +33,39 @@
 
 [data-actor-section="disciplines"] {
   grid-area: disciplines;
+
+  .discipline-power {
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(100px, auto)
+      minmax(70px, auto)
+      minmax(50px, auto)
+      minmax(100px, auto);
+    align-items: center;
+    gap: 12px;
+
+    .power-test-text,
+    .power-cost,
+    .power-level,
+    .power-attribute {
+      text-align: center;
+    }
+
+    .power-test-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100px;
+      text-wrap-mode: nowrap;
+    }
+  }
+
+  .discipline-power-header {
+    font-weight: bold;
+    text-align: center;
+
+    > :first-child {
+      text-align: left;
+    }
+  }
 }
