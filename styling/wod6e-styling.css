@@ -363,6 +363,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .actor.sheet .actor-avatar {
   border: 1px solid var(--tracker-border);
