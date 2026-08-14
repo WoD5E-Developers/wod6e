@@ -175,6 +175,10 @@
   --prosemirror-wod6e-border: #ccc;
   --compendium-browser-footer-background: #524f4f;
   --resource-adjust-color: #CCC;
+  --quickening-color: #c99a3b;
+  --quickening-filled: #e9c96b;
+  --quickening-empty: rgba(214, 167, 74, 0.2);
+  --drama-color: #b43636;
   --humanity-border: #ccc;
   --humanity-text: #ccc;
   --humanity-filled: #ccc;
@@ -213,6 +217,10 @@
   --prosemirror-wod6e-border: #020202;
   --compendium-browser-footer-background: #CCC;
   --resource-adjust-color: #000;
+  --quickening-color: #6e4e0d;
+  --quickening-filled: #e9c96b;
+  --quickening-empty: rgba(214, 167, 74, 0.2);
+  --drama-color: #470505;
   --humanity-border: #000;
   --humanity-text: #000;
   --humanity-filled: #000;
@@ -786,10 +794,6 @@
 }
 
 .quickening-drama-tracker {
-  --quickening-color: #7e580c;
-  --quickening-filled: #e9c96b;
-  --quickening-empty: rgba(214, 167, 74, 0.2);
-  --drama-color: #750b0b;
   min-width: 240px;
 }
 .quickening-drama-tracker .window-content {

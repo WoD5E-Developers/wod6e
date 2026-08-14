@@ -202,8 +202,10 @@ export function prepareDisciplinesContext(context, actor) {
               ? game.i18n.localize('WOD6E.None')
               : game.i18n.format('WOD6E.ITEMS.NumberStringResourceCost', {
                   number: item.system?.activation?.cost?.amount,
-                  string: game.i18n.localize(context[item.system?.activation?.cost?.type]?.label)
-                })
+                  string: WOD6E.configs.CostTypes.getList({})[item.system?.activation?.cost?.type]
+                    .label
+                }),
+          attribute: WOD6E.configs.AttributeGroups.getList({})[item.system?.attribute].label
         }))
 
       const trackers = generateTrackers({
