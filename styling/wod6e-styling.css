@@ -1030,9 +1030,6 @@
   font-size: 15pt;
   max-width: 15px;
 }
-.item.sheet .item-header .header-fields {
-  padding: 10px;
-}
 .item.sheet .item-header .item-image {
   background-color: var(--image-background-color);
   border: 1px solid var(--tracker-border);
@@ -1046,6 +1043,8 @@
 .item.sheet .item-header .header-fields {
   display: flex;
   flex-direction: row;
+  padding: 10px;
+  gap: 8px;
 }
 .item.sheet .item-header .item-resource {
   flex-grow: 1;

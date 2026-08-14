@@ -94,6 +94,7 @@
       "_ShowQuickening": ""
     },
     "ATTRIBUTES": {
+      "_Attribute": "",
       "_Attributes": "",
       "_Charisma": "",
       "_Composure": "",
@@ -190,6 +191,7 @@
       "_Persuasion": "",
       "_Sabotage": "",
       "_Shooting": "",
+      "_Skill": "",
       "_SkillFocuses": "",
       "_Skills": "",
       "_Subterfuge": "",

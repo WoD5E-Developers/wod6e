@@ -94,6 +94,7 @@
       "ShowQuickening": "Show Quickening"
     },
     "ATTRIBUTES": {
+      "Attribute": "Attribute",
       "Attributes": "Attributes",
       "Charisma": "Charisma",
       "Composure": "Composure",
@@ -190,6 +191,7 @@
       "Persuasion": "Persuasion",
       "Sabotage": "Sabotage",
       "Shooting": "Shooting",
+      "Skill": "Skill",
       "SkillFocuses": "Skill Focuses",
       "Skills": "Skills",
       "Subterfuge": "Subterfuge",

@@ -3,7 +3,7 @@
   {{> "systems/wod6e/templates/core/items/parts/item-name.hbs"}}
 
   <div class="header-fields">
-    <div class="flexcol level flex-center item-resource">
+    <div class="flexcol flex-center item-resource">
       <div>
         <b>{{localize "WOD6E.ITEMS.Level"}}</b>
       </div>
@@ -15,12 +15,20 @@
         max="10"
       />
     </div>
-    <div class="flexcol flex-center item-resource">
+    <div class="flexcol item-resource">
       <label>
         <b>{{localize "WOD6E.VAMPIRE.DisciplineType"}}</b>
       </label>
       <select name="system.disciplineType">
         {{selectOptions disciplineTypeOptions selected=disciplineTypeSelected}}
+      </select>
+    </div>
+    <div class="flexcol item-resource">
+      <label>
+        <b>{{localize "WOD6E.ATTRIBUTES.Attribute"}}</b>
+      </label>
+      <select name="system.attribute">
+        {{selectOptions attributeOptions selected=attributeSelected}}
       </select>
     </div>
   </div>

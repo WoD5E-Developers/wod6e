@@ -81,6 +81,9 @@ export class DisciplineItemSheet extends HandlebarsApplicationMixin(WoDItemBase)
 
     context.level = itemData?.level || 1
 
+    context.attributeOptions = WOD6E.configs.AttributeGroups.getList({})
+    context.attributeSelected = itemData?.attribute
+
     context.disciplineTypeOptions = WOD6E.configs.Disciplines.getList({})
     context.disciplineTypeSelected = itemData?.disciplineType
 
