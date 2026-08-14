@@ -85,7 +85,13 @@
       "CompendiumBrowserControlLabel": "Opens the World of Darkness 6e compendium browser.",
       "CompendiumBrowserSidebarLabel": "WOD6E Compendium Browser",
       "ConfigureSources": "Configure Sources",
-      "NoResultsFound": "No Results Found"
+      "HideDrama": "Hide Drama",
+      "HideQuickening": "Hide Quickening",
+      "NoCharacterSelectedText": "No character selected. Please assign yourself a character from the Foundry user list to show the Quickening tracker.",
+      "NoResultsFound": "No Results Found",
+      "QuickeningDramaTracker": "Quickening & Drama Tracker",
+      "ShowDrama": "Show Drama",
+      "ShowQuickening": "Show Quickening"
     },
     "ATTRIBUTES": {
       "Attributes": "Attributes",
@@ -138,7 +144,9 @@
     },
     "RESOURCES": {
       "Baneful": "Baneful",
+      "Drama": "Drama",
       "PhysicalAssets": "Physical Assets",
+      "Quickening": "Quickening",
       "Resources": "Resources",
       "ResourceType": "Resource Type",
       "SocialAssets": "Social Assets",

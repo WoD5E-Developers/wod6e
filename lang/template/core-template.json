@@ -85,7 +85,13 @@
       "_CompendiumBrowserControlLabel": "",
       "_CompendiumBrowserSidebarLabel": "",
       "_ConfigureSources": "",
-      "_NoResultsFound": ""
+      "_HideDrama": "",
+      "_HideQuickening": "",
+      "_NoCharacterSelectedText": "",
+      "_NoResultsFound": "",
+      "_QuickeningDramaTracker": "",
+      "_ShowDrama": "",
+      "_ShowQuickening": ""
     },
     "ATTRIBUTES": {
       "_Attributes": "",
@@ -138,7 +144,9 @@
     },
     "RESOURCES": {
       "_Baneful": "",
+      "_Drama": "",
       "_PhysicalAssets": "",
+      "_Quickening": "",
       "_Resources": "",
       "_ResourceType": "",
       "_SocialAssets": "",

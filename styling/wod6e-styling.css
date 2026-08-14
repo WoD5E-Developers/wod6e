@@ -752,6 +752,154 @@
   margin-left: 15px;
 }
 
+.quickening-drama-tracker {
+  --resource-adjust-color: #000;
+  --quickening-color: #7e580c;
+  --quickening-filled: #e9c96b;
+  --quickening-empty: rgba(214, 167, 74, 0.2);
+  --drama-color: #750b0b;
+  min-width: 240px;
+}
+.quickening-drama-tracker .window-content {
+  padding: 0;
+  overflow: visible;
+}
+.quickening-drama-tracker .quickening-drama-tracker-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.quickening-drama-tracker .resource-tracker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border-light-2);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.15);
+}
+.quickening-drama-tracker .resource-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quickening-drama-tracker .resource-header .resource-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.quickening-drama-tracker .resource-header .resource-title i {
+  font-size: 12px;
+}
+.quickening-drama-tracker .resource-adjust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0;
+  border: 1px solid var(--color-border-light-2);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+}
+.quickening-drama-tracker .resource-adjust:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: currentColor;
+}
+.quickening-drama-tracker .resource-adjust:active {
+  transform: scale(0.9);
+}
+.quickening-drama-tracker .resource-adjust i {
+  margin: 0;
+}
+.quickening-drama-tracker .quickening-tracker {
+  border-color: color-mix(in srgb, var(--quickening-color) 50%, transparent);
+}
+.quickening-drama-tracker .quickening-tracker .resource-title {
+  color: var(--quickening-color);
+}
+.quickening-drama-tracker .quickening-tracker .resource-adjust {
+  color: var(--resource-adjust-color);
+}
+.quickening-drama-tracker .quickening-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.quickening-drama-tracker .quickening-points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-grow: 1;
+}
+.quickening-drama-tracker .quickening-point {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  padding: 0;
+  border: 2px solid var(--quickening-color);
+  border-radius: 50%;
+  background: var(--quickening-empty);
+  color: var(--quickening-color);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.quickening-drama-tracker .quickening-point:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 6px var(--quickening-color);
+}
+.quickening-drama-tracker .quickening-point.selected {
+  background: var(--quickening-filled);
+}
+.quickening-drama-tracker .quickening-point.selected::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+.quickening-drama-tracker .drama-tracker {
+  border-color: color-mix(in srgb, var(--drama-color) 50%, transparent);
+}
+.quickening-drama-tracker .drama-tracker .resource-title,
+.quickening-drama-tracker .drama-tracker .drama-value {
+  color: var(--drama-color);
+}
+.quickening-drama-tracker .drama-tracker .resource-adjust {
+  color: var(--resource-adjust-color);
+}
+.quickening-drama-tracker .drama-content {
+  display: grid;
+  grid-template-columns: 28px minmax(40px, 1fr) 28px;
+  align-items: center;
+  gap: 10px;
+}
+.quickening-drama-tracker .drama-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+.quickening-drama-tracker .no-character-selected-text {
+  text-align: center;
+  padding: 8px;
+}
+
 .wod6e.chat-card .item-name {
   border-bottom: 1px solid;
 }

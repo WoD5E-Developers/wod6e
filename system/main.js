@@ -43,6 +43,7 @@ import { Difficulties } from './core/config/difficulties.js'
 import { Distances } from './core/config/distances.js'
 import { Durations } from './core/config/durations.js'
 import { WOD6eRoll } from './core/scripts/wod6e-roll.js'
+import { QuickeningDramaTrackerApplication } from './core/applications/quickening-drama-tracker/quickening-drama-tracker.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -96,6 +97,7 @@ Hooks.once('init', async function () {
   CONFIG.ui.settings = WoDSettings
   CONFIG.ui.compendium = WoDCompendiumDirectory
   CONFIG.ui.pause = WoDPause
+  window.WOD6E.applications.quickeningDramaTracker = null
 
   // Loop through each entry in the actorTypesList and register their sheet classes
   const actorTypesList = ActorTypes.getList({})
@@ -169,10 +171,43 @@ Hooks.once('ready', async function () {
   // modify elements based on locale if needed
   document.body.classList.add(game.settings.get('core', 'language'))
 
+  // Start the Quickening/Drama Tracker and show it
+  window.WOD6E.applications.quickeningDramaTracker = new QuickeningDramaTrackerApplication()
+  if (game.user.isGM || game.user.character) {
+    window.WOD6E.applications.quickeningDramaTracker.render({
+      force: true
+    })
+  }
+
   // Flavourtext
   console.log(
     game.i18n.format('WOD6E.NOTIFICATIONS.ConsoleLog', {
       string: game.i18n.localize('WOD6E.NOTIFICATIONS.ShreckNetInitialized')
     })
   )
+})
+
+// Hooks that utilize updates to persistent applications
+Hooks.on('updateUser', (user) => {
+  if (user.id !== game.user.id) return
+
+  window.WOD6E.applications.quickeningDramaTracker.render()
+})
+
+Hooks.on('getSceneControlButtons', (controls) => {
+  const tokenControls = controls.tokens
+  if (!tokenControls?.tools) return
+
+  tokenControls.tools['quickening-drama-tracker'] = {
+    name: 'quickening-drama-tracker',
+    title: 'WOD6E.APPLICATIONS.QuickeningDramaTracker',
+    icon: 'fa-solid fa-user-pen',
+    order: 100,
+    button: true,
+    onChange: () => {
+      window.WOD6E.applications.quickeningDramaTracker.render({
+        force: true
+      })
+    }
+  }
 })
