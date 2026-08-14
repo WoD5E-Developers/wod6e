@@ -120,6 +120,30 @@ export class QuickeningDramaTrackerApplication extends HandlebarsApplicationMixi
     return context
   }
 
+  // Restore any saved position of the tracker
+  async _onFirstRender(context, options) {
+    await super._onFirstRender(context, options)
+
+    const savedPosition = game.settings.get('wod6e', 'quickeningDramaTrackerPosition')
+
+    if (savedPosition?.left != null && savedPosition?.top != null) {
+      this.setPosition({
+        left: savedPosition.left,
+        top: savedPosition.top
+      })
+    }
+  }
+
+  // Save updated position of the tracker
+  _onPosition(position) {
+    super._onPosition(position)
+
+    game.settings.set('wod6e', 'quickeningDramaTrackerPosition', {
+      left: position.left,
+      top: position.top
+    })
+  }
+
   // Change the current user's Quickening value
   static async #changeQuickening(application, change) {
     const user = game.user

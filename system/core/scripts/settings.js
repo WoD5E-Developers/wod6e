@@ -124,24 +124,11 @@ export const loadSettings = async function () {
     type: String
   })
 
-  // Whether to hide the quickening tracker
-  game.settings.register('wod6e', 'hideQuickeningTracker', {
-    name: game.i18n.localize('WOD6E.SETTINGS.HideQuickeningTracker'),
-    hint: game.i18n.localize('WOD6E.SETTINGS.HideQuickeningTrackerHint'),
+  game.settings.register('wod6e', 'quickeningDramaTrackerPosition', {
     scope: 'client',
     config: false,
-    type: Boolean,
-    default: false
-  })
-
-  // Whether to hide the drama tracker
-  game.settings.register('wod6e', 'hideDramaTracker', {
-    name: game.i18n.localize('WOD6E.SETTINGS.HideDramaTracker'),
-    hint: game.i18n.localize('WOD6E.SETTINGS.HideDramaTracker'),
-    scope: 'client',
-    config: false,
-    type: Boolean,
-    default: false
+    type: Object,
+    default: {}
   })
 }
 
