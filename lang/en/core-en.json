@@ -114,6 +114,10 @@
       "Strength": "Strength",
       "Wits": "Wits"
     },
+    "CHAT": {
+      "QuickeningGained": "Quickening Gained",
+      "UserHasGainedAmountQuickening": "{user} has gained {amount} quickening."
+    },
     "CONDITIONS": {
       "AddEffect": "Add Effect",
       "AffectsDerived": "Affects Derived Traits",
@@ -136,10 +140,6 @@
       "Targets": "Targets",
       "TargetUuid": "Target UUID",
       "Value": "Value"
-    },
-    "CHAT": {
-      "QuickeningGained": "Quickening Gained",
-      "UserHasGainedAmountQuickening": "{user} has gained {amount} quickening."
     },
     "EQUIPMENT": {
       "Equipment": "Equipment"
