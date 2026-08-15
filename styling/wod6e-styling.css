@@ -1104,3 +1104,12 @@
   max-width: 40px;
   text-align: center;
 }
+.item.sheet .condition-effect {
+  display: grid;
+  grid-template-rows: max-content;
+  grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr);
+  gap: 8px;
+}
+.item.sheet .no-effect-listed {
+  padding: 8px;
+}
