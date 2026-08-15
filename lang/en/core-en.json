@@ -34,6 +34,7 @@
     "None": "None",
     "NoneSelected": "None Selected",
     "Override": "Override",
+    "PostToChat": "Post to chat",
     "Search": "Search",
     "SelectString": "Select {string}",
     "Subtract": "Subtract",
@@ -44,7 +45,6 @@
       "Actions": "Actions",
       "ActionType": "Action Type",
       "Activation": "Activation",
-      "ActivationDistance": "Activation Distance",
       "ActivationType": "Activation Type",
       "AddTest": "Add Test",
       "Attack": "Attack",
@@ -52,7 +52,9 @@
       "Category": "Category",
       "Close": "Close",
       "Defense": "Defense",
+      "Distance": "Distance",
       "Downtime": "Downtime",
+      "Duration": "Duration",
       "Exploration": "Exploration",
       "Far": "Far",
       "Fixed": "Fixed",
@@ -88,9 +90,16 @@
       "CompendiumBrowserControlLabel": "Opens the World of Darkness 6e compendium browser.",
       "CompendiumBrowserSidebarLabel": "WOD6E Compendium Browser",
       "ConfigureSources": "Configure Sources",
-      "NoResultsFound": "No Results Found"
+      "HideDrama": "Hide Drama",
+      "HideQuickening": "Hide Quickening",
+      "NoCharacterSelectedText": "No character selected. Please assign yourself a character from the Foundry user list to show the Quickening tracker.",
+      "NoResultsFound": "No Results Found",
+      "QuickeningDramaTracker": "Quickening & Drama Tracker",
+      "ShowDrama": "Show Drama",
+      "ShowQuickening": "Show Quickening"
     },
     "ATTRIBUTES": {
+      "Attribute": "Attribute",
       "Attributes": "Attributes",
       "Charisma": "Charisma",
       "Composure": "Composure",
@@ -128,6 +137,10 @@
       "TargetUuid": "Target UUID",
       "Value": "Value"
     },
+    "CHAT": {
+      "QuickeningGained": "Quickening Gained",
+      "UserHasGainedAmountQuickening": "{user} has gained {amount} quickening."
+    },
     "EQUIPMENT": {
       "Equipment": "Equipment"
     },
@@ -139,12 +152,14 @@
       "ConfirmDeleteDescription": "Are you sure you want to delete <b>{string}</b>? This cannot be undone.",
       "ConfirmOverwrite": "Confirm Overwrite",
       "ConfirmOverwriteString": "This action will overwrite {string} existing items. Are you sure you want to proceed?",
+      "Cost": "Cost",
       "DataItemId": "Data Item ID",
       "DataItemIdCannotBeEmpty": "Data Item ID cannot be empty. Please go to the item's Settings tab and click the \"Generate Data Item ID\" button.",
       "DeleteItem": "Delete Item",
       "GenerateDataItemID": "Generate Data Item ID",
       "Level": "Level",
       "NoItemsFound": "There were no items found associated with Data Item ID \"{dataItemId}.\"",
+      "NumberStringResourceCost": "{number} {string}",
       "PageNumber": "Page Number",
       "Sourcebook": "Sourcebook",
       "SyncFromDataItem": "Sync From Data Item",
@@ -164,7 +179,9 @@
     },
     "RESOURCES": {
       "Baneful": "Baneful",
+      "Drama": "Drama",
       "PhysicalAssets": "Physical Assets",
+      "Quickening": "Quickening",
       "Resources": "Resources",
       "ResourceType": "Resource Type",
       "SocialAssets": "Social Assets",
@@ -174,6 +191,7 @@
       "Willpower": "Willpower"
     },
     "ROLL": {
+      "CustomModifier": "Custom Modifier",
       "NoTraitsSelected": "No Traits Selected",
       "Roll": "Roll",
       "RollingString": "Rolling {string}"
@@ -203,6 +221,7 @@
       "Persuasion": "Persuasion",
       "Sabotage": "Sabotage",
       "Shooting": "Shooting",
+      "Skill": "Skill",
       "SkillFocuses": "Skill Focuses",
       "Skills": "Skills",
       "Subterfuge": "Subterfuge",
@@ -218,6 +237,7 @@
       "Effects": "Effects",
       "Indulging": "Indulging",
       "Main": "Main",
+      "Maturing": "Maturing",
       "Outburst": "Outburst",
       "Restrictions": "Restrictions",
       "Settings": "Settings",

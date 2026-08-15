@@ -1,0 +1,68 @@
+<section
+  class="tab {{ tab.cssClass }}"
+  data-tab="{{ tab.id }}"
+  data-group="{{ tab.group }}"
+>
+  <div class="maturing-header align-right">
+    <button
+      type="button"
+      class="icon-button"
+      data-action="addMaturing"
+      title="{{localize 'WOD6E.Add'}}"
+    >
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+
+  <div class="maturing-list">
+    {{#each maturing as |entry|}}
+    <div
+      class="maturing-entry"
+      data-index="{{ entry.index }}"
+    >
+      <div class="flexrow">
+        <div class="align-left">
+          <label>
+            {{localize 'WOD6E.ITEMS.Level'}}
+          </label>
+
+          <input
+            type="number"
+            name="{{ entry.level.path }}"
+            value="{{ entry.level.value }}"
+            min="1"
+            max="10"
+            step="1"
+          />
+        </div>
+
+        <div class="align-right">
+          <button
+            type="button"
+            class="icon-button"
+            data-action="removeMaturing"
+            data-index="{{ entry.index }}"
+            title="{{localize 'WOD6E.Delete'}}"
+          >
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="prose-mirror-section">
+        <div class="prose-mirror-header">
+            Description
+        </div>
+        <prose-mirror
+          name="{{entry.description.path}}"
+          value="{{entry.description.value}}"
+          toggled="true"
+          compact="true"
+        >
+          {{{entry.description.enriched}}}
+        </prose-mirror>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>

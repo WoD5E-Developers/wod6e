@@ -6,8 +6,12 @@
 >
   <header class="sheet-section-header resource-tracker-header">
     <div class="sheet-section-name align-left">
-      <a class="align-right clickable" data-action="configureVisibleDisciplines" title="{{localize "WOD6E.VAMPIRE.ConfigureVisibleDisciplines"}}">
-          <i class="fas fa-edit"></i>
+      <a
+        class="align-right clickable"
+        data-action="configureVisibleDisciplines"
+        title="{{localize 'WOD6E.VAMPIRE.ConfigureVisibleDisciplines'}}"
+      >
+        <i class="fas fa-edit"></i>
       </a>
 
       {{localize 'WOD6E.VAMPIRE.Disciplines'}}
@@ -73,9 +77,17 @@
     </div>
     {{#if discipline.powers}}
     <div class="resource-tracker-items">
+      <div class="discipline-power discipline-power-header">
+        <div>{{localize 'WOD6E.Name'}}</div>
+        <div>{{localize 'WOD6E.ACTIONS.Test'}}</div>
+        <div>{{localize 'WOD6E.ITEMS.Cost'}}</div>
+        <div>{{localize 'WOD6E.ITEMS.Level'}}</div>
+        <div>{{localize 'WOD6E.ATTRIBUTES.Attribute'}}</div>
+      </div>
+
       {{#each discipline.powers as |power|}}
       <div
-        class="sheet-section-row resource-tracker"
+        class="sheet-section-row discipline-power-row discipline-power"
         data-resource="{{ power.uuid }}"
       >
         <div class="resource-name">
@@ -87,17 +99,27 @@
           >
             <i class="fas fa-book"></i>
           </a>
+
           <button
             type="button"
             class="sheet-section-label"
-            data-action="senditemToChat"
-            title="{{ power.name }}"
+            data-action="sendItemToChat"
+            data-uuid="{{ power.uuid }}"
+            title="{{localize 'WOD6E.PostToChat'}}"
           >
-            <span class="resource-name">
-              {{ power.name }}
-            </span>
+            <span class="resource-name">{{ power.name }}</span>
           </button>
         </div>
+
+        <div
+          class="power-test-text"
+          title="{{ power.testText }}"
+        >
+          {{ power.testText }}
+        </div>
+        <div class="power-cost">{{ power.cost }}</div>
+        <div class="power-level">{{ power.system.level }}</div>
+        <div class="power-attribute">{{ power.attribute }}</div>
       </div>
       {{/each}}
     </div>

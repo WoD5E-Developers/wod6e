@@ -38,6 +38,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/applications/compendium-browser/body.hbs',
     'systems/wod6e/templates/core/applications/compendium-browser/parts/filter-splats.hbs',
     'systems/wod6e/templates/core/applications/compendium-browser/parts/filter-types.hbs',
+    'systems/wod6e/templates/core/applications/quickening-drama-tracker/body.hbs',
 
     // Vampire actor templates
     'systems/wod6e/templates/splats/vampire/actors/parts/header.hbs',
@@ -53,7 +54,8 @@ export const preloadHandlebarsTemplates = async function () {
     // Vampire item templates
     'systems/wod6e/templates/splats/vampire/items/discipline-item-sheet.hbs',
     'systems/wod6e/templates/splats/vampire/items/clan-item-sheet.hbs',
-    'systems/wod6e/templates/splats/vampire/items/parts/clan-discipline-selection.hbs'
+    'systems/wod6e/templates/splats/vampire/items/parts/clan-discipline-selection.hbs',
+    'systems/wod6e/templates/splats/vampire/items/parts/discipline-maturing-page.hbs'
   ]
 
   /* Load the template parts

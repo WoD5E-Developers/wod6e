@@ -11,6 +11,8 @@ export const _calculateDicePool = function (actor, formData) {
     return total + Number(actor.system?.vampire?.disciplines?.[key]?.value ?? 0)
   }, 0)
 
+  const customModifier = formData.customModifier ?? 0
+
   // Enforce a minimum of 1 die
-  return Math.max(1, attributeDice + skillDice + disciplineDice)
+  return Math.max(1, attributeDice + skillDice + disciplineDice + customModifier)
 }

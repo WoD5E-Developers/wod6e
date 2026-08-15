@@ -14,6 +14,7 @@ import { _onOpenItem } from '../../applications/compendium-browser/scripts/on-op
 import { _onEditImage } from '../scripts/on-edit-image.js'
 import { _onConfigureSkillFocuses } from '../scripts/on-configure-skill-focuses.js'
 import { _onRoll } from '../scripts/on-roll.js'
+import { _onSendItemToChat } from '../../scripts/on-send-item-to-chat.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -56,7 +57,8 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
       searchItem: _onSearchItem,
       openItem: _onOpenItem,
       configureSkillFocuses: _onConfigureSkillFocuses,
-      roll: _onRoll
+      roll: _onRoll,
+      sendItemToChat: _onSendItemToChat
     },
     dragDrop: [
       {

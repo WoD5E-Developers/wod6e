@@ -43,9 +43,6 @@ export function _onDocumentPointerDown(event) {
   if (event.target.closest('.multi-select')) return
 
   document.querySelectorAll('.multi-select-dropdown').forEach((dropdown) => {
-    dropdown
-      .closest('.multi-select')
-      ?.querySelector('.multi-select-trigger')
-      ?.setAttribute('aria-expanded', 'false')
+    dropdown.hidePopover()
   })
 }

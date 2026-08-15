@@ -13,7 +13,30 @@ export class DisciplineItemModel extends WoDItemModel {
 
     schema.disciplineType = new fields.StringField({ initial: 'animalism' })
 
-    schema.cost = new fields.NumberField({ initial: null, min: 0, integer: true, nullable: true })
+    schema.attribute = new fields.StringField({
+      initial: 'physical'
+    })
+
+    schema.maturing = new fields.ArrayField(
+      new fields.SchemaField({
+        level: new fields.NumberField({
+          required: true,
+          nullable: false,
+          integer: true,
+          initial: 2,
+          min: 1,
+          max: 10
+        }),
+
+        description: new fields.HTMLField({
+          nullable: false,
+          initial: ''
+        })
+      }),
+      {
+        initial: []
+      }
+    )
 
     schema.activation = activationFields()
     schema.test = testFields()
