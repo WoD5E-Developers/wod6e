@@ -137,7 +137,7 @@
       "EffectType": "Effect Type",
       "Escalation": "Escalation",
       "EscalationPlaceholder": "Escalation Placeholder",
-      "Excludes": "Exclusion List",
+      "Exclusions": "Exclusions",
       "MaxStacks": "Max Stacks",
       "Mode": "Mode",
       "NoEffects": "No effects listed. Press the \"Add\" button to create an effect for this condition.",
