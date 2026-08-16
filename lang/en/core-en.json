@@ -119,8 +119,8 @@
       "UserHasGainedAmountQuickening": "{user} has gained {amount} quickening."
     },
     "CONDITIONS": {
+      "ActorTrait": "Actor Trait",
       "AddEffect": "Add Effect",
-      "AffectsDerived": "Affects Derived Traits",
       "AutomaticFailure": "Automatic Failure",
       "AutomaticSuccess": "Automatic Success",
       "BaseDifficulty": "Base Difficulty",

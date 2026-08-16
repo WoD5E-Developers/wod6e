@@ -52,12 +52,7 @@ export function effectFields() {
         {
           initial: []
         }
-      ),
-
-      affectsDerived: new fields.BooleanField({
-        required: true,
-        initial: true
-      })
+      )
     }),
     {
       required: true,

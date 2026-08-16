@@ -119,8 +119,8 @@
       "_UserHasGainedAmountQuickening": ""
     },
     "CONDITIONS": {
+      "_ActorTrait": "",
       "_AddEffect": "",
-      "_AffectsDerived": "",
       "_AutomaticFailure": "",
       "_AutomaticSuccess": "",
       "_BaseDifficulty": "",

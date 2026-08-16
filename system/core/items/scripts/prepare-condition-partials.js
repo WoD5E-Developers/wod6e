@@ -57,6 +57,8 @@ export const prepareConditionEffectsContext = async function (context, item) {
   })
 
   context.effectTypeOptions = {
+    actorTrait: 'WOD6E.CONDITIONS.ActorTrait',
+
     dice: 'WOD6E.CONDITIONS.Dice',
     baseDifficulty: 'WOD6E.CONDITIONS.BaseDifficulty',
     difficulty: 'WOD6E.CONDITIONS.Difficulty',
