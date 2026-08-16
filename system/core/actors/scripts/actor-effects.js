@@ -72,8 +72,8 @@ export class ActorEffects {
     if (current == null) return
 
     /**
-     * This assumes your rating fields eventually expose
-     * an `effective` value
+     * This assumes the rating fields eventually exposes
+     * an 'effective' value
      *
      * Example:
      * system.attributes.dexterity.value
@@ -86,7 +86,7 @@ export class ActorEffects {
     }
 
     console.warn(
-      `WOD6E | Cannot apply rating effect "${effect.sourceName}" to target "${effect.target}".`,
+      `World of Darkness 6th Edition | Cannot apply rating effect "${effect.sourceName}" to target "${effect.target}".`,
       effect
     )
   }
@@ -138,7 +138,10 @@ export class ActorEffects {
         return effect.value
 
       default:
-        console.warn(`WOD6E | Unknown effect mode "${effect.mode}".`, effect)
+        console.warn(
+          `World of Darkness 6th Edition | Unknown effect mode "${effect.mode}".`,
+          effect
+        )
 
         return value
     }
