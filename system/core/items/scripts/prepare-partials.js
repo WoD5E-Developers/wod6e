@@ -1,6 +1,6 @@
 import { prepareMultiSelect } from '../../fields/multiselect.js'
 import { buildEnrichedField } from './build-enriched-field.js'
-import { formatOptionLabel, formatTest } from './format-test-labels.js'
+import { formatTest } from './format-test-labels.js'
 import { getTargetOptions } from './get-target-options.js'
 
 export const prepareDescriptionContext = async function (context, item) {
