@@ -44,13 +44,12 @@ export function effectFields() {
         }
       ),
 
-      excludes: new fields.ArrayField(
+      exclusions: new fields.SetField(
         new fields.StringField({
-          required: true,
-          blank: false
+          blank: false,
+          nullable: false
         }),
         {
-          required: true,
           initial: []
         }
       ),

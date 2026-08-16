@@ -112,16 +112,12 @@ export class ConditionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) 
 
   // Add a new effect to the condition
   static async #onAddEffect() {
-    const effects = foundry.utils.deepClone(this.item.system.effects ?? [])
+    const effects = this.item.system.effects ?? []
 
     effects.push({
       type: 'dice',
-      target: null,
       mode: 'add',
-      value: 0,
-      predicate: [],
-      excludes: [],
-      affectsDerived: true
+      value: 0
     })
 
     await this.item.update({
