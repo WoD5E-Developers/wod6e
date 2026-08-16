@@ -46,3 +46,23 @@ export function _onDocumentPointerDown(event) {
     dropdown.hidePopover()
   })
 }
+
+export const prepareMultiSelect = (selectedValues, options) => {
+  const selected = new Set(selectedValues ?? [])
+
+  const preparedOptions = options.map((option) => ({
+    ...option,
+    selected: selected.has(option.key)
+  }))
+
+  const selectedLabels = preparedOptions
+    .filter((option) => option.selected)
+    .map((option) => option.label)
+
+  return {
+    options: preparedOptions,
+    selectedText: selectedLabels.length
+      ? selectedLabels.join(', ')
+      : game.i18n.localize('WOD6E.NoneSelected')
+  }
+}
