@@ -1,5 +1,5 @@
 import { prepareMultiSelect } from '../../fields/multiselect.js'
-import { getTargetOptions } from './get-targets-for-effect-type.js'
+import { getTargetOptions } from './get-target-options.js'
 
 export const prepareConditionDetailsContext = async function (context, item) {
   const itemData = item.system
@@ -22,12 +22,25 @@ export const prepareConditionEffectsContext = async function (context, item) {
 
   // Part-specific data
   context.effects = (itemData?.effects ?? []).map((effect) => {
-    // Targets
-    const targets = prepareMultiSelect(effect.targets, getTargetOptions(effect.type))
+    // Special cases where some effect types need a different dropdown list
+    const targetTypesByEffect = {
+      resource: ['resources'],
+      resourceMaximum: ['resources']
+    }
+    // Otherwise, this is the default - attributes, skills, disciplines
+    const targetTypes = targetTypesByEffect[effect.type] ?? ['attributes', 'skills', 'disciplines']
+    // Targets (using the above logic to determine what targetTypes is)
+    const targets = prepareMultiSelect(effect.targets, getTargetOptions(targetTypes))
     // Predicates
-    const predicates = prepareMultiSelect(effect.predicates, getTargetOptions('predicate'))
+    const predicates = prepareMultiSelect(
+      effect.predicates,
+      getTargetOptions(['attributes', 'skills', 'disciplines'])
+    )
     // Exclusions
-    const exclusions = prepareMultiSelect(effect.exclusions, getTargetOptions('exclusion'))
+    const exclusions = prepareMultiSelect(
+      effect.exclusions,
+      getTargetOptions(['attributes', 'skills', 'disciplines'])
+    )
 
     return {
       ...effect,
