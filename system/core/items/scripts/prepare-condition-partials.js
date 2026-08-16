@@ -73,7 +73,19 @@ export const prepareConditionEffectsContext = async function (context, item) {
 
   context.effectTypeOptions = {
     dice: 'WOD6E.CONDITIONS.Dice',
-    difficulty: 'WOD6E.CONDITIONS.Difficulty'
+    baseDifficulty: 'WOD6E.CONDITIONS.BaseDifficulty',
+    difficulty: 'WOD6E.CONDITIONS.Difficulty',
+    cost: 'WOD6E.ITEMS.Cost',
+
+    basicSuccess: 'WOD6E.CONDITIONS.BasicSuccess',
+    automaticSuccess: 'WOD6E.CONDITIONS.AutomaticSuccess',
+    automaticFailure: 'WOD6E.CONDITIONS.AutomaticFailure',
+
+    damage: 'WOD6E.CONDITIONS.Damage',
+    damageReduction: 'WOD6E.CONDITIONS.DamageReduction',
+
+    resource: 'WOD6E.CONDITIONS.Resource',
+    resourceMaximum: 'WOD6E.CONDITIONS.ResourceMaximum'
   }
 
   context.effectModeOptions = {
