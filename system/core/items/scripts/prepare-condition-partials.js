@@ -24,15 +24,19 @@ export const prepareConditionEffectsContext = async function (context, item) {
   context.effects = (itemData?.effects ?? []).map((effect) => {
     // Targets
     const targets = prepareMultiSelect(effect.targets, getTargetOptions(effect.type))
+    // Predicates
+    const predicates = prepareMultiSelect(effect.predicates, getTargetOptions('predicate'))
 
     return {
       ...effect,
 
-      predicateText: (effect.predicate ?? []).join(', '),
       excludesText: (effect.excludes ?? []).join(', '),
 
       targetOptions: targets.options,
-      selectedTargetsText: targets.selectedText
+      selectedTargetsText: targets.selectedText,
+
+      predicateOptions: predicates.options,
+      selectedPredicatesText: predicates.selectedText
     }
   })
 

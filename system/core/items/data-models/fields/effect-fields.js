@@ -34,13 +34,12 @@ export function effectFields() {
         initial: 0
       }),
 
-      predicate: new fields.ArrayField(
+      predicates: new fields.SetField(
         new fields.StringField({
-          required: true,
-          blank: false
+          blank: false,
+          nullable: false
         }),
         {
-          required: true,
           initial: []
         }
       ),
