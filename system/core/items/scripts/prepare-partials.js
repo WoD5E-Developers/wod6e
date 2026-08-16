@@ -1,5 +1,7 @@
+import { prepareMultiSelect } from '../../fields/multiselect.js'
 import { buildEnrichedField } from './build-enriched-field.js'
 import { formatOptionLabel, formatTest } from './format-test-labels.js'
+import { getTargetOptions } from './get-target-options.js'
 
 export const prepareDescriptionContext = async function (context, item) {
   const itemData = item.system
@@ -25,57 +27,27 @@ export async function prepareTestContext(context, item) {
   const test = itemData.test
 
   // Attributes
-  const selectedAttributes = new Set(test.attributes ?? [])
-  const attributeOptions = Object.entries(WOD6E.configs.Attributes.getList({}))
-    .filter(([, attribute]) => !attribute.hidden)
-    .map(([key, attribute]) => ({
-      key,
-      label: attribute.displayName,
-      selected: selectedAttributes.has(key)
-    }))
-  const selectedAttributeLabels = attributeOptions
-    .filter((attribute) => attribute.selected)
-    .map((attribute) => attribute.label)
+  const attributes = prepareMultiSelect(test?.attributes, getTargetOptions(['attributes']))
 
   // Skills
-  const selectedSkills = new Set(test.skills ?? [])
-  const skillOptions = Object.entries(WOD6E.configs.Skills.getList({}))
-    .filter(([, skill]) => !skill.hidden)
-    .map(([key, skill]) => ({
-      key,
-      label: skill.displayName,
-      selected: selectedSkills.has(key)
-    }))
-  const selectedSkillLabels = skillOptions
-    .filter((skill) => skill.selected)
-    .map((skill) => skill.label)
+  const skills = prepareMultiSelect(test?.skills, getTargetOptions(['skills']))
 
   // Disciplines
-  const selectedDisciplines = new Set(test.disciplines ?? [])
-  const disciplineOptions = Object.entries(WOD6E.configs.Disciplines.getList({}))
-    .filter(([, discipline]) => !discipline.hidden)
-    .map(([key, discipline]) => ({
-      key,
-      label: discipline.displayName,
-      selected: selectedDisciplines.has(key)
-    }))
-  const selectedDisciplineLabels = disciplineOptions
-    .filter((discipline) => discipline.selected)
-    .map((discipline) => discipline.label)
+  const disciplines = prepareMultiSelect(test?.disciplines, getTargetOptions(['disciplines']))
 
   context.test = {
     description: test.description ?? '',
 
-    attributeOptions,
-    selectedAttributesText: formatOptionLabel(selectedAttributeLabels),
+    attributeOptions: attributes.options,
+    selectedAttributesText: attributes.selectedText,
 
-    skillOptions,
-    selectedSkillsText: formatOptionLabel(selectedSkillLabels),
+    skillOptions: skills.options,
+    selectedSkillsText: skills.selectedText,
 
-    disciplineOptions,
-    selectedDisciplinesText: formatOptionLabel(selectedDisciplineLabels),
+    disciplineOptions: disciplines.options,
+    selectedDisciplinesText: disciplines.selectedText,
 
-    testText: formatTest(selectedAttributeLabels, selectedSkillLabels, selectedDisciplineLabels)
+    testText: formatTest(attributes.labels, skills.labels, disciplines.labels)
   }
 
   return context

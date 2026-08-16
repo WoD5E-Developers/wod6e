@@ -98,6 +98,7 @@ export const prepareMultiSelect = (selectedValues, options) => {
     options: preparedOptions,
     selectedText: selectedLabels.length
       ? selectedLabels.join(', ')
-      : game.i18n.localize('WOD6E.NoneSelected')
+      : game.i18n.localize('WOD6E.NoneSelected'),
+    labels: selectedLabels
   }
 }
