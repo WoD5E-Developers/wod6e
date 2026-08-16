@@ -78,7 +78,6 @@ export class ConditionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) 
     const condition = item.system?.condition ?? {}
 
     context.conditionDurationOptions = WOD6E.configs.Durations.getList({})
-
     context.conditionDurationSelected = condition.duration ?? 'manual'
 
     return context
@@ -111,9 +110,7 @@ export class ConditionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) 
     return context
   }
 
-  /**
-   * Add a new effect to the condition
-   */
+  // Add a new effect to the condition
   static async #onAddEffect() {
     const effects = foundry.utils.deepClone(this.item.system.effects ?? [])
 
@@ -132,9 +129,7 @@ export class ConditionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) 
     })
   }
 
-  /**
-   * Delete an effect from the condition
-   */
+  // Delete an effect from the condition
   static async #onDeleteEffect(_event, target) {
     const index = Number(target.dataset.effectIndex)
 
