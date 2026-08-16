@@ -94,6 +94,25 @@ export const prepareActionsContext = async function (context, actor) {
   return context
 }
 
+export const prepareConditionsContext = async function (context, actor) {
+  // Tab data
+  context.tab = context.tabs.actions
+
+  context.conditions = []
+  // Populate actions
+  for (const condition of actor.items.filter((item) => item.type === 'condition')) {
+    context.conditions.push({
+      id: condition.id,
+      uuid: condition.uuid,
+      name: condition.name,
+      description: condition.system?.description,
+      duration: condition.system?.duration
+    })
+  }
+
+  return context
+}
+
 export const prepareSettingsContext = async function (context, actor) {
   const actorSettings = actor.system.settings
   context.settings = actorSettings

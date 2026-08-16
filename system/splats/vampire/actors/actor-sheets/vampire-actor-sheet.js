@@ -1,6 +1,9 @@
 // Base actor sheet to extend from
 import { WoDActorBase } from '../../../../core/actors/actor-sheets/wod-actor-base.js'
-import { prepareActionsContext } from '../../../../core/actors/scripts/prepare-core-partials.js'
+import {
+  prepareActionsContext,
+  prepareConditionsContext
+} from '../../../../core/actors/scripts/prepare-core-partials.js'
 import { _onConfigureVisibleDisciplines } from './scripts/on-configure-visible-disciplines.js'
 import {
   prepareDisciplinesContext,
@@ -32,6 +35,9 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     main: {
       template: 'systems/wod6e/templates/splats/vampire/actors/vampire-sheet-body.hbs'
     },
+    conditions: {
+      template: 'systems/wod6e/templates/core/actors/parts/conditions.hbs'
+    },
     actions: {
       template: 'systems/wod6e/templates/core/actors/parts/actions.hbs'
     },
@@ -54,6 +60,11 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
           id: 'main',
           icon: 'fa-solid fa-user',
           label: 'WOD6E.TABS.Main'
+        },
+        {
+          id: 'conditions',
+          icon: 'fa-solid fa-user',
+          label: 'WOD6E.TABS.Conditions'
         },
         {
           id: 'actions',
@@ -90,6 +101,9 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     // Prepare each page context
     switch (partId) {
       // Tabs
+      case 'conditions':
+        return prepareConditionsContext(context, actor)
+
       case 'actions':
         return prepareActionsContext(context, actor)
 

@@ -1,0 +1,35 @@
+<section
+  class="sheet-part tab section conditions-section {{ tabs.conditions.cssClass }}"
+  data-group="primary"
+  data-tab="conditions"
+>
+  <div class="sheet-section-list">
+    {{#each conditions as |condition|}}
+    <div
+      class="sheet-section-row item-section condition-row flexrow"
+      data-item-id="{{ condition.id }}"
+      data-uuid="{{ condition.uuid }}"
+    >
+      <a
+        class="item-open"
+        data-action="openItem"
+        data-uuid="{{ condition.uuid }}"
+        title="{{localize 'WOD6E.ViewItem'}}"
+      >
+        <i class="fas fa-book"></i>
+      </a>
+
+      <button
+        type="button"
+        class="sheet-section-label"
+        data-action="sendItemToChat"
+        data-uuid="{{ condition.uuid }}"
+        title="{{localize 'WOD6E.PostToChat'}}"
+      >
+        <span class="item-name bolded">
+          {{ condition.name }}
+        </span>
+      </button>
+    </div>
+    {{/each}}
+</section>
