@@ -205,8 +205,8 @@ export class ActorEffects {
   effectMatchesContext(effect, context = {}) {
     const tags = new Set(context.tags ?? [])
 
-    const predicates = effect.predicate ?? []
-    const excludes = effect.excludes ?? []
+    const predicates = []
+    const excludes = []
 
     /**
      * Every predicate must match.
