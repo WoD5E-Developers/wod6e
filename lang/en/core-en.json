@@ -149,7 +149,8 @@
       "TargetPlaceholder": "Target Placeholder",
       "Targets": "Targets",
       "TargetUuid": "Target UUID",
-      "Value": "Value"
+      "Value": "Value",
+      "ValueHasBeenModifiedByCondition": "This value has been modified by a condition."
     },
     "EQUIPMENT": {
       "Equipment": "Equipment"

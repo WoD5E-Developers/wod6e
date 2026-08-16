@@ -86,7 +86,10 @@ export class ClanItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
     context.uuid = item.uuid
     context.level = itemData?.level || 1
 
-    const disciplines = prepareMultiSelect(itemData?.disciplines, getTargetOptions(['disciplines']))
+    const disciplines = prepareMultiSelect(
+      itemData?.disciplines,
+      getTargetOptions({ types: ['disciplines'] })
+    )
     context.disciplineOptions = disciplines.options
     context.selectedDisciplinesText = disciplines.selectedText
 

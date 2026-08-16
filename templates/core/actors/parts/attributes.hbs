@@ -19,7 +19,7 @@
       <div class="attribute-group-fields">
         {{#each group.attributes as |attribute|}}
         <label
-          class="attribute-field"
+          class="attribute-field{{#if attribute.modified}} modified{{/if}}"
           data-attribute="{{ attribute.key }}"
         >
           <input
@@ -33,8 +33,8 @@
           <span
             class="attribute-label"
             data-action="roll"
-            data-attribute="{{ attribute.key }}"
-            title="{{localize attribute.label}}"
+            data-attribute="system.attributes.{{ attribute.key }}"
+            title="{{localize attribute.label}}{{#if attribute.modified}}; {{localize 'WOD6E.CONDITIONS.ValueHasBeenModifiedByCondition'}}{{/if}}"
           >
             {{localize attribute.label}}
           </span>

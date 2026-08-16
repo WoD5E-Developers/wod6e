@@ -1,4 +1,7 @@
 export class ActorEffects {
+  /**
+   * Initialize the Actor's prepared effect collections
+   */
   static _initializePreparedEffects(actor) {
     actor.preparedEffects = {
       effects: [],
@@ -17,7 +20,7 @@ export class ActorEffects {
       const restrictions = condition.system.restrictions ?? []
 
       for (const effect of effects) {
-        this.preparedEffects.effects.push({
+        actor.preparedEffects.effects.push({
           ...effect,
           sourceId: condition.id,
           sourceUuid: condition.uuid,
@@ -27,7 +30,7 @@ export class ActorEffects {
       }
 
       for (const restriction of restrictions) {
-        this.preparedEffects.restrictions.push({
+        actor.preparedEffects.restrictions.push({
           ...restriction,
           sourceId: condition.id,
           sourceUuid: condition.uuid,
@@ -39,94 +42,97 @@ export class ActorEffects {
   }
 
   /**
-   * Apply effects which modify the Actor itself
+   * Apply effects which modify the Actor's prepared data.
+   *
+   * Effects such as "dice" are intentionally not handled here,
+   * because they apply to a roll/test context rather than directly
+   * modifying Actor data.
    */
   static _applyActorEffects(actor) {
-    const effects = actor.preparedEffects.effects
+    const effects = actor.preparedEffects?.effects ?? []
 
     for (const effect of effects) {
       switch (effect.type) {
-        case 'rating':
-          actor._applyRatingEffect(effect)
+        case 'actorTrait':
+          this._applyActorTraitEffect(actor, effect)
           break
 
         case 'resource':
-          actor._applyResourceEffect(effect)
+          this._applyResourceEffect(actor, effect)
           break
 
         case 'resourceMaximum':
-          actor._applyResourceMaximumEffect(effect)
+          this._applyResourceMaximumEffect(actor, effect)
           break
       }
     }
   }
 
   /**
-   * Apply a temporary modification to an actor's traits
+   * Apply an effect to every configured target.
    */
-  _applyRatingEffect(effect) {
-    if (!effect.target) return
+  static _applyActorTraitEffect(actor, effect) {
+    for (const target of this._getTargets(effect)) {
+      const current = foundry.utils.getProperty(actor, target)
 
-    const current = foundry.utils.getProperty(this.system, effect.target)
+      if (current == null) continue
 
-    if (current == null) return
+      /**
+       * Actor fields expose their base and effective values
+       *
+       * Example:
+       * system.attributes.dexterity.value
+       * system.attributes.dexterity.effective
+       */
+      if (typeof current === 'object' && 'effective' in current) {
+        current.effective = this.applyNumericEffect(current.effective, effect)
 
-    /**
-     * This assumes the rating fields eventually exposes
-     * an 'effective' value
-     *
-     * Example:
-     * system.attributes.dexterity.value
-     * system.attributes.dexterity.effective
-     */
-    if (typeof current === 'object' && 'effective' in current) {
-      current.effective = this._applyNumericEffect(current.effective, effect)
+        continue
+      }
 
-      return
-    }
-
-    console.warn(
-      `World of Darkness 6th Edition | Cannot apply rating effect "${effect.sourceName}" to target "${effect.target}".`,
-      effect
-    )
-  }
-
-  /**
-   * Apply an effect to a resource's current value
-   */
-  _applyResourceEffect(effect) {
-    if (!effect.target) return
-
-    const resource = foundry.utils.getProperty(this.system, effect.target)
-
-    if (!resource || typeof resource !== 'object') return
-    if (!('value' in resource)) return
-
-    resource.value = this._applyNumericEffect(resource.value, effect)
-  }
-
-  /**
-   * Apply an effect to a resource's maximum value
-   */
-  _applyResourceMaximumEffect(effect) {
-    if (!effect.target) return
-
-    const resource = foundry.utils.getProperty(this.system, effect.target)
-
-    if (!resource || typeof resource !== 'object') return
-    if (!('max' in resource)) return
-
-    resource.max = this._applyNumericEffect(resource.max, effect)
-
-    if (resource.value > resource.max) {
-      resource.value = resource.max
+      console.warn(
+        `World of Darkness 6th Edition | Cannot apply actor trait effect "${effect.sourceName}" to target "${target}".`,
+        effect
+      )
     }
   }
 
   /**
-   * Generic numeric effect handler
+   * Apply an effect to a resource's current value.
    */
-  _applyNumericEffect(value, effect) {
+  static _applyResourceEffect(actor, effect) {
+    for (const target of this._getTargets(effect)) {
+      const resource = foundry.utils.getProperty(actor.system, target)
+
+      if (!resource || typeof resource !== 'object') continue
+      if (!('value' in resource)) continue
+
+      resource.value = this.applyNumericEffect(resource.value, effect)
+    }
+  }
+
+  /**
+   * Apply an effect to a resource's maximum value.
+   */
+  static _applyResourceMaximumEffect(actor, effect) {
+    for (const target of this._getTargets(effect)) {
+      const resource = foundry.utils.getProperty(actor.system, target)
+
+      if (!resource || typeof resource !== 'object') continue
+      if (!('max' in resource)) continue
+
+      resource.max = this.applyNumericEffect(resource.max, effect)
+
+      if ('value' in resource && resource.value > resource.max) {
+        resource.value = resource.max
+      }
+    }
+  }
+
+  /**
+   * Generic numeric effect handler.
+   */
+  static applyNumericEffect(value, effect) {
     switch (effect.mode) {
       case 'add':
         return value + effect.value
@@ -150,18 +156,19 @@ export class ActorEffects {
   /**
    * Return all effects applicable to a provided context.
    *
-   * Example context:
+   * Example:
+   *
    * {
    *   type: 'test',
    *   category: 'physical',
    *   action: 'dodge',
    *   attribute: 'dexterity',
    *   skill: 'athletics',
-   *   tags: [...]
+   *   tags: ['physical', 'defense']
    * }
    */
-  getApplicableEffects(context = {}, { types = null } = {}) {
-    let effects = this.preparedEffects?.effects ?? []
+  static getApplicableEffects(actor, context = {}, { types = null } = {}) {
+    let effects = actor.preparedEffects?.effects ?? []
 
     if (types) {
       const allowedTypes = Array.isArray(types) ? types : [types]
@@ -173,10 +180,10 @@ export class ActorEffects {
   }
 
   /**
-   * Return all restrictions applicable to a provided context
+   * Return all restrictions applicable to a provided context.
    */
-  getApplicableRestrictions(context = {}, { types = null } = {}) {
-    let restrictions = this.preparedEffects?.restrictions ?? []
+  static getApplicableRestrictions(actor, context = {}, { types = null } = {}) {
+    let restrictions = actor.preparedEffects?.restrictions ?? []
 
     if (types) {
       const allowedTypes = Array.isArray(types) ? types : [types]
@@ -188,11 +195,11 @@ export class ActorEffects {
   }
 
   /**
-   * Convenience check for a particular restriction
+   * Convenience check for a particular restriction.
    */
-  hasRestriction(type, context = {}) {
+  static hasRestriction(actor, type, context = {}) {
     return (
-      this.getApplicableRestrictions(context, {
+      this.getApplicableRestrictions(actor, context, {
         types: type
       }).length > 0
     )
@@ -200,13 +207,13 @@ export class ActorEffects {
 
   /**
    * Determine whether an effect or restriction applies
-   * to the supplied context
+   * to the supplied context.
    */
-  effectMatchesContext(effect, context = {}) {
+  static effectMatchesContext(effect, context = {}) {
     const tags = new Set(context.tags ?? [])
 
-    const predicates = []
-    const excludes = []
+    const predicates = Array.from(effect.predicates ?? [])
+    const exclusions = Array.from(effect.exclusions ?? [])
 
     /**
      * Every predicate must match.
@@ -222,28 +229,28 @@ export class ActorEffects {
     /**
      * Any exclusion prevents the effect.
      */
-    const matchesExclusion = excludes.some((exclude) =>
-      this._matchesPredicate(exclude, tags, context)
+    const matchesExclusion = exclusions.some((exclusion) =>
+      this._matchesPredicate(exclusion, tags, context)
     )
 
     return !matchesExclusion
   }
 
   /**
-   * Match one predicate
+   * Match one predicate.
    *
    * Supports:
    *
-   * "physical"
-   * "defense"
-   * "action:dodge"
-   * "attribute:dexterity"
+   * physical
+   * defense
+   * action:dodge
+   * attribute:dexterity
    *
    * And simple OR syntax:
    *
-   * "physical|mental"
+   * physical|mental
    */
-  _matchesPredicate(predicate, tags, context) {
+  static _matchesPredicate(predicate, tags, context) {
     if (!predicate) return true
 
     const alternatives = predicate
@@ -256,13 +263,44 @@ export class ActorEffects {
         return true
       }
 
-      const [key, expected] = value.split(':')
+      const separatorIndex = value.indexOf(':')
 
-      if (!expected) {
+      if (separatorIndex === -1) {
         return false
       }
 
-      return context[key] === expected
+      const key = value.slice(0, separatorIndex)
+      const expected = value.slice(separatorIndex + 1)
+      const actual = context[key]
+
+      if (Array.isArray(actual)) {
+        return actual.includes(expected)
+      }
+
+      return actual === expected
     })
+  }
+
+  /**
+   * Normalize an effect's target collection.
+   */
+  static _getTargets(effect) {
+    return Array.from(effect.targets ?? [])
+  }
+
+  static _initializeEffectiveValues(actor) {
+    const collections = [actor.system.attributes, actor.system.skills, actor.system.disciplines]
+
+    for (const collection of collections) {
+      if (!collection || typeof collection !== 'object') continue
+
+      for (const entry of Object.values(collection)) {
+        if (!entry || typeof entry !== 'object') continue
+        if (!('value' in entry)) continue
+        if (!('effective' in entry)) continue
+
+        entry.effective = entry.value
+      }
+    }
   }
 }

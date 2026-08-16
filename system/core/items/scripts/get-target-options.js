@@ -1,7 +1,7 @@
 // Return target options belonging to the requested target groups.
-export const getTargetOptions = (types = []) => {
+export const getTargetOptions = ({ types = [], usePaths }) => {
   const targetGroups = {
-    attributes: Object.entries(WOD6E.configs.Attributes.getList({}))
+    attributes: Object.entries(WOD6E.configs.Attributes.getList({ usePath: usePaths ?? false }))
       .filter(([, attribute]) => !attribute.hidden)
       .map(([key, attribute]) => ({
         key,
@@ -9,7 +9,7 @@ export const getTargetOptions = (types = []) => {
         type: 'attribute'
       })),
 
-    skills: Object.entries(WOD6E.configs.Skills.getList({}))
+    skills: Object.entries(WOD6E.configs.Skills.getList({ usePath: usePaths ?? false }))
       .filter(([, skill]) => !skill.hidden)
       .map(([key, skill]) => ({
         key,
@@ -17,7 +17,7 @@ export const getTargetOptions = (types = []) => {
         type: 'skill'
       })),
 
-    disciplines: Object.entries(WOD6E.configs.Disciplines.getList({}))
+    disciplines: Object.entries(WOD6E.configs.Disciplines.getList({ usePath: usePaths ?? false }))
       .filter(([, discipline]) => !discipline.hidden)
       .map(([key, discipline]) => ({
         key,
@@ -25,7 +25,7 @@ export const getTargetOptions = (types = []) => {
         type: 'discipline'
       })),
 
-    resources: Object.entries(WOD6E.configs.ResourceTypes.getList({}))
+    resources: Object.entries(WOD6E.configs.ResourceTypes.getList({ usePath: usePaths ?? false }))
       .filter(([, resource]) => !resource.hidden)
       .map(([key, resource]) => ({
         key,

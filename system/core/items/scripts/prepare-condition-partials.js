@@ -30,16 +30,19 @@ export const prepareConditionEffectsContext = async function (context, item) {
     // Otherwise, this is the default - attributes, skills, disciplines
     const targetTypes = targetTypesByEffect[effect.type] ?? ['attributes', 'skills', 'disciplines']
     // Targets (using the above logic to determine what targetTypes is)
-    const targets = prepareMultiSelect(effect.targets, getTargetOptions(targetTypes))
+    const targets = prepareMultiSelect(
+      effect.targets,
+      getTargetOptions({ types: targetTypes, usePaths: true })
+    )
     // Predicates
     const predicates = prepareMultiSelect(
       effect.predicates,
-      getTargetOptions(['attributes', 'skills', 'disciplines'])
+      getTargetOptions({ types: ['attributes', 'skills', 'disciplines'], usePaths: true })
     )
     // Exclusions
     const exclusions = prepareMultiSelect(
       effect.exclusions,
-      getTargetOptions(['attributes', 'skills', 'disciplines'])
+      getTargetOptions({ types: ['attributes', 'skills', 'disciplines'], usePaths: true })
     )
 
     return {
@@ -59,7 +62,9 @@ export const prepareConditionEffectsContext = async function (context, item) {
   context.effectTypeOptions = {
     actorTrait: 'WOD6E.CONDITIONS.ActorTrait',
 
-    dice: 'WOD6E.CONDITIONS.Dice',
+    dice: 'WOD6E.CONDITIONS.Dice'
+
+    /** WIP
     baseDifficulty: 'WOD6E.CONDITIONS.BaseDifficulty',
     difficulty: 'WOD6E.CONDITIONS.Difficulty',
     cost: 'WOD6E.ITEMS.Cost',
@@ -73,6 +78,7 @@ export const prepareConditionEffectsContext = async function (context, item) {
 
     resource: 'WOD6E.CONDITIONS.Resource',
     resourceMaximum: 'WOD6E.CONDITIONS.ResourceMaximum'
+     */
   }
 
   context.effectModeOptions = {

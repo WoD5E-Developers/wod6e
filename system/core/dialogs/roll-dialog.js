@@ -96,17 +96,17 @@ export class RollDialog {
 
   static _prepareContext({ actor, item, data }) {
     const attributeOptions = this._prepareOptions({
-      definitions: WOD6E.configs.Attributes.getList({}),
+      definitions: WOD6E.configs.Attributes.getList({ usePath: true }),
       selected: data?.attributes || []
     })
 
     const skillOptions = this._prepareOptions({
-      definitions: WOD6E.configs.Skills.getList({}),
+      definitions: WOD6E.configs.Skills.getList({ usePath: true }),
       selected: data?.skills || []
     })
 
     const disciplineOptions = this._prepareOptions({
-      definitions: WOD6E.configs.Disciplines.getList({}),
+      definitions: WOD6E.configs.Disciplines.getList({ usePath: true }),
       selected: data?.disciplines || []
     })
 
@@ -131,6 +131,14 @@ export class RollDialog {
       item,
 
       test: {
+        // Raw test data used by the rules engine
+        attributes: data?.attributes ?? [],
+        skills: data?.skills ?? [],
+        disciplines: data?.disciplines ?? [],
+        action: data?.action ?? null,
+        category: data?.category ?? null,
+
+        // Prepared display data
         attributeOptions,
         skillOptions,
         disciplineOptions,

@@ -11,6 +11,7 @@ export class BaseDefinitionClass {
     custom = false,
     disableSort = false,
     prependType = false,
+    usePath = false,
     useValuePath = false,
     useRenamedLabel = true
   }) {
@@ -38,9 +39,12 @@ export class BaseDefinitionClass {
     return filteredEntries.reduce((accumulator, [key, value]) => {
       let newKey
 
-      if (useValuePath && value?.path) {
+      if (usePath && value?.path) {
         // If useValuePath is true and the definition has a path set, use its path
         newKey = value.path
+      } else if (useValuePath && value?.path) {
+        // If useValuePath is true and the definition has a path set, use its path PLUS .value
+        newKey = `${value.path}.value`
       } else if (prependType) {
         // If prependType is true and useValuePath is false
         newKey = `${this.type}.${key}`

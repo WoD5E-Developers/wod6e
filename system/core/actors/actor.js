@@ -74,6 +74,9 @@ export class WoDActor extends Actor {
 
     // Prepare conditions (and maybe eventually other actor effects)
     ActorEffects._initializePreparedEffects(actor)
+    // Reset derived values BEFORE applying effects
+    ActorEffects._initializeEffectiveValues(this)
+    // Handle the applying of the effects tot he actor
     ActorEffects._prepareConditionEffects(actor)
     ActorEffects._applyActorEffects(actor)
 

@@ -14,7 +14,12 @@ export const prepareAttributesContext = async function (context, actor) {
         .map(([key, attribute]) => ({
           key,
           label: attribute.displayName,
-          value: foundry.utils.getProperty(actor, attribute.path)
+          value: foundry.utils.getProperty(actor, `${attribute.path}.effective`),
+          // We signal that an attribute is modified by an effect by checking if effective and value are different
+          // It's lazy but it should work unless bad data gets into the system
+          modified:
+            foundry.utils.getProperty(actor, `${attribute.path}.effective`) !=
+            foundry.utils.getProperty(actor, `${attribute.path}.value`)
         }))
     }))
 

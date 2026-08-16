@@ -11,6 +11,7 @@ function skillValueField() {
   return new fields.SchemaField({
     max: new fields.NumberField({ initial: 5, min: 1, integer: true, nullable: false }),
     value: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
+    effective: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
     focuses: new fields.ArrayField(new foundry.data.fields.StringField({}))
   })
 }

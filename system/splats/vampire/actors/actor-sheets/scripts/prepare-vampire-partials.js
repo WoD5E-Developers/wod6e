@@ -189,7 +189,7 @@ export function prepareDisciplinesContext(context, actor) {
     .filter(([key, discipline]) => !discipline?.hidden && actorDisciplines[key]?.visible)
     .map(([key, discipline]) => {
       const actorDiscipline = actorDisciplines[key]
-      const value = actorDiscipline?.value ?? 0
+      const value = actorDiscipline?.effective ?? 0
       const max = actorDiscipline?.max ?? 5
       const powers = actor.items
         .filter((item) => item.type === 'discipline' && item.system?.disciplineType === key)

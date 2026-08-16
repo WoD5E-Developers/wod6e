@@ -149,7 +149,8 @@
       "_TargetPlaceholder": "",
       "_Targets": "",
       "_TargetUuid": "",
-      "_Value": ""
+      "_Value": "",
+      "_ValueHasBeenModifiedByCondition": ""
     },
     "EQUIPMENT": {
       "_Equipment": ""
