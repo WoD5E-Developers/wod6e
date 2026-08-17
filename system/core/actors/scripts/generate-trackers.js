@@ -2,6 +2,7 @@ export function generateTrackers({
   name = '',
   damageName = '',
   value,
+  effective,
   max,
   disabled = 0,
   groupSize = 5,
@@ -15,7 +16,7 @@ export function generateTrackers({
 
   // Sanity check the value after we sanity check the other two
   const usableMaximum = max - disabled
-  value = Math.clamp(value, 0, usableMaximum)
+  const effectiveValue = Math.clamp(effective ?? value, 0, usableMaximum)
 
   // Group size must be a positive integer
   groupSize = Math.max(1, Math.trunc(groupSize))
@@ -30,19 +31,28 @@ export function generateTrackers({
     const isDisabled = position > usableMaximum
     let filled
     if (!onlyCurrentValueSelected) {
-      filled = reverse ? trackerValue <= value : position <= value
+      filled = reverse ? trackerValue <= effectiveValue : position <= effectiveValue
     } else {
-      filled = trackerValue === value
+      filled = trackerValue === effectiveValue
     }
+
+    const modified = filled && value !== effectiveValue
 
     const trackerSpace = {
       position,
       trackerValue,
       filled,
       disabled: isDisabled,
-      title: isDisabled ? `Disabled due to ${damageName} damage` : `Set ${name} to ${trackerValue}`,
+      title: isDisabled
+        ? `Disabled due to ${damageName} damage`
+        : `Set ${name} to ${trackerValue}${
+            modified
+              ? `; ${game.i18n.localize('WOD6E.CONDITIONS.ValueHasBeenModifiedByCondition')}`
+              : ''
+          }`,
       disabledState: isDisabled ? 'disabled' : '',
-      middle: onlyCurrentValueSelected ? trackerValue === Math.ceil(max / 2) : false
+      middle: onlyCurrentValueSelected ? trackerValue === Math.ceil(max / 2) : false,
+      modified
     }
 
     return trackerSpace

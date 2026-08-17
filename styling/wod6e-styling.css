@@ -164,7 +164,7 @@
   --tracker-filled: #fdfdfd;
   --tracker-disabled: #fdfdfdde;
   --tracker-disabled-dark: #fff;
-  --modified-color: rgba(255, 217, 1);
+  --modified-color: rgba(255, 217, 1, 0.932);
   --multiselect-background: #333332;
   --multiselect-border: #ccc;
   --multiselect-hover-background: #333332;
@@ -761,6 +761,9 @@
 .resource-tracker .resource-tracker-space.filled {
   background: var(--tracker-filled);
   box-shadow: inset 0 0 0 3px var(--tracker-background);
+}
+.resource-tracker .resource-tracker-space.filled.modified {
+  background: var(--modified-color);
 }
 .resource-tracker .resource-tracker-space.tracker-disabled {
   border-color: var(--tracker-disabled);

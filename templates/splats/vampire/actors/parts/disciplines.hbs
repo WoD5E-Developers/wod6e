@@ -63,7 +63,7 @@
             {{#each group as |space|}}
             <button
               type="button"
-              class="dot-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}"
+              class="dot-tracker-space resource-tracker-space{{#if space.filled}} filled{{/if}}{{#if space.modified}} modified{{/if}}"
               data-action="setTrackerValue"
               data-resource-path="system.vampire.disciplines.{{ discipline.key }}"
               data-value="{{ space.trackerValue }}"
