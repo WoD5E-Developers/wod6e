@@ -9,11 +9,13 @@ export function prepareSkills(actor) {
     .map(([key, skill]) => {
       const actorSkill = actorSkills[key]
       const value = actorSkill?.value ?? 0
+      const effective = actorSkill?.effective ?? 0
       const focuses = actorSkill?.focuses ?? []
 
       const trackers = generateTrackers({
         name: skill.displayName,
         value,
+        effective,
         max: 5,
         groupSize: 5
       })

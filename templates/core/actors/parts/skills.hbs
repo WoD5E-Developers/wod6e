@@ -22,7 +22,7 @@
         type="button"
         class="sheet-section-label"
         data-action="roll"
-        data-skill="{{ skill.key }}"
+        data-skill="system.skills.{{ skill.key }}"
         title="{{localize skill.label}}"
       >
         <span class="skill-name">
@@ -40,7 +40,7 @@
           {{#each group as |space|}}
           <button
             type="button"
-            class="dot-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}"
+            class="dot-tracker-space resource-tracker-space{{#if space.filled}} filled{{/if}}{{#if space.modified}} modified{{/if}}"
             data-action="setTrackerValue"
             data-resource-path="system.skills.{{ skill.key }}"
             data-value="{{ space.trackerValue }}"

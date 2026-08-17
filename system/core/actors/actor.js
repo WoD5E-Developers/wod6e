@@ -1,3 +1,4 @@
+import { ActorEffects } from './scripts/actor-effects.js'
 import { generateHealthMax, generateWillpowerMax } from './scripts/resource-max-calculations.js'
 
 /**
@@ -67,8 +68,17 @@ export class WoDActor extends Actor {
    */
   async prepareDerivedData() {
     super.prepareDerivedData()
+
     const actor = this
     const systemData = actor.system
+
+    // Prepare conditions (and maybe eventually other actor effects)
+    ActorEffects._initializePreparedEffects(actor)
+    // Reset derived values BEFORE applying effects
+    ActorEffects._initializeEffectiveValues(this)
+    // Handle the applying of the effects tot he actor
+    ActorEffects._prepareConditionEffects(actor)
+    ActorEffects._applyActorEffects(actor)
 
     if (systemData.health) {
       systemData.health.max = generateHealthMax(this)

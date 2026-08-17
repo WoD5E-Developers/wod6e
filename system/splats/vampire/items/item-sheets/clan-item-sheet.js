@@ -10,6 +10,8 @@ import {
   prepareBeastContext,
   prepareCurseContext
 } from './scripts/prepare-clan-partials.js'
+import { prepareMultiSelect } from '../../../../core/fields/multiselect.js'
+import { getTargetOptions } from '../../../../core/items/scripts/get-target-options.js'
 // Mixin
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -84,22 +86,12 @@ export class ClanItemSheet extends HandlebarsApplicationMixin(WoDItemBase) {
     context.uuid = item.uuid
     context.level = itemData?.level || 1
 
-    const selectedDisciplines = new Set(itemData?.disciplines || [])
-    context.disciplineOptions = Object.entries(WOD6E.configs.Disciplines.getList({}))
-      .filter(([, discipline]) => !discipline.hidden)
-      .map(([key, discipline]) => ({
-        key,
-        label: discipline.displayName,
-        selected: selectedDisciplines.has(key)
-      }))
-
-    const selectedDisciplineLabels = context.disciplineOptions
-      .filter((discipline) => discipline.selected)
-      .map((discipline) => game.i18n.localize(discipline.label))
-
-    context.selectedDisciplinesText = selectedDisciplineLabels.length
-      ? selectedDisciplineLabels.join(', ')
-      : game.i18n.localize('WOD6E.NoneSelected')
+    const disciplines = prepareMultiSelect(
+      itemData?.disciplines,
+      getTargetOptions({ types: ['disciplines'] })
+    )
+    context.disciplineOptions = disciplines.options
+    context.selectedDisciplinesText = disciplines.selectedText
 
     return context
   }
