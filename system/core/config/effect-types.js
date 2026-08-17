@@ -18,7 +18,7 @@ export class EffectTypes extends BaseDefinitionClass {
   }
 
   static dice = {
-    label: 'WOD6E.CONDITIONS.Dice'
+    label: 'WOD6E.CONDITIONS.DicePool'
   }
 
   /** WIP
