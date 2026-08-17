@@ -1,0 +1,115 @@
+.conditions-section {
+  .conditions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .condition-card {
+    padding: 8px 10px;
+    border: 1px solid var(--color-border-light-primary);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  .condition-header {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--color-border-light-primary);
+  }
+
+  .condition-name {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .condition-duration {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0.8;
+  }
+
+  .condition-description {
+    padding: 8px 0;
+    font-size: 13px;
+  }
+
+  .condition-subheader {
+    margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .condition-effects-table {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .condition-effect-row {
+    display: grid;
+    grid-template-columns:
+      minmax(120px, 0.8fr)
+      minmax(140px, 1fr)
+      minmax(160px, 1.2fr)
+      minmax(160px, 1.2fr);
+
+    align-items: center;
+    gap: 10px;
+    min-height: 32px;
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .condition-effect-main {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+
+  .condition-effect-type,
+  .condition-effect-value {
+    font-weight: bold;
+  }
+
+  .condition-effect-targets,
+  .condition-effect-predicates,
+  .condition-effect-exclusions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  .condition-effect-label {
+    font-size: 10px;
+    font-weight: bold;
+    opacity: 0.7;
+  }
+
+  .condition-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 10px;
+    line-height: 1.4;
+    background: rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+  }
+}

@@ -1,3 +1,4 @@
+import { ActorEffects } from '../actors/scripts/actor-effects.js'
 import { WOD6eRoll } from './wod6e-roll.js'
 
 export class WOD6eTest {
@@ -9,6 +10,24 @@ export class WOD6eTest {
     messageMode = game.settings.get('core', 'messageMode'),
     createMessage = true
   }) {
+    const test = {
+      attribute: context.attributes,
+      skill: context.skills,
+      discipline: context.disciplines,
+      action: context.action,
+      category: context.category,
+      dicePool: context.dicePool
+    }
+
+    if (actor) {
+      this._applyEffects(actor, test)
+    }
+
+    context.dicePool = test.dicePool
+    context.dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', {
+      string: `${test.dicePool}d10`
+    })
+
     const roll = new WOD6eRoll(
       context.dicePool,
       {},
@@ -52,5 +71,13 @@ export class WOD6eTest {
     if (user.character?.id !== actor.id) return
 
     Hooks.callAll('wod6e.increaseQuickening', user, amount)
+  }
+
+  static _applyEffects(actor, test) {
+    const effects = ActorEffects.getApplicableEffects(actor, test, { types: 'dice' })
+
+    for (const effect of effects) {
+      test.dicePool = ActorEffects.applyNumericEffect(test.dicePool, effect)
+    }
   }
 }

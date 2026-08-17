@@ -139,11 +139,11 @@ export class WoDItemBase extends HandlebarsApplicationMixin(
   }
 
   static async onSubmitItemForm(event, form, formData) {
-    // Process submit data
-    const submitData = this._prepareSubmitData(event, form, formData)
+    this._preserveMultiSelectFields(form, formData)
 
-    // Update the item data
-    await this.item.update(submitData)
+    const updateData = foundry.utils.expandObject(formData.object)
+
+    await this.item.update(updateData)
   }
 
   _preRender() {
@@ -162,5 +162,28 @@ export class WoDItemBase extends HandlebarsApplicationMixin(
 
     // Restore scroll positions from previous render cycle
     ActorUX._restoreScrollPositions(this)
+  }
+
+  // Because the multiselect dropdowns are not true form inputs, and all data manipulation
+  // is controlled by a data-action, we need to add some logic during the form submission process
+  // or else they get overwritten in some circumstances
+  _preserveMultiSelectFields(form, formData) {
+    const multiSelects = form.querySelectorAll('[data-multi-select][data-field-path]')
+
+    for (const multiSelect of multiSelects) {
+      const fieldPath = multiSelect.dataset.fieldPath
+
+      if (!fieldPath) continue
+
+      // If something else is already submitting this field
+      // then don't interfere with it
+      if (fieldPath in formData.object) continue
+
+      const currentValue = foundry.utils.getProperty(this.item._source, fieldPath)
+
+      if (currentValue === undefined) continue
+
+      formData.object[fieldPath] = foundry.utils.deepClone(currentValue)
+    }
   }
 }

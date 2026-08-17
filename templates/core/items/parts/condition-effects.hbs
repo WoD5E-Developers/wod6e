@@ -1,0 +1,125 @@
+<section
+  class="tab {{ tab.cssClass }}"
+  data-tab="{{ tab.id }}"
+  data-group="{{ tab.group }}"
+>
+  <div class="item-list-header flexrow">
+    <div class="item-controls align-right">
+      <a
+        data-action="addEffect"
+        title="{{localize 'WOD6E.CONDITIONS.AddEffect'}}"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="condition-effect-list">
+    {{#each effects as |effect index|}}
+    <div
+      class="condition-effect"
+      data-effect-index="{{ index }}"
+    >
+      <div class="form-group">
+        <label>
+          {{localize "WOD6E.CONDITIONS.EffectType"}}
+        </label>
+
+        <div class="form-fields">
+          <select name="system.effects.{{ index }}.type">
+            {{selectOptions
+                ../effectTypeOptions
+                selected=effect.type
+                localize=true
+            }}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group multi-select-section">
+        <label>
+          {{localize "WOD6E.CONDITIONS.Targets"}}
+        </label>
+
+        {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
+            fieldPath=(concat 'system.effects.' index '.targets')
+            options=effect.targetOptions
+            selectedText=effect.selectedTargetsText
+        }}
+      </div>
+
+      <div class="form-group">
+        <label>
+          {{localize "WOD6E.CONDITIONS.Mode"}}
+        </label>
+
+        <div class="form-fields">
+          <select name="system.effects.{{ index }}.mode">
+            {{selectOptions
+                ../effectModeOptions
+                selected=effect.mode
+                localize=true
+            }}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>
+          {{localize "WOD6E.CONDITIONS.Value"}}
+        </label>
+
+        <div class="form-fields">
+          <input
+            type="number"
+            name="system.effects.{{ index }}.value"
+            value="{{ effect.value }}"
+            min="0"
+          />
+        </div>
+      </div>
+
+      <div class="form-group multi-select-section">
+        <label>
+          {{localize "WOD6E.CONDITIONS.Predicates"}}
+        </label>
+
+        {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
+            fieldPath=(concat 'system.effects.' index '.predicates')
+            options=effect.predicateOptions
+            selectedText=effect.selectedPredicatesText
+        }}
+      </div>
+
+      <div class="form-group multi-select-section">
+        <label>
+          {{localize "WOD6E.CONDITIONS.Exclusions"}}
+        </label>
+
+        {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
+            fieldPath=(concat 'system.effects.' index '.exclusions')
+            options=effect.exclusionOptions
+            selectedText=effect.selectedExclusionsText
+        }}
+      </div>
+
+      <div class="form-group">
+        <div class="form-fields">
+          <button
+            type="button"
+            data-action="deleteEffect"
+            data-effect-index="{{ index }}"
+          >
+            <i class="fa-solid fa-trash"></i>
+            {{localize "WOD6E.Delete"}}
+          </button>
+        </div>
+      </div>
+    </div>
+    {{else}}
+    <div class="no-effect-listed">
+      {{localize "WOD6E.CONDITIONS.NoEffects"}}
+    </div>
+    {{/each}}
+  </div>
+</section>

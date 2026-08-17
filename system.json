@@ -46,11 +46,12 @@
       "flaw": {},
       "lifepath": {},
       "merit": {},
-      "nature": {},
       "resource": {},
+      "condition": {},
 
       "clan": {},
       "clanTrait": {},
+      "nature": {},
       "discipline": {}
     }
   },

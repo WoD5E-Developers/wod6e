@@ -1,4 +1,5 @@
 import { generateTrackers } from './generate-trackers.js'
+import { getEffectLabel } from './get-effect-label.js'
 
 export const prepareAttributesContext = async function (context, actor) {
   const attributeGroups = WOD6E.configs.AttributeGroups.getList({})
@@ -14,7 +15,12 @@ export const prepareAttributesContext = async function (context, actor) {
         .map(([key, attribute]) => ({
           key,
           label: attribute.displayName,
-          value: foundry.utils.getProperty(actor, attribute.path)
+          value: foundry.utils.getProperty(actor, `${attribute.path}.effective`),
+          // We signal that an attribute is modified by an effect by checking if effective and value are different
+          // It's lazy but it should work unless bad data gets into the system
+          modified:
+            foundry.utils.getProperty(actor, `${attribute.path}.effective`) !=
+            foundry.utils.getProperty(actor, `${attribute.path}.value`)
         }))
     }))
 
@@ -88,6 +94,46 @@ export const prepareActionsContext = async function (context, actor) {
       activation: action.system.activation.activationType,
       role: action.system.role,
       type: action.system.actionType
+    })
+  }
+
+  return context
+}
+
+export const prepareConditionsContext = async function (context, actor) {
+  context.tab = context.tabs.conditions
+
+  context.conditions = []
+
+  for (const condition of actor.items.filter((item) => item.type === 'condition')) {
+    const effects = condition.system?.effects ?? []
+    const durations = WOD6E.configs.Durations.getList({})
+    const effectTypes = WOD6E.configs.EffectTypes.getList({ usePath: true })
+
+    context.conditions.push({
+      id: condition.id,
+      uuid: condition.uuid,
+      name: condition.name,
+
+      description: condition.system?.description,
+      duration: durations[condition.system?.condition?.duration].label,
+
+      effects: effects.map((effect) => ({
+        type: effectTypes[effect.type].label,
+        targets: Array.from(effect.targets ?? [])
+          .map(getEffectLabel)
+          .join(', '),
+        mode: effect.mode,
+        value: effect.value,
+        predicates: Array.from(effect.predicates ?? [])
+          .map(getEffectLabel)
+          .join(', '),
+        exclusions: Array.from(effect.exclusions ?? [])
+          .map(getEffectLabel)
+          .join(', ')
+      })),
+
+      hasEffects: effects.length > 0
     })
   }
 

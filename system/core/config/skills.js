@@ -42,7 +42,7 @@ export class Skills extends BaseDefinitionClass {
     for (const [key, value] of definitionEntries) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
         // Set the path
-        value.path = `system.skills.${key}.value`
+        value.path = `system.skills.${key}`
       }
     }
   }
