@@ -27,7 +27,7 @@
     "units": "ft",
     "distance": 5
   },
-  "initiative": "1d10",
+  "initiative": "@attributes.wits.effective",
   "socket": true,
   "changelog": "https://github.com/wod5e-Developers/wod6e/releases/tag/1.0.6",
   "license": "./LICENSE.md",
