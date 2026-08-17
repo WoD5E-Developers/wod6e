@@ -164,6 +164,7 @@
   --tracker-filled: #fdfdfd;
   --tracker-disabled: #fdfdfdde;
   --tracker-disabled-dark: #fff;
+  --modified-color: rgba(255, 217, 1);
   --multiselect-background: #333332;
   --multiselect-border: #ccc;
   --multiselect-hover-background: #333332;
@@ -206,6 +207,7 @@
   --tracker-filled: #000;
   --tracker-disabled: #000000de;
   --tracker-disabled-dark: #fff;
+  --modified-color: #8a7500;
   --multiselect-background: #d5cbab;
   --multiselect-border: #000;
   --multiselect-hover-background: #ffffff18;
@@ -489,7 +491,7 @@
   cursor: pointer;
 }
 [data-actor-section="attributes"] .attribute-field.modified .attribute-value {
-  color: gold;
+  color: var(--modified-color);
 }
 [data-actor-section="attributes"] .attribute-field .attribute-value {
   width: 100%;
