@@ -518,6 +518,102 @@
   white-space: nowrap;
 }
 
+.conditions-section .conditions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.conditions-section .condition-card {
+  padding: 8px 10px;
+  border: 1px solid var(--color-border-light-primary);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.12);
+}
+.conditions-section .condition-header {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--color-border-light-primary);
+}
+.conditions-section .condition-name {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: bold;
+  text-align: left;
+}
+.conditions-section .condition-duration {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+.conditions-section .condition-description {
+  padding: 8px 0;
+  font-size: 13px;
+}
+.conditions-section .condition-subheader {
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.conditions-section .condition-effects-table {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.conditions-section .condition-effect-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.8fr) minmax(140px, 1fr) minmax(160px, 1.2fr) minmax(160px, 1.2fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.conditions-section .condition-effect-main {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.conditions-section .condition-effect-type,
+.conditions-section .condition-effect-value {
+  font-weight: bold;
+}
+.conditions-section .condition-effect-targets,
+.conditions-section .condition-effect-predicates,
+.conditions-section .condition-effect-exclusions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.conditions-section .condition-effect-label {
+  font-size: 10px;
+  font-weight: bold;
+  opacity: 0.7;
+}
+.conditions-section .condition-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 10px;
+  line-height: 1.4;
+  background: rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
 .actor.sheet .sheet-field {
   display: flex;
   align-items: center;

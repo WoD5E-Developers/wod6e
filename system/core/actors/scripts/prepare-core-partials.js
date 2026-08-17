@@ -1,4 +1,5 @@
 import { generateTrackers } from './generate-trackers.js'
+import { getEffectLabel } from './get-effect-label.js'
 
 export const prepareAttributesContext = async function (context, actor) {
   const attributeGroups = WOD6E.configs.AttributeGroups.getList({})
@@ -100,18 +101,39 @@ export const prepareActionsContext = async function (context, actor) {
 }
 
 export const prepareConditionsContext = async function (context, actor) {
-  // Tab data
-  context.tab = context.tabs.actions
+  context.tab = context.tabs.conditions
 
   context.conditions = []
-  // Populate actions
+
   for (const condition of actor.items.filter((item) => item.type === 'condition')) {
+    const effects = condition.system?.effects ?? []
+    const durations = WOD6E.configs.Durations.getList({})
+    const effectTypes = WOD6E.configs.EffectTypes.getList({ usePath: true })
+
     context.conditions.push({
       id: condition.id,
       uuid: condition.uuid,
       name: condition.name,
+
       description: condition.system?.description,
-      duration: condition.system?.duration
+      duration: durations[condition.system?.condition?.duration].label,
+
+      effects: effects.map((effect) => ({
+        type: effectTypes[effect.type].label,
+        targets: Array.from(effect.targets ?? [])
+          .map(getEffectLabel)
+          .join(', '),
+        mode: effect.mode,
+        value: effect.value,
+        predicates: Array.from(effect.predicates ?? [])
+          .map(getEffectLabel)
+          .join(', '),
+        exclusions: Array.from(effect.exclusions ?? [])
+          .map(getEffectLabel)
+          .join(', ')
+      })),
+
+      hasEffects: effects.length > 0
     })
   }
 

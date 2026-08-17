@@ -3,33 +3,133 @@
   data-group="primary"
   data-tab="conditions"
 >
-  <div class="sheet-section-list">
-    {{#each conditions as |condition|}}
-    <div
-      class="sheet-section-row item-section condition-row flexrow"
-      data-item-id="{{ condition.id }}"
-      data-uuid="{{ condition.uuid }}"
-    >
+  <header class="sheet-section-header">
+    <div class="sheet-section-name align-left">
+      {{localize 'WOD6E.TABS.Conditions'}}
+    </div>
+
+    <div class="sheet-section-data-actions align-right">
       <a
-        class="item-open"
-        data-action="openItem"
-        data-uuid="{{ condition.uuid }}"
-        title="{{localize 'WOD6E.ViewItem'}}"
+        data-action="searchItem"
+        data-type="condition"
+        title="{{localize 'WOD6E.Search'}}"
       >
-        <i class="fas fa-book"></i>
+        <i class="fa-solid fa-magnifying-glass"></i>
       </a>
 
-      <button
-        type="button"
-        class="sheet-section-label"
-        data-action="sendItemToChat"
-        data-uuid="{{ condition.uuid }}"
-        title="{{localize 'WOD6E.PostToChat'}}"
+      <a
+        data-action="createItem"
+        data-type="condition"
+        title="{{localize 'WOD6E.Create'}}"
       >
-        <span class="item-name bolded">
-          {{ condition.name }}
-        </span>
-      </button>
+        <i class="fas fa-plus"></i>
+      </a>
     </div>
+  </header>
+
+  <div class="sheet-section-list conditions-list">
+    {{#each conditions as |condition|}}
+      <div
+        class="condition-card"
+        data-item-id="{{ condition.id }}"
+        data-uuid="{{ condition.uuid }}"
+      >
+        <header class="condition-header">
+          <a
+            class="item-open"
+            data-action="openItem"
+            data-uuid="{{ condition.uuid }}"
+            title="{{localize 'WOD6E.ViewItem'}}"
+          >
+            <i class="fas fa-book"></i>
+          </a>
+
+          <button
+            type="button"
+            class="condition-name"
+            data-action="sendItemToChat"
+            data-uuid="{{ condition.uuid }}"
+            title="{{localize 'WOD6E.PostToChat'}}"
+          >
+            {{ condition.name }}
+          </button>
+
+          <span class="condition-duration">
+            <i class="fa-solid fa-clock"></i>
+            {{ condition.duration }}
+          </span>
+        </header>
+
+        {{#if condition.description}}
+          <div class="condition-description">
+            {{{ condition.description }}}
+          </div>
+        {{/if}}
+
+        {{#if condition.hasEffects}}
+          <div class="condition-effects">
+            <div class="condition-subheader">
+              {{localize 'WOD6E.TABS.Effects'}}
+            </div>
+
+            <div class="condition-effects-table">
+              {{#each condition.effects as |effect|}}
+                <div class="condition-effect-row">
+                  <div class="condition-effect-main">
+                    <span class="condition-effect-type">
+                      {{ effect.type }}
+                    </span>
+
+                    <span class="condition-effect-value">
+                      {{#if (eq effect.mode "add")}}
+                        +{{ effect.value }}
+                      {{else if (eq effect.mode "subtract")}}
+                        -{{ effect.value }}
+                      {{else}}
+                        = {{ effect.value }}
+                      {{/if}}
+                    </span>
+                  </div>
+
+                  <div class="condition-effect-targets flexcol">
+                    <span class="condition-effect-label">
+                      Applies To
+                    </span>
+
+                    <span class="condition-tag">
+                      {{ effect.targets }}
+                    </span>
+                  </div>
+
+                  <div class="condition-effect-predicates flexcol">
+                    {{#if effect.predicates.length}}
+                      <span class="condition-effect-label">
+                        Predicates
+                      </span>
+
+                      <span class="condition-tag">
+                        {{ effect.predicates }}
+                      </span>
+                    {{/if}}
+                  </div>
+
+                  <div class="condition-effect-exclusions flexcol">
+                    {{#if effect.exclusions.length}}
+                      <span class="condition-effect-label">
+                        Exclusions
+                      </span>
+
+                      <span class="condition-tag">
+                        {{ effect.exclusions }}
+                      </span>
+                    {{/if}}
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        {{/if}}
+      </div>
     {{/each}}
+  </div>
 </section>
