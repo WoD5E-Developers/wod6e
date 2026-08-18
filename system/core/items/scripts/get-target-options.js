@@ -45,6 +45,8 @@ export const getTargetOptions = async ({ types = [], usePaths, actor = null }) =
 export const getItemOptions = async ({ actor = null } = {}) => {
   const options = []
 
+  const hasValues = (values) => (values?.size ?? values?.length ?? 0) > 0
+
   const addItem = (item) => {
     // Ignore items without a dataItemId set
     const dataItemId = item?.flags?.wod6e?.dataItemId
@@ -53,7 +55,7 @@ export const getItemOptions = async ({ actor = null } = {}) => {
     // Ignore items without a configured test
     const test = item.system?.test
     const hasTest =
-      test?.attributes?.size > 0 || test?.skills?.size > 0 || test?.disciplines?.size > 0
+      hasValues(test?.attributes) || hasValues(test?.skills) || hasValues(test?.disciplines)
     if (!hasTest) return
 
     options.push({
