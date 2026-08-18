@@ -1,3 +1,4 @@
+import { groupSelectOptions } from '../../fields/group-select-options.js'
 import { prepareMultiSelect } from '../../fields/multiselect.js'
 import { buildEnrichedField } from './build-enriched-field.js'
 import { formatTest } from './format-test-labels.js'
@@ -100,6 +101,8 @@ export async function prepareDifficultyContext(context, item) {
       types: ['attributes', 'skills', 'disciplines'],
       usePaths: true
     })
+    context.traitGroups = groupSelectOptions(context.traitOptions)
+    context.selectedTrait = difficulty?.targetsTrait
   }
 
   return context

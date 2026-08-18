@@ -1,3 +1,5 @@
+import { getGroupLabel } from './get-group-label.js'
+
 export async function _onToggleMultiSelect(event, target) {
   event.preventDefault()
 
@@ -101,7 +103,7 @@ export const prepareMultiSelect = (selectedValues, options) => {
       if (!groups[type]) {
         groups[type] = {
           key: type,
-          label: getMultiSelectGroupLabel(type),
+          label: getGroupLabel(type),
           options: []
         }
       }
@@ -122,16 +124,4 @@ export const prepareMultiSelect = (selectedValues, options) => {
 
     labels: selectedLabels
   }
-}
-
-const getMultiSelectGroupLabel = (type) => {
-  const labels = {
-    attribute: 'WOD6E.ATTRIBUTES.Attributes',
-    skill: 'WOD6E.SKILLS.Skills',
-    discipline: 'WOD6E.VAMPIRE.Disciplines',
-    resource: 'WOD6E.RESOURCES.Resources',
-    item: 'WOD6E.ITEMS.Items'
-  }
-
-  return game.i18n.localize(labels[type] ?? type)
 }

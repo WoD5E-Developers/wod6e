@@ -33,12 +33,18 @@
     <label>{{localize "WOD6E.ACTIONS.TargetsTrait"}}</label>
 
     <select name="system.difficulty.targetsTrait">
-      {{selectOptions
-        traitOptions
-        selected=difficulty.targetsTrait
-        valueAttr="key"
-        labelAttr="label"
-      }}
+      {{#each traitGroups as |group|}}
+        <optgroup label="{{ group.label }}">
+          {{#each group.options as |option|}}
+            <option
+              value="{{ option.key }}"
+              {{#if (eq option.key ../../selectedTrait)}}selected{{/if}}
+            >
+              {{ option.label }}
+            </option>
+          {{/each}}
+        </optgroup>
+      {{/each}}
     </select>
   </div>
   {{/if}}
