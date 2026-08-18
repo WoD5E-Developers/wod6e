@@ -14,11 +14,17 @@ export class EffectTypes extends BaseDefinitionClass {
   }
 
   static actorTrait = {
-    label: 'WOD6E.CONDITIONS.ActorTrait'
+    label: 'WOD6E.CONDITIONS.ActorTrait',
+    showTargets: true,
+    showValueFields: true
   }
 
   static dice = {
-    label: 'WOD6E.CONDITIONS.DicePool'
+    label: 'WOD6E.CONDITIONS.DicePool',
+    showTargets: true,
+    showValueFields: true,
+    showPredicates: true,
+    showExclusions: true
   }
 
   /** WIP

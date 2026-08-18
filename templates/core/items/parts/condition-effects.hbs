@@ -36,6 +36,7 @@
         </div>
       </div>
 
+      {{#if effect.effectUsesTargets}}
       <div class="form-group multi-select-section">
         <label>
           {{localize "WOD6E.CONDITIONS.Targets"}}
@@ -48,7 +49,9 @@
             selectedText=effect.selectedTargetsText
         }}
       </div>
+      {{/if}}
 
+      {{#if effect.effectUsesValueFields}}
       <div class="form-group">
         <label>
           {{localize "WOD6E.CONDITIONS.Mode"}}
@@ -79,7 +82,9 @@
           />
         </div>
       </div>
+      {{/if}}
 
+      {{#if effect.effectUsesPredicates}}
       <div class="form-group multi-select-section">
         <label>
           {{localize "WOD6E.CONDITIONS.Predicates"}}
@@ -92,7 +97,9 @@
             selectedText=effect.selectedPredicatesText
         }}
       </div>
+      {{/if}}
 
+      {{#if effect.effectUsesExclusions}}
       <div class="form-group multi-select-section">
         <label>
           {{localize "WOD6E.CONDITIONS.Exclusions"}}
@@ -105,6 +112,7 @@
             selectedText=effect.selectedExclusionsText
         }}
       </div>
+      {{/if}}
 
       <div class="form-group">
         <div class="form-fields">

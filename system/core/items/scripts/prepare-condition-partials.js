@@ -22,60 +22,87 @@ export const prepareConditionEffectsContext = async function (context, item) {
 
   // Prepare these once, we don't need to prep them for each individual effect
   // since the types are static
+  const effectTypes = WOD6E.configs.EffectTypes.getList({})
+
   const predicateOptions = await getTargetOptions({
     types: ['attributes', 'skills', 'disciplines', 'items'],
     usePaths: true,
     actor: item.actor
   })
+
   const exclusionOptions = await getTargetOptions({
     types: ['attributes', 'skills', 'disciplines', 'items'],
     usePaths: true
   })
 
+  // Special cases where some effect types use different target types
+  const targetTypesByEffect = {
+    resource: ['resources'],
+    resourceMaximum: ['resources']
+  }
+
   // Part-specific data
   context.effects = await Promise.all(
     (itemData?.effects ?? []).map(async (effect) => {
-      // Special cases where some effect types need a different dropdown list
-      const targetTypesByEffect = {
-        resource: ['resources'],
-        resourceMaximum: ['resources']
+      const effectTypeData = effectTypes[effect.type]
+
+      const effectUsesTargets = effectTypeData?.showTargets ?? false
+      const effectUsesValueFields = effectTypeData?.showValueFields ?? false
+      const effectUsesPredicates = effectTypeData?.showPredicates ?? false
+      const effectUsesExclusions = effectTypeData?.showExclusions ?? false
+
+      let targets = null
+      let predicates = null
+      let exclusions = null
+
+      if (effectUsesTargets) {
+        const targetTypes = targetTypesByEffect[effect.type] ?? [
+          'attributes',
+          'skills',
+          'disciplines'
+        ]
+
+        const targetOptions = await getTargetOptions({
+          types: targetTypes,
+          usePaths: true,
+          actor: item.actor
+        })
+
+        targets = prepareMultiSelect(effect.targets, targetOptions)
       }
 
-      // Otherwise: attributes, skills, disciplines
-      const targetTypes = targetTypesByEffect[effect.type] ?? [
-        'attributes',
-        'skills',
-        'disciplines'
-      ]
+      if (effectUsesPredicates) {
+        predicates = prepareMultiSelect(effect.predicates, predicateOptions)
+      }
 
-      const targetOptions = await getTargetOptions({
-        types: targetTypes,
-        usePaths: true,
-        actor: item.actor
-      })
-      const targets = prepareMultiSelect(effect.targets, targetOptions)
-      const predicates = prepareMultiSelect(effect.predicates, predicateOptions)
-      const exclusions = prepareMultiSelect(effect.exclusions, exclusionOptions)
+      if (effectUsesExclusions) {
+        exclusions = prepareMultiSelect(effect.exclusions, exclusionOptions)
+      }
 
       return {
         ...effect,
 
-        targetOptions: targets.options,
-        targetGroups: targets.groups,
-        selectedTargetsText: targets.selectedText,
+        effectUsesTargets,
+        effectUsesValueFields,
+        effectUsesPredicates,
+        effectUsesExclusions,
 
-        predicateOptions: predicates.options,
-        predicateGroups: predicates.groups,
-        selectedPredicatesText: predicates.selectedText,
+        targetOptions: targets?.options ?? [],
+        targetGroups: targets?.groups ?? [],
+        selectedTargetsText: targets?.selectedText ?? '',
 
-        exclusionOptions: exclusions.options,
-        exclusionGroups: exclusions.groups,
-        selectedExclusionsText: exclusions.selectedText
+        predicateOptions: predicates?.options ?? [],
+        predicateGroups: predicates?.groups ?? [],
+        selectedPredicatesText: predicates?.selectedText ?? '',
+
+        exclusionOptions: exclusions?.options ?? [],
+        exclusionGroups: exclusions?.groups ?? [],
+        selectedExclusionsText: exclusions?.selectedText ?? ''
       }
     })
   )
 
-  context.effectTypeOptions = WOD6E.configs.EffectTypes.getList({})
+  context.effectTypeOptions = effectTypes
 
   context.effectModeOptions = {
     add: 'WOD6E.Add',

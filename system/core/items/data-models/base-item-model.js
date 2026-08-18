@@ -7,9 +7,6 @@ export class WoDItemModel extends foundry.abstract.TypeDataModel {
     // Description
     schema.description = new fields.HTMLField({ initial: '' })
 
-    // Data Item ID
-    schema.dataItemId = new fields.StringField({ initial: '' })
-
     // Source information
     schema.source = new fields.SchemaField({
       book: new fields.StringField({ initial: '' }),
