@@ -92,6 +92,17 @@
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
       }
+    },
+    {
+      "label": "Actions",
+      "type": "Item",
+      "name": "actions",
+      "path": "packs/actions",
+      "system": "wod6e",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
   "packFolders": [
@@ -99,7 +110,8 @@
       "name": "Vampire the Masquerade 6e",
       "sorting": "m",
       "packs": [
-        "clans"
+        "clans",
+        "actions"
       ],
       "color": "#8c0303"
     }

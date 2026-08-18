@@ -10,7 +10,8 @@
     "test": "vitest",
     "audit": "npm audit --json > audit.json",
     "convert-clans": "fvtt package unpack -n Clans --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_clans && fvtt package pack -n Clans --inputDirectory ./packs/unpacked/_clans --outputDirectory ./packs --nedb",
-    "convert-packs": "npm run convert-clans"
+    "convert-actions": "fvtt package unpack -n Actions --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_actions && fvtt package pack -n Actions --inputDirectory ./packs/unpacked/_actions --outputDirectory ./packs --nedb",
+    "convert-packs": "npm run convert-clans && npm run convert-actions"
   },
   "browserslist": [
     "last 3 versions"
