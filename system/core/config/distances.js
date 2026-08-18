@@ -51,8 +51,16 @@ export class Distances extends BaseDefinitionClass {
     label: 'WOD6E.ACTIONS.Short'
   }
 
-  static far = {
-    label: 'WOD6E.ACTIONS.Far'
+  static medium = {
+    label: 'WOD6E.ACTIONS.Medium'
+  }
+
+  static long = {
+    label: 'WOD6E.ACTIONS.Long'
+  }
+
+  static farAway = {
+    label: 'WOD6E.ACTIONS.FarAway'
   }
 
   static unlimited = {

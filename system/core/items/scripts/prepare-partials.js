@@ -60,19 +60,47 @@ export async function prepareTestContext(context, item) {
 }
 
 export async function prepareDifficultyContext(context, item) {
-  const itemData = item.system
+  const difficulty = item.system?.difficulty ?? {}
 
   // Tab data
   context.tab = context.tabs.difficulty
 
-  // Main dropdown
+  // Difficulty type options
   context.difficultyOptions = WOD6E.configs.Difficulties.getList({})
-  context.difficultySelected = itemData?.difficulty?.type || ''
+  context.difficultySelected = difficulty.type || 'variable'
 
-  // Additional options
   const difficultyType = context.difficultyOptions[context.difficultySelected]
-  context.showFixedDifficulty = difficultyType?.usesFixedValue ?? false
-  context.showAttributeSelector = difficultyType?.usesAttribute ?? false
+
+  // Difficulty data
+  context.difficulty = difficulty
+
+  // Config-driven display options
+  context.difficultyUsesFixedValue = difficultyType?.usesFixedValue ?? false
+  context.difficultyUsesTargetsTrait = difficultyType?.usesTargetsTrait ?? false
+  context.difficultyUsesAttribute = difficultyType?.usesAttribute ?? false
+  context.difficultyUsesMultipleAttributes = difficultyType?.multipleAttributes ?? false
+  context.difficultyUsesNpcLevel = difficultyType?.usesNpcLevel ?? false
+  context.difficultyDeterminedByStoryteller = difficultyType?.determinedByStoryteller ?? false
+
+  // Attribute options
+  if (difficultyType?.multipleAttributes) {
+    const attributes = prepareMultiSelect(
+      difficulty?.attributes,
+      await getTargetOptions({ types: ['attributes'] })
+    )
+    context.attributeOptions = attributes.options
+    context.selectedAttributesText = attributes.selectedText
+  } else {
+    context.attributeOptions = WOD6E.configs.Attributes.getList({})
+  }
+
+  // Target trait options
+  if (difficultyType?.usesTargetsTrait) {
+    context.traitOptions = await getTargetOptions({
+      types: ['attributes', 'skills', 'disciplines', 'items'],
+      usePaths: true
+    })
+  }
 
   return context
 }

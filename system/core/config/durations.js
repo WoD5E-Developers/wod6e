@@ -58,6 +58,10 @@ export class Durations extends BaseDefinitionClass {
   static special = {
     label: 'WOD6E.ACTIONS.Special'
   }
+
+  static maintained = {
+    label: 'WOD6E.ACTIONS.Maintained'
+  }
 }
 
 // Hook to call onReady when the game is ready
