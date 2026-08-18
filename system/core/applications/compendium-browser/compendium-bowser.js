@@ -57,7 +57,7 @@ export class CompendiumBrowserApplication extends HandlebarsApplicationMixin(App
         })
       },
       types: {
-        open: false,
+        open: true,
         options: Object.entries(WOD6E.configs.ItemTypes.getList({})).map(([id, item]) => {
           return {
             id,
