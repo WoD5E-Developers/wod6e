@@ -32,7 +32,8 @@ export const prepareConditionEffectsContext = async function (context, item) {
 
   const exclusionOptions = await getTargetOptions({
     types: ['attributes', 'skills', 'disciplines', 'items'],
-    usePaths: true
+    usePaths: true,
+    actor: item.actor
   })
 
   // Special cases where some effect types use different target types
