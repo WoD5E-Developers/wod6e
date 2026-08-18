@@ -6,11 +6,15 @@ import { formatOrdinals } from '../../../../../core/scripts/format-ordinals.js'
 
 export const prepareHeaderContext = async function (context, actor) {
   const actorData = actor.system
+  const clan = context.clan
 
   context.name = actor.name
   context.archetype = actorData.archetype
   context.age = actorData.age
   context.vampire = actorData.vampire
+  if (clan) {
+    context.curse = clan?.system?.curse?.name ? clan?.system?.curse?.name : `${clan?.name} Curse`
+  }
 
   // Construct how the labels should look by giving all the generation options as dropdowns
   context.generationOptions = Object.values(WOD6E.configs.GenerationCategories.getList({}))
