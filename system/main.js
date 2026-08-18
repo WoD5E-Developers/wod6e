@@ -46,6 +46,7 @@ import { WOD6eRoll } from './core/scripts/wod6e-roll.js'
 import { QuickeningDramaTrackerApplication } from './core/applications/quickening-drama-tracker/quickening-drama-tracker.js'
 import { CostTypes } from './core/config/cost-types.js'
 import { EffectTypes } from './core/config/effect-types.js'
+import { GenerationCategories } from './splats/vampire/config/generations-categories.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -70,7 +71,8 @@ window.WOD6E = {
     Distances,
     Durations,
     CostTypes,
-    EffectTypes
+    EffectTypes,
+    GenerationCategories
   },
   actors: {
     WoDActorBase,

@@ -1,6 +1,7 @@
 {
   "WOD6E": {
     "VAMPIRE": {
+      "Ancilla": "Ancilla",
       "Animalism": "Animalism",
       "Auspex": "Auspex",
       "Beast": "Beast",
@@ -13,14 +14,18 @@
       "Disciplines": "Disciplines",
       "DisciplineType": "Discipline Type",
       "Dominate": "Dominate",
+      "Duskborn": "Duskborn",
+      "Elder": "Elder",
       "Fortitude": "Fortitude",
       "Frenzy": "Frenzy",
       "Humanity": "Humanity",
       "HumanityScale": "Humanity Scale",
+      "Methuselah": "Methuselah",
       "Monstrous": "Monstrous",
       "Mortal": "Mortal",
       "Nature": "Nature",
       "Necromancy": "Necromancy",
+      "Neonate": "Neonate",
       "Obfuscate": "Obfuscate",
       "Oblivion": "Oblivion",
       "Potence": "Potence",
