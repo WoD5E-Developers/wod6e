@@ -29,16 +29,16 @@ export async function prepareTestContext(context, item) {
   // Attributes
   const attributes = prepareMultiSelect(
     test?.attributes,
-    getTargetOptions({ types: ['attributes'] })
+    await getTargetOptions({ types: ['attributes'] })
   )
 
   // Skills
-  const skills = prepareMultiSelect(test?.skills, getTargetOptions({ types: ['skills'] }))
+  const skills = prepareMultiSelect(test?.skills, await getTargetOptions({ types: ['skills'] }))
 
   // Disciplines
   const disciplines = prepareMultiSelect(
     test?.disciplines,
-    getTargetOptions({ types: ['disciplines'] })
+    await getTargetOptions({ types: ['disciplines'] })
   )
 
   context.test = {

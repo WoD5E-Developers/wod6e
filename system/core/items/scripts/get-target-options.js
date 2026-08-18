@@ -1,5 +1,5 @@
 // Return target options belonging to the requested target groups.
-export const getTargetOptions = ({ types = [], usePaths }) => {
+export const getTargetOptions = async ({ types = [], usePaths, actor = null }) => {
   const targetGroups = {
     attributes: Object.entries(WOD6E.configs.Attributes.getList({ usePath: usePaths ?? false }))
       .filter(([, attribute]) => !attribute.hidden)
@@ -34,5 +34,70 @@ export const getTargetOptions = ({ types = [], usePaths }) => {
       }))
   }
 
+  if (types.includes('items')) {
+    targetGroups.items = await getItemOptions({ actor })
+  }
+
   return types.flatMap((type) => targetGroups[type] ?? [])
+}
+
+// Compile options of items across different sources
+export const getItemOptions = async ({ actor = null } = {}) => {
+  const options = []
+
+  const addItem = (item) => {
+    // Ignore items without a dataItemId set
+    const dataItemId = item?.flags?.wod6e?.dataItemId
+    if (!dataItemId) return
+
+    // Ignore items without a configured test
+    const test = item.system?.test
+    const hasTest =
+      test?.attributes?.size > 0 || test?.skills?.size > 0 || test?.disciplines?.size > 0
+    if (!hasTest) return
+
+    options.push({
+      key: dataItemId,
+      label: item.name,
+      type: 'item'
+    })
+  }
+
+  // World Items
+  for (const item of game.items) {
+    if (!item.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER)) continue
+
+    addItem(item)
+  }
+
+  // Current Actor Items
+  if (actor) {
+    for (const item of actor.items) {
+      if (!item.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER)) continue
+
+      addItem(item)
+    }
+  }
+
+  // Compendium Items
+  for (const pack of game.packs) {
+    if (pack.documentName !== 'Item') continue
+
+    const index = await pack.getIndex({
+      fields: [
+        'name',
+        'flags.wod6e.dataItemId',
+        'system.test.attributes',
+        'system.test.skills',
+        'system.test.disciplines'
+      ]
+    })
+
+    for (const item of index) {
+      addItem(item)
+    }
+  }
+
+  // De-duplicate by dataItemId
+  return [...new Map(options.map((option) => [option.key, option])).values()]
 }

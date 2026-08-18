@@ -20,44 +20,57 @@ export const prepareConditionEffectsContext = async function (context, item) {
   // Tab data
   context.tab = context.tabs.effects
 
-  // Part-specific data
-  context.effects = (itemData?.effects ?? []).map((effect) => {
-    // Special cases where some effect types need a different dropdown list
-    const targetTypesByEffect = {
-      resource: ['resources'],
-      resourceMaximum: ['resources']
-    }
-    // Otherwise, this is the default - attributes, skills, disciplines
-    const targetTypes = targetTypesByEffect[effect.type] ?? ['attributes', 'skills', 'disciplines']
-    // Targets (using the above logic to determine what targetTypes is)
-    const targets = prepareMultiSelect(
-      effect.targets,
-      getTargetOptions({ types: targetTypes, usePaths: true })
-    )
-    // Predicates
-    const predicates = prepareMultiSelect(
-      effect.predicates,
-      getTargetOptions({ types: ['attributes', 'skills', 'disciplines'], usePaths: true })
-    )
-    // Exclusions
-    const exclusions = prepareMultiSelect(
-      effect.exclusions,
-      getTargetOptions({ types: ['attributes', 'skills', 'disciplines'], usePaths: true })
-    )
-
-    return {
-      ...effect,
-
-      targetOptions: targets.options,
-      selectedTargetsText: targets.selectedText,
-
-      predicateOptions: predicates.options,
-      selectedPredicatesText: predicates.selectedText,
-
-      exclusionOptions: exclusions.options,
-      selectedExclusionsText: exclusions.selectedText
-    }
+  // Prepare these once, we don't need to prep them for each individual effect
+  // since the types are static
+  const predicateOptions = await getTargetOptions({
+    types: ['attributes', 'skills', 'disciplines', 'items'],
+    usePaths: true,
+    actor: item.actor
   })
+  const exclusionOptions = await getTargetOptions({
+    types: ['attributes', 'skills', 'disciplines', 'items'],
+    usePaths: true
+  })
+
+  // Part-specific data
+  context.effects = await Promise.all(
+    (itemData?.effects ?? []).map(async (effect) => {
+      // Special cases where some effect types need a different dropdown list
+      const targetTypesByEffect = {
+        resource: ['resources'],
+        resourceMaximum: ['resources']
+      }
+
+      // Otherwise: attributes, skills, disciplines
+      const targetTypes = targetTypesByEffect[effect.type] ?? [
+        'attributes',
+        'skills',
+        'disciplines'
+      ]
+
+      const targetOptions = await getTargetOptions({
+        types: targetTypes,
+        usePaths: true,
+        actor: item.actor
+      })
+      const targets = prepareMultiSelect(effect.targets, targetOptions)
+      const predicates = prepareMultiSelect(effect.predicates, predicateOptions)
+      const exclusions = prepareMultiSelect(effect.exclusions, exclusionOptions)
+
+      return {
+        ...effect,
+
+        targetOptions: targets.options,
+        selectedTargetsText: targets.selectedText,
+
+        predicateOptions: predicates.options,
+        selectedPredicatesText: predicates.selectedText,
+
+        exclusionOptions: exclusions.options,
+        selectedExclusionsText: exclusions.selectedText
+      }
+    })
+  )
 
   context.effectTypeOptions = WOD6E.configs.EffectTypes.getList({})
 
