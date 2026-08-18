@@ -97,7 +97,7 @@ export async function prepareDifficultyContext(context, item) {
   // Target trait options
   if (difficultyType?.usesTargetsTrait) {
     context.traitOptions = await getTargetOptions({
-      types: ['attributes', 'skills', 'disciplines', 'items'],
+      types: ['attributes', 'skills', 'disciplines'],
       usePaths: true
     })
   }

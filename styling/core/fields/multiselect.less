@@ -58,4 +58,25 @@
       }
     }
   }
+
+  .multi-select-group {
+    &:not(:last-child) {
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border-light-2);
+    }
+
+    .multi-select-group-label {
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .multi-select-group-options {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }

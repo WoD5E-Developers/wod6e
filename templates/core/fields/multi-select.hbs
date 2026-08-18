@@ -19,6 +19,31 @@
     class="multi-select-dropdown"
     popover="manual"
   >
+    {{#if groups}}
+    {{#each groups as |group|}}
+    <div class="multi-select-group">
+      <div class="multi-select-group-label">
+        {{ group.label }}
+      </div>
+
+      <div class="multi-select-group-options">
+        {{#each group.options as |option|}}
+        <label class="multi-select-option">
+          <input
+            type="checkbox"
+            value="{{ option.key }}"
+            data-action="toggleMultiSelectOption"
+            {{checked
+            option.selected}}
+          />
+
+          <span>{{ option.label }}</span>
+        </label>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+    {{else}}
     {{#each options as |option|}}
     <label class="multi-select-option">
       <input
@@ -32,5 +57,6 @@
       <span>{{ option.label }}</span>
     </label>
     {{/each}}
+    {{/if}}
   </div>
 </div>

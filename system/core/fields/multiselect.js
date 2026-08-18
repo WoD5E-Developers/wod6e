@@ -94,11 +94,44 @@ export const prepareMultiSelect = (selectedValues, options) => {
     .filter((option) => option.selected)
     .map((option) => option.label)
 
+  const groups = Object.values(
+    preparedOptions.reduce((groups, option) => {
+      const type = option.type ?? 'other'
+
+      if (!groups[type]) {
+        groups[type] = {
+          key: type,
+          label: getMultiSelectGroupLabel(type),
+          options: []
+        }
+      }
+
+      groups[type].options.push(option)
+
+      return groups
+    }, {})
+  )
+
   return {
     options: preparedOptions,
+    groups,
+
     selectedText: selectedLabels.length
       ? selectedLabels.join(', ')
       : game.i18n.localize('WOD6E.NoneSelected'),
+
     labels: selectedLabels
   }
+}
+
+const getMultiSelectGroupLabel = (type) => {
+  const labels = {
+    attribute: 'WOD6E.ATTRIBUTES.Attributes',
+    skill: 'WOD6E.SKILLS.Skills',
+    discipline: 'WOD6E.VAMPIRE.Disciplines',
+    resource: 'WOD6E.RESOURCES.Resources',
+    item: 'WOD6E.ITEMS.Items'
+  }
+
+  return game.i18n.localize(labels[type] ?? type)
 }

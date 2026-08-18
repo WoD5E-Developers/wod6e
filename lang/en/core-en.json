@@ -175,6 +175,7 @@
       "DataItemIdCannotBeEmpty": "Data Item ID cannot be empty. Please go to the item's Settings tab and click the \"Generate Data Item ID\" button.",
       "DeleteItem": "Delete Item",
       "GenerateDataItemID": "Generate Data Item ID",
+      "Items": "Items",
       "Level": "Level",
       "NoItemsFound": "There were no items found associated with Data Item ID \"{dataItemId}.\"",
       "NumberStringResourceCost": "{number} {string}",

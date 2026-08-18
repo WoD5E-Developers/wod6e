@@ -61,12 +61,15 @@ export const prepareConditionEffectsContext = async function (context, item) {
         ...effect,
 
         targetOptions: targets.options,
+        targetGroups: targets.groups,
         selectedTargetsText: targets.selectedText,
 
         predicateOptions: predicates.options,
+        predicateGroups: predicates.groups,
         selectedPredicatesText: predicates.selectedText,
 
         exclusionOptions: exclusions.options,
+        exclusionGroups: exclusions.groups,
         selectedExclusionsText: exclusions.selectedText
       }
     })
