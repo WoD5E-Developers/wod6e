@@ -4,6 +4,19 @@
   data-group="{{ tab.group }}"
 >
   <div class="form-group">
+    <label>
+      <b>{{localize 'WOD6E.Description'}}</b>
+    </label>
+    <input
+      type="text"
+      name="system.difficulty.description"
+      value="{{ difficulty.description }}"
+    />
+  </div>
+
+  <hr>
+
+  <div class="form-group">
     <label>{{localize "WOD6E.ACTIONS.DifficultyType"}}</label>
 
     <select name="system.difficulty.type">
