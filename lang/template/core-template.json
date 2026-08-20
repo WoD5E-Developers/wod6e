@@ -123,7 +123,13 @@
       "_Wits": ""
     },
     "CHAT": {
+      "_AddsExtraSuccesses": "",
+      "_CannotRollItemTest": "",
+      "_GenerationTier": "",
+      "_Prerequisites": "",
       "_QuickeningGained": "",
+      "_TestPool": "",
+      "_UsedForDifficulty": "",
       "_UserHasGainedAmountQuickening": ""
     },
     "CONDITIONS": {

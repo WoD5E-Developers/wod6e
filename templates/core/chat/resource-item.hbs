@@ -1,0 +1,14 @@
+{{#> "systems/wod6e/templates/core/chat/base-item.hbs"}}
+
+<div class="item-card-summary">
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.RESOURCES.ResourceType"}}:</div>
+    <div class="item-card-field-value">{{ labels.resourceType }}</div>
+  </div>
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.RESOURCES.Value"}}:</div>
+    <div class="item-card-field-value">{{ system.dots.value }} / {{ system.dots.max }}</div>
+  </div>
+</div>
+
+{{/"systems/wod6e/templates/core/chat/base-item.hbs"}}

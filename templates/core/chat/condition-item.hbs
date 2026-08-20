@@ -1,0 +1,84 @@
+{{#> "systems/wod6e/templates/core/chat/base-item.hbs"}}
+
+<div class="item-card-summary">
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.Duration"}}:</div>
+    <div class="item-card-field-value">{{ labels.conditionDuration }}</div>
+  </div>
+
+  {{#if system.condition.stacks.stackable}}
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.CurrentStacks"}}:</div>
+    <div class="item-card-field-value">
+      {{ system.condition.stacks.current }} / {{ system.condition.stacks.max }}
+    </div>
+  </div>
+  {{/if}}
+
+  {{#if system.condition.bodyPart}}
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.BodyPart"}}:</div>
+    <div class="item-card-field-value">{{ system.condition.bodyPart }}</div>
+  </div>
+  {{/if}}
+
+  {{#if system.condition.sourceUuid}}
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.SourceUuid"}}:</div>
+    <div class="item-card-field-value">{{ system.condition.sourceUuid }}</div>
+  </div>
+  {{/if}}
+
+  {{#if system.condition.targetUuid}}
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.TargetUuid"}}:</div>
+    <div class="item-card-field-value">{{ system.condition.targetUuid }}</div>
+  </div>
+  {{/if}}
+</div>
+
+{{#if effects}}
+<section class="item-card-section">
+  <h5>{{localize "WOD6E.TABS.Effects"}}</h5>
+
+  {{#each effects}}
+  <div class="item-card-effect item-card-fields">
+    <div>
+      <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.EffectType"}}:</div>
+      <div class="item-card-field-value">{{ typeLabel }}</div>
+    </div>
+    <div>
+      <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.Mode"}}:</div>
+      <div class="item-card-field-value">{{ modeLabel }}</div>
+    </div>
+    <div>
+      <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.Value"}}:</div>
+      <div class="item-card-field-value">{{ value }}</div>
+    </div>
+
+    {{#if selectedTargetsText}}
+    <div>
+      <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.Targets"}}:</div>
+      <div class="item-card-field-value">{{ selectedTargetsText }}</div>
+    </div>
+    {{/if}}
+
+    {{#if selectedPredicatesText}}
+    <div>
+      <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.Predicates"}}:</div>
+      <div class="item-card-field-value">{{ selectedPredicatesText }}</div>
+    </div>
+    {{/if}}
+
+    {{#if selectedExclusionsText}}
+    <div>
+      <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.Exclusions"}}:</div>
+      <div class="item-card-field-value">{{ selectedExclusionsText }}</div>
+    </div>
+    {{/if}}
+  </div>
+  {{/each}}
+</section>
+{{/if}}
+
+{{/"systems/wod6e/templates/core/chat/base-item.hbs"}}

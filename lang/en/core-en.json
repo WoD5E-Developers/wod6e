@@ -123,7 +123,13 @@
       "Wits": "Wits"
     },
     "CHAT": {
+      "AddsExtraSuccesses": "Adds extra successes",
+      "CannotRollItemTest": "You must own the item's actor or be a gamemaster to roll this test.",
+      "GenerationTier": "Generation Tier",
+      "Prerequisites": "Prerequisites",
       "QuickeningGained": "Quickening Gained",
+      "TestPool": "Test Pool",
+      "UsedForDifficulty": "Used when determining difficulty",
       "UserHasGainedAmountQuickening": "{user} has gained {amount} quickening."
     },
     "CONDITIONS": {

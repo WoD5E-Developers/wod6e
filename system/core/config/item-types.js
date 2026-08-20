@@ -60,6 +60,7 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static resource = {
     label: 'TYPES.Item.resource',
+    chatTemplate: 'systems/wod6e/templates/core/chat/resource-item.hbs',
     img: '',
     types: ['resource'],
     sheetClass: ResourceItemSheet,
@@ -71,6 +72,7 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static action = {
     label: 'TYPES.Item.action',
+    chatTemplate: 'systems/wod6e/templates/core/chat/action-item.hbs',
     img: '',
     types: ['action'],
     sheetClass: ActionItemSheet,
@@ -82,6 +84,7 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static equipment = {
     label: 'TYPES.Item.equipment',
+    chatTemplate: 'systems/wod6e/templates/core/chat/equipment-item.hbs',
     img: '',
     types: ['equipment'],
     sheetClass: EquipmentItemSheet,
@@ -91,6 +94,7 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static flaw = {
     label: 'TYPES.Item.flaw',
+    chatTemplate: 'systems/wod6e/templates/core/chat/flaw-item.hbs',
     img: '',
     types: ['flaw'],
     sheetClass: FlawItemSheet,
@@ -100,6 +104,7 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static lifepath = {
     label: 'TYPES.Item.lifepath',
+    chatTemplate: 'systems/wod6e/templates/core/chat/lifepath-item.hbs',
     img: '',
     types: ['lifepath'],
     sheetClass: LifepathItemSheet,
@@ -109,6 +114,7 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static merit = {
     label: 'TYPES.Item.merit',
+    chatTemplate: 'systems/wod6e/templates/core/chat/merit-item.hbs',
     img: '',
     types: ['merit'],
     sheetClass: MeritItemSheet,
@@ -118,6 +124,7 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static condition = {
     label: 'TYPES.Item.condition',
+    chatTemplate: 'systems/wod6e/templates/core/chat/condition-item.hbs',
     img: '',
     types: ['condition'],
     sheetClass: ConditionItemSheet,
@@ -127,6 +134,7 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static nature = {
     label: 'TYPES.Item.nature',
+    chatTemplate: 'systems/wod6e/templates/core/chat/nature-item.hbs',
     img: '',
     types: ['nature'],
     sheetClass: NatureItemSheet,
@@ -137,6 +145,7 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static clan = {
     label: 'TYPES.Item.clan',
+    chatTemplate: 'systems/wod6e/templates/core/chat/clan-item.hbs',
     img: '',
     types: ['clan'],
     sheetClass: ClanItemSheet,
@@ -148,6 +157,7 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static clanTrait = {
     label: 'TYPES.Item.clanTrait',
+    chatTemplate: 'systems/wod6e/templates/core/chat/clan-trait-item.hbs',
     img: '',
     types: ['clanTrait'],
     sheetClass: ClanTraitItemSheet,
@@ -158,6 +168,7 @@ export class ItemTypes extends BaseDefinitionClass {
 
   static discipline = {
     label: 'TYPES.Item.discipline',
+    chatTemplate: 'systems/wod6e/templates/core/chat/discipline-item.hbs',
     img: 'systems/wod6e/assets/icons/items/discipline.svg',
     types: ['discipline'],
     sheetClass: DisciplineItemSheet,

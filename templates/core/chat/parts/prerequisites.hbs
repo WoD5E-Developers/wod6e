@@ -1,0 +1,26 @@
+{{#if prerequisites.hasRequirements}}
+<section class="item-card-section">
+  <h5>{{localize "WOD6E.CHAT.Prerequisites"}}</h5>
+  <div>
+    {{#if prerequisites.clan}}
+    <div class="item-card-fields">
+      <div class="item-card-field-name">{{localize "TYPES.Item.clan"}}:</div>
+      <div class="item-card-field-value">{{ prerequisites.clan }}</div>
+    </div>
+    {{/if}} {{#if prerequisites.generationTier}}
+    <div class="item-card-fields">
+      <div class="item-card-field-name">{{localize "WOD6E.CHAT.GenerationTier"}}:</div>
+      <div class="item-card-field-value">{{ prerequisites.generationTier }}</div>
+    </div>
+    {{/if}}
+    {{#each prerequisites.requirements}}
+    <div class="item-card-fields">
+      <div class="item-card-field-name">{{localize "WOD6E.VAMPIRE.Disciplines"}}:</div>
+      <div class="item-card-field-value">
+        {{#each options}}{{ name }} {{ dots }}{{#unless @last}} / {{/unless}}{{/each}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>
+{{/if}}

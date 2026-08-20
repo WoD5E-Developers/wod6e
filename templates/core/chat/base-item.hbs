@@ -1,0 +1,17 @@
+<div class="wod6e chat-card item-card" data-item-uuid="{{item.uuid}}">
+  <header class="item-card-header">
+    {{#if item.img}}<img src="{{item.img}}" alt="" />{{/if}}
+    <h4 class="item-name">{{item.name}}</h4>
+  </header>
+  {{#if description}}<div class="item-description">
+    {{{description}}}
+  </div>
+  {{/if}}
+  {{> @partial-block}}
+  {{#if hasSource}}
+  <footer class="item-card-source">
+    {{#if source.book}}<span>{{localize "WOD6E.ITEMS.Sourcebook"}}: {{source.book}}</span>{{/if}}
+    {{#if source.page}}<span>{{localize "WOD6E.ITEMS.PageNumber"}}: {{source.page}}</span>{{/if}}
+  </footer>
+  {{/if}}
+</div>

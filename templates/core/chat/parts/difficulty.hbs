@@ -1,0 +1,59 @@
+{{#if difficulty}}
+  <section class="item-card-section">
+    <h5>{{localize "WOD6E.TABS.Difficulty"}}</h5>
+
+    <div>
+      <div class="item-card-fields">
+        <div class="item-card-field-name">
+          {{localize "WOD6E.ACTIONS.DifficultyType"}}:
+        </div>
+        <div class="item-card-field-value">
+          {{difficulty.label}}
+        </div>
+      </div>
+
+      {{#if difficulty.usesFixedValue}}
+        <div class="item-card-fields">
+          <div class="item-card-field-name">
+            {{localize "WOD6E.ACTIONS.FixedValue"}}:
+          </div>
+          <div class="item-card-field-value">
+            {{difficulty.fixed}}
+          </div>
+        </div>
+      {{/if}}
+
+      {{#if difficulty.usesTargetsTrait}}
+        <div class="item-card-fields">
+          <div class="item-card-field-name">
+            {{localize "WOD6E.ACTIONS.TargetsTrait"}}:
+          </div>
+          <div class="item-card-field-value">
+            {{difficulty.targetsTrait}}
+          </div>
+        </div>
+      {{/if}}
+
+      {{#if difficulty.usesAttribute}}
+        <div class="item-card-fields">
+          <div class="item-card-field-name">
+            {{localize "WOD6E.ATTRIBUTES.Attributes"}}:
+          </div>
+          <div class="item-card-field-value">
+            {{#if difficulty.usesMultipleAttributes}}
+              {{difficulty.attributes}}
+            {{else}}
+              {{difficulty.singleAttribute}}
+            {{/if}}
+          </div>
+        </div>
+      {{/if}}
+    </div>
+
+    {{#if difficulty.description}}
+      <div>
+        {{{difficulty.description}}}
+      </div>
+    {{/if}}
+  </section>
+{{/if}}

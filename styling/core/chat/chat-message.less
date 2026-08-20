@@ -1,5 +1,57 @@
 .wod6e.chat-card {
-  .item-name, .chat-card-name {
+  .item-name,
+  .chat-card-name {
     border-bottom: 1px solid;
+  }
+
+  .item-card-header {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    img {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      object-fit: cover;
+      border: 1px solid;
+    }
+
+    .item-name {
+      flex: 1;
+      margin: 0;
+    }
+  }
+
+  .item-card-section {
+    margin-top: 10px;
+    padding-top: 5px;
+    border-top: 1px solid var(--color-border-light-primary);
+
+    h5 {
+      margin: 0 0 5px;
+    }
+  }
+
+  .item-card-fields {
+    display: block;
+
+    > .item-card-field-name,
+    > .item-card-field-value {
+      display: inline;
+    }
+
+    > .item-card-field-name {
+      font-weight: bold;
+    }
+  }
+
+  .item-card-source {
+    border-top: 1px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: var(--font-size-12);
+    font-style: italic;
   }
 }
