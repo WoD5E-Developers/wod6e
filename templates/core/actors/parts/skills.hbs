@@ -5,8 +5,12 @@
   data-actor-section="skills"
 >
   <header class="sheet-section-header resource-tracker-header">
-    <a class="align-right clickable" data-action="configureSkillFocuses" title="{{localize "WOD6E.SKILLS.ConfigureSkillFocuses"}}">
-        <i class="fas fa-edit"></i>
+    <a
+      class="align-right clickable"
+      data-action="configureSkillFocuses"
+      title="{{localize 'WOD6E.SKILLS.ConfigureSkillFocuses'}}"
+    >
+      <i class="fas fa-edit"></i>
     </a>
 
     {{localize 'WOD6E.SKILLS.Skills'}}
@@ -23,7 +27,7 @@
         class="sheet-section-label"
         data-action="roll"
         data-skill="system.skills.{{ skill.key }}"
-        title="{{localize skill.label}}"
+        title="{{localize skill.label}}{{#if skill.focusesText}} ({{ skill.focusesText }}){{/if}}"
       >
         <span class="skill-name">
           {{ skill.label }}
