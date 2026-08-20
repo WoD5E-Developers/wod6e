@@ -30,6 +30,13 @@ async function enrich(value, item) {
   })
 }
 
+export async function resolveActorName(uuid) {
+  if (!uuid) return ''
+
+  const document = fromUuidSync(uuid)
+  return document?.actor?.name ?? document?.name ?? ''
+}
+
 async function preparePrerequisites(prerequisites = {}) {
   const clan = prerequisites.clanUuid ? await globalThis.fromUuid(prerequisites.clanUuid) : null
   const requirements = (prerequisites.disciplineRequirements ?? []).map((requirement) => ({
@@ -54,7 +61,17 @@ async function prepareChatContext(item) {
   const canRoll = Boolean(system.test && actor && (game.user.isGM || actor.isOwner))
   const difficultyDefinition = WOD6E.configs.Difficulties.getList({})[system.difficulty?.type]
   const conditionContext = {}
-  if (item.type === 'condition') await prepareConditionEffectsContext(conditionContext, item)
+  let conditionSourceName = ''
+  let conditionTargetName = ''
+  if (item.type === 'condition') {
+    await prepareConditionEffectsContext(conditionContext, item)
+    const actorNames = await Promise.all([
+      resolveActorName(system.condition?.sourceUuid),
+      resolveActorName(system.condition?.targetUuid)
+    ])
+    conditionSourceName = actorNames[0]
+    conditionTargetName = actorNames[1]
+  }
 
   const actionTypes = {
     untyped: { displayName: game.i18n.localize('WOD6E.ACTIONS.Untyped') },
@@ -67,6 +84,8 @@ async function prepareChatContext(item) {
     description: await enrich(system.description, item),
     source: system.source,
     hasSource: Boolean(system.source?.book),
+    conditionSourceName,
+    conditionTargetName,
     canRoll,
     test:
       system.test?.attributes?.size + system.test?.skills?.size + system.test?.disciplines?.size > 0
