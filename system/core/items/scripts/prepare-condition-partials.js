@@ -20,7 +20,7 @@ export const prepareConditionEffectsContext = async function (context, item) {
   const itemData = item.system
 
   // Tab data
-  context.tab = context.tabs.effects
+  context.tab = context.tabs?.effects
 
   // Prepare these once, we don't need to prep them for each individual effect
   // since the types are static
