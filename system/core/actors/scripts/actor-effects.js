@@ -283,6 +283,20 @@ export class ActorEffects {
         return true
       }
 
+      const contextValues = [
+        context.action,
+        context.category,
+        context.attribute,
+        context.skill,
+        context.discipline
+      ]
+        .flatMap((entry) => (Array.isArray(entry) || entry instanceof Set ? [...entry] : [entry]))
+        .filter(Boolean)
+
+      if (contextValues.includes(value)) {
+        return true
+      }
+
       const separatorIndex = value.indexOf(':')
 
       if (separatorIndex === -1) {

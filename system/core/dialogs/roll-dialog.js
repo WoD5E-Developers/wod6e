@@ -109,8 +109,8 @@ export class RollDialog {
       attributes: this._prepareSelectedTraits(WOD6E.configs.Attributes, testData?.attributes),
       skills: this._prepareSelectedTraits(WOD6E.configs.Skills, testData?.skills),
       disciplines: this._prepareSelectedTraits(WOD6E.configs.Disciplines, testData?.disciplines),
-      action: testData?.action ?? item?.system?.actionType ?? null,
-      category: testData?.category ?? item?.system?.category ?? null,
+      action: testData?.action ?? item?.flags?.wod6e?.dataItemId ?? null,
+      category: testData?.category ?? item?.system?.actionType ?? item?.system?.category ?? null,
       difficulty: Math.max(Number(difficulty) || 0, 0),
       itemModifier:
         resolveModifierValue(actor, testData?.modifier) *
@@ -387,6 +387,8 @@ export class RollDialog {
     ).map((input) => input.value)
     const rollForm = form.matches('form') ? form : form.querySelector('form')
     const itemModifier = Number(rollForm?.dataset.itemModifier) || 0
+    const action = rollForm?.dataset.testAction || null
+    const category = rollForm?.dataset.testCategory || null
 
     this.customModifier = customModifier
 
@@ -395,6 +397,8 @@ export class RollDialog {
       skills,
       disciplines,
       itemModifier,
+      action,
+      category,
       customModifier,
       focus,
       conditionEffectIds,
