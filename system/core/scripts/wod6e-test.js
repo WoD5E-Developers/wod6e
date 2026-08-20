@@ -16,7 +16,8 @@ export class WOD6eTest {
       discipline: context.disciplines,
       action: context.action,
       category: context.category,
-      dicePool: context.dicePool
+      dicePool: context.dicePool,
+      difficulty: context.difficulty
     }
 
     if (actor) {

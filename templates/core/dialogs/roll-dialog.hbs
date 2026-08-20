@@ -10,6 +10,22 @@
     <div class="roll-test">
       {{ test.testText }}
     </div>
+
+    <div
+      class="difficulty-section"
+      data-field-path="difficulty"
+    >
+      <label>
+        {{localize 'WOD6E.ROLL.VsDifficulty'}}
+        <input
+          type="number"
+          name="difficulty"
+          value="{{ test.difficulty }}"
+          min="0"
+          step="1"
+        />
+      </label>
+    </div>
   </header>
 
   <div class="roll-dialog-body">

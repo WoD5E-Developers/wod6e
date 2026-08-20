@@ -1100,6 +1100,10 @@
   font-size: 16pt;
   font-weight: bold;
 }
+.roll-dialog-header .difficulty-section input {
+  width: 35px;
+  text-align: center;
+}
 
 .multi-select-section .multi-select {
   position: relative;

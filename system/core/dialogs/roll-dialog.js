@@ -16,9 +16,16 @@ export class RollDialog {
   static TEMPLATE = 'systems/wod6e/templates/core/dialogs/roll-dialog.hbs'
   static customModifier = 0
 
-  static async open({ actor, item = null, test = {} } = {}) {
+  static async open(input = {}) {
+    // Accept either an item directly or the existing options
+    const isItem = input instanceof Item
+    const item = isItem ? input : (input.item ?? null)
+    const actor = isItem ? input.actor : (input.actor ?? item?.actor ?? null)
+    const test = isItem ? {} : (input.test ?? {})
+
     if (!actor) {
       console.error('Roll Dialog requires an actor.')
+      return
     }
 
     const data = this._prepareInitialData({ actor, item, test })
@@ -84,12 +91,17 @@ export class RollDialog {
 
   static _prepareInitialData({ actor, item, test }) {
     // Determine whether we've been given an item or a non-item test
-    const testData = item ? item?.system?.test : test
+    const testData = item?.system?.test ?? test
+    const configuredDifficulty = item?.system?.difficulty
+    const difficulty = ['fixed', 'fixedPlusTargetsTrait'].includes(configuredDifficulty?.type)
+      ? configuredDifficulty.fixed
+      : testData?.difficulty
 
     const selectedTraits = {
       attributes: testData?.attributes || [],
       skills: testData?.skills || [],
       disciplines: testData?.disciplines || [],
+      difficulty: Math.max(Number(difficulty) || 0, 0),
       itemModifier:
         resolveModifierValue(actor, testData?.modifier) *
         (testData?.modifier?.mode === 'subtract' ? -1 : 1)
@@ -126,6 +138,7 @@ export class RollDialog {
     })
 
     const dicePool = _calculateDicePool(actor, data)
+    const difficulty = Math.max(Number(data?.difficulty) || 0, 0)
     const dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', {
       string: `${dicePool}d10`
     })
@@ -142,6 +155,7 @@ export class RollDialog {
         action: data?.action ?? null,
         category: data?.category ?? null,
         itemModifier: data?.itemModifier ?? 0,
+        difficulty,
 
         // Prepared display data
         attributeOptions,
@@ -190,7 +204,8 @@ export class RollDialog {
       // List of things we consider valid inputs
       if (
         event.target.matches('.multi-select-section input') ||
-        event.target.matches('.custom-modifier-section input')
+        event.target.matches('.custom-modifier-section input') ||
+        event.target.matches('.difficulty-section input')
       ) {
         // Update the preview if any of the above inputs changed
         this._updatePreview(element, actor)
@@ -247,6 +262,7 @@ export class RollDialog {
     const customModifier = form.querySelector(
       '[data-field-path="customModifier"] input'
     ).valueAsNumber
+    const difficulty = form.querySelector('[data-field-path="difficulty"] input').valueAsNumber
     const rollForm = form.matches('form') ? form : form.querySelector('form')
     const itemModifier = Number(rollForm?.dataset.itemModifier) || 0
 
@@ -257,7 +273,8 @@ export class RollDialog {
       skills,
       disciplines,
       itemModifier,
-      customModifier
+      customModifier,
+      difficulty: Math.max(Number(difficulty) || 0, 0)
     }
   }
 }

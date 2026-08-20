@@ -231,7 +231,8 @@
       "CustomModifier": "Custom Modifier",
       "NoTraitsSelected": "No Traits Selected",
       "Roll": "Roll",
-      "RollingString": "Rolling {string}"
+      "RollingString": "Rolling {string}",
+      "VsDifficulty": "vs Difficulty"
     },
     "SETTINGS": {
       "WorldVersion": "World Version",
