@@ -137,8 +137,21 @@ export class RollDialog {
       customModifier: (data?.itemModifier ?? 0) + this.customModifier
     })
 
-    const dicePool = _calculateDicePool(actor, data)
+    const baseDicePool = _calculateDicePool(actor, data)
     const difficulty = Math.max(Number(data?.difficulty) || 0, 0)
+    const effectTest = {
+      attribute: data?.attributes ?? [],
+      skill: data?.skills ?? [],
+      discipline: data?.disciplines ?? [],
+      action: data?.action ?? null,
+      category: data?.category ?? null,
+      dicePool: baseDicePool,
+      difficulty
+    }
+
+    WOD6eTest.applyEffects(actor, effectTest)
+
+    const dicePool = effectTest.dicePool
     const dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', {
       string: `${dicePool}d10`
     })
@@ -156,6 +169,7 @@ export class RollDialog {
         category: data?.category ?? null,
         itemModifier: data?.itemModifier ?? 0,
         difficulty,
+        baseDicePool,
 
         // Prepared display data
         attributeOptions,

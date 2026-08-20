@@ -16,12 +16,12 @@ export class WOD6eTest {
       discipline: context.disciplines,
       action: context.action,
       category: context.category,
-      dicePool: context.dicePool,
+      dicePool: context.baseDicePool ?? context.dicePool,
       difficulty: context.difficulty
     }
 
     if (actor) {
-      this._applyEffects(actor, test)
+      this.applyEffects(actor, test)
     }
 
     context.dicePool = test.dicePool
@@ -74,7 +74,7 @@ export class WOD6eTest {
     Hooks.callAll('wod6e.increaseQuickening', user, amount)
   }
 
-  static _applyEffects(actor, test) {
+  static applyEffects(actor, test) {
     const effects = ActorEffects.getApplicableEffects(actor, test, { types: 'dice' })
 
     for (const effect of effects) {
