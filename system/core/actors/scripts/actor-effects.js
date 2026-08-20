@@ -220,6 +220,17 @@ export class ActorEffects {
   static effectMatchesContext(effect, context = {}) {
     const tags = new Set(context.tags ?? [])
 
+    const targets = new Set(effect.targets ?? [])
+    const contextTargets = [context.attribute, context.skill, context.discipline]
+      .flatMap((target) =>
+        Array.isArray(target) || target instanceof Set ? [...target] : [target]
+      )
+      .filter(Boolean)
+
+    if (targets.size > 0 && !contextTargets.some((target) => targets.has(target))) {
+      return false
+    }
+
     const predicates = Array.from(effect.predicates ?? [])
     const exclusions = Array.from(effect.exclusions ?? [])
 
