@@ -9,6 +9,7 @@ import { loadSettings } from './core/scripts/settings.js'
 import { WoDActor } from './core/actors/actor.js'
 import { WoDActorModel } from './core/actors/data-models/base-actor-model.js'
 import { WoDActorBase } from './core/actors/actor-sheets/wod-actor-base.js'
+import { ActorUX } from './core/actors/scripts/actor-ux.js'
 // Item sheets
 import { WoDItemBase } from './core/items/item-sheets/wod-item-base.js'
 import { WoDItemModel } from './core/items/data-models/base-item-model.js'
@@ -93,6 +94,9 @@ window.WOD6E = {
     }
   }
 }
+
+// Allow sidebar items to be dropped directly onto actor tokens.
+Hooks.on('dropCanvasData', ActorUX._onDropCanvasItem.bind(ActorUX))
 
 // Anything that needs to be ran alongside the initialisation of the world
 Hooks.once('init', async function () {

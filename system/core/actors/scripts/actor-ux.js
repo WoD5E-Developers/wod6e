@@ -177,6 +177,22 @@ export class ActorUX {
     return this._onDropItemCreate(actor, itemData)
   }
 
+  static async _onDropCanvasItem(canvas, data) {
+    if (data.type !== 'Item' || !data.uuid) return
+
+    // Tokens later in the placeables array are rendered above earlier tokens,
+    // so prefer the topmost token when tokens overlap
+    const token = canvas.tokens?.placeables?.findLast((token) =>
+      token.bounds.contains(data.x, data.y)
+    )
+    if (!token?.actor) return
+
+    await this._onDropItem(null, token.actor, data)
+
+    // The item drop was handled (or deliberately rejected) by the actor logic
+    return false
+  }
+
   static async _promptForConditionSource(itemData) {
     const actors = game.actors.contents.toSorted((a, b) => a.name.localeCompare(b.name))
     const selectedUuid = itemData.system?.condition?.sourceUuid
