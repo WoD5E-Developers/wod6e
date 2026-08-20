@@ -60,6 +60,11 @@ export class RollDialog {
 
           callback: async (_event, button) => {
             const data = this._getDataFromForm(button.form)
+
+            // Explicit callout to include difficulty when we're pulling the
+            // context for the chat card
+            data.includeDifficulty = true
+
             const rollContext = this._prepareContext({ actor, data }).test
 
             return WOD6eTest.executeTest({
@@ -101,9 +106,9 @@ export class RollDialog {
       : testData?.difficulty
 
     const selectedTraits = {
-      attributes: testData?.attributes || [],
-      skills: testData?.skills || [],
-      disciplines: testData?.disciplines || [],
+      attributes: this._prepareSelectedTraits(WOD6E.configs.Attributes, testData?.attributes),
+      skills: this._prepareSelectedTraits(WOD6E.configs.Skills, testData?.skills),
+      disciplines: this._prepareSelectedTraits(WOD6E.configs.Disciplines, testData?.disciplines),
       action: testData?.action ?? item?.system?.actionType ?? null,
       category: testData?.category ?? item?.system?.category ?? null,
       difficulty: Math.max(Number(difficulty) || 0, 0),
@@ -117,18 +122,27 @@ export class RollDialog {
     return selectedTraits
   }
 
+  static _prepareSelectedTraits(config, selected = []) {
+    const definitions = config.getList({})
+
+    return Array.from(selected ?? [], (key) => definitions[key]?.path ?? key)
+  }
+
   static _prepareContext({ actor, item, data }) {
     const attributeOptions = this._prepareOptions({
+      actor,
       definitions: WOD6E.configs.Attributes.getList({ usePath: true }),
       selected: data?.attributes || []
     })
 
     const skillOptions = this._prepareOptions({
+      actor,
       definitions: WOD6E.configs.Skills.getList({ usePath: true }),
       selected: data?.skills || []
     })
 
     const disciplineOptions = this._prepareOptions({
+      actor,
       definitions: WOD6E.configs.Disciplines.getList({ usePath: true }),
       selected: data?.disciplines || []
     })
@@ -138,13 +152,6 @@ export class RollDialog {
     const selectedDisciplinesText = this._getSelectedText(disciplineOptions)
     const focusOptions = this._prepareFocusOptions(actor, data?.skills, data?.focus)
     const selectedFocus = focusOptions.some((focus) => focus.selected) ? data.focus : ''
-
-    const testText = _getTestText({
-      attributeOptions,
-      skillOptions,
-      disciplineOptions,
-      customModifier: (data?.itemModifier ?? 0) + this.customModifier + (selectedFocus ? 1 : 0)
-    })
 
     const baseDicePool = _calculateDicePool(actor, { ...data, focus: selectedFocus })
     const difficulty = Math.max(Number(data?.difficulty) || 0, 0)
@@ -162,6 +169,19 @@ export class RollDialog {
     effectTest.conditionEffectIds = conditionEffects
       .filter((effect) => effect.enabled)
       .map((effect) => effect.id)
+
+    const testText = _getTestText({
+      attributeOptions,
+      skillOptions,
+      disciplineOptions,
+      customModifier: (data?.itemModifier ?? 0) + this.customModifier + (selectedFocus ? 1 : 0),
+      effects: conditionEffects.filter((effect) => effect.enabled),
+
+      // By default we don't include difficulty, unless we're using context preparation for
+      // the chat card, then we pass true for this
+      includeDifficulty: data.includeDifficulty ?? false,
+      difficulty
+    })
 
     WOD6eTest.applyEffects(actor, effectTest)
 
@@ -207,7 +227,7 @@ export class RollDialog {
     }
   }
 
-  static _prepareOptions({ definitions, selected = [] }) {
+  static _prepareOptions({ actor, definitions, selected = [] }) {
     const selectedKeys = new Set(selected)
 
     return Object.entries(definitions)
@@ -215,6 +235,7 @@ export class RollDialog {
       .map(([key, def]) => ({
         key,
         label: def.displayName,
+        value: Number(foundry.utils.getProperty(actor, `${key}.effective`)) || 0,
         selected: selectedKeys.has(key)
       }))
   }
@@ -231,13 +252,15 @@ export class RollDialog {
 
   // Check if we should include any skill focuses from the actor
   static _prepareFocusOptions(actor, selectedSkills = [], selectedFocus = '') {
-    return selectedSkills.flatMap((skillPath) => {
+    const skillPaths = Array.from(selectedSkills ?? [])
+
+    return skillPaths.flatMap((skillPath) => {
       const skill = foundry.utils.getProperty(actor, skillPath)
       const skillLabel = WOD6E.configs.Skills.getList({ usePath: true })[skillPath]?.displayName
 
       return (skill?.focuses ?? []).map((focus) => ({
         value: `${skillPath}:${focus}`,
-        label: selectedSkills.length > 1 ? `${skillLabel}: ${focus}` : focus,
+        label: skillPaths.length > 1 ? `${skillLabel}: ${focus}` : focus,
         selected: `${skillPath}:${focus}` === selectedFocus
       }))
     })

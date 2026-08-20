@@ -48,6 +48,7 @@ import { QuickeningDramaTrackerApplication } from './core/applications/quickenin
 import { CostTypes } from './core/config/cost-types.js'
 import { EffectTypes } from './core/config/effect-types.js'
 import { GenerationCategories } from './splats/vampire/config/generations-categories.js'
+import { WoDChatLog } from './core/ui/wod-chat-log.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -104,6 +105,7 @@ Hooks.once('init', async function () {
   CONFIG.Actor.documentClass = WoDActor
   CONFIG.Dice.rolls.push(WOD6eRoll)
   // Custom UI implementations
+  CONFIG.ui.chat = WoDChatLog
   CONFIG.ui.settings = WoDSettings
   CONFIG.ui.compendium = WoDCompendiumDirectory
   CONFIG.ui.pause = WoDPause

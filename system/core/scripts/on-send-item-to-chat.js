@@ -79,6 +79,7 @@ async function prepareChatContext(item) {
   }
 
   return {
+    actor: { name: actor.name, type: actor.type, uuid: actor.uuid, img: actor.img },
     item: { name: item.name, type: item.type, uuid: item.uuid, img: item.img },
     system,
     description: await enrich(system.description, item),
