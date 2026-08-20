@@ -8,12 +8,12 @@ import { WOD6eTest } from '../scripts/wod6e-test.js'
 import { _calculateDicePool } from './scripts/calculate-dice-pool.js'
 import { _getTestText } from './scripts/get-test-text.js'
 import { resolveModifierValue } from '../actors/scripts/resolve-modifier-value.js'
+import { ActorEffects } from '../actors/scripts/actor-effects.js'
 
 const { DialogV2 } = foundry.applications.api
 const { renderTemplate } = foundry.applications.handlebars
 
 export class RollDialog {
-  static TEMPLATE = 'systems/wod6e/templates/core/dialogs/roll-dialog.hbs'
   static customModifier = 0
 
   static async open(input = {}) {
@@ -30,7 +30,10 @@ export class RollDialog {
 
     const data = this._prepareInitialData({ actor, item, test })
     const context = this._prepareContext({ actor, item, data })
-    const rendered = await renderTemplate(this.TEMPLATE, context)
+    const rendered = await renderTemplate(
+      'systems/wod6e/templates/core/dialogs/roll-dialog.hbs',
+      context
+    )
 
     const content = document.createElement('div')
     content.innerHTML = rendered
@@ -101,10 +104,14 @@ export class RollDialog {
       attributes: testData?.attributes || [],
       skills: testData?.skills || [],
       disciplines: testData?.disciplines || [],
+      action: testData?.action ?? item?.system?.actionType ?? null,
+      category: testData?.category ?? item?.system?.category ?? null,
       difficulty: Math.max(Number(difficulty) || 0, 0),
       itemModifier:
         resolveModifierValue(actor, testData?.modifier) *
-        (testData?.modifier?.mode === 'subtract' ? -1 : 1)
+        (testData?.modifier?.mode === 'subtract' ? -1 : 1),
+      conditionEffectIds: null,
+      focus: ''
     }
 
     return selectedTraits
@@ -129,15 +136,17 @@ export class RollDialog {
     const selectedAttributesText = this._getSelectedText(attributeOptions)
     const selectedSkillsText = this._getSelectedText(skillOptions)
     const selectedDisciplinesText = this._getSelectedText(disciplineOptions)
+    const focusOptions = this._prepareFocusOptions(actor, data?.skills, data?.focus)
+    const selectedFocus = focusOptions.some((focus) => focus.selected) ? data.focus : ''
 
     const testText = _getTestText({
       attributeOptions,
       skillOptions,
       disciplineOptions,
-      customModifier: (data?.itemModifier ?? 0) + this.customModifier
+      customModifier: (data?.itemModifier ?? 0) + this.customModifier + (selectedFocus ? 1 : 0)
     })
 
-    const baseDicePool = _calculateDicePool(actor, data)
+    const baseDicePool = _calculateDicePool(actor, { ...data, focus: selectedFocus })
     const difficulty = Math.max(Number(data?.difficulty) || 0, 0)
     const effectTest = {
       attribute: data?.attributes ?? [],
@@ -148,6 +157,11 @@ export class RollDialog {
       dicePool: baseDicePool,
       difficulty
     }
+
+    const conditionEffects = this._prepareConditionEffects(actor, effectTest, data)
+    effectTest.conditionEffectIds = conditionEffects
+      .filter((effect) => effect.enabled)
+      .map((effect) => effect.id)
 
     WOD6eTest.applyEffects(actor, effectTest)
 
@@ -168,6 +182,8 @@ export class RollDialog {
         action: data?.action ?? null,
         category: data?.category ?? null,
         itemModifier: data?.itemModifier ?? 0,
+        focus: selectedFocus,
+        conditionEffectIds: effectTest.conditionEffectIds,
         difficulty,
         baseDicePool,
 
@@ -175,6 +191,10 @@ export class RollDialog {
         attributeOptions,
         skillOptions,
         disciplineOptions,
+        focusOptions,
+        hasFocusOptions: focusOptions.length > 0,
+        conditionEffects,
+        hasConditionEffects: conditionEffects.length > 0,
 
         selectedAttributesText,
         selectedSkillsText,
@@ -209,6 +229,44 @@ export class RollDialog {
     return selected.map((option) => option.label).join(', ')
   }
 
+  // Check if we should include any skill focuses from the actor
+  static _prepareFocusOptions(actor, selectedSkills = [], selectedFocus = '') {
+    return selectedSkills.flatMap((skillPath) => {
+      const skill = foundry.utils.getProperty(actor, skillPath)
+      const skillLabel = WOD6E.configs.Skills.getList({ usePath: true })[skillPath]?.displayName
+
+      return (skill?.focuses ?? []).map((focus) => ({
+        value: `${skillPath}:${focus}`,
+        label: selectedSkills.length > 1 ? `${skillLabel}: ${focus}` : focus,
+        selected: `${skillPath}:${focus}` === selectedFocus
+      }))
+    })
+  }
+
+  // Condition effect preparation, reusing some existing logic from our
+  // main ActorEffects class with some suitable data mutation
+  static _prepareConditionEffects(actor, test, data) {
+    const selectedIds = Array.isArray(data?.conditionEffectIds)
+      ? new Set(data.conditionEffectIds)
+      : null
+
+    return (actor.preparedEffects?.effects ?? [])
+      .filter((effect) => effect.type === 'dice')
+      .map((effect) => {
+        const normallyApplies = ActorEffects.effectMatchesContext(effect, test)
+        const value = ActorEffects.resolveEffectValue(actor, effect)
+        const sign = effect.mode === 'subtract' ? '-' : effect.mode === 'add' ? '+' : '='
+
+        return {
+          id: effect.effectId,
+          name: effect.sourceName,
+          modifier: `${sign}${value}`,
+          normallyApplies,
+          enabled: selectedIds ? selectedIds.has(effect.effectId) : normallyApplies
+        }
+      })
+  }
+
   static _activateListeners(dialog, { actor }) {
     const element = dialog.element
 
@@ -219,7 +277,9 @@ export class RollDialog {
       if (
         event.target.matches('.multi-select-section input') ||
         event.target.matches('.custom-modifier-section input') ||
-        event.target.matches('.difficulty-section input')
+        event.target.matches('.difficulty-section input') ||
+        event.target.matches('.roll-focus-select') ||
+        event.target.matches('.condition-effect-toggle')
       ) {
         // Update the preview if any of the above inputs changed
         this._updatePreview(element, actor)
@@ -227,6 +287,7 @@ export class RollDialog {
     })
   }
 
+  // This entire thing is basically one big find-and-replace function
   static _updatePreview(element, actor) {
     if (!element || !actor) return
 
@@ -248,6 +309,26 @@ export class RollDialog {
 
     const disciplineElement = element.querySelector('.discipline-multi-select .multi-select-value')
     disciplineElement.textContent = previewContext.selectedDisciplinesText
+
+    this._replaceSidePanel(element, previewContext)
+  }
+
+  // Since the side panel is-but-isn't a "part" of the roll dialog,
+  // we do this so that we can rerender it with new data when we do things
+  // like update the currently active skill/attribute/etc
+  // It's also nicer to track this separate from the "main context" of
+  // the roll dialog
+  static async _replaceSidePanel(element, context) {
+    const currentPanel = element.querySelector('.roll-dialog-side-panel')
+    if (!currentPanel) return
+
+    const rendered = await renderTemplate(
+      'systems/wod6e/templates/core/dialogs/roll-dialog-side-panel.hbs',
+      { test: context }
+    )
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = rendered
+    currentPanel.replaceWith(wrapper.firstElementChild)
   }
 
   static _getResult(form, { actor, item }) {
@@ -277,6 +358,10 @@ export class RollDialog {
       '[data-field-path="customModifier"] input'
     ).valueAsNumber
     const difficulty = form.querySelector('[data-field-path="difficulty"] input').valueAsNumber
+    const focus = form.querySelector('[name="focus"]')?.value ?? ''
+    const conditionEffectIds = Array.from(
+      form.querySelectorAll('.condition-effect-toggle:checked')
+    ).map((input) => input.value)
     const rollForm = form.matches('form') ? form : form.querySelector('form')
     const itemModifier = Number(rollForm?.dataset.itemModifier) || 0
 
@@ -288,6 +373,8 @@ export class RollDialog {
       disciplines,
       itemModifier,
       customModifier,
+      focus,
+      conditionEffectIds,
       difficulty: Math.max(Number(difficulty) || 0, 0)
     }
   }

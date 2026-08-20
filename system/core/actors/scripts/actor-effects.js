@@ -21,9 +21,10 @@ export class ActorEffects {
       const effects = condition.system.effects ?? []
       const restrictions = condition.system.restrictions ?? []
 
-      for (const effect of effects) {
+      for (const [effectIndex, effect] of effects.entries()) {
         actor.preparedEffects.effects.push({
           ...effect,
+          effectId: `${condition.id}:${effectIndex}`,
           sourceActorUuid: condition.system.condition?.sourceUuid,
           sourceId: condition.id,
           sourceUuid: condition.uuid,

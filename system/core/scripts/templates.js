@@ -10,6 +10,9 @@ export const preloadHandlebarsTemplates = async function () {
     'templates/generic/tab-navigation.hbs',
     'systems/wod6e/templates/core/fields/multi-select.hbs',
 
+    // Dialog partials
+    'systems/wod6e/templates/core/dialogs/roll-dialog-side-panel.hbs',
+
     // Item chat card partials
     'systems/wod6e/templates/core/chat/base-item.hbs',
     'systems/wod6e/templates/core/chat/parts/activation.hbs',

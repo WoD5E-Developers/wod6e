@@ -228,10 +228,14 @@
       "Willpower": "Willpower"
     },
     "ROLL": {
+      "ConditionEffects": "Condition Effects",
       "CustomModifier": "Custom Modifier",
+      "NoConditionEffects": "No condition effects are available for this roll.",
+      "NotNormallyApplicable": "Not normally applicable",
       "NoTraitsSelected": "No Traits Selected",
       "Roll": "Roll",
       "RollingString": "Rolling {string}",
+      "SelectSkillForFocus": "Select a skill with a focus to use it.",
       "VsDifficulty": "vs Difficulty"
     },
     "SETTINGS": {
@@ -252,6 +256,7 @@
       "Craft": "Craft",
       "Expression": "Expression",
       "Fighting": "Fighting",
+      "Focus": "Focus",
       "Focuses": "Focuses",
       "Investigation": "Investigation",
       "Knowledge": "Knowledge",

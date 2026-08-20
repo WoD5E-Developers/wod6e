@@ -1093,16 +1093,57 @@
   grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr);
 }
 
-.roll-dialog-header {
+.roll-dialog {
+  overflow: visible;
+}
+.roll-dialog .roll-dialog-header {
   text-align: center;
 }
-.roll-dialog-header .roll-pool {
+.roll-dialog .roll-dialog-header .roll-pool {
   font-size: 16pt;
   font-weight: bold;
 }
-.roll-dialog-header .difficulty-section input {
+.roll-dialog .roll-dialog-header .difficulty-section input {
   width: 35px;
   text-align: center;
+}
+.roll-dialog .roll-dialog-side-panel {
+  position: absolute;
+  right: -250px;
+  top: 0;
+  max-width: 325px;
+  border: 1px solid;
+  padding: 10px;
+}
+.roll-dialog .roll-dialog-side-panel h3 {
+  margin: 0 0 8px;
+  padding-bottom: 4px;
+}
+.roll-dialog .roll-dialog-side-panel section + section {
+  margin-top: 16px;
+}
+.roll-dialog .roll-dialog-side-panel select {
+  width: 100%;
+}
+.roll-dialog .roll-condition-effect {
+  align-items: center;
+  display: grid;
+  gap: 2px 6px;
+  grid-template-columns: auto 1fr auto;
+  padding: 5px 0;
+}
+.roll-dialog .roll-condition-effect small {
+  grid-column: 2 / -1;
+}
+.roll-dialog .roll-condition-effect.not-applicable {
+  opacity: 0.65;
+}
+.roll-dialog .condition-effect-modifier {
+  font-weight: bold;
+}
+.roll-dialog .roll-panel-empty {
+  font-style: italic;
+  opacity: 0.7;
 }
 
 .multi-select-section .multi-select {

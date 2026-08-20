@@ -16,6 +16,7 @@ export class WOD6eTest {
       discipline: context.disciplines,
       action: context.action,
       category: context.category,
+      conditionEffectIds: context.conditionEffectIds,
       dicePool: context.baseDicePool ?? context.dicePool,
       difficulty: context.difficulty
     }
@@ -75,7 +76,14 @@ export class WOD6eTest {
   }
 
   static applyEffects(actor, test) {
-    const effects = ActorEffects.getApplicableEffects(actor, test, { types: 'dice' })
+    const selectedEffectIds = Array.isArray(test.conditionEffectIds)
+      ? new Set(test.conditionEffectIds)
+      : null
+    const effects = selectedEffectIds
+      ? (actor.preparedEffects?.effects ?? []).filter(
+          (effect) => effect.type === 'dice' && selectedEffectIds.has(effect.effectId)
+        )
+      : ActorEffects.getApplicableEffects(actor, test, { types: 'dice' })
 
     for (const effect of effects) {
       test.dicePool = ActorEffects.applyNumericEffect(test.dicePool, effect, actor)

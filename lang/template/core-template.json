@@ -228,10 +228,14 @@
       "_Willpower": ""
     },
     "ROLL": {
+      "_ConditionEffects": "",
       "_CustomModifier": "",
+      "_NoConditionEffects": "",
+      "_NotNormallyApplicable": "",
       "_NoTraitsSelected": "",
       "_Roll": "",
       "_RollingString": "",
+      "_SelectSkillForFocus": "",
       "_VsDifficulty": ""
     },
     "SETTINGS": {
@@ -252,6 +256,7 @@
       "_Craft": "",
       "_Expression": "",
       "_Fighting": "",
+      "_Focus": "",
       "_Focuses": "",
       "_Investigation": "",
       "_Knowledge": "",
