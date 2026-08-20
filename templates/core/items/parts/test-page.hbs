@@ -17,6 +17,74 @@
 
     <hr />
 
+    <div class="flexrow form-group shared-group-row">
+      <div>
+        <label>
+          <b>{{localize 'WOD6E.MODIFIERS.ModifierSource'}}</b>
+        </label>
+        <div class="form-fields">
+          <select name="system.test.modifier.valueSource">
+            {{selectOptions test.modifierSourceOptions selected=test.modifier.valueSource localize=true}}
+          </select>
+        </div>
+      </div>
+
+      {{#if (eq test.modifier.valueSource 'trait')}}
+      <div>
+        <label>
+          <b>{{localize 'WOD6E.CONDITIONS.Mode'}}</b>
+        </label>
+        <div class="form-fields">
+          <select name="system.test.modifier.mode">
+            {{selectOptions test.modifierModeOptions selected=test.modifier.mode localize=true}}
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label>
+          <b>{{localize 'WOD6E.MODIFIERS.ActorTrait'}}</b>
+        </label>
+        <div class="form-fields">
+          <select name="system.test.modifier.valueTrait">
+            <option value="">{{localize 'WOD6E.None'}}</option>
+            {{#each test.modifierTraitGroups as |group|}}
+            <optgroup label="{{ group.label }}">
+              {{#each group.options as |option|}}
+              {{#if option.selected}}
+              <option
+                value="{{ option.key }}"
+                selected
+              >
+                {{ option.label }}
+              </option>
+              {{else}}
+              <option value="{{ option.key }}">{{ option.label }}</option>
+              {{/if}}
+              {{/each}}
+            </optgroup>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      {{else}}
+      <div>
+        <label>
+          <b>{{localize 'WOD6E.MODIFIERS.FlatModifier'}}</b>
+        </label>
+        <div class="form-fields">
+          <input
+            type="number"
+            name="system.test.modifier.value"
+            value="{{ test.modifier.value }}"
+          />
+        </div>
+      </div>
+      {{/if}}
+    </div>
+
+    <hr />
+
     <div class="form-group">
       <label>
         <b>{{localize 'WOD6E.ACTIONS.Test'}}:</b>

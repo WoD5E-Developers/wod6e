@@ -54,7 +54,25 @@ export async function prepareTestContext(context, item) {
     disciplineOptions: disciplines.options,
     selectedDisciplinesText: disciplines.selectedText,
 
-    testText: formatTest(attributes.labels, skills.labels, disciplines.labels)
+    testText: formatTest(attributes.labels, skills.labels, disciplines.labels),
+    modifier: test.modifier,
+    modifierSourceOptions: {
+      flat: 'WOD6E.MODIFIERS.Flat',
+      trait: 'WOD6E.MODIFIERS.ActorTrait'
+    },
+    modifierModeOptions: {
+      add: 'WOD6E.Add',
+      subtract: 'WOD6E.Subtract'
+    },
+    modifierTraitGroups: groupSelectOptions(
+      (
+        await getTargetOptions({
+          types: ['attributes', 'skills', 'disciplines', 'generationModifiers'],
+          usePaths: true,
+          actor: item.actor
+        })
+      ).map((option) => ({ ...option, selected: option.key === test.modifier?.valueTrait }))
+    )
   }
 
   return context

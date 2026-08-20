@@ -25,13 +25,23 @@ export const getTargetOptions = async ({ types = [], usePaths, actor = null }) =
         type: 'discipline'
       })),
 
-    resources: Object.entries(WOD6E.configs.ResourceTypes.getList({ usePath: usePaths ?? false }))
+    resources: Object.entries(WOD6E.configs.ResourceTypes.getList({}))
       .filter(([, resource]) => !resource.hidden)
       .map(([key, resource]) => ({
-        key,
+        key: usePaths ? `resource:${key}` : key,
         label: resource.displayName,
         type: 'resource'
       }))
+  }
+
+  if (types.includes('generationModifiers')) {
+    targetGroups.generationModifiers = [
+      {
+        key: 'system.vampire.generation.modifier',
+        label: game.i18n.localize('WOD6E.VAMPIRE.GenerationModifier'),
+        type: 'generationModifier'
+      }
+    ]
   }
 
   if (types.includes('items')) {

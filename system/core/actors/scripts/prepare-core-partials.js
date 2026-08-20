@@ -1,5 +1,6 @@
 import { generateTrackers } from './generate-trackers.js'
 import { getEffectLabel } from './get-effect-label.js'
+import { resolveModifierValue } from './resolve-modifier-value.js'
 
 export const prepareAttributesContext = async function (context, actor) {
   const attributeGroups = WOD6E.configs.AttributeGroups.getList({})
@@ -124,7 +125,10 @@ export const prepareConditionsContext = async function (context, actor) {
           .map(getEffectLabel)
           .join(', '),
         mode: effect.mode,
-        value: effect.value,
+        value: resolveModifierValue(actor, {
+          ...effect,
+          sourceActorUuid: condition.system.condition?.sourceUuid
+        }),
         predicates: Array.from(effect.predicates ?? [])
           .map(getEffectLabel)
           .join(', '),

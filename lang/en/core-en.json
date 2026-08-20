@@ -197,6 +197,13 @@
     "MERITS": {
       "Merits": "Merits"
     },
+    "MODIFIERS": {
+      "ActorTrait": "Actor Trait",
+      "Flat": "Flat Modifier",
+      "FlatModifier": "Flat Modifier",
+      "ModifierSource": "Modifier Value",
+      "SourceActorTrait": "Source Trait"
+    },
     "NOTIFICATIONS": {
       "ConsoleLog": "World of Darkness 6th Edition | {string}",
       "InitializingSchreckNet": "Initializing SchreckNet",

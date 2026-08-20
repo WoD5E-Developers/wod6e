@@ -78,41 +78,45 @@ async function prepareChatContext(item) {
             disciplines: selectedLabels(WOD6E.configs.Disciplines, system.test.disciplines)
           }
         : null,
-    activation: system.activation
-      ? {
-          ...system.activation,
-          typeLabel: definitionLabel(WOD6E.configs.Activations, system.activation.activationType),
-          distanceLabel: definitionLabel(WOD6E.configs.Distances, system.activation.distance),
-          durationLabel: definitionLabel(WOD6E.configs.Durations, system.activation.duration),
-          costLabel: definitionLabel(WOD6E.configs.CostTypes, system.activation.cost?.type),
-          damageResourceLabel: definitionLabel(
-            WOD6E.configs.ResourceTypes,
-            system.activation.damage?.resource
-          )
-        }
-      : null,
-    difficulty: system.difficulty
-      ? {
-          ...system.difficulty,
-          label: difficultyDefinition?.displayName ?? system.difficulty.type,
-          targetsTrait: traitLabel(system.difficulty.targetsTrait),
-          attributes: selectedLabels(
-            WOD6E.configs.Attributes,
-            system.difficulty.multipleAttributes
-          ),
-          singleAttribute: definitionLabel(
-            WOD6E.configs.Attributes,
-            system.difficulty.singleAttribute
-          ),
-          usesFixedValue: difficultyDefinition?.usesFixedValue,
-          usesTargetsTrait: difficultyDefinition?.usesTargetsTrait,
-          usesAttribute: difficultyDefinition?.usesAttribute,
-          usesMultipleAttributes: difficultyDefinition?.multipleAttributes,
-          usesNpcLevel: difficultyDefinition?.usesNpcLevel,
-          determinedByStoryteller: difficultyDefinition?.determinedByStoryteller,
-          description: await enrich(system.difficulty.description, item)
-        }
-      : null,
+    activation:
+      system?.activation && system?.activation?.activationType !== 'none'
+        ? {
+            ...system.activation,
+            typeLabel: definitionLabel(WOD6E.configs.Activations, system.activation.activationType),
+            showDistance: system?.activation?.distance !== 'none',
+            distanceLabel: definitionLabel(WOD6E.configs.Distances, system.activation.distance),
+            showDuration: system?.activation?.duration !== 'none',
+            durationLabel: definitionLabel(WOD6E.configs.Durations, system.activation.duration),
+            costLabel: definitionLabel(WOD6E.configs.CostTypes, system.activation.cost?.type),
+            damageResourceLabel: definitionLabel(
+              WOD6E.configs.ResourceTypes,
+              system.activation.damage?.resource
+            )
+          }
+        : null,
+    difficulty:
+      system?.difficulty && system?.difficulty?.type !== 'none'
+        ? {
+            ...system.difficulty,
+            label: difficultyDefinition?.displayName ?? system.difficulty.type,
+            targetsTrait: traitLabel(system.difficulty.targetsTrait),
+            attributes: selectedLabels(
+              WOD6E.configs.Attributes,
+              system.difficulty.multipleAttributes
+            ),
+            singleAttribute: definitionLabel(
+              WOD6E.configs.Attributes,
+              system.difficulty.singleAttribute
+            ),
+            usesFixedValue: difficultyDefinition?.usesFixedValue,
+            usesTargetsTrait: difficultyDefinition?.usesTargetsTrait,
+            usesAttribute: difficultyDefinition?.usesAttribute,
+            usesMultipleAttributes: difficultyDefinition?.multipleAttributes,
+            usesNpcLevel: difficultyDefinition?.usesNpcLevel,
+            determinedByStoryteller: difficultyDefinition?.determinedByStoryteller,
+            description: await enrich(system.difficulty.description, item)
+          }
+        : null,
     prerequisites: system.prerequisites ? await preparePrerequisites(system.prerequisites) : null,
     labels: {
       actionGroup: definitionLabel(WOD6E.configs.ActionGroups, system.group),
@@ -139,6 +143,7 @@ async function prepareChatContext(item) {
     },
     effects: (conditionContext.effects ?? []).map((effect) => ({
       ...effect,
+      value: effect.resolvedValue,
       typeLabel: definitionLabel(WOD6E.configs.EffectTypes, effect.type),
       modeLabel: game.i18n.localize(
         { add: 'WOD6E.Add', subtract: 'WOD6E.Subtract', override: 'WOD6E.Override' }[effect.mode] ??

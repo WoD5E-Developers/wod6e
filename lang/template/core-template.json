@@ -197,6 +197,13 @@
     "MERITS": {
       "_Merits": ""
     },
+    "MODIFIERS": {
+      "_ActorTrait": "",
+      "_Flat": "",
+      "_FlatModifier": "",
+      "_ModifierSource": "",
+      "_SourceActorTrait": ""
+    },
     "NOTIFICATIONS": {
       "_ConsoleLog": "",
       "_InitializingSchreckNet": "",

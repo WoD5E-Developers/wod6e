@@ -1,5 +1,7 @@
 import { prepareMultiSelect } from '../../fields/multiselect.js'
 import { getTargetOptions } from './get-target-options.js'
+import { groupSelectOptions } from '../../fields/group-select-options.js'
+import { resolveModifierValue } from '../../actors/scripts/resolve-modifier-value.js'
 
 export const prepareConditionDetailsContext = async function (context, item) {
   const itemData = item.system
@@ -35,6 +37,14 @@ export const prepareConditionEffectsContext = async function (context, item) {
     usePaths: true,
     actor: item.actor
   })
+
+  const modifierTraitGroups = groupSelectOptions(
+    await getTargetOptions({
+      types: ['attributes', 'skills', 'disciplines', 'generationModifiers'],
+      usePaths: true,
+      actor: item.actor
+    })
+  )
 
   // Special cases where some effect types use different target types
   const targetTypesByEffect = {
@@ -87,6 +97,18 @@ export const prepareConditionEffectsContext = async function (context, item) {
         effectUsesValueFields,
         effectUsesPredicates,
         effectUsesExclusions,
+        usesTraitValue: ['trait', 'sourceTrait'].includes(effect.valueSource),
+        resolvedValue: resolveModifierValue(item.actor, {
+          ...effect,
+          sourceActorUuid: itemData.condition?.sourceUuid
+        }),
+        modifierTraitGroups: modifierTraitGroups.map((group) => ({
+          ...group,
+          options: group.options.map((option) => ({
+            ...option,
+            selected: option.key === effect.valueTrait
+          }))
+        })),
 
         targetOptions: targets?.options ?? [],
         targetGroups: targets?.groups ?? [],
@@ -109,6 +131,12 @@ export const prepareConditionEffectsContext = async function (context, item) {
     add: 'WOD6E.Add',
     subtract: 'WOD6E.Subtract',
     override: 'WOD6E.Override'
+  }
+
+  context.modifierSourceOptions = {
+    flat: 'WOD6E.MODIFIERS.Flat',
+    trait: 'WOD6E.MODIFIERS.ActorTrait',
+    sourceTrait: 'WOD6E.MODIFIERS.SourceActorTrait'
   }
 
   return context

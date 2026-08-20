@@ -4,7 +4,8 @@ export function getGroupLabel(type) {
     skill: 'WOD6E.SKILLS.Skills',
     discipline: 'WOD6E.VAMPIRE.Disciplines',
     resource: 'WOD6E.RESOURCES.Resources',
-    item: 'WOD6E.ITEMS.Items'
+    item: 'WOD6E.ITEMS.Items',
+    generationModifier: 'WOD6E.VAMPIRE.GenerationModifier'
   }
 
   return game.i18n.localize(labels[type] ?? type)

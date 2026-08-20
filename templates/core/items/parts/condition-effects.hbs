@@ -16,6 +16,7 @@
 
   <div class="condition-effect-list">
     {{#each effects as |effect index|}}
+    <hr />
     <div
       class="condition-effect"
       data-effect-index="{{ index }}"
@@ -52,22 +53,62 @@
       {{/if}}
 
       {{#if effect.effectUsesValueFields}}
-      <div class="form-group">
-        <label>
-          {{localize "WOD6E.CONDITIONS.Mode"}}
-        </label>
+      <div class="flexrow form-group shared-group-row">
+        <div>
+          <label>
+            {{localize "WOD6E.CONDITIONS.Mode"}}
+          </label>
 
-        <div class="form-fields">
-          <select name="system.effects.{{ index }}.mode">
-            {{selectOptions
-                ../effectModeOptions
-                selected=effect.mode
-                localize=true
-            }}
-          </select>
+          <div class="form-fields">
+            <select name="system.effects.{{ index }}.mode">
+              {{selectOptions
+                  ../effectModeOptions
+                  selected=effect.mode
+                  localize=true
+              }}
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label>
+            {{localize "WOD6E.MODIFIERS.ModifierSource"}}
+          </label>
+
+          <div class="form-fields">
+            <select name="system.effects.{{ index }}.valueSource">
+              {{selectOptions ../modifierSourceOptions selected=effect.valueSource localize=true}}
+            </select>
+          </div>
         </div>
       </div>
 
+      {{#if effect.usesTraitValue}}
+      <div>
+        <label>{{localize "WOD6E.MODIFIERS.ActorTrait"}}</label>
+        <div class="form-fields">
+          <select name="system.effects.{{ index }}.valueTrait">
+            <option value="">{{localize 'WOD6E.None'}}</option>
+            {{#each effect.modifierTraitGroups as |group|}}
+            <optgroup label="{{ group.label }}">
+              {{#each group.options as |option|}}
+              {{#if option.selected}}
+              <option
+                value="{{ option.key }}"
+                selected
+              >
+                {{ option.label }}
+              </option>
+              {{else}}
+              <option value="{{ option.key }}">{{ option.label }}</option>
+              {{/if}}
+              {{/each}}
+            </optgroup>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      {{else}}
       <div class="form-group">
         <label>
           {{localize "WOD6E.CONDITIONS.Value"}}
@@ -82,6 +123,7 @@
           />
         </div>
       </div>
+      {{/if}}
       {{/if}}
 
       {{#if effect.effectUsesPredicates}}

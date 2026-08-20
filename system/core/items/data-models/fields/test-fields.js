@@ -6,6 +6,28 @@ export function testFields() {
     description: new fields.StringField({
       initial: ''
     }),
+
+    modifier: new fields.SchemaField({
+      valueSource: new fields.StringField({
+        required: true,
+        initial: 'flat',
+        choices: {
+          flat: 'Flat',
+          trait: 'Actor Trait'
+        }
+      }),
+      value: new fields.NumberField({ required: true, nullable: false, initial: 0 }),
+      valueTrait: new fields.StringField({ initial: '' }),
+      mode: new fields.StringField({
+        required: true,
+        initial: 'add',
+        choices: {
+          add: 'Add',
+          subtract: 'Subtract'
+        }
+      })
+    }),
+
     attributes: new fields.SetField(
       new fields.StringField({
         blank: false,

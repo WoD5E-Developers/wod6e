@@ -34,6 +34,18 @@ export function effectFields() {
         initial: 0
       }),
 
+      valueSource: new fields.StringField({
+        required: true,
+        initial: 'flat',
+        choices: {
+          flat: 'Flat',
+          trait: 'Actor Trait',
+          sourceTrait: "Source Actor's Trait"
+        }
+      }),
+
+      valueTrait: new fields.StringField({ initial: '' }),
+
       predicates: new fields.SetField(
         new fields.StringField({
           blank: false,

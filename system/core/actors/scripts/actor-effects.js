@@ -1,3 +1,5 @@
+import { resolveModifierValue } from './resolve-modifier-value.js'
+
 export class ActorEffects {
   /**
    * Initialize the Actor's prepared effect collections
@@ -22,6 +24,7 @@ export class ActorEffects {
       for (const effect of effects) {
         actor.preparedEffects.effects.push({
           ...effect,
+          sourceActorUuid: condition.system.condition?.sourceUuid,
           sourceId: condition.id,
           sourceUuid: condition.uuid,
           sourceName: condition.name,
@@ -85,7 +88,7 @@ export class ActorEffects {
        * system.attributes.dexterity.effective
        */
       if (typeof current === 'object' && 'effective' in current) {
-        current.effective = this.applyNumericEffect(current.effective, effect)
+        current.effective = this.applyNumericEffect(current.effective, effect, actor)
 
         continue
       }
@@ -107,7 +110,7 @@ export class ActorEffects {
       if (!resource || typeof resource !== 'object') continue
       if (!('value' in resource)) continue
 
-      resource.value = this.applyNumericEffect(resource.value, effect)
+      resource.value = this.applyNumericEffect(resource.value, effect, actor)
     }
   }
 
@@ -121,7 +124,7 @@ export class ActorEffects {
       if (!resource || typeof resource !== 'object') continue
       if (!('max' in resource)) continue
 
-      resource.max = this.applyNumericEffect(resource.max, effect)
+      resource.max = this.applyNumericEffect(resource.max, effect, actor)
 
       if ('value' in resource && resource.value > resource.max) {
         resource.value = resource.max
@@ -132,16 +135,17 @@ export class ActorEffects {
   /**
    * Generic numeric effect handler.
    */
-  static applyNumericEffect(value, effect) {
+  static applyNumericEffect(value, effect, actor = null) {
+    const effectValue = this.resolveEffectValue(actor, effect)
     switch (effect.mode) {
       case 'add':
-        return value + effect.value
+        return value + effectValue
 
       case 'subtract':
-        return value - effect.value
+        return value - effectValue
 
       case 'override':
-        return effect.value
+        return effectValue
 
       default:
         console.warn(
@@ -151,6 +155,10 @@ export class ActorEffects {
 
         return value
     }
+  }
+
+  static resolveEffectValue(actor, effect) {
+    return resolveModifierValue(actor, effect)
   }
 
   /**

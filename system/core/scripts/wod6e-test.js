@@ -77,7 +77,7 @@ export class WOD6eTest {
     const effects = ActorEffects.getApplicableEffects(actor, test, { types: 'dice' })
 
     for (const effect of effects) {
-      test.dicePool = ActorEffects.applyNumericEffect(test.dicePool, effect)
+      test.dicePool = ActorEffects.applyNumericEffect(test.dicePool, effect, actor)
     }
   }
 }

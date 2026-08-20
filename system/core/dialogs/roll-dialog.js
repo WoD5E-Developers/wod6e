@@ -7,6 +7,7 @@ import { ItemUX } from '../items/scripts/item-ux.js'
 import { WOD6eTest } from '../scripts/wod6e-test.js'
 import { _calculateDicePool } from './scripts/calculate-dice-pool.js'
 import { _getTestText } from './scripts/get-test-text.js'
+import { resolveModifierValue } from '../actors/scripts/resolve-modifier-value.js'
 
 const { DialogV2 } = foundry.applications.api
 const { renderTemplate } = foundry.applications.handlebars
@@ -81,14 +82,17 @@ export class RollDialog {
     })
   }
 
-  static _prepareInitialData({ item, test }) {
+  static _prepareInitialData({ actor, item, test }) {
     // Determine whether we've been given an item or a non-item test
     const testData = item ? item?.system?.test : test
 
     const selectedTraits = {
       attributes: testData?.attributes || [],
       skills: testData?.skills || [],
-      disciplines: testData?.disciplines || []
+      disciplines: testData?.disciplines || [],
+      itemModifier:
+        resolveModifierValue(actor, testData?.modifier) *
+        (testData?.modifier?.mode === 'subtract' ? -1 : 1)
     }
 
     return selectedTraits
@@ -118,7 +122,7 @@ export class RollDialog {
       attributeOptions,
       skillOptions,
       disciplineOptions,
-      customModifier: this.customModifier
+      customModifier: (data?.itemModifier ?? 0) + this.customModifier
     })
 
     const dicePool = _calculateDicePool(actor, data)
@@ -137,6 +141,7 @@ export class RollDialog {
         disciplines: data?.disciplines ?? [],
         action: data?.action ?? null,
         category: data?.category ?? null,
+        itemModifier: data?.itemModifier ?? 0,
 
         // Prepared display data
         attributeOptions,
@@ -242,6 +247,8 @@ export class RollDialog {
     const customModifier = form.querySelector(
       '[data-field-path="customModifier"] input'
     ).valueAsNumber
+    const rollForm = form.matches('form') ? form : form.querySelector('form')
+    const itemModifier = Number(rollForm?.dataset.itemModifier) || 0
 
     this.customModifier = customModifier
 
@@ -249,6 +256,7 @@ export class RollDialog {
       attributes,
       skills,
       disciplines,
+      itemModifier,
       customModifier
     }
   }
