@@ -160,8 +160,67 @@ export class ActorUX {
     // Handle item sorting within the same Actor
     if (actor.uuid === item.parent?.uuid) return _onSortItem(event, actor, itemData)
 
+    // Conditions whose effects read a trait from their source actor need that
+    // source to be chosen when a GM assigns the condition.
+    if (
+      game.user.isGM &&
+      itemData.type === 'condition' &&
+      itemData.system?.effects?.some((effect) => effect.valueSource === 'sourceTrait')
+    ) {
+      const sourceUuid = await this._promptForConditionSource(itemData)
+      if (!sourceUuid) return false
+
+      foundry.utils.setProperty(itemData, 'system.condition.sourceUuid', sourceUuid)
+    }
+
     // Create the owned item
     return this._onDropItemCreate(actor, itemData)
+  }
+
+  static async _promptForConditionSource(itemData) {
+    const actors = game.actors.contents.toSorted((a, b) => a.name.localeCompare(b.name))
+    const selectedUuid = itemData.system?.condition?.sourceUuid
+    const options = actors
+      .map((actor) => {
+        const uuid = Handlebars.escapeExpression(actor.uuid)
+        const name = Handlebars.escapeExpression(actor.name)
+        const selected = actor.uuid === selectedUuid ? ' selected' : ''
+
+        return `<option value="${uuid}"${selected}>${name}</option>`
+      })
+      .join('')
+
+    const result = await foundry.applications.api.DialogV2.input({
+      window: {
+        title: game.i18n.localize('WOD6E.CONDITIONS.SelectSourceActor')
+      },
+      content: `
+        <div class="form-group">
+          <label for="condition-source-actor">
+            ${game.i18n.localize('WOD6E.CONDITIONS.SourceActor')}
+          </label>
+          <select id="condition-source-actor" name="sourceUuid" required>
+            ${options}
+          </select>
+        </div>
+      `,
+      ok: {
+        icon: 'fas fa-check',
+        label: game.i18n.localize('WOD6E.Confirm')
+      },
+      buttons: [
+        {
+          action: 'cancel',
+          icon: 'fas fa-times',
+          label: game.i18n.localize('WOD6E.Cancel'),
+          type: 'button'
+        }
+      ],
+      modal: true
+    })
+
+    if (!result || result === 'cancel') return null
+    return result.sourceUuid
   }
 
   static async _onDropItemCreate(actor, itemData) {
