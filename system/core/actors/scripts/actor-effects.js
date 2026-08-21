@@ -341,4 +341,39 @@ export class ActorEffects {
       }
     }
   }
+
+  /**
+   * Helper to resolve what an NPC's difficulty should be
+   *
+   * Returns a number that represents what the difficulty should be for
+   * a given category
+   */
+  static getNpcDifficulty(actor, context = {}, { category = null } = {}) {
+    if (actor.type !== 'npc') {
+      console.warn(
+        'World of Darkness 6th Edition | getNpcDifficulty called for a non-NPC actor.',
+        actor
+      )
+
+      return 0
+    }
+
+    const level = actor.system.level
+    // We can use the selected category of the NPC if one is defined and the
+    // NPC is elite; otherwise, base difficulty is always the NPC's level
+    let difficulty = actor.system.tier === 'elite' ? level[category] : level.value
+
+    // Apply effects and mutate difficulty instead of any effect-specific
+    // traits; this only applies to effects that modify dice, since
+    // NPCs have no traits
+    const effects = this.getApplicableEffects(actor, context, {
+      types: 'dice'
+    })
+
+    for (const effect of effects) {
+      difficulty = this.applyNumericEffect(difficulty, effect, actor)
+    }
+
+    return Math.max(0, difficulty)
+  }
 }
