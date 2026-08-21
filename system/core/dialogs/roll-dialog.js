@@ -16,6 +16,15 @@ const { renderTemplate } = foundry.applications.handlebars
 export class RollDialog {
   static customModifier = 0
 
+  /**
+   * Method to open the roll dialog
+   *
+   * Expects at minimum an instance of an actor;
+   *
+   * Additionally, to pre-fill the selection inputs, an item with a test
+   * or a test object with skills, attributes, or disciplines (each arrays)
+   * is needed.
+   */
   static async open(input = {}) {
     // Accept either an item directly or the existing options
     const isItem = input instanceof Item
@@ -97,6 +106,11 @@ export class RollDialog {
     })
   }
 
+  /**
+   * Prepares the data when the roll dialog opens, accepting a given
+   * actor, an item, and a test object, preferring the item's configured
+   * test if both are provided
+   */
   static _prepareInitialData({ actor, item, test }) {
     // Determine whether we've been given an item or a non-item test
     const testData = item?.system?.test ?? test
@@ -122,12 +136,30 @@ export class RollDialog {
     return selectedTraits
   }
 
+  /**
+   * Accepts a World of Darkness 6e config list as well as a
+   * list of traits, typically in the form of a Set
+   *
+   * Returns the formatted list of traits with the paths
+   */
   static _prepareSelectedTraits(config, selected = []) {
     const definitions = config.getList({})
 
     return Array.from(selected ?? [], (key) => definitions[key]?.path ?? key)
   }
 
+  /**
+   * Context preparation function for the entire roll dialog;
+   *
+   * Given an actor, an item, and data pulled from form inputs
+   * (which in reality is just any selected attributes/skills/disciplines
+   * plus other inputs like difficulty and custom modifier)
+   * it will return the full prepared context with things like
+   * the dicepool, the localized and formatted text (Athletics (1) + Strength (2) vs...)
+   *
+   * This also handles applying any effects from currently configured (and enabled)
+   * conditions.
+   */
   static _prepareContext({ actor, item, data }) {
     const attributeOptions = this._prepareOptions({
       actor,
@@ -165,6 +197,7 @@ export class RollDialog {
       difficulty
     }
 
+    // Conditions can be force-enabled or force-disabled on the roll dialog
     const conditionEffects = this._prepareConditionEffects(actor, effectTest, data)
     effectTest.conditionEffectIds = conditionEffects
       .filter((effect) => effect.enabled)
@@ -227,6 +260,10 @@ export class RollDialog {
     }
   }
 
+  /**
+   * Little helper to prevent having to do write this out three times
+   * for each set of options from a given selection and definition config
+   */
   static _prepareOptions({ actor, definitions, selected = [] }) {
     const selectedKeys = new Set(selected)
 
@@ -240,6 +277,10 @@ export class RollDialog {
       }))
   }
 
+  /**
+   * Another little helper that takes a given list of selections and spits out
+   * a comma-separated list or "None" if the input is empty
+   */
   static _getSelectedText(options) {
     const selected = options.filter((option) => option.selected)
 
@@ -250,7 +291,12 @@ export class RollDialog {
     return selected.map((option) => option.label).join(', ')
   }
 
-  // Check if we should include any skill focuses from the actor
+  /**
+   * Check if we should include any skill focuses from the actor
+   *
+   * Takes the actor, any selected skills, any already selected focuses and
+   * returns a nicely formatted list for our Focuses dropdown
+   */
   static _prepareFocusOptions(actor, selectedSkills = [], selectedFocus = '') {
     const skillPaths = Array.from(selectedSkills ?? [])
 
@@ -266,8 +312,10 @@ export class RollDialog {
     })
   }
 
-  // Condition effect preparation, reusing some existing logic from our
-  // main ActorEffects class with some suitable data mutation
+  /**
+   * Condition effect preparation, reusing some existing logic from our
+   * main ActorEffects class with some suitable data mutation
+   */
   static _prepareConditionEffects(actor, test, data) {
     const selectedIds = Array.isArray(data?.conditionEffectIds)
       ? new Set(data.conditionEffectIds)
@@ -290,6 +338,15 @@ export class RollDialog {
       })
   }
 
+  /**
+   * Force re-render when certain inputs are updated
+   *
+   * This is one trade-off of using a dialog instead of, you know,
+   * an actual application. An actual application was overengineered for
+   * this despite the fact that it would've made partial rerendering possible
+   *
+   * Choose your battles
+   */
   static _activateListeners(dialog, { actor }) {
     const element = dialog.element
 
@@ -310,7 +367,15 @@ export class RollDialog {
     })
   }
 
-  // This entire thing is basically one big find-and-replace function
+  /**
+   * This entire thing is basically one big find-and-replace function
+   *
+   * Efficient? No. But it's not worth worrying about because it's all
+   * just a text replacement
+   *
+   * If we find performance issues with this later, we can likely batch all these updates and just
+   * replace the entire window (or just the window content)
+   */
   static _updatePreview(element, actor) {
     if (!element || !actor) return
 
@@ -336,11 +401,14 @@ export class RollDialog {
     this._replaceSidePanel(element, previewContext)
   }
 
-  // Since the side panel is-but-isn't a "part" of the roll dialog,
-  // we do this so that we can rerender it with new data when we do things
-  // like update the currently active skill/attribute/etc
-  // It's also nicer to track this separate from the "main context" of
-  // the roll dialog
+  /**
+   * Since the side panel is-but-isn't a "part" of the roll dialog,
+   * we do this so that we can rerender it with new data when we do things
+   * like update the currently active skill/attribute/etc
+   *
+   * It's also nicer to track this separate from the "main context" of
+   * the roll dialog
+   */
   static async _replaceSidePanel(element, context) {
     const currentPanel = element.querySelector('.roll-dialog-side-panel')
     if (!currentPanel) return
@@ -354,6 +422,10 @@ export class RollDialog {
     currentPanel.replaceWith(wrapper.firstElementChild)
   }
 
+  /**
+   * Given the formdata, this is a simple function that ties the other
+   * functions together to give us the dice results
+   */
   static _getResult(form, { actor, item }) {
     const formData = this._getDataFromForm(form)
 
@@ -367,6 +439,14 @@ export class RollDialog {
     }
   }
 
+  /**
+   * Another downside of not using an application, but we basically do query selectors to grab the data we need
+   * from all the form values on this entire window
+   *
+   * Note for the future: Any new fields on the Roll Dialog need to be added here too
+   *
+   * If something breaks, it's probably here
+   */
   static _getDataFromForm(form) {
     const attributes = Array.from(
       form.querySelectorAll('[data-field-path="attributes"] .multi-select-option input:checked')
