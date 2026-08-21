@@ -324,9 +324,9 @@ export class ActorEffects {
 
   static _initializeEffectiveValues(actor) {
     const collections = [
-      actor.system.attributes,
-      actor.system.skills,
-      actor.system.vampire.disciplines
+      actor.system?.attributes,
+      actor.system?.skills,
+      actor.system?.vampire?.disciplines
     ]
 
     for (const collection of collections) {
