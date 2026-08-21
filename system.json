@@ -2,10 +2,10 @@
   "id": "wod6e",
   "title": "World of Darkness 6e",
   "description": "World of Darkness 6th Edition system for Foundry VTT",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "compatibility": {
     "minimum": "14",
-    "verified": "14.365",
+    "verified": "14.367",
     "maximum": ""
   },
   "authors": [
@@ -29,13 +29,13 @@
   },
   "initiative": "@attributes.wits.effective",
   "socket": true,
-  "changelog": "https://github.com/wod5e-Developers/wod6e/releases/tag/1.0.6",
+  "changelog": "https://github.com/wod5e-Developers/wod6e/releases/tag/1.0.7",
   "license": "./LICENSE.md",
   "url": "https://github.com/wod5e-Developers/wod6e",
   "bugs": "https://github.com/wod5e-Developers/wod6e/issues",
   "background": "systems/wod6e/assets/dark-pack/images/Locations43.webp",
-  "manifest": "https://github.com/wod5e-Developers/wod6e/releases/download/1.0.6/system.json",
-  "download": "https://github.com/wod5e-Developers/wod6e/releases/download/1.0.6/wod6e.zip",
+  "manifest": "https://github.com/wod5e-Developers/wod6e/releases/download/1.0.7/system.json",
+  "download": "https://github.com/wod5e-Developers/wod6e/releases/download/1.0.7/wod6e.zip",
   "documentTypes": {
     "Actor": {
       "vampire": {}
