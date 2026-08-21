@@ -25,7 +25,17 @@ export class RollDialog {
    * or a test object with skills, attributes, or disciplines (each arrays)
    * is needed.
    */
-  static async open(input = {}) {
+  static async open(
+    input = {
+      actor: null,
+      item: null,
+      test: {
+        attributes: [],
+        skills: [],
+        disciplines: []
+      }
+    }
+  ) {
     // Accept either an item directly or the existing options
     const isItem = input instanceof Item
     const item = isItem ? input : (input.item ?? null)
