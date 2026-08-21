@@ -3,7 +3,7 @@ import { skillFields } from './fields/skill-fields.js'
 import { settingFields } from './fields/setting-fields.js'
 import { vampireFields } from '../../../splats/vampire/actors/data-models/vampire-fields.js'
 
-export class WoDActorModel extends foundry.abstract.TypeDataModel {
+export class WoDPlayerActorModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields
 

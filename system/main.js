@@ -7,7 +7,7 @@ import { loadHelpers } from './core/scripts/helpers.js'
 import { loadSettings } from './core/scripts/settings.js'
 // Actor sheets
 import { WoDActor } from './core/actors/actor.js'
-import { WoDActorModel } from './core/actors/data-models/base-actor-model.js'
+import { WoDPlayerActorModel } from './core/actors/data-models/wod-player-actor-model.js'
 import { WoDActorBase } from './core/actors/actor-sheets/wod-actor-base.js'
 import { ActorUX } from './core/actors/scripts/actor-ux.js'
 // Item sheets
@@ -78,7 +78,7 @@ window.WOD6E = {
   },
   actors: {
     WoDActorBase,
-    WoDActorModel,
+    WoDPlayerActorModel,
     contextPreparation: {
       prepareAttributesContext,
       prepareResourcesContext,
