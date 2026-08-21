@@ -1096,6 +1096,9 @@
 .roll-dialog {
   overflow: visible;
 }
+.roll-dialog .window-content {
+  overflow: visible;
+}
 .roll-dialog .roll-dialog-header {
   text-align: center;
 }
