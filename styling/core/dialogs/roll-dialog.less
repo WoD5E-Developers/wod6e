@@ -17,9 +17,9 @@
 
   .roll-dialog-side-panel {
     position: absolute;
-    right: -250px;
+    right: -275px;
     top: 0;
-    max-width: 325px;
+    max-width: 250px;
     border: 1px solid;
     padding: 10px;
 
@@ -51,6 +51,23 @@
     &.not-applicable {
       opacity: 0.65;
     }
+  }
+
+  .roll-quickening-option {
+    align-items: center;
+    display: grid;
+    gap: 6px;
+    grid-template-columns: 1fr 60px auto;
+    padding: 5px 0;
+
+    input {
+      text-align: center;
+      width: 60px;
+    }
+  }
+
+  .quickening-modifier {
+    font-weight: bold;
   }
 
   .condition-effect-modifier {

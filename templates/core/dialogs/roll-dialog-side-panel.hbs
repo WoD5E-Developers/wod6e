@@ -1,4 +1,27 @@
 <div class="roll-dialog-side-panel application dialog">
+  <section class="roll-quickening-section">
+    <h4>{{localize 'WOD6E.RESOURCES.Quickening'}}</h4>
+    <label class="roll-quickening-option">
+      <span>{{localize 'WOD6E.ROLL.SpendQuickening'}}</span>
+      <input
+        class="quickening-spent"
+        type="number"
+        name="quickeningSpent"
+        value="{{ test.quickeningSpent }}"
+        min="0"
+        max="{{ test.quickeningValue }}"
+        step="1"
+        {{#unless test.canSpendQuickening}}disabled{{/unless}}
+      />
+      <span class="quickening-modifier">+{{ test.quickeningSpent }}</span>
+    </label>
+    {{#if test.canSpendQuickening}}
+    <small>{{localize 'WOD6E.ROLL.QuickeningAvailable' value=test.quickeningValue}}</small>
+    {{else}}
+    <small class="roll-panel-empty">{{localize 'WOD6E.ROLL.QuickeningUnavailable'}}</small>
+    {{/if}}
+  </section>
+
   <section class="roll-focus-section">
     <h4>{{localize 'WOD6E.SKILLS.Focus'}}</h4>
     {{#if test.hasFocusOptions}}

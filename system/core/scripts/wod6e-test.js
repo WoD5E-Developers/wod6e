@@ -17,6 +17,7 @@ export class WOD6eTest {
       action: context.action,
       category: context.category,
       conditionEffectIds: context.conditionEffectIds,
+      quickeningSpent: Math.max(Math.floor(Number(context.quickeningSpent) || 0), 0),
       dicePool: context.baseDicePool ?? context.dicePool,
       difficulty: context.difficulty
     }
@@ -24,6 +25,10 @@ export class WOD6eTest {
     if (actor) {
       this.applyEffects(actor, test)
     }
+
+    // Each Quickening spent contributes one die to the roll.
+    test.dicePool += test.quickeningSpent
+    context.quickeningSpent = test.quickeningSpent
 
     context.dicePool = test.dicePool
     context.dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', {
@@ -65,14 +70,21 @@ export class WOD6eTest {
   }
 
   static async _processQuickening(actor, roll) {
-    const amount = roll.quickeningGained
-    if (amount <= 0) return
-
     const user = game.user
 
     if (user.character?.id !== actor.id) return
 
-    Hooks.callAll('wod6e.increaseQuickening', user, amount)
+    // If you see this and think, "Why not combine these?"
+    // it's because later on we check if the quickening value hasn't changed at all
+    // and we can get weird scenarios where quickening is spent, and gained,
+    // by the same amount in the same roll, but we want to tell the users about this
+    // and instead of trying to figure out the chat message template for it
+    // we just send two chat messages one after the other for ease
+    if (roll?.quickeningSpent > 0)
+      Hooks.callAll('wod6e.adjustQuickening', user, -roll.quickeningSpent)
+
+    if (roll?.quickeningGained > 0)
+      Hooks.callAll('wod6e.adjustQuickening', user, roll?.quickeningGained)
   }
 
   static applyEffects(actor, test) {

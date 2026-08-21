@@ -128,9 +128,11 @@
       "_GenerationTier": "",
       "_Prerequisites": "",
       "_QuickeningGained": "",
+      "_QuickeningSpent": "",
       "_TestPool": "",
       "_UsedForDifficulty": "",
-      "_UserHasGainedAmountQuickening": ""
+      "_UserHasGainedAmountQuickening": "",
+      "_UserHasSpentAmountQuickening": ""
     },
     "CONDITIONS": {
       "_ActorTrait": "",
@@ -233,9 +235,12 @@
       "_NoConditionEffects": "",
       "_NotNormallyApplicable": "",
       "_NoTraitsSelected": "",
+      "_QuickeningAvailable": "",
+      "_QuickeningUnavailable": "",
       "_Roll": "",
       "_RollingString": "",
       "_SelectSkillForFocus": "",
+      "_SpendQuickening": "",
       "_VsDifficulty": ""
     },
     "SETTINGS": {

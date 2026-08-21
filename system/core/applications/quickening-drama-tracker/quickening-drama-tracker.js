@@ -238,27 +238,47 @@ Hooks.on('getSceneControlButtons', (controls) => {
   }
 })
 
-Hooks.on('wod6e.increaseQuickening', async (user, amount) => {
+Hooks.on('wod6e.adjustQuickening', async (user, amount) => {
   const current = Number(user.getFlag('wod6e', 'quickening') ?? 0)
 
   const value = Math.clamp(current + amount, 0, 5)
 
   if (value === current) return
 
-  // Increase quickening value and send out chat message
-  await user.setFlag('wod6e', 'quickening', value)
-  await ChatMessage.create({
-    speaker: ChatMessage.getSpeaker(),
-    content: `
+  if (value > current) {
+    // Addition
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker(),
+      content: `
+        <div class="wod6e chat-card">
+          <h4 class="chat-card-name">${game.i18n.localize('WOD6E.CHAT.QuickeningGained')}</h4>
+          <div class="chat-card-description">
+            ${game.i18n.format('WOD6E.CHAT.UserHasGainedAmountQuickening', {
+              user: user.name,
+              amount
+            })}
+          </div>
+        </div>
+      `
+    })
+  } else {
+    // Subtraction
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker(),
+      content: `
       <div class="wod6e chat-card">
-        <h4 class="chat-card-name">${game.i18n.localize('WOD6E.CHAT.QuickeningGained')}</h4>
+        <h4 class="chat-card-name">${game.i18n.localize('WOD6E.CHAT.QuickeningSpent')}</h4>
         <div class="chat-card-description">
-          ${game.i18n.format('WOD6E.CHAT.UserHasGainedAmountQuickening', {
+          ${game.i18n.format('WOD6E.CHAT.UserHasSpentAmountQuickening', {
             user: user.name,
-            amount
+            amount: Math.abs(amount)
           })}
         </div>
       </div>
     `
-  })
+    })
+  }
+
+  // Adjust quickening value on the user
+  await user.setFlag('wod6e', 'quickening', value)
 })

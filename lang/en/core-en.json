@@ -128,9 +128,11 @@
       "GenerationTier": "Generation Tier",
       "Prerequisites": "Prerequisites",
       "QuickeningGained": "Quickening Gained",
+      "QuickeningSpent": "Quickening Spent",
       "TestPool": "Test Pool",
       "UsedForDifficulty": "Used when determining difficulty",
-      "UserHasGainedAmountQuickening": "{user} has gained {amount} quickening."
+      "UserHasGainedAmountQuickening": "{user} has gained {amount} quickening.",
+      "UserHasSpentAmountQuickening": "{user} has spent {amount} quickening."
     },
     "CONDITIONS": {
       "ActorTrait": "Actor Trait",
@@ -233,9 +235,12 @@
       "NoConditionEffects": "No condition effects are available for this roll.",
       "NotNormallyApplicable": "Not normally applicable",
       "NoTraitsSelected": "No Traits Selected",
+      "QuickeningAvailable": "{value} Quickening available",
+      "QuickeningUnavailable": "Quickening is unavailable for this test.",
       "Roll": "Roll",
       "RollingString": "Rolling {string}",
       "SelectSkillForFocus": "Select a skill with a focus to use it.",
+      "SpendQuickening": "Quickening to spend",
       "VsDifficulty": "vs Difficulty"
     },
     "SETTINGS": {
