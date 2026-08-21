@@ -1,3 +1,5 @@
+import { getGroupLabel } from './get-group-label.js'
+
 export async function _onToggleMultiSelect(event, target) {
   event.preventDefault()
 
@@ -94,11 +96,32 @@ export const prepareMultiSelect = (selectedValues, options) => {
     .filter((option) => option.selected)
     .map((option) => option.label)
 
+  const groups = Object.values(
+    preparedOptions.reduce((groups, option) => {
+      const type = option.type ?? 'other'
+
+      if (!groups[type]) {
+        groups[type] = {
+          key: type,
+          label: getGroupLabel(type),
+          options: []
+        }
+      }
+
+      groups[type].options.push(option)
+
+      return groups
+    }, {})
+  )
+
   return {
     options: preparedOptions,
+    groups,
+
     selectedText: selectedLabels.length
       ? selectedLabels.join(', ')
       : game.i18n.localize('WOD6E.NoneSelected'),
+
     labels: selectedLabels
   }
 }

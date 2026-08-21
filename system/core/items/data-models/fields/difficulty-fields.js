@@ -1,6 +1,5 @@
 const fields = foundry.data.fields
 
-// Main export, a TypedObjectField with the Skill Field's data model
 export function difficultyFields() {
   return new fields.SchemaField({
     type: new fields.StringField({
@@ -12,12 +11,21 @@ export function difficultyFields() {
       integer: true,
       nullable: true
     }),
-    attribute: new fields.StringField({
+    targetsTrait: new fields.StringField({
       initial: ''
     }),
-    useNpcLevel: new fields.BooleanField({
-      initial: false
+    singleAttribute: new fields.StringField({
+      initial: ''
     }),
+    multipleAttributes: new fields.SetField(
+      new fields.StringField({
+        blank: false,
+        nullable: false
+      }),
+      {
+        initial: []
+      }
+    ),
     description: new fields.HTMLField({
       initial: ''
     })

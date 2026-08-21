@@ -52,13 +52,18 @@
       "Category": "Category",
       "Close": "Close",
       "Defense": "Defense",
+      "DifficultyDeterminedByStoryteller": "Difficulty will be determined by storyteller at time of roll",
+      "DifficultyType": "Difficulty Type",
       "Distance": "Distance",
       "Downtime": "Downtime",
       "Duration": "Duration",
       "Exploration": "Exploration",
       "Far": "Far",
       "Fixed": "Fixed",
+      "FixedPlusTargetsTrait": "Fixed Plus Target's Trait",
+      "FixedValue": "Fixed Value",
       "General": "General",
+      "HighestAttributeOrNPCLevel": "Highest Attribute, or NPC Level",
       "Instantaneous": "Instantaneous",
       "MinorAction": "Minor Action",
       "NPCLevel": "NPC Level",
@@ -69,6 +74,7 @@
       "Physical": "Physical",
       "Prolonged": "Prolonged",
       "Reaction": "Reaction",
+      "Recovery": "Recovery",
       "Role": "Role",
       "Self": "Self",
       "Short": "Short",
@@ -77,10 +83,12 @@
       "Storyteller": "Storyteller Determined",
       "TargetAttribute": "Target Attribute",
       "TargetHighestAttribute": "Target's Highest Attribute",
+      "TargetsTrait": "Target's Trait",
       "Test": "Test",
       "Touch": "Touch",
       "Unlimited": "Unlimited",
       "Untyped": "Untyped",
+      "UsesNPCLevel": "Uses NPC Level if highest",
       "Utility": "Utility",
       "Variable": "Variable"
     },
@@ -115,8 +123,16 @@
       "Wits": "Wits"
     },
     "CHAT": {
+      "AddsExtraSuccesses": "Adds extra successes",
+      "CannotRollItemTest": "You must own the item's actor or be a gamemaster to roll this test.",
+      "GenerationTier": "Generation Tier",
+      "Prerequisites": "Prerequisites",
       "QuickeningGained": "Quickening Gained",
-      "UserHasGainedAmountQuickening": "{user} has gained {amount} quickening."
+      "QuickeningSpent": "Quickening Spent",
+      "TestPool": "Test Pool",
+      "UsedForDifficulty": "Used when determining difficulty",
+      "UserHasGainedAmountQuickening": "{user} has gained {amount} quickening.",
+      "UserHasSpentAmountQuickening": "{user} has spent {amount} quickening."
     },
     "CONDITIONS": {
       "ActorTrait": "Actor Trait",
@@ -144,8 +160,12 @@
       "Predicates": "Predicates",
       "Resource": "Resource",
       "ResourceMaximum": "Resource Maximum",
+      "SelectSourceActor": "Select Source Actor",
+      "Source": "Source",
+      "SourceActor": "Source Actor",
       "SourceUuid": "Source UUID",
       "Stackable": "Stackable",
+      "Target": "Target",
       "TargetPlaceholder": "Target Placeholder",
       "Targets": "Targets",
       "TargetUuid": "Target UUID",
@@ -168,6 +188,7 @@
       "DataItemIdCannotBeEmpty": "Data Item ID cannot be empty. Please go to the item's Settings tab and click the \"Generate Data Item ID\" button.",
       "DeleteItem": "Delete Item",
       "GenerateDataItemID": "Generate Data Item ID",
+      "Items": "Items",
       "Level": "Level",
       "NoItemsFound": "There were no items found associated with Data Item ID \"{dataItemId}.\"",
       "NumberStringResourceCost": "{number} {string}",
@@ -181,6 +202,13 @@
     },
     "MERITS": {
       "Merits": "Merits"
+    },
+    "MODIFIERS": {
+      "ActorTrait": "Actor Trait",
+      "Flat": "Flat Modifier",
+      "FlatModifier": "Flat Modifier",
+      "ModifierSource": "Modifier Value",
+      "SourceActorTrait": "Source Trait"
     },
     "NOTIFICATIONS": {
       "ConsoleLog": "World of Darkness 6th Edition | {string}",
@@ -202,10 +230,18 @@
       "Willpower": "Willpower"
     },
     "ROLL": {
+      "ConditionEffects": "Condition Effects",
       "CustomModifier": "Custom Modifier",
+      "NoConditionEffects": "No condition effects are available for this roll.",
+      "NotNormallyApplicable": "Not normally applicable",
       "NoTraitsSelected": "No Traits Selected",
+      "QuickeningAvailable": "{value} Quickening available",
+      "QuickeningUnavailable": "Quickening is unavailable for this test.",
       "Roll": "Roll",
-      "RollingString": "Rolling {string}"
+      "RollingString": "Rolling {string}",
+      "SelectSkillForFocus": "Select a skill with a focus to use it.",
+      "SpendQuickening": "Quickening to spend",
+      "VsDifficulty": "vs Difficulty"
     },
     "SETTINGS": {
       "WorldVersion": "World Version",
@@ -225,6 +261,7 @@
       "Craft": "Craft",
       "Expression": "Expression",
       "Fighting": "Fighting",
+      "Focus": "Focus",
       "Focuses": "Focuses",
       "Investigation": "Investigation",
       "Knowledge": "Knowledge",

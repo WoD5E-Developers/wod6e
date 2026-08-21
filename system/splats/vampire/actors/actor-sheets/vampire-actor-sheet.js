@@ -35,11 +35,11 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     main: {
       template: 'systems/wod6e/templates/splats/vampire/actors/vampire-sheet-body.hbs'
     },
-    conditions: {
-      template: 'systems/wod6e/templates/core/actors/parts/conditions.hbs'
-    },
     actions: {
       template: 'systems/wod6e/templates/core/actors/parts/actions.hbs'
+    },
+    conditions: {
+      template: 'systems/wod6e/templates/core/actors/parts/conditions.hbs'
     },
     settings: {
       template: 'systems/wod6e/templates/core/actors/parts/settings.hbs'
@@ -62,14 +62,14 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
           label: 'WOD6E.TABS.Main'
         },
         {
-          id: 'conditions',
-          icon: 'fa-solid fa-user',
-          label: 'WOD6E.TABS.Conditions'
-        },
-        {
           id: 'actions',
           icon: 'fa-solid fa-user',
           label: 'WOD6E.TABS.Actions'
+        },
+        {
+          id: 'conditions',
+          icon: 'fa-solid fa-user',
+          label: 'WOD6E.TABS.Conditions'
         }
       ],
       initial: 'main'
@@ -101,11 +101,11 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     // Prepare each page context
     switch (partId) {
       // Tabs
-      case 'conditions':
-        return prepareConditionsContext(context, actor)
-
       case 'actions':
         return prepareActionsContext(context, actor)
+
+      case 'conditions':
+        return prepareConditionsContext(context, actor)
 
       case 'settings':
         return this.prepareSettingsContext(context, actor)

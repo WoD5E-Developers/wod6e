@@ -18,10 +18,16 @@ export function vampireFields() {
         curse: new fields.StringField({ initial: '', nullable: false })
       }),
 
-      generation: new fields.NumberField({ initial: null, nullable: true }),
+      generation: new fields.SchemaField({
+        value: new fields.NumberField({ initial: 13, min: 4, integer: true, nullable: false })
+      }),
 
       sire: new fields.SchemaField({
-        name: new fields.StringField({ initial: '', nullable: false })
+        type: new fields.StringField({ initial: 'adoptive', nullable: false }),
+        character: new fields.SchemaField({
+          name: new fields.StringField({ initial: '', nullable: false }),
+          uuid: new fields.StringField({ initial: '', nullable: false })
+        })
       }),
 
       humanity: new fields.SchemaField({

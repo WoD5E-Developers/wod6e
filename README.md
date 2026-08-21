@@ -19,9 +19,9 @@ Bugs or feature requests created to this repository are greatly appreciate. Plea
 
 The lead system developer and original creator of the system is [Veilza](https://github.com/Veilza).
 
-If you'd like to help contribute too, just open a pull request any time! Per Foundry's [AI Content Policy], and the "No AI" label has been applied to the WOD6E package, we do not allow any AI-generated code to be merged into the repository in order to remain compliant. If your merge request is suspected to contain AI-generated code, it will be closed.
+If you'd like to help contribute too, just open a pull request any time! Per Foundry's [AI Content Policy], all prepared content must be human-made and any code must be personally understood by the developer submitting the code. If you are not able to understand and explain your code, the pull request will be rejected.
 
-If you'd like to help contribute localization updates, you can either open up an issue with the "Localization" issue type, or you can do a pull request with updates as needed.
+If you'd like to help contribute localization updates, you can either open up an issue with the "Localization" issue type, or you can do a pull request with updates as needed. AI-generated localization efforts will never be accepted; all localization submissions must be written by a real human who speaks the language they are providing at a native level, in order to ensure the due respect is given to people who speak that language.
 
 ## Dark Pack
 

@@ -12,7 +12,19 @@ export const _calculateDicePool = function (actor, formData) {
   }, 0)
 
   const customModifier = formData.customModifier ?? 0
+  const itemModifier = formData.itemModifier ?? 0
+  const focusModifier = formData.focus ? 1 : 0
+  const difficulty = formData.difficulty ?? 0
 
   // Enforce a minimum of 1 die
-  return Math.max(1, attributeDice + skillDice + disciplineDice + customModifier)
+  return Math.max(
+    1,
+    attributeDice +
+      skillDice +
+      disciplineDice +
+      itemModifier +
+      customModifier +
+      focusModifier -
+      difficulty
+  )
 }

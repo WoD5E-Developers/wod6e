@@ -1,3 +1,4 @@
+import { groupSelectOptions } from '../../fields/group-select-options.js'
 import { prepareMultiSelect } from '../../fields/multiselect.js'
 import { buildEnrichedField } from './build-enriched-field.js'
 import { formatTest } from './format-test-labels.js'
@@ -29,16 +30,16 @@ export async function prepareTestContext(context, item) {
   // Attributes
   const attributes = prepareMultiSelect(
     test?.attributes,
-    getTargetOptions({ types: ['attributes'] })
+    await getTargetOptions({ types: ['attributes'] })
   )
 
   // Skills
-  const skills = prepareMultiSelect(test?.skills, getTargetOptions({ types: ['skills'] }))
+  const skills = prepareMultiSelect(test?.skills, await getTargetOptions({ types: ['skills'] }))
 
   // Disciplines
   const disciplines = prepareMultiSelect(
     test?.disciplines,
-    getTargetOptions({ types: ['disciplines'] })
+    await getTargetOptions({ types: ['disciplines'] })
   )
 
   context.test = {
@@ -53,26 +54,74 @@ export async function prepareTestContext(context, item) {
     disciplineOptions: disciplines.options,
     selectedDisciplinesText: disciplines.selectedText,
 
-    testText: formatTest(attributes.labels, skills.labels, disciplines.labels)
+    testText: formatTest(attributes.labels, skills.labels, disciplines.labels),
+    modifier: test.modifier,
+    modifierSourceOptions: {
+      flat: 'WOD6E.MODIFIERS.Flat',
+      trait: 'WOD6E.MODIFIERS.ActorTrait'
+    },
+    modifierModeOptions: {
+      add: 'WOD6E.Add',
+      subtract: 'WOD6E.Subtract'
+    },
+    modifierTraitGroups: groupSelectOptions(
+      (
+        await getTargetOptions({
+          types: ['attributes', 'skills', 'disciplines', 'generationModifiers'],
+          usePaths: true,
+          actor: item.actor
+        })
+      ).map((option) => ({ ...option, selected: option.key === test.modifier?.valueTrait }))
+    )
   }
 
   return context
 }
 
 export async function prepareDifficultyContext(context, item) {
-  const itemData = item.system
+  const difficulty = item.system?.difficulty ?? {}
 
   // Tab data
   context.tab = context.tabs.difficulty
 
-  // Main dropdown
+  // Difficulty type options
   context.difficultyOptions = WOD6E.configs.Difficulties.getList({})
-  context.difficultySelected = itemData?.difficulty?.type || ''
+  context.difficultySelected = difficulty.type || 'variable'
 
-  // Additional options
   const difficultyType = context.difficultyOptions[context.difficultySelected]
-  context.showFixedDifficulty = difficultyType?.usesFixedValue ?? false
-  context.showAttributeSelector = difficultyType?.usesAttribute ?? false
+
+  // Difficulty data
+  context.difficulty = difficulty
+
+  // Config-driven display options
+  context.difficultyUsesFixedValue = difficultyType?.usesFixedValue ?? false
+  context.difficultyUsesTargetsTrait = difficultyType?.usesTargetsTrait ?? false
+  context.difficultyUsesAttribute = difficultyType?.usesAttribute ?? false
+  context.difficultyUsesMultipleAttributes = difficultyType?.multipleAttributes ?? false
+  context.difficultyUsesNpcLevel = difficultyType?.usesNpcLevel ?? false
+  context.difficultyDeterminedByStoryteller = difficultyType?.determinedByStoryteller ?? false
+
+  // Attribute options
+  if (difficultyType?.multipleAttributes) {
+    const attributes = prepareMultiSelect(
+      difficulty?.attributes,
+      await getTargetOptions({ types: ['attributes'] })
+    )
+    context.attributeOptions = attributes.options
+    context.selectedAttributesText = attributes.selectedText
+  } else {
+    context.attributeOptions = WOD6E.configs.Attributes.getList({})
+  }
+
+  // Target trait options
+  if (difficultyType?.usesTargetsTrait) {
+    context.traitOptions = await getTargetOptions({
+      types: ['attributes', 'skills', 'disciplines'],
+      usePaths: true
+    })
+    context.traitGroups = groupSelectOptions(context.traitOptions)
+    context.selectedTrait = difficulty?.targetsTrait
+  }
 
   return context
 }

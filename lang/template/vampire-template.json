@@ -1,6 +1,7 @@
 {
   "WOD6E": {
     "VAMPIRE": {
+      "_Ancilla": "",
       "_Animalism": "",
       "_Auspex": "",
       "_Beast": "",
@@ -13,14 +14,19 @@
       "_Disciplines": "",
       "_DisciplineType": "",
       "_Dominate": "",
+      "_Duskborn": "",
+      "_Elder": "",
       "_Fortitude": "",
       "_Frenzy": "",
+      "_GenerationModifier": "",
       "_Humanity": "",
       "_HumanityScale": "",
+      "_Methuselah": "",
       "_Monstrous": "",
       "_Mortal": "",
       "_Nature": "",
       "_Necromancy": "",
+      "_Neonate": "",
       "_Obfuscate": "",
       "_Oblivion": "",
       "_Potence": "",

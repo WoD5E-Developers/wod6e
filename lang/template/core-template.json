@@ -52,13 +52,18 @@
       "_Category": "",
       "_Close": "",
       "_Defense": "",
+      "_DifficultyDeterminedByStoryteller": "",
+      "_DifficultyType": "",
       "_Distance": "",
       "_Downtime": "",
       "_Duration": "",
       "_Exploration": "",
       "_Far": "",
       "_Fixed": "",
+      "_FixedPlusTargetsTrait": "",
+      "_FixedValue": "",
       "_General": "",
+      "_HighestAttributeOrNPCLevel": "",
       "_Instantaneous": "",
       "_MinorAction": "",
       "_NPCLevel": "",
@@ -69,6 +74,7 @@
       "_Physical": "",
       "_Prolonged": "",
       "_Reaction": "",
+      "_Recovery": "",
       "_Role": "",
       "_Self": "",
       "_Short": "",
@@ -77,10 +83,12 @@
       "_Storyteller": "",
       "_TargetAttribute": "",
       "_TargetHighestAttribute": "",
+      "_TargetsTrait": "",
       "_Test": "",
       "_Touch": "",
       "_Unlimited": "",
       "_Untyped": "",
+      "_UsesNPCLevel": "",
       "_Utility": "",
       "_Variable": ""
     },
@@ -115,8 +123,16 @@
       "_Wits": ""
     },
     "CHAT": {
+      "_AddsExtraSuccesses": "",
+      "_CannotRollItemTest": "",
+      "_GenerationTier": "",
+      "_Prerequisites": "",
       "_QuickeningGained": "",
-      "_UserHasGainedAmountQuickening": ""
+      "_QuickeningSpent": "",
+      "_TestPool": "",
+      "_UsedForDifficulty": "",
+      "_UserHasGainedAmountQuickening": "",
+      "_UserHasSpentAmountQuickening": ""
     },
     "CONDITIONS": {
       "_ActorTrait": "",
@@ -144,8 +160,12 @@
       "_Predicates": "",
       "_Resource": "",
       "_ResourceMaximum": "",
+      "_SelectSourceActor": "",
+      "_Source": "",
+      "_SourceActor": "",
       "_SourceUuid": "",
       "_Stackable": "",
+      "_Target": "",
       "_TargetPlaceholder": "",
       "_Targets": "",
       "_TargetUuid": "",
@@ -168,6 +188,7 @@
       "_DataItemIdCannotBeEmpty": "",
       "_DeleteItem": "",
       "_GenerateDataItemID": "",
+      "_Items": "",
       "_Level": "",
       "_NoItemsFound": "",
       "_NumberStringResourceCost": "",
@@ -181,6 +202,13 @@
     },
     "MERITS": {
       "_Merits": ""
+    },
+    "MODIFIERS": {
+      "_ActorTrait": "",
+      "_Flat": "",
+      "_FlatModifier": "",
+      "_ModifierSource": "",
+      "_SourceActorTrait": ""
     },
     "NOTIFICATIONS": {
       "_ConsoleLog": "",
@@ -202,10 +230,18 @@
       "_Willpower": ""
     },
     "ROLL": {
+      "_ConditionEffects": "",
       "_CustomModifier": "",
+      "_NoConditionEffects": "",
+      "_NotNormallyApplicable": "",
       "_NoTraitsSelected": "",
+      "_QuickeningAvailable": "",
+      "_QuickeningUnavailable": "",
       "_Roll": "",
-      "_RollingString": ""
+      "_RollingString": "",
+      "_SelectSkillForFocus": "",
+      "_SpendQuickening": "",
+      "_VsDifficulty": ""
     },
     "SETTINGS": {
       "_WorldVersion": "",
@@ -225,6 +261,7 @@
       "_Craft": "",
       "_Expression": "",
       "_Fighting": "",
+      "_Focus": "",
       "_Focuses": "",
       "_Investigation": "",
       "_Knowledge": "",

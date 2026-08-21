@@ -2,14 +2,31 @@ import { generateTrackers } from '../../../../../core/actors/scripts/generate-tr
 import { prepareResources } from '../../../../../core/actors/scripts/prepare-resources.js'
 import { prepareSkills } from '../../../../../core/actors/scripts/prepare-skills.js'
 import { generateTestTextFromItem } from '../../../../../core/items/scripts/generate-test-text-from-item.js'
+import { formatOrdinals } from '../../../../../core/scripts/format-ordinals.js'
 
 export const prepareHeaderContext = async function (context, actor) {
   const actorData = actor.system
+  const clan = context.clan
 
   context.name = actor.name
   context.archetype = actorData.archetype
   context.age = actorData.age
   context.vampire = actorData.vampire
+  if (clan) {
+    context.curse = clan?.system?.curse?.name ? clan?.system?.curse?.name : `${clan?.name} Curse`
+  }
+
+  // Construct how the labels should look by giving all the generation options as dropdowns
+  context.generationOptions = Object.values(WOD6E.configs.GenerationCategories.getList({}))
+    .flatMap((category) =>
+      category.generations.map((generation) => ({
+        value: generation,
+        label: `${formatOrdinals(generation)} - ${category.label} (${category.modifier})`
+      }))
+    )
+    .sort((a, b) => b.value - a.value)
+
+  context.generationSelected = actorData.vampire.generation.value
 
   return context
 }

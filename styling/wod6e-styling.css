@@ -164,7 +164,7 @@
   --tracker-filled: #fdfdfd;
   --tracker-disabled: #fdfdfdde;
   --tracker-disabled-dark: #fff;
-  --modified-color: rgba(255, 217, 1, 0.932);
+  --modified-color: #e61c01;
   --multiselect-background: #333332;
   --multiselect-border: #ccc;
   --multiselect-hover-background: #333332;
@@ -207,7 +207,7 @@
   --tracker-filled: #000;
   --tracker-disabled: #000000de;
   --tracker-disabled-dark: #fff;
-  --modified-color: #8a7500;
+  --modified-color: #851010;
   --multiselect-background: #d5cbab;
   --multiselect-border: #000;
   --multiselect-hover-background: #ffffff18;
@@ -1044,6 +1044,48 @@
 .wod6e.chat-card .chat-card-name {
   border-bottom: 1px solid;
 }
+.wod6e.chat-card .item-card-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.wod6e.chat-card .item-card-header img {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  object-fit: cover;
+  border: 1px solid;
+}
+.wod6e.chat-card .item-card-header .item-name {
+  flex: 1;
+  margin: 0;
+}
+.wod6e.chat-card .item-card-section {
+  margin-top: 10px;
+  padding-top: 5px;
+  border-top: 1px solid var(--color-border-light-primary);
+}
+.wod6e.chat-card .item-card-section h5 {
+  margin: 0 0 5px;
+}
+.wod6e.chat-card .item-card-fields {
+  display: block;
+}
+.wod6e.chat-card .item-card-fields > .item-card-field-name,
+.wod6e.chat-card .item-card-fields > .item-card-field-value {
+  display: inline;
+}
+.wod6e.chat-card .item-card-fields > .item-card-field-name {
+  font-weight: bold;
+}
+.wod6e.chat-card .item-card-source {
+  border-top: 1px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: var(--font-size-12);
+  font-style: italic;
+}
 
 .application.dialog .skill-configuration-list,
 .application.dialog .power-visibility-list {
@@ -1051,12 +1093,71 @@
   grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr);
 }
 
-.roll-dialog-header {
+.roll-dialog {
+  overflow: visible;
+}
+.roll-dialog .roll-dialog-header {
   text-align: center;
 }
-.roll-dialog-header .roll-pool {
+.roll-dialog .roll-dialog-header .roll-pool {
   font-size: 16pt;
   font-weight: bold;
+}
+.roll-dialog .roll-dialog-header .difficulty-section input {
+  width: 35px;
+  text-align: center;
+}
+.roll-dialog .roll-dialog-side-panel {
+  position: absolute;
+  right: -275px;
+  top: 0;
+  max-width: 250px;
+  border: 1px solid;
+  padding: 10px;
+}
+.roll-dialog .roll-dialog-side-panel h3 {
+  margin: 0 0 8px;
+  padding-bottom: 4px;
+}
+.roll-dialog .roll-dialog-side-panel section + section {
+  margin-top: 16px;
+}
+.roll-dialog .roll-dialog-side-panel select {
+  width: 100%;
+}
+.roll-dialog .roll-condition-effect {
+  align-items: center;
+  display: grid;
+  gap: 2px 6px;
+  grid-template-columns: auto 1fr auto;
+  padding: 5px 0;
+}
+.roll-dialog .roll-condition-effect small {
+  grid-column: 2 / -1;
+}
+.roll-dialog .roll-condition-effect.not-applicable {
+  opacity: 0.65;
+}
+.roll-dialog .roll-quickening-option {
+  align-items: center;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: 1fr 60px auto;
+  padding: 5px 0;
+}
+.roll-dialog .roll-quickening-option input {
+  text-align: center;
+  width: 60px;
+}
+.roll-dialog .quickening-modifier {
+  font-weight: bold;
+}
+.roll-dialog .condition-effect-modifier {
+  font-weight: bold;
+}
+.roll-dialog .roll-panel-empty {
+  font-style: italic;
+  opacity: 0.7;
 }
 
 .multi-select-section .multi-select {
@@ -1108,6 +1209,22 @@
 }
 .multi-select-section .multi-select .multi-select-option > input:checked::after {
   color: var(--multiselect-checked-color);
+}
+.multi-select-section .multi-select-group:not(:last-child) {
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border-light-2);
+}
+.multi-select-section .multi-select-group .multi-select-group-label {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.multi-select-section .multi-select-group .multi-select-group-options {
+  display: flex;
+  flex-direction: column;
 }
 
 .actor.sheet .prose-mirror-section,
@@ -1216,4 +1333,11 @@
 }
 .item.sheet .no-effect-listed {
   padding: 8px;
+}
+.item.sheet .form-group {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.item.sheet .form-group.shared-group-row {
+  column-gap: 5px;
 }

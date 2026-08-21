@@ -42,6 +42,10 @@ export class ActionRoles extends BaseDefinitionClass {
   static utility = {
     label: 'WOD6E.ACTIONS.Utility'
   }
+
+  static recovery = {
+    label: 'WOD6E.ACTIONS.Recovery'
+  }
 }
 
 // Hook to call onReady when the game is ready

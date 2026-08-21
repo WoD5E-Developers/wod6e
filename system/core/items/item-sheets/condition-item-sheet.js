@@ -101,7 +101,7 @@ export class ConditionItemSheet extends HandlebarsApplicationMixin(WoDItemBase) 
         return prepareConditionDetailsContext(context, item)
 
       case 'effects':
-        return prepareConditionEffectsContext(context, item)
+        return await prepareConditionEffectsContext(context, item)
 
       case 'settings':
         return prepareItemSettingsContext(context, item)

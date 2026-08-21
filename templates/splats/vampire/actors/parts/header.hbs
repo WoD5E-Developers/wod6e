@@ -119,16 +119,19 @@
         <input
           type="text"
           disabled
-          value="{{ clan.system.curse.name }}"
+          value="{{ curse }}"
         />
       </div>
       <div class="sheet-field">
         <label>Generation (Modifier):</label>
-        <input
-          type="text"
-          name="system.vampire.generation"
-          value="{{ vampire.generation }}"
-        />
+        <select name="system.vampire.generation.value">
+          {{selectOptions
+            generationOptions
+            selected=generationSelected
+            valueAttr="value"
+            labelAttr="label"
+          }}
+        </select>
       </div>
       <div class="sheet-field">
         <label>Archetype:</label>
@@ -142,8 +145,8 @@
         <label>Sire:</label>
         <input
           type="text"
-          name="system.vampire.sire.name"
-          value="{{ vampire.sire.name }}"
+          name="system.vampire.sire.character.name"
+          value="{{ vampire.sire.character.name }}"
         />
       </div>
     </section>

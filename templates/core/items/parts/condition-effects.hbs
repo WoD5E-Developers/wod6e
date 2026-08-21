@@ -16,6 +16,7 @@
 
   <div class="condition-effect-list">
     {{#each effects as |effect index|}}
+    <hr />
     <div
       class="condition-effect"
       data-effect-index="{{ index }}"
@@ -36,6 +37,7 @@
         </div>
       </div>
 
+      {{#if effect.effectUsesTargets}}
       <div class="form-group multi-select-section">
         <label>
           {{localize "WOD6E.CONDITIONS.Targets"}}
@@ -44,26 +46,69 @@
         {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
             fieldPath=(concat 'system.effects.' index '.targets')
             options=effect.targetOptions
+            groups=effect.targetGroups
             selectedText=effect.selectedTargetsText
         }}
       </div>
+      {{/if}}
 
-      <div class="form-group">
-        <label>
-          {{localize "WOD6E.CONDITIONS.Mode"}}
-        </label>
+      {{#if effect.effectUsesValueFields}}
+      <div class="flexrow form-group shared-group-row">
+        <div>
+          <label>
+            {{localize "WOD6E.CONDITIONS.Mode"}}
+          </label>
 
-        <div class="form-fields">
-          <select name="system.effects.{{ index }}.mode">
-            {{selectOptions
-                ../effectModeOptions
-                selected=effect.mode
-                localize=true
-            }}
-          </select>
+          <div class="form-fields">
+            <select name="system.effects.{{ index }}.mode">
+              {{selectOptions
+                  ../effectModeOptions
+                  selected=effect.mode
+                  localize=true
+              }}
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label>
+            {{localize "WOD6E.MODIFIERS.ModifierSource"}}
+          </label>
+
+          <div class="form-fields">
+            <select name="system.effects.{{ index }}.valueSource">
+              {{selectOptions ../modifierSourceOptions selected=effect.valueSource localize=true}}
+            </select>
+          </div>
         </div>
       </div>
 
+      {{#if effect.usesTraitValue}}
+      <div>
+        <label>{{localize "WOD6E.MODIFIERS.ActorTrait"}}</label>
+        <div class="form-fields">
+          <select name="system.effects.{{ index }}.valueTrait">
+            <option value="">{{localize 'WOD6E.None'}}</option>
+            {{#each effect.modifierTraitGroups as |group|}}
+            <optgroup label="{{ group.label }}">
+              {{#each group.options as |option|}}
+              {{#if option.selected}}
+              <option
+                value="{{ option.key }}"
+                selected
+              >
+                {{ option.label }}
+              </option>
+              {{else}}
+              <option value="{{ option.key }}">{{ option.label }}</option>
+              {{/if}}
+              {{/each}}
+            </optgroup>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      {{else}}
       <div class="form-group">
         <label>
           {{localize "WOD6E.CONDITIONS.Value"}}
@@ -78,7 +123,10 @@
           />
         </div>
       </div>
+      {{/if}}
+      {{/if}}
 
+      {{#if effect.effectUsesPredicates}}
       <div class="form-group multi-select-section">
         <label>
           {{localize "WOD6E.CONDITIONS.Predicates"}}
@@ -87,10 +135,13 @@
         {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
             fieldPath=(concat 'system.effects.' index '.predicates')
             options=effect.predicateOptions
+            groups=effect.predicateGroups
             selectedText=effect.selectedPredicatesText
         }}
       </div>
+      {{/if}}
 
+      {{#if effect.effectUsesExclusions}}
       <div class="form-group multi-select-section">
         <label>
           {{localize "WOD6E.CONDITIONS.Exclusions"}}
@@ -99,9 +150,11 @@
         {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
             fieldPath=(concat 'system.effects.' index '.exclusions')
             options=effect.exclusionOptions
+            groups=effect.exclusionGroups
             selectedText=effect.selectedExclusionsText
         }}
       </div>
+      {{/if}}
 
       <div class="form-group">
         <div class="form-fields">

@@ -1,0 +1,81 @@
+<div class="roll-dialog-side-panel application dialog">
+  {{#if test.showQuickening}}
+  <section class="roll-quickening-section">
+    <h4>{{localize 'WOD6E.RESOURCES.Quickening'}}</h4>
+    <label class="roll-quickening-option">
+      <span>{{localize 'WOD6E.ROLL.SpendQuickening'}}</span>
+      <input
+        class="quickening-spent"
+        type="number"
+        name="quickeningSpent"
+        value="{{ test.quickeningSpent }}"
+        min="0"
+        max="{{ test.quickeningValue }}"
+        step="1"
+        {{#unless test.canSpendQuickening}}disabled{{/unless}}
+      />
+      <span class="quickening-modifier">+{{ test.quickeningSpent }}</span>
+    </label>
+    {{#if test.canSpendQuickening}}
+    <small>{{localize 'WOD6E.ROLL.QuickeningAvailable' value=test.quickeningValue}}</small>
+    {{else}}
+    <small class="roll-panel-empty">{{localize 'WOD6E.ROLL.QuickeningUnavailable'}}</small>
+    {{/if}}
+  </section>
+  {{/if}}
+
+  <section class="roll-focus-section">
+    <h4>{{localize 'WOD6E.SKILLS.Focus'}}</h4>
+    {{#if test.hasFocusOptions}}
+    <select
+      class="roll-focus-select"
+      name="focus"
+    >
+      <option value="">{{localize 'WOD6E.None'}}</option>
+      {{#each test.focusOptions as |focus|}}
+      {{#if focus.selected}}
+      <option
+        value="{{ focus.value }}"
+        selected
+      >
+        {{ focus.label }} (+1)
+      </option>
+      {{else}}
+      <option value="{{ focus.value }}">{{ focus.label }} (+1)</option>
+      {{/if}}
+      {{/each}}
+    </select>
+    {{else}}
+    <p class="roll-panel-empty">{{localize 'WOD6E.ROLL.SelectSkillForFocus'}}</p>
+    <input
+      type="hidden"
+      name="focus"
+      value=""
+    />
+    {{/if}}
+  </section>
+
+  <section class="roll-condition-section">
+    <h4>{{localize 'WOD6E.ROLL.ConditionEffects'}}</h4>
+    {{#each test.conditionEffects as |effect|}}
+    <label
+      class="roll-condition-effect {{#unless effect.normallyApplies}}not-applicable{{/unless}}"
+    >
+      <input
+        class="condition-effect-toggle"
+        type="checkbox"
+        value="{{ effect.id }}"
+        {{checked
+        effect.enabled}}
+      />
+      <span class="condition-effect-name">{{ effect.name }}</span>
+      <span class="condition-effect-modifier">{{ effect.modifier }}</span>
+      {{#unless effect.normallyApplies}}
+      <small>{{localize 'WOD6E.ROLL.NotNormallyApplicable'}}</small>
+      {{/unless}}
+    </label>
+    {{else}}
+    <p class="roll-panel-empty">{{localize 'WOD6E.ROLL.NoConditionEffects'}}</p>
+    {{/each}}
+  </section>
+</div>

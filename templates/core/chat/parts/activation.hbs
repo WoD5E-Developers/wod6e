@@ -1,0 +1,43 @@
+{{#if activation}}
+<section class="item-card-section">
+  <h5>{{localize "WOD6E.ACTIONS.Activation"}}</h5>
+  <div>
+    <div class="item-card-fields">
+      <div class="item-card-field-name">{{localize "WOD6E.ACTIONS.ActivationType"}}:</div>
+      <div class="item-card-field-value">{{ activation.typeLabel }}</div>
+    </div>
+    {{#if activation.showDistance}}
+    <div class="item-card-fields">
+      <div class="item-card-field-name">{{localize "WOD6E.ACTIONS.Distance"}}:</div>
+      <div class="item-card-field-value">{{ activation.distanceLabel }}</div>
+    </div>
+    {{/if}}
+    {{#if activation.showDuration}}
+    <div class="item-card-fields">
+      <div class="item-card-field-name">{{localize "WOD6E.ACTIONS.Duration"}}:</div>
+      <div class="item-card-field-value">{{ activation.durationLabel }}</div>
+    </div>
+    {{/if}}
+    {{#if activation.cost.amount}}
+    <div class="item-card-fields">
+      <div class="item-card-field-name">{{localize "WOD6E.ITEMS.Cost"}}:</div>
+      <div class="item-card-field-value">
+        {{ activation.cost.amount }} {{ activation.costLabel }}
+      </div>
+    </div>
+    {{/if}}
+    {{#if activation.damage.dealsDamage}}
+    <div class="item-card-fields">
+      <div class="item-card-field-name">{{localize "WOD6E.CONDITIONS.Damage"}}:</div>
+      <div class="item-card-field-value">
+        {{ activation.damage.formula }}
+        {{ activation.damageResourceLabel }}
+        {{#if activation.damage.extraSuccesses}};
+        {{localize "WOD6E.CHAT.AddsExtraSuccesses"}}
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+  </div>
+</section>
+{{/if}}

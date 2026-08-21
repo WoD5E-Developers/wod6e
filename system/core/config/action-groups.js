@@ -50,6 +50,10 @@ export class ActionGroups extends BaseDefinitionClass {
   static downtime = {
     label: 'WOD6E.ACTIONS.Downtime'
   }
+
+  static humanity = {
+    label: 'WOD6E.VAMPIRE.Humanity'
+  }
 }
 
 // Hook to call onReady when the game is ready

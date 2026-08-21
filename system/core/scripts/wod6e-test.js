@@ -1,4 +1,5 @@
 import { ActorEffects } from '../actors/scripts/actor-effects.js'
+import { adjustQuickening } from './quickening.js'
 import { WOD6eRoll } from './wod6e-roll.js'
 
 export class WOD6eTest {
@@ -16,12 +17,19 @@ export class WOD6eTest {
       discipline: context.disciplines,
       action: context.action,
       category: context.category,
-      dicePool: context.dicePool
+      conditionEffectIds: context.conditionEffectIds,
+      quickeningSpent: Math.max(Math.floor(Number(context.quickeningSpent) || 0), 0),
+      dicePool: context.baseDicePool ?? context.dicePool,
+      difficulty: context.difficulty
     }
 
     if (actor) {
-      this._applyEffects(actor, test)
+      this.applyEffects(actor, test)
     }
+
+    // Each Quickening spent contributes one die to the roll.
+    test.dicePool += test.quickeningSpent
+    context.quickeningSpent = test.quickeningSpent
 
     context.dicePool = test.dicePool
     context.dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', {
@@ -55,6 +63,15 @@ export class WOD6eTest {
       )
     }
 
+    // Quickening gained is displayed after the roll message is sent.
+    if (actor && game.user.character?.id === actor.id && roll.quickeningGained > 0) {
+      // If quickening is hidden, we can safely assume they don't use quickening
+      // despite the fact that they have a character assigned
+      if (game.user.getFlag('wod6e', 'tracker.quickeningHidden')) return
+
+      await adjustQuickening(game.user, roll.quickeningGained)
+    }
+
     return roll
   }
 
@@ -63,21 +80,28 @@ export class WOD6eTest {
   }
 
   static async _processQuickening(actor, roll) {
-    const amount = roll.quickeningGained
-    if (amount <= 0) return
-
     const user = game.user
 
     if (user.character?.id !== actor.id) return
 
-    Hooks.callAll('wod6e.increaseQuickening', user, amount)
+    // Quickening spent is displayed before the roll message is sent.
+    if (roll.quickeningSpent > 0) {
+      await adjustQuickening(user, -roll.quickeningSpent)
+    }
   }
 
-  static _applyEffects(actor, test) {
-    const effects = ActorEffects.getApplicableEffects(actor, test, { types: 'dice' })
+  static applyEffects(actor, test) {
+    const selectedEffectIds = Array.isArray(test.conditionEffectIds)
+      ? new Set(test.conditionEffectIds)
+      : null
+    const effects = selectedEffectIds
+      ? (actor.preparedEffects?.effects ?? []).filter(
+          (effect) => effect.type === 'dice' && selectedEffectIds.has(effect.effectId)
+        )
+      : ActorEffects.getApplicableEffects(actor, test, { types: 'dice' })
 
     for (const effect of effects) {
-      test.dicePool = ActorEffects.applyNumericEffect(test.dicePool, effect)
+      test.dicePool = ActorEffects.applyNumericEffect(test.dicePool, effect, actor)
     }
   }
 }

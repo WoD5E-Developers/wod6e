@@ -40,12 +40,20 @@ export class Difficulties extends BaseDefinitionClass {
     usesFixedValue: true
   }
 
+  static fixedPlusTargetsTrait = {
+    label: 'WOD6E.ACTIONS.FixedPlusTargetsTrait',
+    usesFixedValue: true,
+    usesTargetsTrait: true
+  }
+
   static storyteller = {
-    label: 'WOD6E.ACTIONS.Storyteller'
+    label: 'WOD6E.ACTIONS.Storyteller',
+    determinedByStoryteller: true
   }
 
   static variable = {
-    label: 'WOD6E.ACTIONS.Variable'
+    label: 'WOD6E.ACTIONS.Variable',
+    determinedByStoryteller: true
   }
 
   static targetAttribute = {
@@ -55,15 +63,24 @@ export class Difficulties extends BaseDefinitionClass {
 
   static targetHighestAttribute = {
     label: 'WOD6E.ACTIONS.TargetHighestAttribute',
+    multipleAttributes: true,
     usesAttribute: true
   }
 
   static npcLevel = {
-    label: 'WOD6E.ACTIONS.NPCLevel'
+    label: 'WOD6E.ACTIONS.NPCLevel',
+    usesNpcLevel: true
   }
 
   static attributeOrNpcLevel = {
     label: 'WOD6E.ACTIONS.AttributeOrNPCLevel',
+    usesAttribute: true,
+    usesNpcLevel: true
+  }
+
+  static highestAttributeOrNpcLevel = {
+    label: 'WOD6E.ACTIONS.HighestAttributeOrNPCLevel',
+    multipleAttributes: true,
     usesAttribute: true,
     usesNpcLevel: true
   }

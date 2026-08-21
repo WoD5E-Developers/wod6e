@@ -1,0 +1,38 @@
+{{#> "systems/wod6e/templates/core/chat/base-item.hbs"}}
+
+{{#if labels.disciplines}}<div class="item-card-summary">
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.VAMPIRE.Disciplines"}}:</div>
+    <div class="item-card-field-value">{{labels.disciplines}}</div>
+    </div>
+  </div>
+{{/if}}
+
+{{#if system.curse.name}}
+<section class="item-card-section">
+  <h5>{{localize "WOD6E.VAMPIRE.Curse"}}: {{system.curse.name}}</h5>
+  <div>
+    {{{enriched.curse}}}
+  </div>
+</section>
+{{/if}}
+
+{{#if system.beast.name}}
+<section class="item-card-section">
+  <h5>{{localize "WOD6E.VAMPIRE.Beast"}}: {{system.beast.name}}</h5>
+  <div>
+    {{{enriched.beast}}}
+  </div>
+</section>
+{{/if}}
+
+{{#if system.frenzy.name}}
+<section class="item-card-section">
+  <h5>{{localize "WOD6E.VAMPIRE.Frenzy"}}: {{system.frenzy.name}}</h5>
+  <div>
+    {{{enriched.frenzy}}}
+  </div>
+</section>
+{{/if}}
+
+{{/"systems/wod6e/templates/core/chat/base-item.hbs"}}

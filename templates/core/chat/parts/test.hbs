@@ -1,0 +1,28 @@
+{{#if test}}
+<section class="item-card-section item-card-test">
+  <h5>{{localize "WOD6E.ACTIONS.Test"}}</h5>
+  <div>
+    <div class="item-card-fields">
+      <div class="item-card-field-name">{{localize "WOD6E.CHAT.TestPool"}}:</div>
+      <div class="item-card-field-value">{{ test.text }}</div>
+    </div>
+    {{#if test.description}}
+    <div class="item-card-fields">
+      <div class="item-card-field-name">{{localize "WOD6E.Description"}}:</div>
+      <div class="item-card-field-value">{{ test.description }}</div>
+    </div>
+    {{/if}}
+  </div>
+  {{#if canRoll}}
+  <button
+    type="button"
+    data-action="rollItemTest"
+    data-actor-uuid="{{ actor.uuid }}"
+    data-item-uuid="{{ item.uuid }}"
+  >
+    <i class="fa-solid fa-dice-d10"></i>
+    {{localize "WOD6E.ROLL.Roll"}}
+  </button>
+  {{/if}}
+</section>
+{{/if}}

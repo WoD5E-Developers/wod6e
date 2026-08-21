@@ -1,4 +1,9 @@
-<form class="roll-dialog">
+<form
+  class="roll-dialog"
+  data-item-modifier="{{ test.itemModifier }}"
+  data-test-action="{{ test.action }}"
+  data-test-category="{{ test.category }}"
+>
   <header class="roll-dialog-header">
     <div class="roll-pool">
       <span class="roll-pool-value">{{ test.dicePoolText }}</span>
@@ -6,6 +11,22 @@
 
     <div class="roll-test">
       {{ test.testText }}
+    </div>
+
+    <div
+      class="difficulty-section"
+      data-field-path="difficulty"
+    >
+      <label>
+        {{localize 'WOD6E.ROLL.VsDifficulty'}}
+        <input
+          type="number"
+          name="difficulty"
+          value="{{ test.difficulty }}"
+          min="0"
+          step="1"
+        />
+      </label>
     </div>
   </header>
 
@@ -64,4 +85,5 @@
       </div>
     </div>
   </div>
+  {{> 'systems/wod6e/templates/core/dialogs/roll-dialog-side-panel.hbs'}}
 </form>

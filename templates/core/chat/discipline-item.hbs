@@ -1,0 +1,39 @@
+{{#> "systems/wod6e/templates/core/chat/base-item.hbs"}}
+
+<div class="item-card-summary">
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.ITEMS.Level"}}: </div>
+    <div class="item-card-field-value">{{system.level}}</div>
+  </div>
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.VAMPIRE.DisciplineType"}}: </div>
+    <div class="item-card-field-value">{{labels.disciplineType}}</div>
+  </div>
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.ATTRIBUTES.Attribute"}}: </div>
+    <div class="item-card-field-value">{{labels.attribute}}</div>
+  </div>
+</div>
+{{> "systems/wod6e/templates/core/chat/parts/test.hbs"}}
+
+{{> "systems/wod6e/templates/core/chat/parts/difficulty.hbs"}}
+
+{{> "systems/wod6e/templates/core/chat/parts/activation.hbs"}}
+
+{{> "systems/wod6e/templates/core/chat/parts/prerequisites.hbs"}}
+
+{{#if enriched.maturing}}
+<section class="item-card-section">
+  <h5>{{localize "WOD6E.TABS.Maturing"}}</h5>
+  {{#each enriched.maturing}}
+  <div class="item-card-subsection">
+    <strong>{{localize "WOD6E.ITEMS.Level"}} {{level}}</strong>
+    <div>
+      {{{description}}}
+    </div>
+  </div>
+  {{/each}}
+</section>
+{{/if}}
+
+{{/"systems/wod6e/templates/core/chat/base-item.hbs"}}

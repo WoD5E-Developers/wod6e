@@ -9,6 +9,7 @@ import { loadSettings } from './core/scripts/settings.js'
 import { WoDActor } from './core/actors/actor.js'
 import { WoDActorModel } from './core/actors/data-models/base-actor-model.js'
 import { WoDActorBase } from './core/actors/actor-sheets/wod-actor-base.js'
+import { ActorUX } from './core/actors/scripts/actor-ux.js'
 // Item sheets
 import { WoDItemBase } from './core/items/item-sheets/wod-item-base.js'
 import { WoDItemModel } from './core/items/data-models/base-item-model.js'
@@ -46,6 +47,8 @@ import { WOD6eRoll } from './core/scripts/wod6e-roll.js'
 import { QuickeningDramaTrackerApplication } from './core/applications/quickening-drama-tracker/quickening-drama-tracker.js'
 import { CostTypes } from './core/config/cost-types.js'
 import { EffectTypes } from './core/config/effect-types.js'
+import { GenerationCategories } from './splats/vampire/config/generations-categories.js'
+import { WoDChatLog } from './core/ui/wod-chat-log.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -70,7 +73,8 @@ window.WOD6E = {
     Distances,
     Durations,
     CostTypes,
-    EffectTypes
+    EffectTypes,
+    GenerationCategories
   },
   actors: {
     WoDActorBase,
@@ -92,12 +96,16 @@ window.WOD6E = {
   }
 }
 
+// Allow sidebar items to be dropped directly onto actor tokens.
+Hooks.on('dropCanvasData', ActorUX._onDropCanvasItem.bind(ActorUX))
+
 // Anything that needs to be ran alongside the initialisation of the world
 Hooks.once('init', async function () {
   // Custom document classes
   CONFIG.Actor.documentClass = WoDActor
   CONFIG.Dice.rolls.push(WOD6eRoll)
   // Custom UI implementations
+  CONFIG.ui.chat = WoDChatLog
   CONFIG.ui.settings = WoDSettings
   CONFIG.ui.compendium = WoDCompendiumDirectory
   CONFIG.ui.pause = WoDPause
