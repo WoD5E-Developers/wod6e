@@ -267,6 +267,10 @@ export class RollDialog {
         hasFocusOptions: focusOptions.length > 0,
         conditionEffects,
         hasConditionEffects: conditionEffects.length > 0,
+
+        showQuickening:
+          !game.user.getFlag('wod6e', 'tracker.quickeningHidden') &&
+          game.user.character?.id === actor.id,
         canSpendQuickening,
         quickeningValue,
 

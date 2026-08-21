@@ -65,6 +65,10 @@ export class WOD6eTest {
 
     // Quickening gained is displayed after the roll message is sent.
     if (actor && game.user.character?.id === actor.id && roll.quickeningGained > 0) {
+      // If quickening is hidden, we can safely assume they don't use quickening
+      // despite the fact that they have a character assigned
+      if (game.user.getFlag('wod6e', 'tracker.quickeningHidden')) return
+
       await adjustQuickening(game.user, roll.quickeningGained)
     }
 

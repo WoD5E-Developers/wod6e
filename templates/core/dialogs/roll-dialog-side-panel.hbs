@@ -1,4 +1,5 @@
 <div class="roll-dialog-side-panel application dialog">
+  {{#if test.showQuickening}}
   <section class="roll-quickening-section">
     <h4>{{localize 'WOD6E.RESOURCES.Quickening'}}</h4>
     <label class="roll-quickening-option">
@@ -21,6 +22,7 @@
     <small class="roll-panel-empty">{{localize 'WOD6E.ROLL.QuickeningUnavailable'}}</small>
     {{/if}}
   </section>
+  {{/if}}
 
   <section class="roll-focus-section">
     <h4>{{localize 'WOD6E.SKILLS.Focus'}}</h4>
