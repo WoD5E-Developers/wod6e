@@ -1,4 +1,5 @@
 import { ActorEffects } from '../actors/scripts/actor-effects.js'
+import { adjustQuickening } from './quickening.js'
 import { WOD6eRoll } from './wod6e-roll.js'
 
 export class WOD6eTest {
@@ -62,6 +63,11 @@ export class WOD6eTest {
       )
     }
 
+    // Quickening gained is displayed after the roll message is sent.
+    if (actor && game.user.character?.id === actor.id && roll.quickeningGained > 0) {
+      await adjustQuickening(game.user, roll.quickeningGained)
+    }
+
     return roll
   }
 
@@ -74,17 +80,10 @@ export class WOD6eTest {
 
     if (user.character?.id !== actor.id) return
 
-    // If you see this and think, "Why not combine these?"
-    // it's because later on we check if the quickening value hasn't changed at all
-    // and we can get weird scenarios where quickening is spent, and gained,
-    // by the same amount in the same roll, but we want to tell the users about this
-    // and instead of trying to figure out the chat message template for it
-    // we just send two chat messages one after the other for ease
-    if (roll?.quickeningSpent > 0)
-      Hooks.callAll('wod6e.adjustQuickening', user, -roll.quickeningSpent)
-
-    if (roll?.quickeningGained > 0)
-      Hooks.callAll('wod6e.adjustQuickening', user, roll?.quickeningGained)
+    // Quickening spent is displayed before the roll message is sent.
+    if (roll.quickeningSpent > 0) {
+      await adjustQuickening(user, -roll.quickeningSpent)
+    }
   }
 
   static applyEffects(actor, test) {
