@@ -15,7 +15,7 @@
       "lifepath": "Lifepath",
       "merit": "Merit",
       "nature": "Nature",
-      "npcItem": "NPC Item",
+      "npcAbility": "NPC Ability",
       "resource": "Resource"
     }
   },

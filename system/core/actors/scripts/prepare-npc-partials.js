@@ -3,7 +3,7 @@ import { prepareResourcesContext } from './prepare-core-partials.js'
 export async function prepareNpcAbilitiesContext(context, actor) {
   context.tab = context.tabs.abilities
   context.abilities = actor.items
-    .filter((item) => item.type === 'npcItem')
+    .filter((item) => item.type === 'npcAbility')
     .map((ability) => ({
       id: ability.id,
       uuid: ability.uuid,

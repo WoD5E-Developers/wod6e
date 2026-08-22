@@ -38,7 +38,7 @@ import { NatureItemModel } from '../../splats/vampire/items/data-models/nature-i
 // Condition
 import { ConditionItemSheet } from '../items/item-sheets/condition-item-sheet.js'
 import { ConditionItemModel } from '../items/data-models/condition-item-model.js'
-// NPC Item
+// NPC Ability
 import { WoDNpcAbilityItemModel } from '../items/data-models/npc-ability-item-model.js'
 import { NpcAbilityItemSheet } from '../items/item-sheets/npc-ability-item-sheet.js'
 
@@ -135,11 +135,11 @@ export class ItemTypes extends BaseDefinitionClass {
     splat: 'core'
   }
 
-  static npcItem = {
-    label: 'TYPES.Item.npcItem',
+  static npcAbility = {
+    label: 'TYPES.Item.npcAbility',
     chatTemplate: 'systems/wod6e/templates/core/chat/npc-ability-item.hbs',
     img: '',
-    types: ['npcItem'],
+    types: ['npcAbility'],
     sheetClass: NpcAbilityItemSheet,
     sheetModel: WoDNpcAbilityItemModel,
     restrictedActorTypes: ['npc'],
