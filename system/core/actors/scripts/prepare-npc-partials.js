@@ -1,4 +1,4 @@
-import { prepareResourcesContext } from './prepare-core-partials.js'
+import { prepareLimitedContext, prepareResourcesContext } from './prepare-core-partials.js'
 
 export async function prepareNpcAbilitiesContext(context, actor) {
   context.tab = context.tabs.abilities
@@ -68,6 +68,7 @@ export async function prepareNpcMainContext(context, actor) {
 }
 
 export async function prepareNpcLimitedContext(context, actor) {
+  context = await prepareLimitedContext(context, actor)
   const limitedSettings = actor?.system?.settings?.limited ?? {}
 
   context.npc = {

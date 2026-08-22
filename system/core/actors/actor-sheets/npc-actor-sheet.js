@@ -31,11 +31,14 @@ export class NpcActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
     abilities: {
       template: 'systems/wod6e/templates/core/actors/npc/abilities.hbs'
     },
+    biography: {
+      template: 'systems/wod6e/templates/core/actors/parts/biography.hbs'
+    },
     conditions: {
       template: 'systems/wod6e/templates/core/actors/parts/conditions.hbs'
     },
     settings: {
-      template: 'systems/wod6e/templates/core/actors/npc/settings.hbs'
+      template: 'systems/wod6e/templates/core/actors/parts/settings.hbs'
     },
     limited: {
       template: 'systems/wod6e/templates/core/actors/npc/limited-sheet.hbs'
@@ -54,6 +57,11 @@ export class NpcActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
           id: 'abilities',
           icon: 'fa-solid fa-bolt',
           label: 'WOD6E.TABS.Abilities'
+        },
+        {
+          id: 'biography',
+          icon: 'fa-solid fa-book-open',
+          label: 'WOD6E.TABS.Biography'
         },
         {
           id: 'conditions',
@@ -87,6 +95,9 @@ export class NpcActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
 
       case 'abilities':
         return prepareNpcAbilitiesContext(context, actor)
+
+      case 'biography':
+        return this.prepareBiographyContext(context, actor)
 
       case 'conditions':
         return prepareConditionsContext(context, actor)

@@ -439,6 +439,20 @@
 .actor.sheet .item-description {
   word-break: break-word;
 }
+.actor-limited-sheet {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 16px;
+}
+.actor-limited-sheet section {
+  margin-top: 16px;
+}
+.actor-limited-sheet .actor-avatar {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  background-color: var(--image-background-color);
+}
 
 [data-actor-section="attributes"] {
   grid-area: attributes;
@@ -518,6 +532,34 @@
   text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.actor.sheet .sheet-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.actor.sheet .sheet-settings label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.actor.sheet .biography-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  min-height: 0;
+}
+.actor.sheet .actor-limited-sheet {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 16px;
+}
+.actor.sheet .actor-limited-sheet .actor-avatar {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  background-color: var(--image-background-color);
 }
 
 .conditions-section .conditions-list {
@@ -654,15 +696,13 @@
   grid-area: motivation;
 }
 .actor.sheet.npc .npc-identity,
-.actor.sheet.npc .npc-level-fields,
-.actor.sheet.npc .npc-settings {
+.actor.sheet.npc .npc-level-fields {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 .actor.sheet.npc .npc-defeated,
-.actor.sheet.npc .npc-level-field,
-.actor.sheet.npc .npc-settings label {
+.actor.sheet.npc .npc-level-field {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -681,20 +721,6 @@
 .actor.sheet.npc .npc-sheet-body.defeated .npc-defeated {
   color: var(--color-level-error);
   font-weight: bold;
-}
-.actor.sheet.npc .npc-limited-sheet {
-  display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 16px;
-}
-.actor.sheet.npc .npc-limited-sheet .actor-avatar {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  background-color: var(--image-background-color);
-}
-.actor.sheet.npc .npc-limited-sheet .motivation-section {
-  margin-top: 16px;
 }
 
 .actor.sheet .sheet-field {

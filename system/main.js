@@ -31,6 +31,7 @@ import {
 } from './core/items/scripts/prepare-partials.js'
 import {
   prepareAttributesContext,
+  prepareBiographyContext,
   prepareLimitedContext,
   prepareResourcesContext,
   prepareSettingsContext
@@ -83,6 +84,7 @@ window.WOD6E = {
     WoDPlayerActorModel,
     contextPreparation: {
       prepareAttributesContext,
+      prepareBiographyContext,
       prepareResourcesContext,
       prepareSettingsContext,
       prepareLimitedContext

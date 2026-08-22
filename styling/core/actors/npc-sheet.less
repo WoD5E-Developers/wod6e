@@ -16,7 +16,8 @@
     gap: 8px;
 
     .willpower-tracker {
-      .resource-tracker-header, .resource-tracker-spaces {
+      .resource-tracker-header,
+      .resource-tracker-spaces {
         justify-content: flex-start;
       }
     }
@@ -47,13 +48,15 @@
     grid-area: motivation;
   }
 
-  .npc-identity, .npc-level-fields, .npc-settings {
+  .npc-identity,
+  .npc-level-fields {
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
 
-  .npc-defeated, .npc-level-field, .npc-settings label {
+  .npc-defeated,
+  .npc-level-field {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -77,23 +80,6 @@
     .npc-defeated {
       color: var(--color-level-error);
       font-weight: bold;
-    }
-  }
-
-  .npc-limited-sheet {
-    display: grid;
-    grid-template-columns: 180px minmax(0, 1fr);
-    gap: 16px;
-
-    .actor-avatar {
-      width: 180px;
-      height: 180px;
-      object-fit: cover;
-      background-color: var(--image-background-color);
-    }
-
-    .motivation-section {
-      margin-top: 16px;
     }
   }
 }

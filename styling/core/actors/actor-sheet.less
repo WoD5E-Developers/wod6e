@@ -104,3 +104,20 @@
     word-break: break-word;
   }
 }
+
+.actor-limited-sheet {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 16px;
+
+  section {
+    margin-top: 16px;
+  }
+
+  .actor-avatar {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    background-color: var(--image-background-color);
+  }
+}

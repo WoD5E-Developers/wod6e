@@ -1,0 +1,18 @@
+<section
+  class="sheet-part biography-page tab {{tabs.biography.cssClass}}"
+  data-group="primary"
+  data-tab="biography"
+>
+  <div class="prose-mirror-section">
+    <div class="prose-mirror-header">{{localize "WOD6E.Biography"}}</div>
+    <prose-mirror name="system.core.biography" value="{{biography.value}}" toggled="true">
+      {{{biography.enriched}}}
+    </prose-mirror>
+  </div>
+  <div class="prose-mirror-section">
+    <div class="prose-mirror-header">{{localize "WOD6E.Appearance"}}</div>
+    <prose-mirror name="system.core.appearance" value="{{appearance.value}}" toggled="true">
+      {{{appearance.enriched}}}
+    </prose-mirror>
+  </div>
+</section>

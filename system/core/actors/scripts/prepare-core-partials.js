@@ -155,6 +155,57 @@ export const prepareConditionsContext = async function (context, actor) {
 export const prepareSettingsContext = async function (context, actor) {
   const actorSettings = actor.system.settings ?? {}
   context.settings = actorSettings
+  context.limitedSettingFields = [
+    {
+      path: 'biography',
+      label: 'WOD6E.Biography',
+      checked: actorSettings.limited?.biography
+    },
+    {
+      path: 'appearance',
+      label: 'WOD6E.Appearance',
+      checked: actorSettings.limited?.appearance
+    }
+  ]
+
+  if (actor.type === 'npc') {
+    context.limitedSettingFields.push(
+      {
+        path: 'creatureType',
+        label: 'WOD6E.NPC.CreatureType',
+        checked: actorSettings.limited?.creatureType
+      },
+      {
+        path: 'subtype',
+        label: 'WOD6E.NPC.Subtype',
+        checked: actorSettings.limited?.subtype
+      },
+      {
+        path: 'motivation',
+        label: 'WOD6E.NPC.Motivation',
+        checked: actorSettings.limited?.motivation
+      }
+    )
+  }
+
+  return context
+}
+
+export const prepareBiographyContext = async function (context, actor) {
+  const actorCoreData = actor.system.core ?? {}
+
+  context.biography = {
+    value: actorCoreData.biography ?? '',
+    enriched: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      actorCoreData.biography ?? ''
+    )
+  }
+  context.appearance = {
+    value: actorCoreData.appearance ?? '',
+    enriched: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      actorCoreData.appearance ?? ''
+    )
+  }
 
   return context
 }
