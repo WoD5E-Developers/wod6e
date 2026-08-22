@@ -16,7 +16,7 @@ export async function prepareNpcMainContext(context, actor) {
     creatureType: system?.creatureType,
     subtype: system?.subtype,
     motivation: system?.motivation,
-    defeated: system?.defeated,
+    defeated: system?.tier === 'minion' ? system?.defeated : false,
     isElite: system?.tier === 'elite',
     showHealth: selectedTier?.showHealth ?? false,
     showWillpower: selectedTier?.showWillpower ?? false
