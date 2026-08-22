@@ -34,6 +34,8 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/actors/parts/merits.hbs',
     'systems/wod6e/templates/core/actors/parts/flaws.hbs',
     'systems/wod6e/templates/core/actors/parts/resources.hbs',
+    'systems/wod6e/templates/core/actors/npc/header.hbs',
+    'systems/wod6e/templates/core/actors/npc/levels.hbs',
 
     // Core item templates
     'systems/wod6e/templates/core/items/parts/item-image.hbs',

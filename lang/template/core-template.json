@@ -1,6 +1,7 @@
 {
   "TYPES": {
     "Actor": {
+      "_npc": "",
       "_vampire": ""
     },
     "Item": {
@@ -215,6 +216,24 @@
       "_InitializingSchreckNet": "",
       "_LoadingSubroutines": "",
       "_ShreckNetInitialized": ""
+    },
+    "NPC": {
+      "_CreatureType": "",
+      "_Defeated": "",
+      "_Elite": "",
+      "_EliteLevels": "",
+      "_Health": "",
+      "_Level": "",
+      "_LimitedVisibility": "",
+      "_LimitedVisibilityHint": "",
+      "_Mental": "",
+      "_Minion": "",
+      "_Motivation": "",
+      "_Physical": "",
+      "_Social": "",
+      "_Standard": "",
+      "_Subtype": "",
+      "_Tier": ""
     },
     "RESOURCES": {
       "_Baneful": "",

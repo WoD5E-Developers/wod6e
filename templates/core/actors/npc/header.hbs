@@ -1,0 +1,54 @@
+<section
+  class="sheet-section npc-header"
+  data-actor-section="npcHeader"
+>
+  {{> "systems/wod6e/templates/core/actors/parts/avatar.hbs"}}
+
+  <div class="npc-identity">
+    <div class="sheet-field">
+      <label>{{localize "WOD6E.Name"}}</label>
+      <input
+        type="text"
+        name="name"
+        value="{{ name }}"
+      />
+    </div>
+
+    <div class="sheet-field">
+      <label>{{localize "WOD6E.NPC.CreatureType"}}</label>
+      <input
+        type="text"
+        name="system.creatureType"
+        value="{{ npc.creatureType }}"
+      />
+    </div>
+
+    <div class="sheet-field">
+      <label>{{localize "WOD6E.NPC.Subtype"}}</label>
+      <input
+        type="text"
+        name="system.subtype"
+        value="{{ npc.subtype }}"
+      />
+    </div>
+
+    <div class="sheet-field">
+      <label>{{localize "WOD6E.NPC.Tier"}}</label>
+      <select name="system.tier">
+        {{selectOptions tierOptions selected=npc.tier valueAttr="value" labelAttr="label"}}
+      </select>
+    </div>
+
+    {{#unless npc.showHealth}}
+    <label class="npc-defeated">
+      <input
+        type="checkbox"
+        name="system.defeated"
+        {{checked
+        npc.defeated}}
+      />
+      <span>{{localize "WOD6E.NPC.Defeated"}}</span>
+    </label>
+    {{/unless}}
+  </div>
+</section>

@@ -29,12 +29,10 @@ export const prepareAttributesContext = async function (context, actor) {
 }
 
 export const prepareResourcesContext = async function (context, actor) {
-  const actorHealth = actor.system.health
-
   // Switch for the health label; likely as more splats/actor types are added this will
   // have to move to a configuration in ActorTypes, but for now this'll do
   const healthLabel = actor.type === 'npc' ? 'WOD6E.NPC.Health' : 'WOD6E.RESOURCES.Vitae'
-
+  const actorHealth = actor.system.health
   if (actorHealth) {
     context.health = {
       // Other splats may call this "Health" in the future
@@ -67,7 +65,8 @@ export const prepareResourcesContext = async function (context, actor) {
         value: actorWillpower.value,
         max: actorWillpower.max,
         disabled: actorWillpower.disabled,
-        reverse: true
+        // Don't reverse the tracker if we're displaying it on an NPC
+        reverse: actor.type !== 'npc'
       })
     }
   }
@@ -162,13 +161,16 @@ export const prepareSettingsContext = async function (context, actor) {
 
 export const prepareLimitedContext = async function (context, actor) {
   const actorCoreData = actor.system.core ?? {}
+
   // Part-specific data
   context.enrichedNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
     actorCoreData.publicNotes ?? ''
   )
+
   context.enrichedAppearance = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
     actorCoreData.appearance ?? ''
   )
+
   context.enrichedBiography = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
     actorCoreData.biography ?? ''
   )

@@ -1,6 +1,7 @@
 {
   "TYPES": {
     "Actor": {
+      "npc": "NPC",
       "vampire": "Vampire"
     },
     "Item": {
@@ -215,6 +216,24 @@
       "InitializingSchreckNet": "Initializing SchreckNet",
       "LoadingSubroutines": "SchreckNet: Loading subroutines",
       "ShreckNetInitialized": "ShreckNet Initialized - Welcome to the World of Darkness."
+    },
+    "NPC": {
+      "CreatureType": "Creature Type",
+      "Defeated": "Defeated",
+      "Elite": "Elite",
+      "EliteLevels": "Elite Levels",
+      "Health": "Health",
+      "Level": "Level",
+      "LimitedVisibility": "Limited Visibility",
+      "LimitedVisibilityHint": "Choose which NPC details limited users can see.",
+      "Mental": "Mental",
+      "Minion": "Minion",
+      "Motivation": "Motivation",
+      "Physical": "Physical",
+      "Social": "Social",
+      "Standard": "Standard",
+      "Subtype": "Subtype",
+      "Tier": "Tier"
     },
     "RESOURCES": {
       "Baneful": "Baneful",

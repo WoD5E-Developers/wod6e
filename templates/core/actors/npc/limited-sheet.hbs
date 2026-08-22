@@ -1,0 +1,29 @@
+<section class="sheet-part npc-limited-sheet">
+  <img
+    class="actor-avatar"
+    src="{{ img }}"
+    title="{{ name }}"
+    alt="{{ name }}"
+  />
+  <div class="npc-limited-details">
+    <h2>{{ name }}</h2>
+    {{#if npc.showCreatureType}}
+    <div>
+      <strong>{{localize "WOD6E.NPC.CreatureType"}}:</strong>
+      {{ npc.creatureType }}
+    </div>
+    {{/if}}
+    {{#if npc.showSubtype}}
+    <div>
+      <strong>{{localize "WOD6E.NPC.Subtype"}}:</strong>
+      {{ npc.subtype }}
+    </div>
+    {{/if}}
+    {{#if npc.showMotivation}}
+    <section>
+      <h3>{{localize "WOD6E.NPC.Motivation"}}</h3>
+      <div>{{ npc.motivation }}</div>
+    </section>
+    {{/if}}
+  </div>
+</section>
