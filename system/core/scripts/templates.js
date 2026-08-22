@@ -55,6 +55,7 @@ export const preloadHandlebarsTemplates = async function () {
 
     // Vampire actor templates
     'systems/wod6e/templates/splats/vampire/actors/parts/header.hbs',
+    'systems/wod6e/templates/splats/vampire/actors/parts/blood-surge.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/humanity-scale.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/left-column.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/middle-column.hbs',

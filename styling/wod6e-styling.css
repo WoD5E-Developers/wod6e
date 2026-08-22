@@ -297,6 +297,9 @@
 .actor.sheet.vampire .window-content {
   overflow-y: scroll;
 }
+.actor.sheet.vampire .blood-surge-button {
+  font-size: 12px;
+}
 .actor.sheet.vampire .vampire-sheet-body {
   display: grid;
   grid-template-rows: min-content;
@@ -829,6 +832,7 @@
   font-weight: bold;
   line-height: 1;
   text-transform: uppercase;
+  margin-bottom: 5px;
 }
 .resource-tracker .resource-tracker-total {
   font-size: 18px;

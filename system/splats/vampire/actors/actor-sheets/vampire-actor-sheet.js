@@ -5,6 +5,7 @@ import {
   prepareConditionsContext
 } from '../../../../core/actors/scripts/prepare-core-partials.js'
 import { _onConfigureVisibleDisciplines } from './scripts/on-configure-visible-disciplines.js'
+import { _onBloodSurge } from './scripts/on-blood-surge.js'
 import {
   prepareDisciplinesContext,
   prepareHeaderContext,
@@ -24,6 +25,7 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
   static DEFAULT_OPTIONS = {
     classes: ['wod6e', 'actor', 'sheet', 'vampire'],
     actions: {
+      bloodSurge: _onBloodSurge,
       configureVisibleDisciplines: _onConfigureVisibleDisciplines
     }
   }

@@ -120,6 +120,8 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
 
       health: actorData.health,
 
+      canBloodSurge: actorData.canBloodSurge ?? false,
+
       settings: actorData.settings,
 
       isOwner: actor.isOwner

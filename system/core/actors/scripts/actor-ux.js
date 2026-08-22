@@ -198,8 +198,8 @@ export class ActorUX {
     const selectedUuid = itemData.system?.condition?.sourceUuid
     const options = actors
       .map((actor) => {
-        const uuid = Handlebars.escapeExpression(actor.uuid)
-        const name = Handlebars.escapeExpression(actor.name)
+        const uuid = actor.uuid
+        const name = actor.name
         const selected = actor.uuid === selectedUuid ? ' selected' : ''
 
         return `<option value="${uuid}"${selected}>${name}</option>`

@@ -7,6 +7,9 @@ export function vampireFields() {
     // Determines whether an actor sheet has discipline data for processing
     hasDisciplineData: new fields.BooleanField({ initial: true }),
 
+    // Determines whether the actor can activate Blood Surge
+    canBloodSurge: new fields.BooleanField({ initial: true }),
+
     vampire: new fields.SchemaField({
       date: new fields.SchemaField({
         embrace: new fields.StringField({ initial: '', nullable: false }),

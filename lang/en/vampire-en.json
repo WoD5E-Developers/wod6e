@@ -6,6 +6,17 @@
       "Auspex": "Auspex",
       "Beast": "Beast",
       "BloodSorcery": "Blood Sorcery",
+      "BloodSurge": "Blood Surge",
+      "BloodSurgeCondition": "Blood Surge: {trait}",
+      "BloodSurgeCostHint": "Attributes gain 1 dot per Vitae. Disciplines gain 1 dot per 2 Vitae.",
+      "BloodSurgeDescription": "Spent {vitae} Vitae to increase {trait} by {bonus} for the scene.",
+      "BloodSurgeDisciplineCost": "A Discipline Blood Surge must spend Vitae in multiples of 2.",
+      "BloodSurgeHint": "Spend Vitae to increase an Attribute or Discipline for the scene.",
+      "BloodSurgeInvalidSelection": "Choose a valid Blood Surge target and Vitae amount.",
+      "BloodSurgeMaximum": "That Blood Surge would exceed the trait's maximum of {maximum}.",
+      "BloodSurgeNoTargets": "This actor has no Attributes or Disciplines that Blood Surge can increase.",
+      "BloodSurgeNoVitae": "This actor does not have enough Vitae to use Blood Surge.",
+      "BloodSurgeTrait": "Attribute or Discipline",
       "Celerity": "Celerity",
       "ClanTraits": "Clan Traits",
       "ConfigureVisibleDisciplines": "Configure Visible Disciplines",
@@ -33,7 +44,8 @@
       "Presence": "Presence",
       "Tellurgy": "Tellurgy",
       "Vicissitude": "Vicissitude",
-      "ViewClan": "View Clan"
+      "ViewClan": "View Clan",
+      "VitaeToSpend": "Vitae to Spend"
     }
   }
 }
