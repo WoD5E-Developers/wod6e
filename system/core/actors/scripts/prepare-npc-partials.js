@@ -1,5 +1,21 @@
 import { prepareResourcesContext } from './prepare-core-partials.js'
 
+export async function prepareNpcAbilitiesContext(context, actor) {
+  context.tab = context.tabs.abilities
+  context.abilities = actor.items
+    .filter((item) => item.type === 'npcItem')
+    .map((ability) => ({
+      id: ability.id,
+      uuid: ability.uuid,
+      name: ability.name,
+      description: ability.system.description,
+      activation: ability.system.activation.activationType,
+      uses: ability.system.uses
+    }))
+
+  return context
+}
+
 export async function prepareNpcMainContext(context, actor) {
   const system = actor.system
   const tiers = WOD6E.configs.NpcTiers.getList({})

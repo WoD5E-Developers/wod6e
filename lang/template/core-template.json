@@ -15,6 +15,7 @@
       "_lifepath": "",
       "_merit": "",
       "_nature": "",
+      "_npcItem": "",
       "_resource": ""
     }
   },
@@ -219,6 +220,7 @@
     },
     "NPC": {
       "_CreatureType": "",
+      "_CurrentUses": "",
       "_Defeated": "",
       "_Elite": "",
       "_EliteLevels": "",
@@ -226,14 +228,18 @@
       "_Level": "",
       "_LimitedVisibility": "",
       "_LimitedVisibilityHint": "",
+      "_MaximumUses": "",
       "_Mental": "",
       "_Minion": "",
       "_Motivation": "",
       "_Physical": "",
+      "_RecoveryPeriod": "",
+      "_Requirements": "",
       "_Social": "",
       "_Standard": "",
       "_Subtype": "",
-      "_Tier": ""
+      "_Tier": "",
+      "_Uses": ""
     },
     "RESOURCES": {
       "_Baneful": "",
@@ -295,6 +301,7 @@
       "_Survival": ""
     },
     "TABS": {
+      "_Abilities": "",
       "_Actions": "",
       "_Activation": "",
       "_Condition": "",
@@ -307,6 +314,7 @@
       "_Main": "",
       "_Maturing": "",
       "_Outburst": "",
+      "_Requirements": "",
       "_Restrictions": "",
       "_Settings": "",
       "_Test": ""

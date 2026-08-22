@@ -1,6 +1,10 @@
 import { WoDActorBase } from './wod-actor-base.js'
 import { prepareConditionsContext } from '../scripts/prepare-core-partials.js'
-import { prepareNpcLimitedContext, prepareNpcMainContext } from '../scripts/prepare-npc-partials.js'
+import {
+  prepareNpcAbilitiesContext,
+  prepareNpcLimitedContext,
+  prepareNpcMainContext
+} from '../scripts/prepare-npc-partials.js'
 
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -24,6 +28,9 @@ export class NpcActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
     main: {
       template: 'systems/wod6e/templates/core/actors/npc/npc-sheet-body.hbs'
     },
+    abilities: {
+      template: 'systems/wod6e/templates/core/actors/npc/abilities.hbs'
+    },
     conditions: {
       template: 'systems/wod6e/templates/core/actors/parts/conditions.hbs'
     },
@@ -42,6 +49,11 @@ export class NpcActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
           id: 'main',
           icon: 'fa-solid fa-user',
           label: 'WOD6E.TABS.Main'
+        },
+        {
+          id: 'abilities',
+          icon: 'fa-solid fa-bolt',
+          label: 'WOD6E.TABS.Abilities'
         },
         {
           id: 'conditions',
@@ -72,6 +84,9 @@ export class NpcActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
     switch (partId) {
       case 'main':
         return prepareNpcMainContext(context, actor)
+
+      case 'abilities':
+        return prepareNpcAbilitiesContext(context, actor)
 
       case 'conditions':
         return prepareConditionsContext(context, actor)

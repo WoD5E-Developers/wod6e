@@ -15,6 +15,7 @@
       "lifepath": "Lifepath",
       "merit": "Merit",
       "nature": "Nature",
+      "npcItem": "NPC Item",
       "resource": "Resource"
     }
   },
@@ -219,6 +220,7 @@
     },
     "NPC": {
       "CreatureType": "Creature Type",
+      "CurrentUses": "Current Uses",
       "Defeated": "Defeated",
       "Elite": "Elite",
       "EliteLevels": "Elite Levels",
@@ -226,14 +228,18 @@
       "Level": "Level",
       "LimitedVisibility": "Limited Visibility",
       "LimitedVisibilityHint": "Choose which NPC details limited users can see.",
+      "MaximumUses": "Maximum Uses",
       "Mental": "Mental",
       "Minion": "Minion",
       "Motivation": "Motivation",
       "Physical": "Physical",
+      "RecoveryPeriod": "Recovery Period",
+      "Requirements": "Requirements",
       "Social": "Social",
       "Standard": "Standard",
       "Subtype": "Subtype",
-      "Tier": "Tier"
+      "Tier": "Tier",
+      "Uses": "Uses"
     },
     "RESOURCES": {
       "Baneful": "Baneful",
@@ -295,6 +301,7 @@
       "Survival": "Survival"
     },
     "TABS": {
+      "Abilities": "Abilities",
       "Actions": "Actions",
       "Activation": "Activation",
       "Condition": "Condition",
@@ -307,6 +314,7 @@
       "Main": "Main",
       "Maturing": "Maturing",
       "Outburst": "Outburst",
+      "Requirements": "Requirements",
       "Restrictions": "Restrictions",
       "Settings": "Settings",
       "Test": "Test"

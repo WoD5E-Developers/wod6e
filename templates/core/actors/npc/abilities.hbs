@@ -1,0 +1,66 @@
+<section
+  class="sheet-part tab section abilities-section {{ tabs.abilities.cssClass }}"
+  data-group="primary"
+  data-tab="abilities"
+>
+  <section class="sheet-section ability-group">
+    <header class="sheet-section-header">
+      <div class="sheet-section-name align-left">
+        {{localize "WOD6E.TABS.Abilities"}}
+      </div>
+
+      <div class="sheet-section-data-actions align-right">
+        <a
+          class="search-data-item"
+          data-action="searchItem"
+          data-type="npcItem"
+          title="{{localize 'WOD6E.Search'}}"
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+
+        <a
+          class="item-create"
+          data-action="createItem"
+          data-type="npcItem"
+          title="{{localize 'WOD6E.Create'}}"
+        >
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </header>
+
+    <div class="sheet-section-list">
+      {{#each abilities as |ability|}}
+      <div
+        class="sheet-section-row item-section ability-row"
+        data-item-id="{{ ability.id }}"
+        data-uuid="{{ ability.uuid }}"
+      >
+        <a
+          class="item-open"
+          data-action="openItem"
+          data-uuid="{{ ability.uuid }}"
+          title="{{localize 'WOD6E.ViewItem'}}"
+        >
+          <i class="fas fa-book"></i>
+        </a>
+
+        <button
+          type="button"
+          class="sheet-section-label"
+          data-action="sendItemToChat"
+          data-uuid="{{ ability.uuid }}"
+          title="{{localize 'WOD6E.PostToChat'}}"
+        >
+          <span class="item-name bolded">{{ ability.name }}</span>
+        </button>
+
+        {{#if ability.uses.enabled}}
+        <span class="ability-uses">{{ ability.uses.value }} / {{ ability.uses.max }}</span>
+        {{/if}}
+      </div>
+      {{/each}}
+    </div>
+  </section>
+</section>
