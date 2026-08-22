@@ -32,6 +32,10 @@
     {{#each resources as |resource|}}
     <div
       class="sheet-section-row resource-tracker"
+      data-drag="true"
+      data-type="Item"
+      data-document-uuid="{{ resource.uuid }}"
+      data-item-id="{{ resource.id }}"
       data-resource="{{ resource.uuid }}"
     >
       <div class="resource-name">

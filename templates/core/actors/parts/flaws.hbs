@@ -32,6 +32,10 @@
     {{#each flaws as |flaw|}}
     <div
       class="sheet-section-row item-section"
+      data-drag="true"
+      data-type="Item"
+      data-document-uuid="{{ flaw.uuid }}"
+      data-item-id="{{ flaw.id }}"
       data-flaw="{{ flaw.uuid }}"
     >
       <a

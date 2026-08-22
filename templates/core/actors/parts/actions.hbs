@@ -40,6 +40,9 @@
       {{#each group.actions as |action|}}
       <div
         class="sheet-section-row item-section action-row"
+        data-drag="true"
+        data-type="Item"
+        data-document-uuid="{{ action.uuid }}"
         data-item-id="{{ action.id }}"
         data-uuid="{{ action.uuid }}"
       >

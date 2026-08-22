@@ -88,6 +88,10 @@
       {{#each discipline.powers as |power|}}
       <div
         class="sheet-section-row discipline-power-row discipline-power"
+        data-drag="true"
+        data-type="Item"
+        data-document-uuid="{{ power.uuid }}"
+        data-item-id="{{ power.id }}"
         data-resource="{{ power.uuid }}"
       >
         <div class="resource-name">

@@ -32,6 +32,10 @@
     {{#each equipment as |item|}}
     <div
       class="sheet-section-row item-section"
+      data-drag="true"
+      data-type="Item"
+      data-document-uuid="{{ item.uuid }}"
+      data-item-id="{{ item.id }}"
       data-flaw="{{ item.uuid }}"
     >
       <a
