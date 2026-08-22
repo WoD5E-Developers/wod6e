@@ -6,8 +6,9 @@ export function settingFields() {
       limited: new fields.SchemaField({
         biography: new fields.BooleanField({ initial: true }),
         appearance: new fields.BooleanField({ initial: true }),
-        touchstones: new fields.BooleanField({ initial: false }),
-        tenets: new fields.BooleanField({ initial: false })
+        creatureType: new fields.BooleanField({ initial: true }),
+        subtype: new fields.BooleanField({ initial: true }),
+        motivation: new fields.BooleanField({ initial: true })
       }),
 
       // SPC-specific settings

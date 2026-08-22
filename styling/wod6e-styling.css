@@ -616,6 +616,87 @@
   white-space: nowrap;
 }
 
+.actor.sheet.npc {
+  min-width: 620px;
+}
+.actor.sheet.npc .window-content {
+  padding: 0;
+  overflow-y: scroll;
+}
+.actor.sheet.npc .npc-sheet-body {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(300px, 1.2fr);
+  grid-template-areas: 'npcHeader npcHeader' 'npcLevels health' 'motivation motivation';
+  gap: 8px;
+}
+.actor.sheet.npc .npc-sheet-body .willpower-tracker .resource-tracker-header,
+.actor.sheet.npc .npc-sheet-body .willpower-tracker .resource-tracker-spaces {
+  justify-content: flex-start;
+}
+.actor.sheet.npc [data-actor-section='npcHeader'] {
+  grid-area: npcHeader;
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 16px;
+}
+.actor.sheet.npc [data-actor-section='npcHeader'] .actor-avatar {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+}
+.actor.sheet.npc [data-actor-section='npcLevels'] {
+  grid-area: npcLevels;
+}
+.actor.sheet.npc .health-section {
+  grid-area: health;
+}
+.actor.sheet.npc [data-actor-section='motivation'] {
+  grid-area: motivation;
+}
+.actor.sheet.npc .npc-identity,
+.actor.sheet.npc .npc-level-fields,
+.actor.sheet.npc .npc-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.actor.sheet.npc .npc-defeated,
+.actor.sheet.npc .npc-level-field,
+.actor.sheet.npc .npc-settings label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.actor.sheet.npc .npc-level-field {
+  justify-content: space-between;
+}
+.actor.sheet.npc .npc-level-field input {
+  width: 35px;
+  text-align: center;
+}
+.actor.sheet.npc .npc-sheet-body.defeated .actor-avatar {
+  filter: grayscale(1);
+  opacity: 0.65;
+}
+.actor.sheet.npc .npc-sheet-body.defeated .npc-defeated {
+  color: var(--color-level-error);
+  font-weight: bold;
+}
+.actor.sheet.npc .npc-limited-sheet {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 16px;
+}
+.actor.sheet.npc .npc-limited-sheet .actor-avatar {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  background-color: var(--image-background-color);
+}
+.actor.sheet.npc .npc-limited-sheet .motivation-section {
+  margin-top: 16px;
+}
+
 .actor.sheet .sheet-field {
   display: flex;
   align-items: center;
@@ -1055,6 +1136,7 @@
   border: 0;
   object-fit: cover;
   border: 1px solid;
+  background-color: var(--image-background-color);
 }
 .wod6e.chat-card .item-card-header .item-name {
   flex: 1;

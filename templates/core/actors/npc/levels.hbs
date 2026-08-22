@@ -1,0 +1,29 @@
+<section
+  class="sheet-section npc-levels"
+  data-actor-section="npcLevels"
+>
+  <header class="sheet-section-header">
+    <span class="sheet-section-name">
+      {{#if npc.isElite}}
+      {{localize "WOD6E.NPC.EliteLevels"}}
+      {{else}}
+      {{localize "WOD6E.NPC.Level"}}
+      {{/if}}
+    </span>
+  </header>
+  <div class="npc-level-fields">
+    {{#each levels as |level|}}
+    <label class="npc-level-field">
+      <span>{{localize level.label}}</span>
+      <input
+        type="number"
+        name="system.level.{{ level.key }}"
+        value="{{ level.value }}"
+        min="1"
+        max="10"
+        step="1"
+      />
+    </label>
+    {{/each}}
+  </div>
+</section>

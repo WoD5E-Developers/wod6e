@@ -1,0 +1,26 @@
+{{#> "systems/wod6e/templates/core/chat/base-item.hbs"}}
+
+{{#if system.uses.enabled}}
+<div class="item-card-summary">
+  <div class="item-card-fields">
+    <div class="item-card-field-name">{{localize "WOD6E.NPC.Uses"}}:</div>
+    <div class="item-card-field-value">
+      {{system.uses.value}} / {{system.uses.max}}
+      {{#if system.uses.period}}({{system.uses.period}}){{/if}}
+    </div>
+  </div>
+</div>
+{{/if}}
+
+{{#if enriched.requirements}}
+<section class="item-card-section">
+  <h5>{{localize "WOD6E.NPC.Requirements"}}</h5>
+  <div>
+    {{{enriched.requirements}}}
+  </div>
+</section>
+{{/if}}
+
+{{> "systems/wod6e/templates/core/chat/parts/activation.hbs"}}
+
+{{/"systems/wod6e/templates/core/chat/base-item.hbs"}}

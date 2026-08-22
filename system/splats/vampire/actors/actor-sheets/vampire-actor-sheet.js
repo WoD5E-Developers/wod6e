@@ -63,12 +63,12 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
         },
         {
           id: 'actions',
-          icon: 'fa-solid fa-user',
+          icon: 'fa-solid fa-bolt',
           label: 'WOD6E.TABS.Actions'
         },
         {
           id: 'conditions',
-          icon: 'fa-solid fa-user',
+          icon: 'fa-solid fa-heart-pulse',
           label: 'WOD6E.TABS.Conditions'
         }
       ],

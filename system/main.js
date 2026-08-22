@@ -21,6 +21,7 @@ import { Attributes } from './core/config/attributes.js'
 import { AttributeGroups } from './core/config/attributes-groups.js'
 import { Skills } from './core/config/skills.js'
 import { ActorTypes } from './core/config/actor-types.js'
+import { NpcTiers } from './core/config/npc-tiers.js'
 import { ItemTypes } from './core/config/item-types.js'
 import { ResourceTypes } from './core/config/resource-types.js'
 import { Disciplines } from './splats/vampire/config/disciplines.js'
@@ -66,6 +67,7 @@ window.WOD6E = {
     Disciplines,
     ItemTypes,
     ActorTypes,
+    NpcTiers,
     ActionGroups,
     Activations,
     ActionRoles,

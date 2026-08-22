@@ -1,6 +1,7 @@
 {
   "TYPES": {
     "Actor": {
+      "_npc": "",
       "_vampire": ""
     },
     "Item": {
@@ -14,6 +15,7 @@
       "_lifepath": "",
       "_merit": "",
       "_nature": "",
+      "_npcItem": "",
       "_resource": ""
     }
   },
@@ -59,12 +61,16 @@
       "_Duration": "",
       "_Exploration": "",
       "_Far": "",
+      "_FarAway": "",
       "_Fixed": "",
       "_FixedPlusTargetsTrait": "",
       "_FixedValue": "",
       "_General": "",
       "_HighestAttributeOrNPCLevel": "",
       "_Instantaneous": "",
+      "_Long": "",
+      "_Maintained": "",
+      "_Medium": "",
       "_MinorAction": "",
       "_NPCLevel": "",
       "_OneNight": "",
@@ -216,6 +222,29 @@
       "_LoadingSubroutines": "",
       "_ShreckNetInitialized": ""
     },
+    "NPC": {
+      "_CreatureType": "",
+      "_CurrentUses": "",
+      "_Defeated": "",
+      "_Elite": "",
+      "_EliteLevels": "",
+      "_Health": "",
+      "_Level": "",
+      "_LimitedVisibility": "",
+      "_LimitedVisibilityHint": "",
+      "_MaximumUses": "",
+      "_Mental": "",
+      "_Minion": "",
+      "_Motivation": "",
+      "_Physical": "",
+      "_RecoveryPeriod": "",
+      "_Requirements": "",
+      "_Social": "",
+      "_Standard": "",
+      "_Subtype": "",
+      "_Tier": "",
+      "_Uses": ""
+    },
     "RESOURCES": {
       "_Baneful": "",
       "_Drama": "",
@@ -276,6 +305,7 @@
       "_Survival": ""
     },
     "TABS": {
+      "_Abilities": "",
       "_Actions": "",
       "_Activation": "",
       "_Condition": "",
@@ -288,6 +318,7 @@
       "_Main": "",
       "_Maturing": "",
       "_Outburst": "",
+      "_Requirements": "",
       "_Restrictions": "",
       "_Settings": "",
       "_Test": ""
