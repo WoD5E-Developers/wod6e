@@ -7,7 +7,7 @@ import { loadHelpers } from './core/scripts/helpers.js'
 import { loadSettings } from './core/scripts/settings.js'
 // Actor sheets
 import { WoDActor } from './core/actors/actor.js'
-import { WoDActorModel } from './core/actors/data-models/base-actor-model.js'
+import { WoDPlayerActorModel } from './core/actors/data-models/wod-player-actor-model.js'
 import { WoDActorBase } from './core/actors/actor-sheets/wod-actor-base.js'
 import { ActorUX } from './core/actors/scripts/actor-ux.js'
 // Item sheets
@@ -21,6 +21,7 @@ import { Attributes } from './core/config/attributes.js'
 import { AttributeGroups } from './core/config/attributes-groups.js'
 import { Skills } from './core/config/skills.js'
 import { ActorTypes } from './core/config/actor-types.js'
+import { NpcTiers } from './core/config/npc-tiers.js'
 import { ItemTypes } from './core/config/item-types.js'
 import { ResourceTypes } from './core/config/resource-types.js'
 import { Disciplines } from './splats/vampire/config/disciplines.js'
@@ -30,6 +31,7 @@ import {
 } from './core/items/scripts/prepare-partials.js'
 import {
   prepareAttributesContext,
+  prepareBiographyContext,
   prepareLimitedContext,
   prepareResourcesContext,
   prepareSettingsContext
@@ -66,6 +68,7 @@ window.WOD6E = {
     Disciplines,
     ItemTypes,
     ActorTypes,
+    NpcTiers,
     ActionGroups,
     Activations,
     ActionRoles,
@@ -78,9 +81,10 @@ window.WOD6E = {
   },
   actors: {
     WoDActorBase,
-    WoDActorModel,
+    WoDPlayerActorModel,
     contextPreparation: {
       prepareAttributesContext,
+      prepareBiographyContext,
       prepareResourcesContext,
       prepareSettingsContext,
       prepareLimitedContext

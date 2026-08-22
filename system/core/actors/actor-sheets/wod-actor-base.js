@@ -5,6 +5,7 @@ import { _onSetTrackerValue } from '../scripts/on-set-tracker-value.js'
 import { _onDisableTrackerValue } from '../scripts/on-disable-tracker-value.js'
 import {
   prepareAttributesContext,
+  prepareBiographyContext,
   prepareLimitedContext,
   prepareResourcesContext,
   prepareSettingsContext
@@ -292,6 +293,10 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
 
   prepareResourcesContext(context, actor) {
     return prepareResourcesContext(context, actor)
+  }
+
+  prepareBiographyContext(context, actor) {
+    return prepareBiographyContext(context, actor)
   }
 
   prepareSettingsContext(context, actor) {

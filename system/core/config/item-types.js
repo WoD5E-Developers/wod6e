@@ -38,6 +38,9 @@ import { NatureItemModel } from '../../splats/vampire/items/data-models/nature-i
 // Condition
 import { ConditionItemSheet } from '../items/item-sheets/condition-item-sheet.js'
 import { ConditionItemModel } from '../items/data-models/condition-item-model.js'
+// NPC Ability
+import { WoDNpcAbilityItemModel } from '../items/data-models/npc-ability-item-model.js'
+import { NpcAbilityItemSheet } from '../items/item-sheets/npc-ability-item-sheet.js'
 
 /*
  *   Each item type is defined through here; this includes the item's label,
@@ -65,6 +68,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['resource'],
     sheetClass: ResourceItemSheet,
     sheetModel: ResourceItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core',
     subtypes: ResourceTypes,
     subtypePath: 'resourceType'
@@ -77,6 +81,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['action'],
     sheetClass: ActionItemSheet,
     sheetModel: ActionItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core',
     subtypes: ActionGroups,
     subtypePath: 'group'
@@ -89,6 +94,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['equipment'],
     sheetClass: EquipmentItemSheet,
     sheetModel: EquipmentItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core'
   }
 
@@ -99,6 +105,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['flaw'],
     sheetClass: FlawItemSheet,
     sheetModel: FlawItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core'
   }
 
@@ -109,6 +116,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['lifepath'],
     sheetClass: LifepathItemSheet,
     sheetModel: LifepathItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core'
   }
 
@@ -119,6 +127,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['merit'],
     sheetClass: MeritItemSheet,
     sheetModel: MeritItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core'
   }
 
@@ -132,6 +141,17 @@ export class ItemTypes extends BaseDefinitionClass {
     splat: 'core'
   }
 
+  static npcAbility = {
+    label: 'TYPES.Item.npcAbility',
+    chatTemplate: 'systems/wod6e/templates/core/chat/npc-ability-item.hbs',
+    img: '',
+    types: ['npcAbility'],
+    sheetClass: NpcAbilityItemSheet,
+    sheetModel: WoDNpcAbilityItemModel,
+    restrictedActorTypes: ['npc'],
+    splat: 'core'
+  }
+
   static nature = {
     label: 'TYPES.Item.nature',
     chatTemplate: 'systems/wod6e/templates/core/chat/nature-item.hbs',
@@ -140,6 +160,7 @@ export class ItemTypes extends BaseDefinitionClass {
     sheetClass: NatureItemSheet,
     sheetModel: NatureItemModel,
     limitOnePerActor: true,
+    restrictedActorTypes: ['vampire'],
     splat: 'vampire'
   }
 
@@ -173,6 +194,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['discipline'],
     sheetClass: DisciplineItemSheet,
     sheetModel: DisciplineItemModel,
+    restrictedActorTypes: ['vampire'],
     splat: 'vampire',
     subtypes: Disciplines,
     subtypePath: 'disciplineType'

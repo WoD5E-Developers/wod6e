@@ -1,0 +1,16 @@
+<section
+  class="tab {{tab.cssClass}}"
+  data-tab="{{tab.id}}"
+  data-group="{{tab.group}}"
+>
+  <div class="prose-mirror-section">
+    <prose-mirror
+      name="{{requirements.path}}"
+      value="{{requirements.value}}"
+      toggled="true"
+      compact="true"
+    >
+      {{{requirements.enriched}}}
+    </prose-mirror>
+  </div>
+</section>

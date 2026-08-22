@@ -1,0 +1,37 @@
+<section
+  class="sheet-part tab npc-settings {{ tabs.settings.cssClass }}"
+  data-group="primary"
+  data-tab="settings"
+>
+  <header class="sheet-section-header">
+    <span class="sheet-section-name">{{localize "WOD6E.NPC.LimitedVisibility"}}</span>
+  </header>
+  <p>{{localize "WOD6E.NPC.LimitedVisibilityHint"}}</p>
+  <label>
+    <input
+      type="checkbox"
+      name="system.settings.limited.creatureType"
+      {{checked
+      settings.limited.creatureType}}
+    />
+    <span>{{localize "WOD6E.NPC.CreatureType"}}</span>
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      name="system.settings.limited.subtype"
+      {{checked
+      settings.limited.subtype}}
+    />
+    <span>{{localize "WOD6E.NPC.Subtype"}}</span>
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      name="system.settings.limited.motivation"
+      {{checked
+      settings.limited.motivation}}
+    />
+    <span>{{localize "WOD6E.NPC.Motivation"}}</span>
+  </label>
+</section>

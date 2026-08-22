@@ -85,7 +85,7 @@ export class WoDActor extends Actor {
       systemData.health.value = Math.clamp(
         systemData.health.value,
         0,
-        systemData.health.max - systemData.health.disabled
+        Math.max(0, systemData.health.max - systemData.health.disabled)
       )
     }
 
@@ -94,7 +94,7 @@ export class WoDActor extends Actor {
       systemData.willpower.value = Math.clamp(
         systemData.willpower.value,
         0,
-        systemData.willpower.max - systemData.willpower.disabled
+        Math.max(0, systemData.willpower.max - systemData.willpower.disabled)
       )
     }
 

@@ -1,0 +1,85 @@
+.actor.sheet.npc {
+  min-width: 620px;
+
+  .window-content {
+    padding: 0;
+    overflow-y: scroll;
+  }
+
+  .npc-sheet-body {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.8fr) minmax(300px, 1.2fr);
+    grid-template-areas:
+      'npcHeader npcHeader'
+      'npcLevels health'
+      'motivation motivation';
+    gap: 8px;
+
+    .willpower-tracker {
+      .resource-tracker-header,
+      .resource-tracker-spaces {
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  [data-actor-section='npcHeader'] {
+    grid-area: npcHeader;
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 16px;
+
+    .actor-avatar {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+    }
+  }
+
+  [data-actor-section='npcLevels'] {
+    grid-area: npcLevels;
+  }
+
+  .health-section {
+    grid-area: health;
+  }
+
+  [data-actor-section='motivation'] {
+    grid-area: motivation;
+  }
+
+  .npc-identity,
+  .npc-level-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .npc-defeated,
+  .npc-level-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .npc-level-field {
+    justify-content: space-between;
+
+    input {
+      width: 35px;
+      text-align: center;
+    }
+  }
+
+  .npc-sheet-body.defeated {
+    .actor-avatar {
+      filter: grayscale(1);
+      opacity: 0.65;
+    }
+
+    .npc-defeated {
+      color: var(--color-level-error);
+      font-weight: bold;
+    }
+  }
+}

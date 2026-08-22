@@ -149,6 +149,7 @@ async function prepareChatContext(item) {
       attribute: definitionLabel(WOD6E.configs.AttributeGroups, system.attribute)
     },
     enriched: {
+      requirements: await enrich(system.requirements, item),
       indulging: await enrich(system.indulging, item),
       outburst: await enrich(system.outburst?.description, item),
       beast: await enrich(system.beast?.description, item),

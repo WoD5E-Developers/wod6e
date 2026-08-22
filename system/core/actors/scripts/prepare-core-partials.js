@@ -29,38 +29,46 @@ export const prepareAttributesContext = async function (context, actor) {
 }
 
 export const prepareResourcesContext = async function (context, actor) {
+  // Switch for the health label; likely as more splats/actor types are added this will
+  // have to move to a configuration in ActorTypes, but for now this'll do
+  const healthLabel = actor.type === 'npc' ? 'WOD6E.NPC.Health' : 'WOD6E.RESOURCES.Vitae'
   const actorHealth = actor.system.health
-  context.health = {
-    // Other splats may call this "Health" in the future
-    // So let's think smartly and just make this a variable
-    // upfront instead of putting it on the sheet
-    label: 'WOD6E.RESOURCES.Vitae',
-    path: 'system.health.value',
-    value: actorHealth.value,
-    max: actorHealth.max,
-    baneful: actorHealth.baneful,
-    trackers: generateTrackers({
-      name: game.i18n.localize('WOD6E.RESOURCES.Vitae'),
-      damageName: game.i18n.localize('WOD6E.RESOURCES.Baneful'),
+  if (actorHealth) {
+    context.health = {
+      // Other splats may call this "Health" in the future
+      // So let's think smartly and just make this a variable
+      // upfront instead of putting it on the sheet
+      label: healthLabel,
+      path: 'system.health.value',
       value: actorHealth.value,
       max: actorHealth.max,
-      disabled: actorHealth.disabled
-    })
+      baneful: actorHealth.baneful,
+      trackers: generateTrackers({
+        name: game.i18n.localize(healthLabel),
+        damageName: game.i18n.localize('WOD6E.RESOURCES.Baneful'),
+        value: actorHealth.value,
+        max: actorHealth.max,
+        disabled: actorHealth.disabled
+      })
+    }
   }
 
   const actorWillpower = actor.system.willpower
-  context.willpower = {
-    path: 'system.willpower.value',
-    value: actorWillpower.value,
-    max: actorWillpower.max,
-    baneful: actorWillpower.baneful,
-    trackers: generateTrackers({
-      name: game.i18n.localize('WOD6E.RESOURCES.Willpower'),
+  if (actorWillpower) {
+    context.willpower = {
+      path: 'system.willpower.value',
       value: actorWillpower.value,
       max: actorWillpower.max,
-      disabled: actorWillpower.disabled,
-      reverse: true
-    })
+      baneful: actorWillpower.baneful,
+      trackers: generateTrackers({
+        name: game.i18n.localize('WOD6E.RESOURCES.Willpower'),
+        value: actorWillpower.value,
+        max: actorWillpower.max,
+        disabled: actorWillpower.disabled,
+        // Don't reverse the tracker if we're displaying it on an NPC
+        reverse: actor.type !== 'npc'
+      })
+    }
   }
 
   return context
@@ -145,23 +153,77 @@ export const prepareConditionsContext = async function (context, actor) {
 }
 
 export const prepareSettingsContext = async function (context, actor) {
-  const actorSettings = actor.system.settings
+  const actorSettings = actor.system.settings ?? {}
   context.settings = actorSettings
+  context.limitedSettingFields = [
+    {
+      path: 'biography',
+      label: 'WOD6E.Biography',
+      checked: actorSettings.limited?.biography
+    },
+    {
+      path: 'appearance',
+      label: 'WOD6E.Appearance',
+      checked: actorSettings.limited?.appearance
+    }
+  ]
+
+  if (actor.type === 'npc') {
+    context.limitedSettingFields.push(
+      {
+        path: 'creatureType',
+        label: 'WOD6E.NPC.CreatureType',
+        checked: actorSettings.limited?.creatureType
+      },
+      {
+        path: 'subtype',
+        label: 'WOD6E.NPC.Subtype',
+        checked: actorSettings.limited?.subtype
+      },
+      {
+        path: 'motivation',
+        label: 'WOD6E.NPC.Motivation',
+        checked: actorSettings.limited?.motivation
+      }
+    )
+  }
+
+  return context
+}
+
+export const prepareBiographyContext = async function (context, actor) {
+  const actorCoreData = actor.system.core ?? {}
+
+  context.biography = {
+    value: actorCoreData.biography ?? '',
+    enriched: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      actorCoreData.biography ?? ''
+    )
+  }
+  context.appearance = {
+    value: actorCoreData.appearance ?? '',
+    enriched: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      actorCoreData.appearance ?? ''
+    )
+  }
 
   return context
 }
 
 export const prepareLimitedContext = async function (context, actor) {
-  const actorCoreData = actor.system.core
+  const actorCoreData = actor.system.core ?? {}
+
   // Part-specific data
   context.enrichedNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-    actorCoreData.publicNotes
+    actorCoreData.publicNotes ?? ''
   )
+
   context.enrichedAppearance = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-    actorCoreData.appearance
+    actorCoreData.appearance ?? ''
   )
+
   context.enrichedBiography = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-    actorCoreData.biography
+    actorCoreData.biography ?? ''
   )
 
   return context

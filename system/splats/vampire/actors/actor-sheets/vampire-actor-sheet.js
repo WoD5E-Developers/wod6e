@@ -32,6 +32,9 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     tabs: {
       template: 'templates/generic/tab-navigation.hbs'
     },
+    biography: {
+      template: 'systems/wod6e/templates/core/actors/parts/biography.hbs'
+    },
     main: {
       template: 'systems/wod6e/templates/splats/vampire/actors/vampire-sheet-body.hbs'
     },
@@ -63,13 +66,23 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
         },
         {
           id: 'actions',
-          icon: 'fa-solid fa-user',
+          icon: 'fa-solid fa-bolt',
           label: 'WOD6E.TABS.Actions'
         },
         {
+          id: 'biography',
+          icon: 'fa-solid fa-book-open',
+          label: 'WOD6E.TABS.Biography'
+        },
+        {
           id: 'conditions',
-          icon: 'fa-solid fa-user',
+          icon: 'fa-solid fa-heart-pulse',
           label: 'WOD6E.TABS.Conditions'
+        },
+        {
+          id: 'settings',
+          icon: 'fa-solid fa-gear',
+          label: 'WOD6E.TABS.Settings'
         }
       ],
       initial: 'main'
@@ -106,6 +119,9 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
 
       case 'conditions':
         return prepareConditionsContext(context, actor)
+
+      case 'biography':
+        return this.prepareBiographyContext(context, actor)
 
       case 'settings':
         return this.prepareSettingsContext(context, actor)

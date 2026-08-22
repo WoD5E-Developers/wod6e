@@ -1,6 +1,7 @@
 {
   "TYPES": {
     "Actor": {
+      "npc": "NPC",
       "vampire": "Vampire"
     },
     "Item": {
@@ -14,12 +15,15 @@
       "lifepath": "Lifepath",
       "merit": "Merit",
       "nature": "Nature",
+      "npcAbility": "NPC Ability",
       "resource": "Resource"
     }
   },
   "WOD6E": {
     "Add": "Add",
     "AddString": "Add {string}",
+    "Appearance": "Appearance",
+    "Biography": "Biography",
     "Cancel": "Cancel",
     "ConfigureString": "Configure {string}",
     "Confirm": "Confirm",
@@ -29,6 +33,8 @@
     "Description": "Description",
     "GamePaused": "Game Paused",
     "ItemType": "Item Type",
+    "LimitedVisibility": "Limited Visibility",
+    "LimitedVisibilityHint": "Choose which details limited users can see.",
     "Name": "Name",
     "NewString": "New {string}",
     "None": "None",
@@ -59,12 +65,16 @@
       "Duration": "Duration",
       "Exploration": "Exploration",
       "Far": "Far",
+      "FarAway": "Far Away",
       "Fixed": "Fixed",
       "FixedPlusTargetsTrait": "Fixed Plus Target's Trait",
       "FixedValue": "Fixed Value",
       "General": "General",
       "HighestAttributeOrNPCLevel": "Highest Attribute, or NPC Level",
       "Instantaneous": "Instantaneous",
+      "Long": "Long",
+      "Maintained": "Maintained",
+      "Medium": "Medium",
       "MinorAction": "Minor Action",
       "NPCLevel": "NPC Level",
       "OneNight": "One Night",
@@ -188,6 +198,7 @@
       "DataItemIdCannotBeEmpty": "Data Item ID cannot be empty. Please go to the item's Settings tab and click the \"Generate Data Item ID\" button.",
       "DeleteItem": "Delete Item",
       "GenerateDataItemID": "Generate Data Item ID",
+      "ItemCannotBeDroppedOnActor": "This item type \"{string1}\" cannot be dropped onto actor type \"{string2}.\"",
       "Items": "Items",
       "Level": "Level",
       "NoItemsFound": "There were no items found associated with Data Item ID \"{dataItemId}.\"",
@@ -215,6 +226,29 @@
       "InitializingSchreckNet": "Initializing SchreckNet",
       "LoadingSubroutines": "SchreckNet: Loading subroutines",
       "ShreckNetInitialized": "ShreckNet Initialized - Welcome to the World of Darkness."
+    },
+    "NPC": {
+      "CreatureType": "Creature Type",
+      "CurrentUses": "Current Uses",
+      "Defeated": "Defeated",
+      "Elite": "Elite",
+      "EliteLevels": "Elite Levels",
+      "Health": "Health",
+      "Level": "Level",
+      "LimitedVisibility": "Limited Visibility",
+      "LimitedVisibilityHint": "Choose which NPC details limited users can see.",
+      "MaximumUses": "Maximum Uses",
+      "Mental": "Mental",
+      "Minion": "Minion",
+      "Motivation": "Motivation",
+      "Physical": "Physical",
+      "RecoveryPeriod": "Recovery Period",
+      "Requirements": "Requirements",
+      "Social": "Social",
+      "Standard": "Standard",
+      "Subtype": "Subtype",
+      "Tier": "Tier",
+      "Uses": "Uses"
     },
     "RESOURCES": {
       "Baneful": "Baneful",
@@ -276,8 +310,10 @@
       "Survival": "Survival"
     },
     "TABS": {
+      "Abilities": "Abilities",
       "Actions": "Actions",
       "Activation": "Activation",
+      "Biography": "Biography",
       "Condition": "Condition",
       "Conditions": "Conditions",
       "Description": "Description",
@@ -288,6 +324,7 @@
       "Main": "Main",
       "Maturing": "Maturing",
       "Outburst": "Outburst",
+      "Requirements": "Requirements",
       "Restrictions": "Restrictions",
       "Settings": "Settings",
       "Test": "Test"
