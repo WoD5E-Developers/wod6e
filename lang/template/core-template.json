@@ -198,6 +198,7 @@
       "_DataItemIdCannotBeEmpty": "",
       "_DeleteItem": "",
       "_GenerateDataItemID": "",
+      "_ItemCannotBeDroppedOnActor": "",
       "_Items": "",
       "_Level": "",
       "_NoItemsFound": "",

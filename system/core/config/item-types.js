@@ -68,6 +68,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['resource'],
     sheetClass: ResourceItemSheet,
     sheetModel: ResourceItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core',
     subtypes: ResourceTypes,
     subtypePath: 'resourceType'
@@ -80,6 +81,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['action'],
     sheetClass: ActionItemSheet,
     sheetModel: ActionItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core',
     subtypes: ActionGroups,
     subtypePath: 'group'
@@ -92,6 +94,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['equipment'],
     sheetClass: EquipmentItemSheet,
     sheetModel: EquipmentItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core'
   }
 
@@ -102,6 +105,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['flaw'],
     sheetClass: FlawItemSheet,
     sheetModel: FlawItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core'
   }
 
@@ -112,6 +116,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['lifepath'],
     sheetClass: LifepathItemSheet,
     sheetModel: LifepathItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core'
   }
 
@@ -122,6 +127,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['merit'],
     sheetClass: MeritItemSheet,
     sheetModel: MeritItemModel,
+    excludedActorTypes: ['npc'],
     splat: 'core'
   }
 
@@ -154,6 +160,7 @@ export class ItemTypes extends BaseDefinitionClass {
     sheetClass: NatureItemSheet,
     sheetModel: NatureItemModel,
     limitOnePerActor: true,
+    restrictedActorTypes: ['vampire'],
     splat: 'vampire'
   }
 
@@ -187,6 +194,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['discipline'],
     sheetClass: DisciplineItemSheet,
     sheetModel: DisciplineItemModel,
+    restrictedActorTypes: ['vampire'],
     splat: 'vampire',
     subtypes: Disciplines,
     subtypePath: 'disciplineType'
