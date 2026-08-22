@@ -3,6 +3,7 @@ import { prepareResources } from '../../../../../core/actors/scripts/prepare-res
 import { prepareSkills } from '../../../../../core/actors/scripts/prepare-skills.js'
 import { generateTestTextFromItem } from '../../../../../core/items/scripts/generate-test-text-from-item.js'
 import { formatOrdinals } from '../../../../../core/scripts/format-ordinals.js'
+import { generationDetailLookup } from '../../../scripts/generation-detail-lookup.js'
 
 export const prepareHeaderContext = async function (context, actor) {
   const actorData = actor.system
@@ -212,6 +213,10 @@ export const prepareRightColumnContext = async function (context, actor) {
 export function prepareDisciplinesContext(context, actor) {
   const disciplines = WOD6E.configs.Disciplines.getList({})
   const actorDisciplines = actor?.system?.vampire?.disciplines || {}
+  const generation = actor?.system?.vampire?.generation?.value
+  const disciplineMaximums = generationDetailLookup(generation)?.maximumValues?.disciplines
+  const clan = actor.items.find((item) => item.type === 'clan')
+  const inClanDisciplines = new Set(clan?.system?.disciplines ?? [])
 
   const preparedDisciplines = Object.entries(disciplines)
     .filter(([key, discipline]) => !discipline?.hidden && actorDisciplines[key]?.visible)
@@ -219,7 +224,11 @@ export function prepareDisciplinesContext(context, actor) {
       const actorDiscipline = actorDisciplines[key]
       const value = actorDiscipline?.value ?? 0
       const effective = actorDiscipline?.effective ?? 0
-      const max = actorDiscipline?.max ?? 5
+      const clanStatus = inClanDisciplines.has(key) ? 'inClan' : 'nonClan'
+      const configuredMaximum = Number(disciplineMaximums?.[clanStatus])
+      const max = Number.isFinite(configuredMaximum)
+        ? configuredMaximum
+        : (actorDiscipline?.max ?? 5)
       const powers = actor.items
         .filter((item) => item.type === 'discipline' && item.system?.disciplineType === key)
         .sort((a, b) => a.sort - b.sort)
