@@ -691,6 +691,10 @@
   width: 180px;
   height: 180px;
   object-fit: cover;
+  background-color: var(--image-background-color);
+}
+.actor.sheet.npc .npc-limited-sheet .motivation-section {
+  margin-top: 16px;
 }
 
 .actor.sheet .sheet-field {
@@ -1132,6 +1136,7 @@
   border: 0;
   object-fit: cover;
   border: 1px solid;
+  background-color: var(--image-background-color);
 }
 .wod6e.chat-card .item-card-header .item-name {
   flex: 1;

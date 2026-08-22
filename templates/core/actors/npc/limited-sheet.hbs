@@ -6,7 +6,7 @@
     alt="{{ name }}"
   />
   <div class="npc-limited-details">
-    <h2>{{ name }}</h2>
+    <h3>{{ name }}</h3>
     {{#if npc.showCreatureType}}
     <div>
       <strong>{{localize "WOD6E.NPC.CreatureType"}}:</strong>
@@ -20,9 +20,9 @@
     </div>
     {{/if}}
     {{#if npc.showMotivation}}
-    <section>
-      <h3>{{localize "WOD6E.NPC.Motivation"}}</h3>
-      <div>{{ npc.motivation }}</div>
+    <section class="motivation-section">
+      <h4>{{localize "WOD6E.NPC.Motivation"}}</h4>
+      <div>{{{ npc.motivation }}}</div>
     </section>
     {{/if}}
   </div>

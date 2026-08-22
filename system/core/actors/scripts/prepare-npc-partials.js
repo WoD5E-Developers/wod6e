@@ -57,7 +57,9 @@ export async function prepareNpcLimitedContext(context, actor) {
   context.npc = {
     creatureType: actor?.system?.creatureType,
     subtype: actor?.system?.subtype,
-    motivation: actor?.system?.motivation,
+    motivation: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      actor?.system?.motivation ?? ''
+    ),
     showCreatureType: limitedSettings.creatureType,
     showSubtype: limitedSettings.subtype,
     showMotivation: limitedSettings.motivation
