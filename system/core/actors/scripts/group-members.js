@@ -54,3 +54,14 @@ export async function resolveGroupMembers(group) {
 
   return members
 }
+
+export function rerenderGroupsForUser(user) {
+  const actorUuid = user.character?.uuid
+  if (!actorUuid) return
+
+  for (const group of game.actors.filter((actor) => actor.type === 'group')) {
+    if (!Array.from(group.system.members ?? []).includes(actorUuid)) continue
+
+    group.sheet?.render()
+  }
+}

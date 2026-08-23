@@ -3,7 +3,12 @@ import { _onOpenItem } from '../../applications/compendium-browser/scripts/on-op
 import { _onCreateItem, _onSearchItem } from '../scripts/item-actions.js'
 import { _onSendItemToChat } from '../../scripts/on-send-item-to-chat.js'
 import { _onSetTrackerValue } from '../scripts/on-set-tracker-value.js'
-import { addGroupMember, openGroupMember, removeGroupMember } from '../scripts/group-members.js'
+import {
+  addGroupMember,
+  openGroupMember,
+  removeGroupMember,
+  rerenderGroupsForUser
+} from '../scripts/group-members.js'
 import {
   createRelationship,
   deleteRelationship,
@@ -171,3 +176,10 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
     })
   }
 }
+
+Hooks.on('updateUser', (user, changes) => {
+  const changedPaths = foundry.utils.flattenObject(changes)
+  if (!Object.hasOwn(changedPaths, 'flags.wod6e.quickening')) return
+
+  rerenderGroupsForUser(user)
+})
