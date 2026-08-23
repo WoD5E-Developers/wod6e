@@ -603,7 +603,7 @@
 }
 .actor.sheet.group .group-member {
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) auto;
+  grid-template-columns: 48px minmax(0, 1fr) 90px auto;
   align-items: center;
   gap: 8px;
   padding: 6px;
@@ -616,6 +616,17 @@
 }
 .actor.sheet.group .group-member.missing {
   opacity: 0.7;
+}
+.actor.sheet.group .group-member-column-headings {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) 90px 75px;
+  gap: 8px;
+  padding: 0 6px;
+  font-weight: bold;
+  text-align: center;
+}
+.actor.sheet.group .group-member-quickening {
+  text-align: center;
 }
 .actor.sheet.group .group-member-details,
 .actor.sheet.group .resource-contributor {
@@ -645,17 +656,18 @@
   flex: 1;
 }
 .actor.sheet.group .group-relationship {
+  position: relative;
   margin: 8px 0;
   border: 1px solid var(--tracker-border);
 }
-.actor.sheet.group .group-relationship[open] .group-relationship-summary {
+.actor.sheet.group .group-relationship:has(.group-relationship-content[open]) .group-relationship-summary {
   border-bottom: 1px solid var(--tracker-border);
 }
 .actor.sheet.group .group-relationship-summary {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px;
+  padding: 8px 76px 8px 8px;
   cursor: pointer;
   list-style: none;
 }
@@ -667,8 +679,14 @@
   font: var(--fa-font-solid);
   transition: transform 100ms ease-in-out;
 }
-.actor.sheet.group .group-relationship[open] > .group-relationship-summary::before {
+.actor.sheet.group .group-relationship-content[open] > .group-relationship-summary::before {
   transform: rotate(90deg);
+}
+.actor.sheet.group .group-relationship-actions {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 1;
 }
 .actor.sheet.group .group-relationship-identity {
   display: flex;

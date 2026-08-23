@@ -43,7 +43,7 @@
 
   .group-member {
     display: grid;
-    grid-template-columns: 48px minmax(0, 1fr) auto;
+    grid-template-columns: 48px minmax(0, 1fr) 90px auto;
     align-items: center;
     gap: 8px;
     padding: 6px;
@@ -58,6 +58,19 @@
     &.missing {
       opacity: 0.7;
     }
+  }
+
+  .group-member-column-headings {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 90px 75px;
+    gap: 8px;
+    padding: 0 6px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .group-member-quickening {
+    text-align: center;
   }
 
   .group-member-details, .resource-contributor {
@@ -88,10 +101,11 @@
   }
 
   .group-relationship {
+    position: relative;
     margin: 8px 0;
     border: 1px solid var(--tracker-border);
 
-    &[open] .group-relationship-summary {
+    &:has(.group-relationship-content[open]) .group-relationship-summary {
       border-bottom: 1px solid var(--tracker-border);
     }
   }
@@ -100,7 +114,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px;
+    padding: 8px 76px 8px 8px;
     cursor: pointer;
     list-style: none;
 
@@ -115,8 +129,15 @@
     }
   }
 
-  .group-relationship[open] > .group-relationship-summary::before {
+  .group-relationship-content[open] > .group-relationship-summary::before {
     transform: rotate(90deg);
+  }
+
+  .group-relationship-actions {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 1;
   }
 
   .group-relationship-identity {

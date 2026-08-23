@@ -36,6 +36,8 @@ export async function resolveGroupMembers(group) {
 
   for (const uuid of group.system.members ?? []) {
     const actor = fromUuidSync(uuid)
+    const player = game.users.find((user) => user.character?.uuid === uuid)
+
     members.push({
       uuid,
       id: actor?.id ?? '',
@@ -43,6 +45,8 @@ export async function resolveGroupMembers(group) {
       img: actor?.img ?? 'icons/svg/mystery-man.svg',
       type: actor?.type ?? '',
       typeLabel: actor ? game.i18n.localize(`TYPES.Actor.${actor.type}`) : '',
+      quickening: player ? Number(player.getFlag('wod6e', 'quickening') ?? 0) : null,
+      hasPlayer: Boolean(player),
       exists: Boolean(actor),
       canOpen: Boolean(actor?.sheet)
     })

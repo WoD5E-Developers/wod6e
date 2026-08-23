@@ -8,6 +8,12 @@
     <span class="group-drop-hint">{{localize "WOD6E.GROUPS.DropActorsHere"}}</span>
   </header>
   <div class="group-member-list">
+    <div class="group-member-column-headings">
+      <span></span>
+      <span></span>
+      <span>{{localize "WOD6E.RESOURCES.Quickening"}}</span>
+      <span>{{localize "WOD6E.ACTIONS.Actions"}}</span>
+    </div>
     {{#each groupMembers as |member|}}
     <div class="group-member {{#unless member.exists}}missing{{/unless}}">
       <img
@@ -17,6 +23,13 @@
       <div class="group-member-details">
         <strong>{{ member.name }}</strong>
         <span>{{ member.typeLabel }}</span>
+      </div>
+      <div class="group-member-quickening">
+        {{#if member.hasPlayer}}
+        {{ member.quickening }}
+        {{else}}
+        -
+        {{/if}}
       </div>
       <div class="group-member-actions">
         {{#if member.canOpen}}
