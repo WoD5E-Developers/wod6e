@@ -14,6 +14,10 @@ export class ResourceItemModel extends WoDItemModel {
       initial: 'wealth'
     })
 
+    // The group member who contributed this resource to a pooled resource list
+    // Only applicable to group sheets
+    schema.contributedByUuid = new fields.StringField({ initial: '' })
+
     return schema
   }
 }

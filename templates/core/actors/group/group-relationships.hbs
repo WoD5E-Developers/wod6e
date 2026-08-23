@@ -1,0 +1,59 @@
+<section class="group-relationships">
+  <header class="sheet-section-header">
+    <span class="sheet-section-name">{{localize "WOD6E.GROUPS.Relationships"}}</span>
+    <span class="sheet-section-data-actions align-right">
+      <button
+        type="button"
+        data-action="createRelationship"
+        title="{{localize 'WOD6E.GROUPS.AddRelationship'}}"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </span>
+  </header>
+  {{#each relationships as |relationship|}}
+  <article class="group-relationship {{#unless relationship.isValid}}invalid{{/unless}}">
+    <details class="group-relationship-content">
+      <summary class="group-relationship-summary">
+        <span class="group-relationship-identity">
+          <strong>{{ relationship.name }}</strong>
+          <span class="group-relationship-members">{{ relationship.membersText }}</span>
+        </span>
+      </summary>
+      <div class="group-relationship-details">
+        {{#unless relationship.isValid}}
+        <p class="validation-warning">{{localize "WOD6E.GROUPS.RelationshipNeedsMembers"}}</p>
+        {{/unless}}
+        {{#if relationship.missingMemberUuids}}
+        <p class="validation-warning">{{localize "WOD6E.GROUPS.RelationshipHasMissingMembers"}}</p>
+        {{/if}}
+        {{#if relationship.description.value}}
+        <div class="group-relationship-description">{{{ relationship.description.enriched }}}</div>
+        {{else}}
+        <p class="empty-list">{{localize "WOD6E.Description"}}</p>
+        {{/if}}
+      </div>
+    </details>
+    <div class="group-relationship-actions">
+      <button
+        type="button"
+        data-action="editRelationship"
+        data-relationship-id="{{ relationship.id }}"
+        title="{{localize 'WOD6E.GROUPS.EditRelationship'}}"
+      >
+        <i class="fa-solid fa-pen-to-square"></i>
+      </button>
+      <button
+        type="button"
+        data-action="deleteRelationship"
+        data-relationship-id="{{ relationship.id }}"
+        title="{{localize 'WOD6E.Delete'}}"
+      >
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </div>
+  </article>
+  {{else}}
+  <p class="empty-list">{{localize "WOD6E.GROUPS.NoRelationships"}}</p>
+  {{/each}}
+</section>

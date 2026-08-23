@@ -21,6 +21,7 @@ import { Attributes } from './core/config/attributes.js'
 import { AttributeGroups } from './core/config/attributes-groups.js'
 import { Skills } from './core/config/skills.js'
 import { ActorTypes } from './core/config/actor-types.js'
+import { GroupTypes } from './core/config/group-types.js'
 import { NpcTiers } from './core/config/npc-tiers.js'
 import { ItemTypes } from './core/config/item-types.js'
 import { ResourceTypes } from './core/config/resource-types.js'
@@ -50,6 +51,7 @@ import { QuickeningDramaTrackerApplication } from './core/applications/quickenin
 import { CostTypes } from './core/config/cost-types.js'
 import { EffectTypes } from './core/config/effect-types.js'
 import { GenerationCategories } from './splats/vampire/config/generations-categories.js'
+import { CoterieTypes } from './splats/vampire/config/coterie-types.js'
 import { WoDChatLog } from './core/ui/wod-chat-log.js'
 
 // Register the WOD6E global
@@ -68,6 +70,7 @@ window.WOD6E = {
     Disciplines,
     ItemTypes,
     ActorTypes,
+    GroupTypes,
     NpcTiers,
     ActionGroups,
     Activations,
@@ -77,7 +80,8 @@ window.WOD6E = {
     Durations,
     CostTypes,
     EffectTypes,
-    GenerationCategories
+    GenerationCategories,
+    CoterieTypes
   },
   actors: {
     WoDActorBase,

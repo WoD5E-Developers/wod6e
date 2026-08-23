@@ -38,6 +38,14 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/actors/npc/header.hbs',
     'systems/wod6e/templates/core/actors/npc/levels.hbs',
 
+    // Group actor templates
+    'systems/wod6e/templates/core/actors/group/group-overview.hbs',
+    'systems/wod6e/templates/core/actors/group/group-members.hbs',
+    'systems/wod6e/templates/core/actors/group/group-relationships.hbs',
+    'systems/wod6e/templates/core/actors/group/group-resources.hbs',
+    'systems/wod6e/templates/core/actors/group/group-settings.hbs',
+    'systems/wod6e/templates/core/actors/group/group-limited-sheet.hbs',
+
     // Core item templates
     'systems/wod6e/templates/core/items/parts/item-image.hbs',
     'systems/wod6e/templates/core/items/parts/item-name.hbs',

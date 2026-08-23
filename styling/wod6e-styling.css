@@ -1,104 +1,6 @@
-@font-face {
-  font-family: 'Martel';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/martel/v12/PN_xRfK9oXHga0XtYQ.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Martel';
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/martel/v12/PN_yRfK9oXHga0XVwe4ahQ.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 300;
-  font-stretch: normal;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuaabWmT.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-stretch: normal;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbWmT.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 500;
-  font-stretch: normal;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWub2bWmT.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Amarante';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/amarante/v30/xMQXuF1KTa6EvGx9bq-3.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Vollkorn';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybuGDoxxrvAnPhYGxksckM2WMCpRjDj-DJGWmmZ.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Vollkorn';
-  font-style: italic;
-  font-weight: 500;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybuGDoxxrvAnPhYGxksckM2WMCpRjDj-DJ0WmmZ.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Vollkorn';
-  font-style: italic;
-  font-weight: 600;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybuGDoxxrvAnPhYGxksckM2WMCpRjDj-DKYXWmZ.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Vollkorn';
-  font-style: italic;
-  font-weight: 700;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybuGDoxxrvAnPhYGxksckM2WMCpRjDj-DKhXWmZ.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Vollkorn';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybgGDoxxrvAnPhYGzMlQLzuMasz6Df2MHGuGQ.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Vollkorn';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybgGDoxxrvAnPhYGzMlQLzuMasz6Df2AnGuGQ.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Vollkorn';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybgGDoxxrvAnPhYGzMlQLzuMasz6Df27nauGQ.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Vollkorn';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/vollkorn/v30/0ybgGDoxxrvAnPhYGzMlQLzuMasz6Df213auGQ.ttf) format('truetype');
-}
+@import url("https://fonts.googleapis.com/css2?family=Martel:wght@400;800&family=Roboto:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amarante&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
 :root {
   --image-background-color: #858585;
 }
@@ -659,6 +561,188 @@
   line-height: 1.4;
   background: rgba(0, 0, 0, 0.2);
   white-space: nowrap;
+}
+
+.actor.sheet.group .group-overview,
+.actor.sheet.group .group-members-page,
+.actor.sheet.group .group-resources-page {
+  padding: 8px;
+}
+.actor.sheet.group .group-header {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.actor.sheet.group .group-header .actor-avatar {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+.actor.sheet.group .group-header-fields {
+  display: grid;
+  gap: 8px;
+}
+.actor.sheet.group .group-header-fields label {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+.actor.sheet.group .group-drop-hint {
+  align-self: center;
+  font-size: 12px;
+  font-weight: normal;
+  text-transform: none;
+}
+.actor.sheet.group .group-member-list,
+.actor.sheet.group .group-resource-list {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 20px;
+}
+.actor.sheet.group .group-member {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 90px auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid var(--tracker-border);
+}
+.actor.sheet.group .group-member img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+.actor.sheet.group .group-member.missing {
+  opacity: 0.7;
+}
+.actor.sheet.group .group-member-column-headings {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) 90px 75px;
+  gap: 8px;
+  padding: 0 6px;
+  font-weight: bold;
+  text-align: center;
+}
+.actor.sheet.group .group-member-quickening {
+  text-align: center;
+}
+.actor.sheet.group .group-member-details,
+.actor.sheet.group .resource-contributor {
+  display: flex;
+  flex-direction: column;
+}
+.actor.sheet.group .group-member-actions,
+.actor.sheet.group .group-resource-header,
+.actor.sheet.group .group-relationship-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.actor.sheet.group .group-member-actions button,
+.actor.sheet.group .group-resource-header button,
+.actor.sheet.group .group-relationship-actions button {
+  width: auto;
+}
+.actor.sheet.group .group-resource {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0;
+  padding: 8px;
+  border: 1px solid var(--tracker-border);
+}
+.actor.sheet.group .group-resource-header .sheet-section-label {
+  flex: 1;
+}
+.actor.sheet.group .group-relationship {
+  position: relative;
+  margin: 8px 0;
+  border: 1px solid var(--tracker-border);
+}
+.actor.sheet.group .group-relationship:has(.group-relationship-content[open]) .group-relationship-summary {
+  border-bottom: 1px solid var(--tracker-border);
+}
+.actor.sheet.group .group-relationship-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 76px 8px 8px;
+  cursor: pointer;
+  list-style: none;
+}
+.actor.sheet.group .group-relationship-summary::-webkit-details-marker {
+  display: none;
+}
+.actor.sheet.group .group-relationship-summary::before {
+  content: "\f0da";
+  font: var(--fa-font-solid);
+  transition: transform 100ms ease-in-out;
+}
+.actor.sheet.group .group-relationship-content[open] > .group-relationship-summary::before {
+  transform: rotate(90deg);
+}
+.actor.sheet.group .group-relationship-actions {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 1;
+}
+.actor.sheet.group .group-relationship-identity {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+.actor.sheet.group .group-relationship-members {
+  overflow: hidden;
+  opacity: 0.75;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.actor.sheet.group .group-relationship-details {
+  padding: 8px 12px;
+}
+.actor.sheet.group .group-relationship-description > :first-child {
+  margin-top: 0;
+}
+.actor.sheet.group .group-relationship-description > :last-child {
+  margin-bottom: 0;
+}
+.actor.sheet.group .validation-warning {
+  margin: 0;
+  color: #b00020;
+  font-weight: bold;
+}
+.actor.sheet.group .empty-list {
+  padding: 12px;
+  text-align: center;
+  opacity: 0.75;
+}
+.relationship-dialog-form {
+  display: grid;
+  gap: 12px;
+}
+.relationship-dialog-form .form-group.stacked {
+  display: grid;
+  gap: 4px;
+}
+.relationship-dialog-form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+.relationship-member-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 12px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.relationship-member-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .actor.sheet.npc {
