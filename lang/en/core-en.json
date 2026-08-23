@@ -1,6 +1,7 @@
 {
   "TYPES": {
     "Actor": {
+      "group": "Group",
       "npc": "NPC",
       "vampire": "Vampire"
     },
@@ -188,6 +189,32 @@
     "FLAWS": {
       "Flaws": "Flaws"
     },
+    "GROUPS": {
+      "AddRelationship": "Add Relationship",
+      "ConnectedMembers": "Connected Members",
+      "ContributedBy": "Contributed By",
+      "Domain": "Domain",
+      "DropActorsHere": "Drop actors here to add members",
+      "DropResourcesHere": "Drop Resource items here to add them to the pool.",
+      "Goals": "Goals",
+      "GroupType": "Group Type",
+      "MemberAlreadyAdded": "{name} is already a member of this group.",
+      "Members": "Members",
+      "MissingActor": "Missing Actor",
+      "MissingContributor": "The saved contributor is missing or is no longer a group member.",
+      "NewRelationship": "New Relationship",
+      "NoMembers": "No members have been added.",
+      "NoPooledResources": "No pooled resources have been added.",
+      "NoRelationships": "No relationships have been added.",
+      "OnlyResourcesAllowed": "Only Resource items can be added to a group.",
+      "OpenMember": "Open Member",
+      "PooledResources": "Pooled Resources",
+      "RelationshipHasMissingMembers": "This relationship references a missing or removed member.",
+      "RelationshipName": "Relationship Name",
+      "RelationshipNeedsMembers": "A relationship must connect at least two members.",
+      "Relationships": "Relationships",
+      "RemoveMember": "Remove Member"
+    },
     "ITEMS": {
       "ConfirmDelete": "Confirm Delete",
       "ConfirmDeleteDescription": "Are you sure you want to delete <b>{string}</b>? This cannot be undone.",
@@ -324,6 +351,7 @@
       "Main": "Main",
       "Maturing": "Maturing",
       "Outburst": "Outburst",
+      "Overview": "Overview",
       "Requirements": "Requirements",
       "Restrictions": "Restrictions",
       "Settings": "Settings",

@@ -661,6 +661,100 @@
   white-space: nowrap;
 }
 
+.actor.sheet.group .group-overview,
+.actor.sheet.group .group-members-page,
+.actor.sheet.group .group-resources-page {
+  padding: 8px;
+}
+.actor.sheet.group .group-header {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.actor.sheet.group .group-header .actor-avatar {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+.actor.sheet.group .group-header-fields {
+  display: grid;
+  gap: 8px;
+}
+.actor.sheet.group .group-header-fields label {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+.actor.sheet.group .group-drop-hint {
+  align-self: center;
+  font-size: 12px;
+  font-weight: normal;
+  text-transform: none;
+}
+.actor.sheet.group .group-member-list,
+.actor.sheet.group .group-resource-list {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 20px;
+}
+.actor.sheet.group .group-member {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid var(--tracker-border);
+}
+.actor.sheet.group .group-member img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+.actor.sheet.group .group-member.missing {
+  opacity: 0.7;
+}
+.actor.sheet.group .group-member-details,
+.actor.sheet.group .resource-contributor {
+  display: flex;
+  flex-direction: column;
+}
+.actor.sheet.group .group-member-actions,
+.actor.sheet.group .group-resource-header,
+.actor.sheet.group .group-relationship-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.actor.sheet.group .group-member-actions button,
+.actor.sheet.group .group-resource-header button,
+.actor.sheet.group .group-relationship-header button {
+  width: auto;
+}
+.actor.sheet.group .group-relationship,
+.actor.sheet.group .group-resource {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0;
+  padding: 8px;
+  border: 1px solid var(--tracker-border);
+}
+.actor.sheet.group .group-relationship-header input,
+.actor.sheet.group .group-resource-header .sheet-section-label {
+  flex: 1;
+}
+.actor.sheet.group .validation-warning {
+  margin: 0;
+  color: #b00020;
+  font-weight: bold;
+}
+.actor.sheet.group .empty-list {
+  padding: 12px;
+  text-align: center;
+  opacity: 0.75;
+}
+
 .actor.sheet.npc {
   min-width: 620px;
 }

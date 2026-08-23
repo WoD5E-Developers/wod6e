@@ -6,11 +6,21 @@ import { VampireActorSheet } from '../../splats/vampire/actors/actor-sheets/vamp
 // NPC actor classes
 import { NpcActorSheet } from '../actors/actor-sheets/npc-actor-sheet.js'
 import { WoDNpcActorModel } from '../actors/data-models/wod-npc-actor-model.js'
+// Group actor classes
+import { GroupActorSheet } from '../actors/actor-sheets/group-actor-sheet.js'
+import { WoDGroupActorModel } from '../actors/data-models/wod-group-actor-model.js'
 
 export class ActorTypes extends BaseDefinitionClass {
   // Run any necessary compilation on ready
   static onReady() {
     ActorTypes.initializeLabels()
+  }
+
+  static group = {
+    label: 'TYPES.Actor.group',
+    types: ['group'],
+    sheetClass: GroupActorSheet,
+    sheetModel: WoDGroupActorModel
   }
 
   static vampire = {

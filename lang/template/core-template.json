@@ -1,6 +1,7 @@
 {
   "TYPES": {
     "Actor": {
+      "_group": "",
       "_npc": "",
       "_vampire": ""
     },
@@ -188,6 +189,32 @@
     "FLAWS": {
       "_Flaws": ""
     },
+    "GROUPS": {
+      "_AddRelationship": "",
+      "_ConnectedMembers": "",
+      "_ContributedBy": "",
+      "_Domain": "",
+      "_DropActorsHere": "",
+      "_DropResourcesHere": "",
+      "_Goals": "",
+      "_GroupType": "",
+      "_MemberAlreadyAdded": "",
+      "_Members": "",
+      "_MissingActor": "",
+      "_MissingContributor": "",
+      "_NewRelationship": "",
+      "_NoMembers": "",
+      "_NoPooledResources": "",
+      "_NoRelationships": "",
+      "_OnlyResourcesAllowed": "",
+      "_OpenMember": "",
+      "_PooledResources": "",
+      "_RelationshipHasMissingMembers": "",
+      "_RelationshipName": "",
+      "_RelationshipNeedsMembers": "",
+      "_Relationships": "",
+      "_RemoveMember": ""
+    },
     "ITEMS": {
       "_ConfirmDelete": "",
       "_ConfirmDeleteDescription": "",
@@ -324,6 +351,7 @@
       "_Main": "",
       "_Maturing": "",
       "_Outburst": "",
+      "_Overview": "",
       "_Requirements": "",
       "_Restrictions": "",
       "_Settings": "",
