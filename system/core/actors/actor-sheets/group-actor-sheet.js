@@ -179,7 +179,12 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
 
 Hooks.on('updateUser', (user, changes) => {
   const changedPaths = foundry.utils.flattenObject(changes)
-  if (!Object.hasOwn(changedPaths, 'flags.wod6e.quickening')) return
 
-  rerenderGroupsForUser(user)
+  // Rerender groups if a user updates their quickening or if their player character updates
+  if (
+    Object.hasOwn(changedPaths, 'flags.wod6e.quickening') ||
+    Object.hasOwn(changedPaths, 'character')
+  ) {
+    rerenderGroupsForUser(user)
+  }
 })
