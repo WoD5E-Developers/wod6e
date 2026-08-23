@@ -81,7 +81,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['action'],
     sheetClass: ActionItemSheet,
     sheetModel: ActionItemModel,
-    excludedActorTypes: ['npc'],
+    excludedActorTypes: ['npc', 'group'],
     splat: 'core',
     subtypes: ActionGroups,
     subtypePath: 'group'
@@ -94,7 +94,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['equipment'],
     sheetClass: EquipmentItemSheet,
     sheetModel: EquipmentItemModel,
-    excludedActorTypes: ['npc'],
+    excludedActorTypes: ['npc', 'group'],
     splat: 'core'
   }
 
@@ -105,7 +105,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['flaw'],
     sheetClass: FlawItemSheet,
     sheetModel: FlawItemModel,
-    excludedActorTypes: ['npc'],
+    excludedActorTypes: ['npc', 'group'],
     splat: 'core'
   }
 
@@ -116,7 +116,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['lifepath'],
     sheetClass: LifepathItemSheet,
     sheetModel: LifepathItemModel,
-    excludedActorTypes: ['npc'],
+    excludedActorTypes: ['npc', 'group'],
     splat: 'core'
   }
 
@@ -127,7 +127,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['merit'],
     sheetClass: MeritItemSheet,
     sheetModel: MeritItemModel,
-    excludedActorTypes: ['npc'],
+    excludedActorTypes: ['npc', 'group'],
     splat: 'core'
   }
 
@@ -138,6 +138,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['condition'],
     sheetClass: ConditionItemSheet,
     sheetModel: ConditionItemModel,
+    excludedActorTypes: ['group'],
     splat: 'core'
   }
 

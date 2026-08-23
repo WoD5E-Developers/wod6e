@@ -3,6 +3,7 @@ export function getGroupLabel(type) {
     attribute: 'WOD6E.ATTRIBUTES.Attributes',
     skill: 'WOD6E.SKILLS.Skills',
     discipline: 'WOD6E.VAMPIRE.Disciplines',
+    category: 'WOD6E.CONDITIONS.Categories',
     resource: 'WOD6E.RESOURCES.Resources',
     item: 'WOD6E.ITEMS.Items',
     generationModifier: 'WOD6E.VAMPIRE.GenerationModifier'

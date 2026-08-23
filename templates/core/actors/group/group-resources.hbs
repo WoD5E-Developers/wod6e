@@ -1,0 +1,51 @@
+<section class="sheet-part tab group-resources-page {{tabs.resources.cssClass}}" data-group="primary" data-tab="resources">
+  <header class="sheet-section-header">
+    <span class="sheet-section-name">
+      {{localize "WOD6E.GROUPS.PooledResources"}}
+      </span>
+    {{#if isOwner}}
+    <span class="sheet-section-data-actions align-right">
+      <a data-action="searchItem" data-type="resource" title="{{localize 'WOD6E.Search'}}"><i class="fa-solid fa-magnifying-glass"></i></a>
+      <a data-action="createItem" data-type="resource" title="{{localize 'WOD6E.Create'}}"><i class="fa-solid fa-plus"></i></a>
+    </span>
+    {{/if}}
+  </header>
+
+  {{#if isOwner}}<p>{{localize "WOD6E.GROUPS.DropResourcesHere"}}</p>{{/if}}
+  <div class="group-resource-list">
+    {{#each resources as |resource|}}
+    <div class="group-resource resource-tracker" data-drag="true" data-type="Item" data-document-uuid="{{resource.uuid}}">
+      <div class="group-resource-header">
+        <button type="button" class="sheet-section-label" data-action="openItem" data-uuid="{{resource.uuid}}"><i class="fa-solid fa-book"></i> {{resource.name}}</button>
+        <button type="button" data-action="sendItemToChat" data-uuid="{{resource.uuid}}" title="{{localize 'WOD6E.PostToChat'}}"><i class="fa-solid fa-message"></i></button>
+        {{#if ../isOwner}}<button type="button" data-action="deletePooledResource" data-item-id="{{resource.id}}" title="{{localize 'WOD6E.Delete'}}"><i class="fa-solid fa-trash"></i></button>{{/if}}
+      </div>
+      <div class="dot-tracker resource-tracker-spaces">
+        {{#each resource.trackers as |group|}}{{#each group as |space|}}
+        <button type="button" class="dot-tracker-space resource-tracker-space {{#if space.filled}}filled{{/if}}" data-action="setTrackerValue" data-uuid="{{resource.uuid}}" data-resource-path="system.dots" data-value="{{space.trackerValue}}" title="{{space.title}}" {{#unless ../../../isOwner}}disabled{{/unless}}></button>
+        {{/each}}{{/each}}
+      </div>
+
+      <label class="resource-contributor">
+        <span>{{localize "WOD6E.GROUPS.ContributedBy"}}</span>
+        <select data-resource-contributor data-item-id="{{resource.id}}" {{#unless ../isOwner}}disabled{{/unless}}>
+          <option value="">{{localize "WOD6E.NoneSelected"}}</option>
+          {{#each ../contributorOptions as |member|}}
+          <option value="{{member.uuid}}"
+            {{#ifeq member.uuid resource.contributorUuid}}selected{{/ifeq}}
+          >
+            {{member.name}}
+          </option>
+          {{/each}}
+        </select>
+      </label>
+
+      {{#unless resource.contributorExists}}
+        <p class="validation-warning">{{localize "WOD6E.GROUPS.MissingContributor"}}</p>
+      {{/unless}}
+    </div>
+    {{else}}
+    <p class="empty-list">{{localize "WOD6E.GROUPS.NoPooledResources"}}</p>
+    {{/each}}
+  </div>
+</section>

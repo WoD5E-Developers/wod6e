@@ -28,31 +28,69 @@ export class GenerationCategories extends BaseDefinitionClass {
   static duskborn = {
     label: 'WOD6E.VAMPIRE.Duskborn',
     modifier: 1,
-    generations: [14, 15, 16]
+    generations: [14, 15, 16],
+    maximumValues: {
+      bloodSurge: 2,
+      disciplines: {
+        inClan: 5,
+        nonClan: 3
+      }
+    }
   }
 
   static neonate = {
     label: 'WOD6E.VAMPIRE.Neonate',
     modifier: 1,
-    generations: [11, 12, 13]
+    generations: [11, 12, 13],
+    maximumValues: {
+      bloodSurge: 2,
+      disciplines: {
+        inClan: 5,
+        nonClan: 3
+      }
+    }
   }
 
   static ancilla = {
     label: 'WOD6E.VAMPIRE.Ancilla',
     modifier: 2,
-    generations: [9, 10]
+    generations: [9, 10],
+    maximumValues: {
+      bloodSurge: 4,
+      disciplines: {
+        inClan: 7,
+        nonClan: 5
+      }
+    }
   }
 
   static elder = {
     label: 'WOD6E.VAMPIRE.Elder',
     modifier: 3,
-    generations: [6, 7, 8]
+    generations: [6, 7, 8],
+    maximumValues: {
+      bloodSurge: 6,
+      disciplines: {
+        inClan: 8,
+        nonClan: 7
+      }
+    }
   }
 
   static methuselah = {
     label: 'WOD6E.VAMPIRE.Methuselah',
     modifier: 4,
-    generations: [4, 5]
+    generations: [4, 5],
+
+    // These values are temporary until the official books
+    // give a solid number
+    maximumValues: {
+      bloodSurge: 10,
+      disciplines: {
+        inClan: 10,
+        nonClan: 10
+      }
+    }
   }
 }
 

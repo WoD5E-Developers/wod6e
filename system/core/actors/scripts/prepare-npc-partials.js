@@ -4,6 +4,7 @@ export async function prepareNpcAbilitiesContext(context, actor) {
   context.tab = context.tabs.abilities
   context.abilities = actor.items
     .filter((item) => item.type === 'npcAbility')
+    .sort((a, b) => a.sort - b.sort)
     .map((ability) => ({
       id: ability.id,
       uuid: ability.uuid,

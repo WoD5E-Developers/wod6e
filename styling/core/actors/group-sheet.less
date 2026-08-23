@@ -1,0 +1,210 @@
+.actor.sheet.group {
+  .group-overview, .group-members-page, .group-resources-page {
+    padding: 8px;
+  }
+
+  .group-header {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+
+    .actor-avatar {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+  }
+
+  .group-header-fields {
+    display: grid;
+    gap: 8px;
+
+    label {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .group-drop-hint {
+    align-self: center;
+    font-size: 12px;
+    font-weight: normal;
+    text-transform: none;
+  }
+
+  .group-member-list, .group-resource-list {
+    display: grid;
+    gap: 6px;
+    margin: 8px 0 20px;
+  }
+
+  .group-member {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) 90px auto;
+    align-items: center;
+    gap: 8px;
+    padding: 6px;
+    border: 1px solid var(--tracker-border);
+
+    img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+    }
+
+    &.missing {
+      opacity: 0.7;
+    }
+  }
+
+  .group-member-column-headings {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 90px 75px;
+    gap: 8px;
+    padding: 0 6px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .group-member-quickening {
+    text-align: center;
+  }
+
+  .group-member-details, .resource-contributor {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .group-member-actions, .group-resource-header, .group-relationship-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    button {
+      width: auto;
+    }
+  }
+
+  .group-resource {
+    display: grid;
+    gap: 8px;
+    margin: 8px 0;
+    padding: 8px;
+    border: 1px solid var(--tracker-border);
+  }
+
+  .group-resource-header .sheet-section-label {
+    flex: 1;
+  }
+
+  .group-relationship {
+    position: relative;
+    margin: 8px 0;
+    border: 1px solid var(--tracker-border);
+
+    &:has(.group-relationship-content[open]) .group-relationship-summary {
+      border-bottom: 1px solid var(--tracker-border);
+    }
+  }
+
+  .group-relationship-summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 76px 8px 8px;
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      content: "\f0da";
+      font: var(--fa-font-solid);
+      transition: transform 100ms ease-in-out;
+    }
+  }
+
+  .group-relationship-content[open] > .group-relationship-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .group-relationship-actions {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 1;
+  }
+
+  .group-relationship-identity {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .group-relationship-members {
+    overflow: hidden;
+    opacity: 0.75;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .group-relationship-details {
+    padding: 8px 12px;
+  }
+
+  .group-relationship-description > :first-child {
+    margin-top: 0;
+  }
+
+  .group-relationship-description > :last-child {
+    margin-bottom: 0;
+  }
+
+  .validation-warning {
+    margin: 0;
+    color: #b00020;
+    font-weight: bold;
+  }
+
+  .empty-list {
+    padding: 12px;
+    text-align: center;
+    opacity: 0.75;
+  }
+}
+
+.relationship-dialog-form {
+  display: grid;
+  gap: 12px;
+
+  .form-group.stacked {
+    display: grid;
+    gap: 4px;
+  }
+
+  textarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+}
+
+.relationship-member-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 12px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.relationship-member-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

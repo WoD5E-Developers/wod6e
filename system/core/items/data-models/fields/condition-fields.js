@@ -28,6 +28,11 @@ export function conditionFields() {
       })
     }),
 
+    hasBodyPart: new fields.BooleanField({
+      required: true,
+      initial: false
+    }),
+
     bodyPart: new fields.StringField({
       required: false,
       nullable: true,

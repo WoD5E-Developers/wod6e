@@ -88,7 +88,11 @@ export const prepareActionsContext = async function (context, actor) {
   const groups = new Map(context.actionGroups.map((group) => [group.key, group]))
 
   // Populate actions
-  for (const action of actor.items.filter((item) => item.type === 'action')) {
+  const actions = actor.items
+    .filter((item) => item.type === 'action')
+    .sort((a, b) => a.sort - b.sort)
+
+  for (const action of actions) {
     const group = action?.system?.group || 'general'
 
     const actionGroup = groups.get(group)
@@ -114,7 +118,11 @@ export const prepareConditionsContext = async function (context, actor) {
 
   context.conditions = []
 
-  for (const condition of actor.items.filter((item) => item.type === 'condition')) {
+  const conditions = actor.items
+    .filter((item) => item.type === 'condition')
+    .sort((a, b) => a.sort - b.sort)
+
+  for (const condition of conditions) {
     const effects = condition.system?.effects ?? []
     const durations = WOD6E.configs.Durations.getList({})
     const effectTypes = WOD6E.configs.EffectTypes.getList({ usePath: true })
@@ -125,6 +133,10 @@ export const prepareConditionsContext = async function (context, actor) {
       name: condition.name,
 
       description: condition.system?.description,
+      enrichedConditionDescription:
+        await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+          condition.system?.description ?? ''
+        ),
       duration: durations[condition.system?.condition?.duration].label,
 
       effects: effects.map((effect) => ({

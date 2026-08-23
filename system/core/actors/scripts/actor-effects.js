@@ -222,7 +222,12 @@ export class ActorEffects {
     const tags = new Set(context.tags ?? [])
 
     const targets = new Set(effect.targets ?? [])
-    const contextTargets = [context.attribute, context.skill, context.discipline]
+    const contextTargets = [
+      context.attribute,
+      context.skill,
+      context.discipline,
+      context.category ? `category:${context.category}` : null
+    ]
       .flatMap((target) =>
         Array.isArray(target) || target instanceof Set ? [...target] : [target]
       )

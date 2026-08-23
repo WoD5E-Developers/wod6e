@@ -31,6 +31,9 @@
     {{#each conditions as |condition|}}
       <div
         class="condition-card"
+        data-drag="true"
+        data-type="Item"
+        data-document-uuid="{{ condition.uuid }}"
         data-item-id="{{ condition.id }}"
         data-uuid="{{ condition.uuid }}"
       >
@@ -60,9 +63,9 @@
           </span>
         </header>
 
-        {{#if condition.description}}
+        {{#if enrichedConditionDescription}}
           <div class="condition-description">
-            {{{ condition.description }}}
+            {{{ enrichedConditionDescription }}}
           </div>
         {{/if}}
 

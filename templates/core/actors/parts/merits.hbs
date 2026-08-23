@@ -32,6 +32,10 @@
     {{#each merits as |merit|}}
     <div
       class="sheet-section-row item-section"
+      data-drag="true"
+      data-type="Item"
+      data-document-uuid="{{ merit.uuid }}"
+      data-item-id="{{ merit.id }}"
       data-merit="{{ merit.uuid }}"
     >
       <a

@@ -1,0 +1,61 @@
+<section class="sheet-part actor-limited-sheet group-limited-sheet">
+  <img
+    class="actor-avatar"
+    src="{{ img }}"
+    title="{{ name }}"
+    alt="{{ name }}"
+  />
+  <div class="actor-limited-details">
+    <h3>{{ name }}</h3>
+    {{#if showGoals}}
+    <section>
+      <h4>{{localize "WOD6E.GROUPS.Goals"}}</h4>
+      <div>{{{ goals }}}</div>
+    </section>
+    {{/if}}
+
+    {{#if showDomain}}
+    <section>
+      <h4>{{localize "WOD6E.GROUPS.Domain"}}</h4>
+      <div>{{{ domain }}}</div>
+    </section>
+    {{/if}}
+
+    {{#if showMembers}}
+    <section>
+      <h4>{{localize "WOD6E.GROUPS.Members"}}</h4>
+      <ul>
+        {{#each members}}
+        <li>{{ name }}</li>
+        {{/each}}
+      </ul>
+    </section>
+    {{/if}}
+
+    {{#if showRelationships}}
+    <section>
+      <h4>{{localize "WOD6E.GROUPS.Relationships"}}</h4>
+      {{#each relationships}}
+      <div>
+        <strong>{{ name }}</strong>
+        {{#if membersText}}
+        <span>({{ membersText }})</span>
+        {{/if}}
+        <div>{{{ description }}}</div>
+      </div>
+      {{/each}}
+    </section>
+    {{/if}}
+
+    {{#if showPooledResources}}
+    <section>
+      <h4>{{localize "WOD6E.GROUPS.PooledResources"}}</h4>
+      <ul>
+        {{#each resources}}
+        <li>{{ name }}: {{ value }}{{#if contributor}} - {{ contributor }}{{/if}}</li>
+        {{/each}}
+      </ul>
+    </section>
+    {{/if}}
+  </div>
+</section>

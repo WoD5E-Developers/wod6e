@@ -3,6 +3,7 @@ import { prepareResources } from '../../../../../core/actors/scripts/prepare-res
 import { prepareSkills } from '../../../../../core/actors/scripts/prepare-skills.js'
 import { generateTestTextFromItem } from '../../../../../core/items/scripts/generate-test-text-from-item.js'
 import { formatOrdinals } from '../../../../../core/scripts/format-ordinals.js'
+import { generationDetailLookup } from '../../../scripts/generation-detail-lookup.js'
 
 export const prepareHeaderContext = async function (context, actor) {
   const actorData = actor.system
@@ -77,9 +78,12 @@ export const prepareLeftColumnContext = async function (context, actor) {
 }
 
 export const prepareMiddleColumnContext = async function (context, actor) {
-  const equipment = actor.items.filter((item) => item.type === 'equipment')
+  const equipment = actor.items
+    .filter((item) => item.type === 'equipment')
+    .sort((a, b) => a.sort - b.sort)
   context.equipment = await Promise.all(
     equipment.map(async (item) => ({
+      id: item.id,
       uuid: item.uuid,
       name: item.name,
       img: item.img,
@@ -93,9 +97,12 @@ export const prepareMiddleColumnContext = async function (context, actor) {
 }
 
 export const prepareRightColumnContext = async function (context, actor) {
-  const lifepaths = actor.items.filter((item) => item.type === 'lifepath')
+  const lifepaths = actor.items
+    .filter((item) => item.type === 'lifepath')
+    .sort((a, b) => a.sort - b.sort)
   context.lifepaths = await Promise.all(
     lifepaths.map(async (lifepath) => ({
+      id: lifepath.id,
       uuid: lifepath.uuid,
       name: lifepath.name,
       img: lifepath.img,
@@ -105,9 +112,12 @@ export const prepareRightColumnContext = async function (context, actor) {
     }))
   )
 
-  const clanTraits = actor.items.filter((item) => item.type === 'clanTrait')
+  const clanTraits = actor.items
+    .filter((item) => item.type === 'clanTrait')
+    .sort((a, b) => a.sort - b.sort)
   context.clanTraits = await Promise.all(
     clanTraits.map(async (clanTrait) => ({
+      id: clanTrait.id,
       uuid: clanTrait.uuid,
       name: clanTrait.name,
       img: clanTrait.img,
@@ -117,9 +127,10 @@ export const prepareRightColumnContext = async function (context, actor) {
     }))
   )
 
-  const merits = actor.items.filter((item) => item.type === 'merit')
+  const merits = actor.items.filter((item) => item.type === 'merit').sort((a, b) => a.sort - b.sort)
   context.merits = await Promise.all(
     merits.map(async (merit) => ({
+      id: merit.id,
       uuid: merit.uuid,
       name: merit.name,
       img: merit.img,
@@ -129,9 +140,10 @@ export const prepareRightColumnContext = async function (context, actor) {
     }))
   )
 
-  const flaws = actor.items.filter((item) => item.type === 'flaw')
+  const flaws = actor.items.filter((item) => item.type === 'flaw').sort((a, b) => a.sort - b.sort)
   context.flaws = await Promise.all(
     flaws.map(async (flaw) => ({
+      id: flaw.id,
       uuid: flaw.uuid,
       name: flaw.name,
       img: flaw.img,
@@ -201,6 +213,10 @@ export const prepareRightColumnContext = async function (context, actor) {
 export function prepareDisciplinesContext(context, actor) {
   const disciplines = WOD6E.configs.Disciplines.getList({})
   const actorDisciplines = actor?.system?.vampire?.disciplines || {}
+  const generation = actor?.system?.vampire?.generation?.value
+  const disciplineMaximums = generationDetailLookup(generation)?.maximumValues?.disciplines
+  const clan = actor.items.find((item) => item.type === 'clan')
+  const inClanDisciplines = new Set(clan?.system?.disciplines ?? [])
 
   const preparedDisciplines = Object.entries(disciplines)
     .filter(([key, discipline]) => !discipline?.hidden && actorDisciplines[key]?.visible)
@@ -208,11 +224,17 @@ export function prepareDisciplinesContext(context, actor) {
       const actorDiscipline = actorDisciplines[key]
       const value = actorDiscipline?.value ?? 0
       const effective = actorDiscipline?.effective ?? 0
-      const max = actorDiscipline?.max ?? 5
+      const clanStatus = inClanDisciplines.has(key) ? 'inClan' : 'nonClan'
+      const configuredMaximum = Number(disciplineMaximums?.[clanStatus])
+      const max = Number.isFinite(configuredMaximum)
+        ? configuredMaximum
+        : (actorDiscipline?.max ?? 5)
       const powers = actor.items
         .filter((item) => item.type === 'discipline' && item.system?.disciplineType === key)
+        .sort((a, b) => a.sort - b.sort)
         .map((item) => ({
           ...item,
+          id: item.id,
           uuid: item.uuid,
           testText: generateTestTextFromItem(item),
           cost:

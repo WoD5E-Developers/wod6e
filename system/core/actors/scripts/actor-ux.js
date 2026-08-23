@@ -119,10 +119,10 @@ export class ActorUX {
         !foundry.utils.isEmpty(whitelist) &&
         // This is just a general check against the base actorType
         !whitelist.includes(actorType) &&
-        // If the actor is an SPC, check against the spcType
-        !(actorType === 'spc' && whitelist.includes(actor.system.spcType)) &&
-        // If the actor is a Group sheet, check against the groupType
-        !(actorType === 'group' && whitelist.includes(actor.system.groupType))
+        // If the actor is an NPC, check against the subtype
+        !(actorType === 'npc' && whitelist.includes(actor.system.subtype)) &&
+        // If the actor is a Group sheet, check against the subtype
+        !(actorType === 'group' && whitelist.includes(actor.system.subtype))
       ) {
         ui.notifications.warn(
           game.i18n.format('WOD6E.ITEMS.ItemCannotBeDroppedOnActor', {
@@ -173,6 +173,16 @@ export class ActorUX {
       foundry.utils.setProperty(itemData, 'system.condition.sourceUuid', sourceUuid)
     }
 
+    if (itemData.type === 'condition' && itemData.system?.condition?.hasBodyPart) {
+      const bodyPart = await this._promptForConditionBodyPart(itemData)
+      if (!bodyPart) return false
+
+      foundry.utils.setProperty(itemData, 'system.condition.bodyPart', bodyPart)
+
+      const suffix = ` (${bodyPart})`
+      if (!itemData.name.endsWith(suffix)) itemData.name += suffix
+    }
+
     // Create the owned item
     return this._onDropItemCreate(actor, itemData)
   }
@@ -198,8 +208,8 @@ export class ActorUX {
     const selectedUuid = itemData.system?.condition?.sourceUuid
     const options = actors
       .map((actor) => {
-        const uuid = Handlebars.escapeExpression(actor.uuid)
-        const name = Handlebars.escapeExpression(actor.name)
+        const uuid = actor.uuid
+        const name = actor.name
         const selected = actor.uuid === selectedUuid ? ' selected' : ''
 
         return `<option value="${uuid}"${selected}>${name}</option>`
@@ -237,6 +247,47 @@ export class ActorUX {
 
     if (!result || result === 'cancel') return null
     return result.sourceUuid
+  }
+
+  static async _promptForConditionBodyPart(itemData) {
+    const result = await foundry.applications.api.DialogV2.input({
+      window: {
+        title: game.i18n.localize('WOD6E.CONDITIONS.SelectBodyPart')
+      },
+      content: `
+        <div class="form-group">
+          <label for="condition-body-part">
+            ${game.i18n.localize('WOD6E.CONDITIONS.BodyPart')}
+          </label>
+          <input
+            id="condition-body-part"
+            name="bodyPart"
+            type="text"
+            value="${foundry.utils.escapeHTML(itemData.system?.condition?.bodyPart ?? '')}"
+            required
+            autofocus
+          />
+        </div>
+      `,
+      ok: {
+        icon: 'fas fa-check',
+        label: game.i18n.localize('WOD6E.Confirm')
+      },
+      buttons: [
+        {
+          action: 'cancel',
+          icon: 'fas fa-times',
+          label: game.i18n.localize('WOD6E.Cancel'),
+          type: 'button'
+        }
+      ],
+      modal: true
+    })
+
+    if (!result || result === 'cancel') return null
+
+    const bodyPart = result.bodyPart?.trim()
+    return bodyPart || null
   }
 
   static async _onDropItemCreate(actor, itemData) {

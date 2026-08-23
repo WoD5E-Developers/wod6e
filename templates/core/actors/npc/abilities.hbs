@@ -34,6 +34,9 @@
       {{#each abilities as |ability|}}
       <div
         class="sheet-section-row item-section ability-row"
+        data-drag="true"
+        data-type="Item"
+        data-document-uuid="{{ ability.uuid }}"
         data-item-id="{{ ability.id }}"
         data-uuid="{{ ability.uuid }}"
       >

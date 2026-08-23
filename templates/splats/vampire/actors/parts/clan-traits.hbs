@@ -32,6 +32,10 @@
     {{#each clanTraits as |trait|}}
     <div
       class="sheet-section-row item-section"
+      data-drag="true"
+      data-type="Item"
+      data-document-uuid="{{ trait.uuid }}"
+      data-item-id="{{ trait.id }}"
       data-lifepath="{{ trait.uuid }}"
     >
       <a

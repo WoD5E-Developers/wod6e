@@ -3,8 +3,9 @@ export function _onSortItem(event, actor, itemData) {
   const items = actor.items
   const source = items.get(itemData._id)
   const dropTarget = event.target.closest('[data-item-id]')
-  if (!dropTarget) return
+  if (!source || !dropTarget) return
   const target = items.get(dropTarget.dataset.itemId)
+  if (!target) return
 
   // Don't sort on yourself
   if (source.id === target.id) return
@@ -13,7 +14,8 @@ export function _onSortItem(event, actor, itemData) {
   const siblings = []
   for (const el of dropTarget.parentElement.children) {
     const siblingId = el.dataset.itemId
-    if (siblingId && siblingId !== source.id) siblings.push(items.get(el.dataset.itemId))
+    const sibling = siblingId ? items.get(siblingId) : null
+    if (sibling && sibling.id !== source.id) siblings.push(sibling)
   }
 
   // Perform the sort
