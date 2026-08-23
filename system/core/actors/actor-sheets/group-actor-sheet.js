@@ -115,9 +115,22 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
   async _prepareContext() {
     const context = await super._prepareContext()
 
+    if (!this.actor.isOwner && this.tabGroups.primary === 'settings') {
+      this.tabGroups.primary = 'main'
+    }
+
     context.tabs = this._prepareTabs('primary')
+    if (!this.actor.isOwner) delete context.tabs.settings
 
     return context
+  }
+
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options)
+
+    if (!this.actor.isOwner) {
+      options.parts = options.parts.filter((part) => part !== 'settings')
+    }
   }
 
   async _preparePartContext(partId, context, options) {
@@ -146,6 +159,8 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
   }
 
   static async onSubmitActorForm(event, form, formData) {
+    if (!this.actor.isOwner) return false
+
     const fieldPath = event.target.name
 
     if (['system.subtype', 'system.coterieType'].includes(fieldPath)) {
@@ -156,6 +171,8 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
   }
 
   async _onDrop(event) {
+    if (!this.actor.isOwner) return false
+
     const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event)
 
     if (data.type === 'Actor') return addGroupMember(this.actor, data.uuid)
@@ -164,6 +181,8 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
 
   async _onRender(options) {
     await super._onRender(options)
+
+    if (!this.actor.isOwner) return
 
     this.element.querySelectorAll('[data-resource-contributor]').forEach((select) => {
       select.addEventListener('change', (event) => {

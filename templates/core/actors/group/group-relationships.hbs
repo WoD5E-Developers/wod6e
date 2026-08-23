@@ -1,6 +1,7 @@
 <section class="group-relationships">
   <header class="sheet-section-header">
     <span class="sheet-section-name">{{localize "WOD6E.GROUPS.Relationships"}}</span>
+    {{#if isOwner}}
     <span class="sheet-section-data-actions align-right">
       <button
         type="button"
@@ -10,6 +11,7 @@
         <i class="fa-solid fa-plus"></i>
       </button>
     </span>
+    {{/if}}
   </header>
   {{#each relationships as |relationship|}}
   <article class="group-relationship {{#unless relationship.isValid}}invalid{{/unless}}">
@@ -34,6 +36,7 @@
         {{/if}}
       </div>
     </details>
+    {{#if ../isOwner}}
     <div class="group-relationship-actions">
       <button
         type="button"
@@ -52,6 +55,7 @@
         <i class="fa-solid fa-trash"></i>
       </button>
     </div>
+    {{/if}}
   </article>
   {{else}}
   <p class="empty-list">{{localize "WOD6E.GROUPS.NoRelationships"}}</p>
