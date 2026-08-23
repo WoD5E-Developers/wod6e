@@ -133,6 +133,10 @@ export const prepareConditionsContext = async function (context, actor) {
       name: condition.name,
 
       description: condition.system?.description,
+      enrichedConditionDescription:
+        await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+          condition.system?.description ?? ''
+        ),
       duration: durations[condition.system?.condition?.duration].label,
 
       effects: effects.map((effect) => ({
