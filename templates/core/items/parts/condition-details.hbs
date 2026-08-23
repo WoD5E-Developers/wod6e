@@ -50,6 +50,22 @@
   </div>
   {{/if}}
 
+  <div class="form-group flexrow flex-group-center">
+    <label>
+      {{localize "WOD6E.CONDITIONS.UsesBodyPart"}}
+    </label>
+
+    <div class="form-fields">
+      <input
+        type="checkbox"
+        name="system.condition.hasBodyPart"
+        {{checked
+        condition.hasBodyPart}}
+      />
+    </div>
+  </div>
+
+  {{#if condition.hasBodyPart}}
   <div class="form-group">
     <label>
       {{localize "WOD6E.CONDITIONS.BodyPart"}}
@@ -64,6 +80,7 @@
       />
     </div>
   </div>
+  {{/if}}
 
   <div class="form-group">
     <label>

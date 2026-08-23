@@ -173,6 +173,16 @@ export class ActorUX {
       foundry.utils.setProperty(itemData, 'system.condition.sourceUuid', sourceUuid)
     }
 
+    if (itemData.type === 'condition' && itemData.system?.condition?.hasBodyPart) {
+      const bodyPart = await this._promptForConditionBodyPart(itemData)
+      if (!bodyPart) return false
+
+      foundry.utils.setProperty(itemData, 'system.condition.bodyPart', bodyPart)
+
+      const suffix = ` (${bodyPart})`
+      if (!itemData.name.endsWith(suffix)) itemData.name += suffix
+    }
+
     // Create the owned item
     return this._onDropItemCreate(actor, itemData)
   }
@@ -237,6 +247,47 @@ export class ActorUX {
 
     if (!result || result === 'cancel') return null
     return result.sourceUuid
+  }
+
+  static async _promptForConditionBodyPart(itemData) {
+    const result = await foundry.applications.api.DialogV2.input({
+      window: {
+        title: game.i18n.localize('WOD6E.CONDITIONS.SelectBodyPart')
+      },
+      content: `
+        <div class="form-group">
+          <label for="condition-body-part">
+            ${game.i18n.localize('WOD6E.CONDITIONS.BodyPart')}
+          </label>
+          <input
+            id="condition-body-part"
+            name="bodyPart"
+            type="text"
+            value="${foundry.utils.escapeHTML(itemData.system?.condition?.bodyPart ?? '')}"
+            required
+            autofocus
+          />
+        </div>
+      `,
+      ok: {
+        icon: 'fas fa-check',
+        label: game.i18n.localize('WOD6E.Confirm')
+      },
+      buttons: [
+        {
+          action: 'cancel',
+          icon: 'fas fa-times',
+          label: game.i18n.localize('WOD6E.Cancel'),
+          type: 'button'
+        }
+      ],
+      modal: true
+    })
+
+    if (!result || result === 'cancel') return null
+
+    const bodyPart = result.bodyPart?.trim()
+    return bodyPart || null
   }
 
   static async _onDropItemCreate(actor, itemData) {
