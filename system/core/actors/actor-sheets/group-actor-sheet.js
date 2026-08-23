@@ -3,14 +3,12 @@ import { _onOpenItem } from '../../applications/compendium-browser/scripts/on-op
 import { _onCreateItem, _onSearchItem } from '../scripts/item-actions.js'
 import { _onSendItemToChat } from '../../scripts/on-send-item-to-chat.js'
 import { _onSetTrackerValue } from '../scripts/on-set-tracker-value.js'
-import {
-  _onDocumentPointerDown,
-  _onToggleMultiSelect,
-  _onToggleMultiSelectOption,
-  _onUpdateField
-} from '../../fields/multiselect.js'
 import { addGroupMember, openGroupMember, removeGroupMember } from '../scripts/group-members.js'
-import { createRelationship, deleteRelationship } from '../scripts/group-relationships.js'
+import {
+  createRelationship,
+  deleteRelationship,
+  editRelationship
+} from '../scripts/group-relationships.js'
 import {
   deletePooledResource,
   dropPooledResource,
@@ -51,13 +49,12 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
 
       // Relationships
       createRelationship,
+      editRelationship,
       deleteRelationship,
 
       // Fields
       deletePooledResource,
-      setTrackerValue: _onSetTrackerValue,
-      toggleMultiSelect: _onToggleMultiSelect,
-      toggleMultiSelectOption: _onToggleMultiSelectOption
+      setTrackerValue: _onSetTrackerValue
     }
   }
 
@@ -150,11 +147,6 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
       return this.actor.update({ [fieldPath]: event.target.value })
     }
 
-    if (fieldPath?.startsWith('system.relationships.')) {
-      const flattenedData = foundry.utils.flattenObject(formData.object)
-      return _onUpdateField(this.actor, fieldPath, flattenedData[fieldPath])
-    }
-
     return WoDActorBase.onSubmitActorForm.call(this, event, form, formData)
   }
 
@@ -167,9 +159,6 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
 
   async _onRender(options) {
     await super._onRender(options)
-
-    this._boundMultiSelectOutsideClick ??= _onDocumentPointerDown.bind(this)
-    document.addEventListener('pointerdown', this._boundMultiSelectOutsideClick)
 
     this.element.querySelectorAll('[data-resource-contributor]').forEach((select) => {
       select.addEventListener('change', (event) => {

@@ -2,30 +2,55 @@
   <header class="sheet-section-header">
     <span class="sheet-section-name">{{localize "WOD6E.GROUPS.Relationships"}}</span>
     <span class="sheet-section-data-actions align-right">
-      <button type="button" data-action="createRelationship" title="{{localize 'WOD6E.GROUPS.AddRelationship'}}"><i class="fa-solid fa-plus"></i></button>
+      <button
+        type="button"
+        data-action="createRelationship"
+        title="{{localize 'WOD6E.GROUPS.AddRelationship'}}"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </button>
     </span>
   </header>
   {{#each relationships as |relationship|}}
-  <div class="group-relationship {{#unless relationship.isValid}}invalid{{/unless}}">
-    <div class="group-relationship-header">
-      <input type="text" name="system.relationships.{{relationship.index}}.name" value="{{relationship.name}}" placeholder="{{localize 'WOD6E.GROUPS.RelationshipName'}}" />
-      <button type="button" data-action="deleteRelationship" data-relationship-id="{{relationship.id}}" title="{{localize 'WOD6E.Delete'}}"><i class="fa-solid fa-trash"></i></button>
+  <details class="group-relationship {{#unless relationship.isValid}}invalid{{/unless}}">
+    <summary class="group-relationship-summary">
+      <span class="group-relationship-identity">
+        <strong>{{ relationship.name }}</strong>
+        <span class="group-relationship-members">{{ relationship.membersText }}</span>
+      </span>
+      <span class="group-relationship-actions">
+        <button
+          type="button"
+          data-action="editRelationship"
+          data-relationship-id="{{ relationship.id }}"
+          title="{{localize 'WOD6E.GROUPS.EditRelationship'}}"
+        >
+          <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+        <button
+          type="button"
+          data-action="deleteRelationship"
+          data-relationship-id="{{ relationship.id }}"
+          title="{{localize 'WOD6E.Delete'}}"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </span>
+    </summary>
+    <div class="group-relationship-details">
+      {{#unless relationship.isValid}}
+      <p class="validation-warning">{{localize "WOD6E.GROUPS.RelationshipNeedsMembers"}}</p>
+      {{/unless}}
+      {{#if relationship.missingMemberUuids}}
+      <p class="validation-warning">{{localize "WOD6E.GROUPS.RelationshipHasMissingMembers"}}</p>
+      {{/if}}
+      {{#if relationship.description.value}}
+      <div class="group-relationship-description">{{{ relationship.description.enriched }}}</div>
+      {{else}}
+      <p class="empty-list">{{localize "WOD6E.Description"}}</p>
+      {{/if}}
     </div>
-    <label>{{localize "WOD6E.GROUPS.ConnectedMembers"}}</label>
-    {{> "systems/wod6e/templates/core/fields/multi-select.hbs"
-      fieldPath=(concat "system.relationships." relationship.index ".memberUuids")
-      options=relationship.members.options
-      groups=relationship.members.groups
-      selectedText=relationship.members.selectedText
-    }}
-    {{#unless relationship.isValid}}<p class="validation-warning">{{localize "WOD6E.GROUPS.RelationshipNeedsMembers"}}</p>{{/unless}}
-    {{#if relationship.missingMemberUuids}}<p class="validation-warning">{{localize "WOD6E.GROUPS.RelationshipHasMissingMembers"}}</p>{{/if}}
-    <div class="prose-mirror-section compact">
-      <prose-mirror name="system.relationships.{{relationship.index}}.description" value="{{relationship.description.value}}" toggled="true" compact="true">
-        {{{relationship.description.enriched}}}
-      </prose-mirror>
-    </div>
-  </div>
+  </details>
   {{else}}
   <p class="empty-list">{{localize "WOD6E.GROUPS.NoRelationships"}}</p>
   {{/each}}

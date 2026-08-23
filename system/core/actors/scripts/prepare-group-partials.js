@@ -1,4 +1,3 @@
-import { prepareMultiSelect } from '../../fields/multiselect.js'
 import { generateTrackers } from './generate-trackers.js'
 import { resolveGroupMembers } from './group-members.js'
 
@@ -47,20 +46,16 @@ export async function prepareGroupMembersContext(context, actor) {
 
 export async function prepareGroupRelationshipsContext(context, actor) {
   const members = await resolveGroupMembers(actor)
-  const memberOptions = members
-    .filter((member) => member.exists)
-    .map((member) => ({
-      key: member.uuid,
-      label: member.name
-    }))
-
   context.relationships = []
 
-  for (const [index, relationship] of Array.from(actor.system.relationships ?? []).entries()) {
+  for (const relationship of actor.system.relationships ?? []) {
     const memberUuids = Array.from(relationship.memberUuids ?? [])
+    const relationshipMembers = memberUuids
+      .map((uuid) => members.find((member) => member.uuid === uuid))
+      .filter(Boolean)
+
     context.relationships.push({
       id: relationship.id,
-      index,
       name: relationship.name,
       description: {
         value: relationship.description,
@@ -68,7 +63,8 @@ export async function prepareGroupRelationshipsContext(context, actor) {
           relationship?.description ?? ''
         )
       },
-      members: prepareMultiSelect(memberUuids, memberOptions),
+      members: relationshipMembers,
+      membersText: relationshipMembers.map((member) => member.name).join(', '),
       isValid: memberUuids.length >= 2,
       missingMemberUuids: memberUuids.filter(
         (uuid) => !members.some((member) => member.uuid === uuid && member.exists)
