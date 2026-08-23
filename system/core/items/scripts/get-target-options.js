@@ -25,6 +25,14 @@ export const getTargetOptions = async ({ types = [], usePaths, actor = null }) =
         type: 'discipline'
       })),
 
+    categories: Object.entries(WOD6E.configs.AttributeGroups.getList({})).map(
+      ([key, category]) => ({
+        key: `category:${key}`,
+        label: category.displayName,
+        type: 'category'
+      })
+    ),
+
     resources: Object.entries(WOD6E.configs.ResourceTypes.getList({}))
       .filter(([, resource]) => !resource.hidden)
       .map(([key, resource]) => ({

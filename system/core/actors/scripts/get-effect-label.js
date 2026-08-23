@@ -1,6 +1,12 @@
 export function getEffectLabel(value) {
   if (!value) return value
 
+  if (value.startsWith('category:')) {
+    const category = value.slice('category:'.length)
+
+    return WOD6E.configs.AttributeGroups.getList({})[category]?.label ?? value
+  }
+
   const definitions = {
     attribute: WOD6E.configs.Attributes.getList({ usePath: true }),
     skill: WOD6E.configs.Skills.getList({ usePath: true }),

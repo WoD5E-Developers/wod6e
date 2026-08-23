@@ -68,6 +68,7 @@ export const prepareConditionEffectsContext = async function (context, item) {
 
       if (effectUsesTargets) {
         const targetTypes = targetTypesByEffect[effect.type] ?? [
+          'categories',
           'attributes',
           'skills',
           'disciplines'

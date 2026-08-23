@@ -134,7 +134,12 @@ export class RollDialog {
       skills: this._prepareSelectedTraits(WOD6E.configs.Skills, testData?.skills),
       disciplines: this._prepareSelectedTraits(WOD6E.configs.Disciplines, testData?.disciplines),
       action: testData?.action ?? item?.flags?.wod6e?.dataItemId ?? null,
-      category: testData?.category ?? item?.system?.actionType ?? item?.system?.category ?? null,
+      category:
+        testData?.category ??
+        item?.system?.actionType ??
+        item?.system?.category ??
+        item?.system?.attribute ??
+        null,
       difficulty: Math.max(Number(difficulty) || 0, 0),
       itemModifier:
         resolveModifierValue(actor, testData?.modifier) *
