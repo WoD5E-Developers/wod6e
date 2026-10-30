@@ -238,7 +238,9 @@
       "PageNumber": "Page Number",
       "Sourcebook": "Sourcebook",
       "SyncFromDataItem": "Sync From Data Item",
-      "SyncToDataItems": "Sync To Data Items"
+      "SyncToDataItems": "Sync To Data Items",
+      "MultipleDataItemsFound": "There were 2 or more items found associated with Data Item ID \"{dataItemId}\"",
+      "ItemUpdatedOnActor": "Item \"{item}\" has been updated on actor \"{actor}\""
     },
     "LIFEPATHS": {
       "Lifepaths": "Lifepaths"
@@ -361,6 +363,62 @@
       "Restrictions": "Restrictions",
       "Settings": "Settings",
       "Test": "Test"
+    },
+    "Settings": {
+      "StorytellerMenu": "Storyteller Menu",
+      "StorytellerMenuHint": "Configure custom traits and modifications.",
+      "NewStringModification": "New {string} Modification",
+      "ModifiedAttributes": "Modified Attributes",
+      "ModifiedAttributesHint": "Modifications to the default attributes.",
+      "CustomAttributes": "Custom Attributes",
+      "CustomAttributesHint": "Custom attributes available in this world.",
+      "ModifiedSkills": "Modified Skills",
+      "ModifiedSkillsHint": "Modifications to the default skills.",
+      "CustomSkills": "Custom Skills",
+      "CustomSkillsHint": "Custom skills available in this world.",
+      "ModifiedDisciplines": "Modified Disciplines",
+      "ModifiedDisciplinesHint": "Modifications to the default disciplines.",
+      "CustomDisciplines": "Custom Disciplines",
+      "CustomDisciplinesHint": "Custom disciplines available in this world.",
+      "ModifiedResourceTypes": "Modified Resource Types",
+      "ModifiedResourceTypesHint": "Modifications to the default resource types.",
+      "CustomResourceTypes": "Custom Resource Types",
+      "CustomResourceTypesHint": "Custom resource types available in this world.",
+      "ModifiedActionGroups": "Modified Action Groups",
+      "ModifiedActionGroupsHint": "Modifications to the default action groups.",
+      "CustomActionGroups": "Custom Action Groups",
+      "CustomActionGroupsHint": "Custom action groups available in this world.",
+      "ModifiedActionRoles": "Modified Action Roles",
+      "ModifiedActionRolesHint": "Modifications to the default action roles.",
+      "CustomActionRoles": "Custom Action Roles",
+      "CustomActionRolesHint": "Custom action roles available in this world.",
+      "ModifiedActivations": "Modified Activation Types",
+      "ModifiedActivationsHint": "Modifications to the default activation types.",
+      "CustomActivations": "Custom Activation Types",
+      "CustomActivationsHint": "Custom activation types available in this world.",
+      "ModifiedDifficulties": "Modified Difficulty Types",
+      "ModifiedDifficultiesHint": "Modifications to the default difficulty types.",
+      "CustomDifficulties": "Custom Difficulty Types",
+      "CustomDifficultiesHint": "Custom difficulty types available in this world.",
+      "ModifiedDistances": "Modified Distances",
+      "ModifiedDistancesHint": "Modifications to the default distances.",
+      "CustomDistances": "Custom Distances",
+      "CustomDistancesHint": "Custom distances available in this world.",
+      "ModifiedDurations": "Modified Durations",
+      "ModifiedDurationsHint": "Modifications to the default durations.",
+      "CustomDurations": "Custom Durations",
+      "CustomDurationsHint": "Custom durations available in this world."
+    },
+    "AttributesList": {
+      "Label": "Attributes"
+    },
+    "SkillsList": {
+      "Label": "Skills"
+    },
+    "SPC": {
+      "Physical": "Physical",
+      "Social": "Social",
+      "Mental": "Mental"
     }
   }
 }

@@ -10,7 +10,7 @@ export const _onBloodSurge = async function (event) {
   // If the user doesn't have any vitae, warn the user
   const availableVitae = actor.system.health?.value ?? 0
   if (availableVitae < 1) {
-    ui.notifications.warn('WOD6E.VAMPIRE.BloodSurgeNoVitae')
+    ui.notifications.warn(game.i18n.localize('WOD6E.VAMPIRE.BloodSurgeNoVitae'))
     return
   }
 
@@ -20,7 +20,7 @@ export const _onBloodSurge = async function (event) {
   const targets = getSurgeTargets(actor)
   const targetList = [...targets.attributes, ...targets.disciplines]
   if (targetList.length === 0) {
-    ui.notifications.warn('WOD6E.VAMPIRE.BloodSurgeNoTargets')
+    ui.notifications.warn(game.i18n.localize('WOD6E.VAMPIRE.BloodSurgeNoTargets'))
     return
   }
 
@@ -72,13 +72,13 @@ export const _onBloodSurge = async function (event) {
   const vitae = Number(result.vitae)
   const currentVitae = actor.system.health?.value ?? 0
   if (!target || !Number.isInteger(vitae) || vitae < 1 || vitae > currentVitae) {
-    ui.notifications.warn('WOD6E.VAMPIRE.BloodSurgeInvalidSelection')
+    ui.notifications.warn(game.i18n.localize('WOD6E.VAMPIRE.BloodSurgeInvalidSelection'))
     return
   }
 
   // Check that the Vitae is in multiples of 2
   if (vitae % target.vitaePerDot !== 0) {
-    ui.notifications.warn('WOD6E.VAMPIRE.BloodSurgeDisciplineCost')
+    ui.notifications.warn(game.i18n.localize('WOD6E.VAMPIRE.BloodSurgeDisciplineCost'))
     return
   }
 
@@ -86,7 +86,9 @@ export const _onBloodSurge = async function (event) {
   const bonus = vitae / target.vitaePerDot
   const currentTrait = foundry.utils.getProperty(actor, target.path)
   if (!currentTrait || currentTrait.effective + bonus > target.max) {
-    ui.notifications.warn('WOD6E.VAMPIRE.BloodSurgeMaximum', { maximum: target.max })
+    ui.notifications.warn(
+      game.i18n.format('WOD6E.VAMPIRE.BloodSurgeMaximum', { maximum: target.max })
+    )
     return
   }
 
