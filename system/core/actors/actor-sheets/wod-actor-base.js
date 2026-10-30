@@ -133,8 +133,27 @@ export class WoDActorBase extends HandlebarsApplicationMixin(
     sheetData.system.itemModifiers = []
   }
 
-  static async onSubmitActorForm(event, form, formData) {
-    const target = event.target
+  static async onSubmitActorForm(event, form, formData, options = {}) {
+    const target = event?.target
+
+    // Core sorting submits open sheets with a targetless SubmitEvent and updateData
+    // So we save the full form together with those folder/sort changes before continuing
+    if (event?.type === 'submit' || !target?.name) {
+      if (!this.isEditable) return false
+
+      const { updateData, ...updateOptions } = options
+      const submitData = this._prepareSubmitData(event, form, formData, updateData)
+      const submitDataFlat = foundry.utils.flattenObject(submitData)
+      const overrides = foundry.utils.flattenObject(this.actor.overrides)
+      for (const key of Object.keys(overrides)) delete submitDataFlat[key]
+
+      return this._processSubmitData(
+        event,
+        form,
+        foundry.utils.expandObject(submitDataFlat),
+        updateOptions
+      )
+    }
 
     // We do this because it was supported in the old system, and we still want
     // users to be able to change between character types painlessly

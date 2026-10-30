@@ -130,6 +130,14 @@ export const loadSettings = async function () {
     type: Object,
     default: {}
   })
+
+  game.settings.register('wod6e', 'groupDirectoryExpanded', {
+    scope: 'client',
+    config: false,
+    type: Object,
+    default: {},
+    onChange: () => ui.actors?.render({ parts: ['directory'] })
+  })
 }
 
 function _rerenderStorytellerWindow() {

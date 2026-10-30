@@ -29,15 +29,13 @@ export const _onSyncFromDataItem = async function (event) {
 
   // If we don't find any instances, we warn the user
   if (totalCount === 0) {
-    return ui.notifications.warn(
-      `There were no items found associated with Data Item ID "${dataItemId}"`
-    )
+    return ui.notifications.warn(game.i18n.format('WOD6E.ITEMS.NoItemsFound', { dataItemId }))
   }
 
   // If we find more than one instance, we warn the user
   if (totalCount > 1) {
     return ui.notifications.warn(
-      `There were 2 or more items found associated with Data Item ID "${dataItemId}"`
+      game.i18n.format('WOD6E.ITEMS.MultipleDataItemsFound', { dataItemId })
     )
   }
 
@@ -61,7 +59,12 @@ export const _onSyncFromDataItem = async function (event) {
     // Update the item with the data pulled
     item.update(updates)
 
-    ui.notifications.info(`Item "${item.name}" has been updated on actor "${item.actor.name}"`)
+    ui.notifications.info(
+      game.i18n.format('WOD6E.ITEMS.ItemUpdatedOnActor', {
+        item: item.name,
+        actor: item.actor.name
+      })
+    )
   }
 }
 
@@ -145,7 +148,10 @@ export const _onSyncToDataItems = async function (event) {
         itemToUpdate.update(updates)
 
         ui.notifications.info(
-          `Item "${itemToUpdate.name}" has been updated on actor "${itemToUpdate.actor.name}"`
+          game.i18n.format('WOD6E.ITEMS.ItemUpdatedOnActor', {
+            item: itemToUpdate.name,
+            actor: itemToUpdate.actor.name
+          })
         )
       })
     }

@@ -1,0 +1,55 @@
+.actors-sidebar .group-entry {
+  padding: 0;
+  gap: 0;
+
+  > .group-header {
+    gap: 4px;
+    padding: 6px;
+    color: var(--color-light-2);
+    background: var(--sidebar-folder-color, var(--color-dark-1));
+
+    .group-toggle {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      min-width: 0;
+      min-height: var(--sidebar-folder-height);
+      height: auto;
+      padding: 0;
+      border: none;
+      background: none;
+      box-shadow: none;
+      color: inherit;
+      font-family: inherit;
+      text-align: left;
+    }
+
+    > .inline-control {
+      flex: 0 0 24px;
+    }
+  }
+
+  > .subdirectory {
+    margin: 0 0 0 8px;
+    border-left: 2px solid var(--color-border-light-tertiary);
+  }
+
+  &:not(.expanded) > .subdirectory {
+    display: none;
+  }
+
+  &.expanded > .group-header .fa-folder::before {
+    content: '\f07c';
+  }
+
+  &.droptarget > .group-header {
+    outline: 1px solid var(--color-warm-1);
+  }
+
+  .group-empty {
+    padding: 8px;
+    font-style: italic;
+  }
+}

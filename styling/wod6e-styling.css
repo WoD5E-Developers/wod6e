@@ -1540,3 +1540,51 @@
 .item.sheet .form-group.shared-group-row {
   column-gap: 5px;
 }
+
+.actors-sidebar .group-entry {
+  padding: 0;
+  gap: 0;
+}
+.actors-sidebar .group-entry > .group-header {
+  gap: 4px;
+  padding: 6px;
+  color: var(--color-light-2);
+  background: var(--sidebar-folder-color, var(--color-dark-1));
+}
+.actors-sidebar .group-entry > .group-header .group-toggle {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  min-width: 0;
+  min-height: var(--sidebar-folder-height);
+  height: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+}
+.actors-sidebar .group-entry > .group-header > .inline-control {
+  flex: 0 0 24px;
+}
+.actors-sidebar .group-entry > .subdirectory {
+  margin: 0 0 0 8px;
+  border-left: 2px solid var(--color-border-light-tertiary);
+}
+.actors-sidebar .group-entry:not(.expanded) > .subdirectory {
+  display: none;
+}
+.actors-sidebar .group-entry.expanded > .group-header .fa-folder::before {
+  content: '\f07c';
+}
+.actors-sidebar .group-entry.droptarget > .group-header {
+  outline: 1px solid var(--color-warm-1);
+}
+.actors-sidebar .group-entry .group-empty {
+  padding: 8px;
+  font-style: italic;
+}

@@ -14,15 +14,18 @@ export async function addGroupMember(group, actorUuid) {
   return true
 }
 
-export async function removeGroupMember(event, target) {
-  event.preventDefault()
-  if (!this.actor.isOwner) return false
+export async function removeGroupMember(group, actorUuid) {
+  if (!group.isOwner) return false
+  const members = Array.from(group.system.members ?? [])
+  if (!members.includes(actorUuid)) return false
 
-  const actorUuid = target.dataset.uuid
-  const members = Array.from(this.actor.system.members ?? []).filter((uuid) => uuid !== actorUuid)
-
-  await this.actor.update({ 'system.members': members })
+  await group.update({ 'system.members': members.filter((uuid) => uuid !== actorUuid) })
   return true
+}
+
+export async function onRemoveGroupMember(event, target) {
+  event.preventDefault()
+  return removeGroupMember(this.actor, target.dataset.uuid)
 }
 
 export async function openGroupMember(event, target) {

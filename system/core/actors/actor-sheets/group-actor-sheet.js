@@ -6,7 +6,7 @@ import { _onSetTrackerValue } from '../scripts/on-set-tracker-value.js'
 import {
   addGroupMember,
   openGroupMember,
-  removeGroupMember,
+  onRemoveGroupMember,
   rerenderGroupsForUser
 } from '../scripts/group-members.js'
 import {
@@ -50,7 +50,7 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
 
       // Open/remove members
       openMember: openGroupMember,
-      removeMember: removeGroupMember,
+      removeMember: onRemoveGroupMember,
 
       // Relationships
       createRelationship,
@@ -158,16 +158,16 @@ export class GroupActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
     return context
   }
 
-  static async onSubmitActorForm(event, form, formData) {
+  static async onSubmitActorForm(event, form, formData, options = {}) {
     if (!this.actor.isOwner) return false
 
-    const fieldPath = event.target.name
+    const fieldPath = event?.target?.name
 
-    if (['system.subtype', 'system.coterieType'].includes(fieldPath)) {
+    if (event?.type !== 'submit' && ['system.subtype', 'system.coterieType'].includes(fieldPath)) {
       return this.actor.update({ [fieldPath]: event.target.value })
     }
 
-    return WoDActorBase.onSubmitActorForm.call(this, event, form, formData)
+    return WoDActorBase.onSubmitActorForm.call(this, event, form, formData, options)
   }
 
   async _onDrop(event) {

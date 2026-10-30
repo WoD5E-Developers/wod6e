@@ -133,6 +133,9 @@
       "Strength": "Strength",
       "Wits": "Wits"
     },
+    "AttributesList": {
+      "Label": "Attributes"
+    },
     "CHAT": {
       "AddsExtraSuccesses": "Adds extra successes",
       "CannotRollItemTest": "You must own the item's actor or be a gamemaster to roll this test.",
@@ -172,8 +175,8 @@
       "Predicates": "Predicates",
       "Resource": "Resource",
       "ResourceMaximum": "Resource Maximum",
-      "SelectSourceActor": "Select Source Actor",
       "SelectBodyPart": "Select Body Part",
+      "SelectSourceActor": "Select Source Actor",
       "Source": "Source",
       "SourceActor": "Source Actor",
       "SourceUuid": "Source UUID",
@@ -211,13 +214,16 @@
       "NoPooledResources": "No pooled resources have been added.",
       "NoRelationshipDescription": "No description has been added.",
       "NoRelationships": "No relationships have been added.",
+      "NoVisibleMembers": "No visible members.",
       "OnlyResourcesAllowed": "Only Resource items can be added to a group.",
       "OpenMember": "Open Member",
+      "OpenSheet": "Open Group Sheet",
       "PooledResources": "Pooled Resources",
       "RelationshipHasMissingMembers": "This relationship references a missing or removed member.",
       "RelationshipName": "Relationship Name",
       "RelationshipNeedsMembers": "A relationship must connect at least two members.",
       "Relationships": "Relationships",
+      "RemoveFromGroup": "Remove from Group",
       "RemoveMember": "Remove Member"
     },
     "ITEMS": {
@@ -232,7 +238,9 @@
       "GenerateDataItemID": "Generate Data Item ID",
       "ItemCannotBeDroppedOnActor": "This item type \"{string1}\" cannot be dropped onto actor type \"{string2}.\"",
       "Items": "Items",
+      "ItemUpdatedOnActor": "Item \"{item}\" has been updated on actor \"{actor}\"",
       "Level": "Level",
+      "MultipleDataItemsFound": "There were 2 or more items found associated with Data Item ID \"{dataItemId}\"",
       "NoItemsFound": "There were no items found associated with Data Item ID \"{dataItemId}.\"",
       "NumberStringResourceCost": "{number} {string}",
       "PageNumber": "Page Number",
@@ -309,6 +317,51 @@
       "SpendQuickening": "Quickening to spend",
       "VsDifficulty": "vs Difficulty"
     },
+    "Settings": {
+      "CustomActionGroups": "Custom Action Groups",
+      "CustomActionGroupsHint": "Custom action groups available in this world.",
+      "CustomActionRoles": "Custom Action Roles",
+      "CustomActionRolesHint": "Custom action roles available in this world.",
+      "CustomActivations": "Custom Activation Types",
+      "CustomActivationsHint": "Custom activation types available in this world.",
+      "CustomAttributes": "Custom Attributes",
+      "CustomAttributesHint": "Custom attributes available in this world.",
+      "CustomDifficulties": "Custom Difficulty Types",
+      "CustomDifficultiesHint": "Custom difficulty types available in this world.",
+      "CustomDisciplines": "Custom Disciplines",
+      "CustomDisciplinesHint": "Custom disciplines available in this world.",
+      "CustomDistances": "Custom Distances",
+      "CustomDistancesHint": "Custom distances available in this world.",
+      "CustomDurations": "Custom Durations",
+      "CustomDurationsHint": "Custom durations available in this world.",
+      "CustomResourceTypes": "Custom Resource Types",
+      "CustomResourceTypesHint": "Custom resource types available in this world.",
+      "CustomSkills": "Custom Skills",
+      "CustomSkillsHint": "Custom skills available in this world.",
+      "ModifiedActionGroups": "Modified Action Groups",
+      "ModifiedActionGroupsHint": "Modifications to the default action groups.",
+      "ModifiedActionRoles": "Modified Action Roles",
+      "ModifiedActionRolesHint": "Modifications to the default action roles.",
+      "ModifiedActivations": "Modified Activation Types",
+      "ModifiedActivationsHint": "Modifications to the default activation types.",
+      "ModifiedAttributes": "Modified Attributes",
+      "ModifiedAttributesHint": "Modifications to the default attributes.",
+      "ModifiedDifficulties": "Modified Difficulty Types",
+      "ModifiedDifficultiesHint": "Modifications to the default difficulty types.",
+      "ModifiedDisciplines": "Modified Disciplines",
+      "ModifiedDisciplinesHint": "Modifications to the default disciplines.",
+      "ModifiedDistances": "Modified Distances",
+      "ModifiedDistancesHint": "Modifications to the default distances.",
+      "ModifiedDurations": "Modified Durations",
+      "ModifiedDurationsHint": "Modifications to the default durations.",
+      "ModifiedResourceTypes": "Modified Resource Types",
+      "ModifiedResourceTypesHint": "Modifications to the default resource types.",
+      "ModifiedSkills": "Modified Skills",
+      "ModifiedSkillsHint": "Modifications to the default skills.",
+      "NewStringModification": "New {string} Modification",
+      "StorytellerMenu": "Storyteller Menu",
+      "StorytellerMenuHint": "Configure custom traits and modifications."
+    },
     "SETTINGS": {
       "WorldVersion": "World Version",
       "WorldVersionHint": "The current world version. You typically won't need to touch this value!"
@@ -340,6 +393,14 @@
       "Skills": "Skills",
       "Subterfuge": "Subterfuge",
       "Survival": "Survival"
+    },
+    "SkillsList": {
+      "Label": "Skills"
+    },
+    "SPC": {
+      "Mental": "Mental",
+      "Physical": "Physical",
+      "Social": "Social"
     },
     "TABS": {
       "Abilities": "Abilities",

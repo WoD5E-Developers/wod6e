@@ -133,6 +133,9 @@
       "_Strength": "",
       "_Wits": ""
     },
+    "AttributesList": {
+      "_Label": ""
+    },
     "CHAT": {
       "_AddsExtraSuccesses": "",
       "_CannotRollItemTest": "",
@@ -154,6 +157,7 @@
       "_BasicSuccess": "",
       "_BodyPart": "",
       "_BodyPartPlaceholder": "",
+      "_Categories": "",
       "_Category": "",
       "_CurrentStacks": "",
       "_Damage": "",
@@ -171,6 +175,7 @@
       "_Predicates": "",
       "_Resource": "",
       "_ResourceMaximum": "",
+      "_SelectBodyPart": "",
       "_SelectSourceActor": "",
       "_Source": "",
       "_SourceActor": "",
@@ -180,6 +185,7 @@
       "_TargetPlaceholder": "",
       "_Targets": "",
       "_TargetUuid": "",
+      "_UsesBodyPart": "",
       "_Value": "",
       "_ValueHasBeenModifiedByCondition": ""
     },
@@ -208,13 +214,16 @@
       "_NoPooledResources": "",
       "_NoRelationshipDescription": "",
       "_NoRelationships": "",
+      "_NoVisibleMembers": "",
       "_OnlyResourcesAllowed": "",
       "_OpenMember": "",
+      "_OpenSheet": "",
       "_PooledResources": "",
       "_RelationshipHasMissingMembers": "",
       "_RelationshipName": "",
       "_RelationshipNeedsMembers": "",
       "_Relationships": "",
+      "_RemoveFromGroup": "",
       "_RemoveMember": ""
     },
     "ITEMS": {
@@ -229,7 +238,9 @@
       "_GenerateDataItemID": "",
       "_ItemCannotBeDroppedOnActor": "",
       "_Items": "",
+      "_ItemUpdatedOnActor": "",
       "_Level": "",
+      "_MultipleDataItemsFound": "",
       "_NoItemsFound": "",
       "_NumberStringResourceCost": "",
       "_PageNumber": "",
@@ -306,6 +317,51 @@
       "_SpendQuickening": "",
       "_VsDifficulty": ""
     },
+    "Settings": {
+      "_CustomActionGroups": "",
+      "_CustomActionGroupsHint": "",
+      "_CustomActionRoles": "",
+      "_CustomActionRolesHint": "",
+      "_CustomActivations": "",
+      "_CustomActivationsHint": "",
+      "_CustomAttributes": "",
+      "_CustomAttributesHint": "",
+      "_CustomDifficulties": "",
+      "_CustomDifficultiesHint": "",
+      "_CustomDisciplines": "",
+      "_CustomDisciplinesHint": "",
+      "_CustomDistances": "",
+      "_CustomDistancesHint": "",
+      "_CustomDurations": "",
+      "_CustomDurationsHint": "",
+      "_CustomResourceTypes": "",
+      "_CustomResourceTypesHint": "",
+      "_CustomSkills": "",
+      "_CustomSkillsHint": "",
+      "_ModifiedActionGroups": "",
+      "_ModifiedActionGroupsHint": "",
+      "_ModifiedActionRoles": "",
+      "_ModifiedActionRolesHint": "",
+      "_ModifiedActivations": "",
+      "_ModifiedActivationsHint": "",
+      "_ModifiedAttributes": "",
+      "_ModifiedAttributesHint": "",
+      "_ModifiedDifficulties": "",
+      "_ModifiedDifficultiesHint": "",
+      "_ModifiedDisciplines": "",
+      "_ModifiedDisciplinesHint": "",
+      "_ModifiedDistances": "",
+      "_ModifiedDistancesHint": "",
+      "_ModifiedDurations": "",
+      "_ModifiedDurationsHint": "",
+      "_ModifiedResourceTypes": "",
+      "_ModifiedResourceTypesHint": "",
+      "_ModifiedSkills": "",
+      "_ModifiedSkillsHint": "",
+      "_NewStringModification": "",
+      "_StorytellerMenu": "",
+      "_StorytellerMenuHint": ""
+    },
     "SETTINGS": {
       "_WorldVersion": "",
       "_WorldVersionHint": ""
@@ -337,6 +393,14 @@
       "_Skills": "",
       "_Subterfuge": "",
       "_Survival": ""
+    },
+    "SkillsList": {
+      "_Label": ""
+    },
+    "SPC": {
+      "_Mental": "",
+      "_Physical": "",
+      "_Social": ""
     },
     "TABS": {
       "_Abilities": "",
