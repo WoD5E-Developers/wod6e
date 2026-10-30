@@ -1,0 +1,45 @@
+{{#with (lookup @root.groups id) as |group|}}
+<li
+  class="directory-item entry document actor group-entry flexcol{{#if group.expanded}} expanded{{/if}}"
+  data-entry-id="{{ group.id }}"
+  data-group-id="{{ group.id }}"
+>
+  <header class="group-header flexrow">
+    {{!-- Keep an image available for Foundry's actor drag preview. --}}
+    <img
+      src="{{ group.img }}"
+      alt=""
+      hidden
+    />
+    <button
+      type="button"
+      class="group-toggle"
+      data-action="toggleGroup"
+    >
+      <i
+        class="fa-solid fa-folder fa-fw"
+        inert
+      ></i>
+      <span class="ellipsis">{{ group.name }}</span>
+    </button>
+    <button
+      type="button"
+      class="inline-control icon fa-solid fa-file"
+      data-action="activateEntry"
+      data-tooltip
+      title="{{localize 'WOD6E.GROUPS.OpenSheet'}}"
+    ></button>
+  </header>
+  <ol class="subdirectory plain">
+    {{#if group.showMembers}}
+    {{#each group.members}}
+    {{> "templates/sidebar/partials/document-partial.hbs"}}
+    {{else}}
+    <li class="group-empty">{{localize "WOD6E.GROUPS.NoVisibleMembers"}}</li>
+    {{/each}}
+    {{/if}}
+  </ol>
+</li>
+{{else}}
+{{> "templates/sidebar/partials/document-partial.hbs"}}
+{{/with}}

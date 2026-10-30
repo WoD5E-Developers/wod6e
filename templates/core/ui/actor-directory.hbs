@@ -1,0 +1,18 @@
+<ol class="directory-list plain">
+  {{!-- Keep the collection's ordering within each section. --}}
+  {{#each tree.entries}}
+  {{#if (lookup @root.groups id)}}
+  {{> (lookup @root "entryPartial") }}
+  {{/if}}
+  {{/each}}
+
+  {{#each tree.children}}
+  {{> (lookup @root "folderPartial") node=this folder=folder }}
+  {{/each}}
+
+  {{#each tree.entries}}
+  {{#unless (lookup @root.groups id)}}
+  {{> (lookup @root "entryPartial") }}
+  {{/unless}}
+  {{/each}}
+</ol>

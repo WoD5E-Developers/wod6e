@@ -1,6 +1,7 @@
 // Custom UI Classes
 import { WoDSettings } from './core/ui/wod-settings.js'
 import { WoDPause } from './core/ui/wod-game-pause.js'
+import { WoDActorDirectory } from './core/ui/wod-actor-directory.js'
 // FVTT and module functionality
 import { preloadHandlebarsTemplates } from './core/scripts/templates.js'
 import { loadHelpers } from './core/scripts/helpers.js'
@@ -113,6 +114,7 @@ Hooks.once('init', async function () {
   CONFIG.Actor.documentClass = WoDActor
   CONFIG.Dice.rolls.push(WOD6eRoll)
   // Custom UI implementations
+  CONFIG.ui.actors = WoDActorDirectory
   CONFIG.ui.chat = WoDChatLog
   CONFIG.ui.settings = WoDSettings
   CONFIG.ui.compendium = WoDCompendiumDirectory
