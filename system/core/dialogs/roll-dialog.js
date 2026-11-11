@@ -234,11 +234,6 @@ export class RollDialog {
     const selectedDisciplinesText = this._getSelectedText(disciplineOptions)
     const focusOptions = this._prepareFocusOptions(actor, data?.skills, data?.focus)
     const selectedFocus = focusOptions.some((focus) => focus.selected) ? data.focus : ''
-    const quickeningValue = Number(game.user.getFlag('wod6e', 'quickening') ?? 0)
-    const canSpendQuickening = game.user.character?.id === actor.id && quickeningValue >= 1
-    const quickeningSpent = canSpendQuickening
-      ? Math.clamp(Math.floor(Number(data?.quickeningSpent) || 0), 0, quickeningValue)
-      : 0
 
     const baseDicePool = _calculateDicePool(
       actor,
@@ -268,7 +263,6 @@ export class RollDialog {
       attributeOptions,
       skillOptions,
       disciplineOptions,
-      quickeningSpent,
       customModifier:
         (data?.itemModifier ?? 0) + (data?.customModifier ?? 0) + (selectedFocus ? 1 : 0),
       effects: conditionEffects.filter((effect) => effect.enabled),
@@ -281,8 +275,6 @@ export class RollDialog {
     })
 
     WOD6eTest.applyEffects(actor, effectTest)
-
-    effectTest.dicePool += quickeningSpent
 
     const dicePool = Math.max(effectTest.dicePool, 0)
     const dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', { string: `${dicePool}d10` })
@@ -309,7 +301,6 @@ export class RollDialog {
         itemModifier: data?.itemModifier ?? 0,
         focus: selectedFocus,
         conditionEffectIds: effectTest.conditionEffectIds,
-        quickeningSpent,
         difficulty,
         baseDicePool,
 
@@ -330,12 +321,6 @@ export class RollDialog {
           standard: 'WOD6E.ROLL.FixedDifficulty',
           unopposed: 'WOD6E.ROLL.CountSuccesses'
         },
-
-        showQuickening:
-          !game.user.getFlag('wod6e', 'tracker.quickeningHidden') &&
-          game.user.character?.id === actor.id,
-        canSpendQuickening,
-        quickeningValue,
 
         selectedAttributesText,
         selectedSkillsText,
@@ -451,7 +436,7 @@ export class RollDialog {
         event.target.matches('[name="testType"]') ||
         event.target.matches('.roll-focus-select') ||
         event.target.matches('.condition-effect-toggle') ||
-        event.target.matches('.quickening-spent')
+        event.target.matches('[name="hungerDice"]')
       ) {
         // Update the preview if any of the above inputs changed
         this._updatePreview(element, actor, item)
@@ -574,7 +559,6 @@ export class RollDialog {
     const conditionEffectIds = Array.from(
       form.querySelectorAll('.condition-effect-toggle:checked')
     ).map((input) => input.value)
-    const quickeningSpent = form.querySelector('.quickening-spent')?.valueAsNumber ?? 0
     const rollForm = form.matches('[data-item-modifier]')
       ? form
       : form.querySelector('[data-item-modifier]')
@@ -601,7 +585,6 @@ export class RollDialog {
       customModifier,
       focus,
       conditionEffectIds,
-      quickeningSpent,
       difficulty: Math.max(Number(difficulty) || 0, 0)
     }
   }

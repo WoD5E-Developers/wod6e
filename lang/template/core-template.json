@@ -109,13 +109,7 @@
       "_CompendiumBrowserControlLabel": "",
       "_CompendiumBrowserSidebarLabel": "",
       "_ConfigureSources": "",
-      "_HideDrama": "",
-      "_HideQuickening": "",
-      "_NoCharacterSelectedText": "",
-      "_NoResultsFound": "",
-      "_QuickeningDramaTracker": "",
-      "_ShowDrama": "",
-      "_ShowQuickening": ""
+      "_NoResultsFound": ""
     },
     "ATTRIBUTES": {
       "_Attribute": "",
@@ -141,12 +135,8 @@
       "_CannotRollItemTest": "",
       "_GenerationTier": "",
       "_Prerequisites": "",
-      "_QuickeningGained": "",
-      "_QuickeningSpent": "",
       "_TestPool": "",
-      "_UsedForDifficulty": "",
-      "_UserHasGainedAmountQuickening": "",
-      "_UserHasSpentAmountQuickening": ""
+      "_UsedForDifficulty": ""
     },
     "CONDITIONS": {
       "_ActorTrait": "",
@@ -292,9 +282,7 @@
     },
     "RESOURCES": {
       "_Baneful": "",
-      "_Drama": "",
       "_PhysicalAssets": "",
-      "_Quickening": "",
       "_Resources": "",
       "_ResourceType": "",
       "_SocialAssets": "",
@@ -316,13 +304,10 @@
       "_NoConditionEffects": "",
       "_NotNormallyApplicable": "",
       "_NoTraitsSelected": "",
-      "_QuickeningAvailable": "",
-      "_QuickeningUnavailable": "",
       "_Roll": "",
       "_RollingString": "",
       "_RollResolution": "",
       "_SelectSkillForFocus": "",
-      "_SpendQuickening": "",
       "_SuccessBy": "",
       "_Successes": "",
       "_SuccessSingular": "",

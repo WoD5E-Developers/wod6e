@@ -2,7 +2,6 @@ export const _getTestText = function ({
   attributeOptions = [],
   skillOptions = [],
   disciplineOptions = [],
-  quickeningSpent = 0,
   customModifier = 0,
   effects = [],
   includeDifficulty = true,
@@ -14,10 +13,6 @@ export const _getTestText = function ({
   )
 
   const testParts = selected.map((option) => `${option.label} (${option.value})`)
-
-  if (quickeningSpent > 0) {
-    testParts.push(`${game.i18n.localize('WOD6E.RESOURCES.Quickening')} (${quickeningSpent})`)
-  }
 
   const testText = testParts.length
     ? testParts.join(' + ')

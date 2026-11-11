@@ -1,5 +1,4 @@
 import { ActorEffects } from '../actors/scripts/actor-effects.js'
-import { adjustQuickening } from './quickening.js'
 import { WOD6eRoll } from './wod6e-roll.js'
 
 export class WOD6eTest {
@@ -18,7 +17,6 @@ export class WOD6eTest {
       action: context.action,
       category: context.category,
       conditionEffectIds: context.conditionEffectIds,
-      quickeningSpent: Math.max(Math.floor(Number(context.quickeningSpent) || 0), 0),
       dicePool: context.baseDicePool ?? context.dicePool,
       difficulty: context.difficulty
     }
@@ -26,10 +24,6 @@ export class WOD6eTest {
     if (actor) {
       this.applyEffects(actor, test)
     }
-
-    // Each Quickening spent contributes one die to the roll.
-    test.dicePool += test.quickeningSpent
-    context.quickeningSpent = test.quickeningSpent
 
     context.dicePool = Math.max(test.dicePool, 0)
     if (
@@ -52,10 +46,6 @@ export class WOD6eTest {
       }
     )
 
-    await roll.evaluate({ allowInteractive: messageMode !== 'blind' })
-
-    if (actor) {
-      await this._processRollEffects(actor, roll)
     }
 
     if (createMessage) {
@@ -69,15 +59,6 @@ export class WOD6eTest {
           messageMode
         }
       )
-    }
-
-    // Quickening gained is displayed after the roll message is sent.
-    if (actor && game.user.character?.id === actor.id && roll.quickeningGained > 0) {
-      // If quickening is hidden, we can safely assume they don't use quickening
-      // despite the fact that they have a character assigned
-      if (!game.user.getFlag('wod6e', 'tracker.quickeningHidden')) {
-        await adjustQuickening(game.user, roll.quickeningGained)
-      }
     }
 
     return roll

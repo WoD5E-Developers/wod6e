@@ -38,7 +38,6 @@ export class WOD6eRoll extends foundry.dice.Roll {
     this.options.difficulty = Math.max(this.options.difficulty ?? 1, 0)
     this.options.resolutionMode ??= 'roll'
     this.options.basicSuccesses ??= 0
-    this.options.quickeningSpent ??= 0
 
     this.options.automaticFailure ??= false
 
@@ -134,19 +133,11 @@ export class WOD6eRoll extends foundry.dice.Roll {
     return this.results.filter((result) => result.result === 1).length
   }
 
-  // Number of 10s rolled, each 10 earns 1 Quickening
+  // Number of 10s rolled
   get tens() {
     return this.results.filter((result) => result.result === 10).length
   }
 
-  // Quickening earned directly from this roll
-  get quickeningGained() {
-    return this.tens
-  }
-
-  // Quickening spent to improve this roll
-  get quickeningSpent() {
-    return Math.max(Number(this.options.quickeningSpent) || 0, 0)
   }
 
   // Some success-determining logic; this is just whether the
@@ -195,9 +186,6 @@ export class WOD6eRoll extends foundry.dice.Roll {
 
       ones: this.ones,
       tens: this.tens,
-
-      quickeningGained: this.quickeningGained,
-      quickeningSpent: this.quickeningSpent,
 
       isSuccess: this.isSuccess,
       isFailure: this.isFailure,

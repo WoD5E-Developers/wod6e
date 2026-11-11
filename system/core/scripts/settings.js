@@ -124,13 +124,6 @@ export const loadSettings = async function () {
     type: String
   })
 
-  game.settings.register('wod6e', 'quickeningDramaTrackerPosition', {
-    scope: 'client',
-    config: false,
-    type: Object,
-    default: {}
-  })
-
   game.settings.register('wod6e', 'groupDirectoryExpanded', {
     scope: 'client',
     config: false,

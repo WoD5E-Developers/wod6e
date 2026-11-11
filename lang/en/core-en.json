@@ -109,13 +109,7 @@
       "CompendiumBrowserControlLabel": "Opens the World of Darkness 6e compendium browser.",
       "CompendiumBrowserSidebarLabel": "WOD6E Compendium Browser",
       "ConfigureSources": "Configure Sources",
-      "HideDrama": "Hide Drama",
-      "HideQuickening": "Hide Quickening",
-      "NoCharacterSelectedText": "No character selected. Please assign yourself a character from the Foundry user list to show the Quickening tracker.",
-      "NoResultsFound": "No Results Found",
-      "QuickeningDramaTracker": "Quickening & Drama Tracker",
-      "ShowDrama": "Show Drama",
-      "ShowQuickening": "Show Quickening"
+      "NoResultsFound": "No Results Found"
     },
     "ATTRIBUTES": {
       "Attribute": "Attribute",
@@ -141,12 +135,8 @@
       "CannotRollItemTest": "You must own the item's actor or be a gamemaster to roll this test.",
       "GenerationTier": "Generation Tier",
       "Prerequisites": "Prerequisites",
-      "QuickeningGained": "Quickening Gained",
-      "QuickeningSpent": "Quickening Spent",
       "TestPool": "Test Pool",
-      "UsedForDifficulty": "Used when determining difficulty",
-      "UserHasGainedAmountQuickening": "{user} has gained {amount} quickening.",
-      "UserHasSpentAmountQuickening": "{user} has spent {amount} quickening."
+      "UsedForDifficulty": "Used when determining difficulty"
     },
     "CONDITIONS": {
       "ActorTrait": "Actor Trait",
@@ -292,9 +282,7 @@
     },
     "RESOURCES": {
       "Baneful": "Baneful",
-      "Drama": "Drama",
       "PhysicalAssets": "Physical Assets",
-      "Quickening": "Quickening",
       "Resources": "Resources",
       "ResourceType": "Resource Type",
       "SocialAssets": "Social Assets",
@@ -316,13 +304,10 @@
       "NoConditionEffects": "No condition effects are available for this roll.",
       "NotNormallyApplicable": "Not normally applicable",
       "NoTraitsSelected": "No Traits Selected",
-      "QuickeningAvailable": "{value} Quickening available",
-      "QuickeningUnavailable": "Quickening is unavailable for this test.",
       "Roll": "Roll",
       "RollingString": "Rolling {string}",
       "RollResolution": "Roll Resolution",
       "SelectSkillForFocus": "Select a skill with a focus to use it.",
-      "SpendQuickening": "Quickening to spend",
       "SuccessBy": "Success by {margin}",
       "Successes": "successes",
       "SuccessSingular": "success",
