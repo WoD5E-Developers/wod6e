@@ -81,4 +81,38 @@
     <p class="roll-panel-empty">{{localize 'WOD6E.ROLL.NoConditionEffects'}}</p>
     {{/each}}
   </section>
+  {{#if test.hasHumanity}}
+  <section>
+    <h4>{{ test.humanityName }} ({{ test.humanityRank }})</h4>
+    <label
+      class="form-group"
+      title="{{localize 'WOD6E.VAMPIRE.RankModifierHint'}}"
+    >
+      <input
+        type="checkbox"
+        name="humanityModifier"
+        {{checked
+        test.humanityModifier}}
+      />
+      {{localize 'WOD6E.VAMPIRE.ApplyRankModifier'}} ({{ test.humanityRankModifier }})
+    </label>
+    <label
+      class="form-group"
+      title="{{localize 'WOD6E.VAMPIRE.ResistanceCapHint'}}"
+    >
+      <input
+        type="checkbox"
+        name="resistBeast"
+        {{checked
+        test.resistBeast}}
+        {{disabled
+        test.frenzyType}}
+      />
+      {{localize 'WOD6E.VAMPIRE.ResistingBeast'}}
+    </label>
+    {{#if test.resistBeast}}
+    <p>{{localize 'WOD6E.VAMPIRE.ResistanceCap'}}: {{ test.humanityCap }}</p>
+    {{/if}}
+  </section>
+  {{/if}}
 </div>

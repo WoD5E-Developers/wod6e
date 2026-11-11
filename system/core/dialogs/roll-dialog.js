@@ -12,6 +12,11 @@ import { ActorEffects } from '../actors/scripts/actor-effects.js'
 import { hasDifferentApproach } from '../scripts/test-resolution.js'
 import { getHunger, hasBeast } from '../actors/scripts/vitae.js'
 import { canPayCost, getItemCost } from '../actors/scripts/resource-spending.js'
+import {
+  getActivePath,
+  getHumanityRank,
+  getHumanityModifier
+} from '../../splats/vampire/scripts/humanity.js'
 
 const { DialogV2 } = foundry.applications.api
 const { renderTemplate } = foundry.applications.handlebars
@@ -158,6 +163,9 @@ export class RollDialog {
       isAttack: testData?.isAttack ?? item?.system?.role === 'attack',
       isDefense: testData?.isDefense ?? item?.system?.role === 'defense',
       inConflict: testData?.inConflict ?? false,
+      resistBeast: testData?.resistBeast ?? false,
+      frenzyType: testData?.frenzyType ?? '',
+      humanityModifier: testData?.humanityModifier ?? false,
       difficulty: Math.max(difficulty ?? 1, 0),
       itemModifier: testData?.retryOf
         ? (testData.itemModifier ?? 0)
@@ -270,6 +278,9 @@ export class RollDialog {
       action: data?.action ?? null,
       category: data?.category ?? null,
       dicePool: baseDicePool,
+      resistBeast: data.resistBeast,
+      frenzyType: data.frenzyType,
+      humanityModifier: data.humanityModifier,
       difficulty
     }
 
@@ -321,6 +332,14 @@ export class RollDialog {
         resolutionMode,
         hungerDice,
         hasBeast: hasBeast(actor),
+        hasHumanity: hasBeast(actor) && Boolean(actor.system.vampire?.humanity),
+        humanityName: getActivePath(actor).name,
+        humanityRank: getHumanityRank(actor),
+        humanityRankModifier: getHumanityModifier(getHumanityRank(actor)),
+        humanityModifier: data.humanityModifier ?? false,
+        humanityCap: effectTest.humanityCap,
+        resistBeast: Boolean(data.resistBeast || data.frenzyType),
+        frenzyType: data.frenzyType ?? '',
         showHunger: hasBeast(actor) || hungerDice > 0,
         hungerAutomatic: Boolean(actor.system.vitae),
         itemUuid: costItem?.uuid ?? data.itemUuid ?? '',
@@ -354,7 +373,8 @@ export class RollDialog {
         canRoll,
         canTakeHalf:
           canRoll &&
-          (actor.type === 'npc' || !(data?.inConflict || data?.isAttack || data?.isDefense)),
+          (actor.type === 'npc' ||
+            !(data?.inConflict || data?.isAttack || data?.isDefense || data?.frenzyType)),
         testTypeOptions: {
           standard: 'WOD6E.ROLL.FixedDifficulty',
           unopposed: 'WOD6E.ROLL.CountSuccesses'
@@ -474,6 +494,7 @@ export class RollDialog {
         event.target.matches('[name="testType"]') ||
         event.target.matches('.roll-focus-select') ||
         event.target.matches('.condition-effect-toggle') ||
+        event.target.matches('[name="humanityModifier"], [name="resistBeast"]') ||
         event.target.matches('[name="hungerDice"]')
       ) {
         // Update the preview if any of the above inputs changed
@@ -621,6 +642,9 @@ export class RollDialog {
       isAttack: rollForm?.dataset.isAttack === 'true',
       isDefense: rollForm?.dataset.isDefense === 'true',
       inConflict: rollForm?.dataset.inConflict === 'true',
+      resistBeast: form.querySelector('[name="resistBeast"]')?.checked ?? false,
+      humanityModifier: form.querySelector('[name="humanityModifier"]')?.checked ?? false,
+      frenzyType: rollForm?.dataset.frenzyType ?? '',
       itemModifier,
       action,
       category,

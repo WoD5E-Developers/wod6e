@@ -1,6 +1,7 @@
 import { ActorEffects } from './scripts/actor-effects.js'
 import { generateHealthMax, generateWillpowerMax } from './scripts/resource-max-calculations.js'
 import { generateVitaeMax, getHunger } from './scripts/vitae.js'
+import { createPathItemData } from '../../splats/vampire/scripts/paths.js'
 
 /**
  * Extend the base ActorSheet document and put all our base functionality here
@@ -13,6 +14,16 @@ export class WoDActor extends Actor {
    */
   async _preCreate(data, context, user) {
     await super._preCreate(data, context, user)
+
+    if (data.type === 'vampire') {
+      const items = data.items ?? []
+      this.updateSource({
+        ...(!items.some((item) => item.type === 'path')
+          ? { items: [...items, createPathItemData()] }
+          : {}),
+        'flags.wod6e.humanityAlpha2': 2
+      })
+    }
 
     const tokenUpdate = {}
 

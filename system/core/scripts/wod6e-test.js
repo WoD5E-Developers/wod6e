@@ -5,6 +5,7 @@ import { getHunger, hasBeast } from '../actors/scripts/vitae.js'
 import { getItemCost, withResourceSpend } from '../actors/scripts/resource-spending.js'
 import { pendingTestUpdates } from './test-locks.js'
 import { postItemCostMessage } from './item-cost.js'
+import { applyHumanityRules } from '../../splats/vampire/scripts/humanity.js'
 
 export class WOD6eTest {
   static async executeTest({
@@ -42,6 +43,9 @@ export class WOD6eTest {
       action: context.action,
       category: context.category,
       conditionEffectIds: context.conditionEffectIds,
+      resistBeast: context.resistBeast,
+      frenzyType: context.frenzyType,
+      humanityModifier: context.humanityModifier,
       dicePool: context.baseDicePool ?? context.dicePool,
       difficulty: context.difficulty
     }
@@ -51,10 +55,12 @@ export class WOD6eTest {
     }
 
     context.dicePool = Math.max(test.dicePool, 0)
+    context.humanityCap = test.humanityCap
+    context.humanityAdjustment = test.humanityAdjustment
     if (
       context.resolutionMode === 'takeHalf' &&
       actor?.type !== 'npc' &&
-      (context.inConflict || context.isAttack || context.isDefense)
+      (context.inConflict || context.isAttack || context.isDefense || context.frenzyType)
     ) {
       throw new Error(game.i18n.localize('WOD6E.ROLL.TakingHalfUnavailable'))
     }
@@ -134,5 +140,6 @@ export class WOD6eTest {
     for (const effect of effects) {
       test.dicePool = ActorEffects.applyNumericEffect(test.dicePool, effect, actor)
     }
+    applyHumanityRules(actor, test)
   }
 }

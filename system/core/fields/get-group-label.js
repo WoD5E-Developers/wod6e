@@ -6,7 +6,8 @@ export function getGroupLabel(type) {
     category: 'WOD6E.CONDITIONS.Categories',
     resource: 'WOD6E.RESOURCES.Resources',
     item: 'WOD6E.ITEMS.Items',
-    generationModifier: 'WOD6E.VAMPIRE.GenerationModifier'
+    generationModifier: 'WOD6E.VAMPIRE.GenerationModifier',
+    humanity: 'WOD6E.VAMPIRE.HumanityPathRank'
   }
 
   return game.i18n.localize(labels[type] ?? type)

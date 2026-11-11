@@ -65,12 +65,11 @@ export const preloadHandlebarsTemplates = async function () {
     // Vampire actor templates
     'systems/wod6e/templates/splats/vampire/actors/parts/header.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/blood-surge.hbs',
-    'systems/wod6e/templates/splats/vampire/actors/parts/humanity-scale.hbs',
+    'systems/wod6e/templates/splats/vampire/actors/parts/humanity-tracker.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/left-column.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/middle-column.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/right-column.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/disciplines.hbs',
-    'systems/wod6e/templates/splats/vampire/actors/parts/nature.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/beast.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/clan-traits.hbs',
 

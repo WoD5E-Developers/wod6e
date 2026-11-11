@@ -1,0 +1,58 @@
+<section
+  class="tab path-details {{ tab.cssClass }}"
+  data-tab="{{ tab.id }}"
+  data-group="{{ tab.group }}"
+>
+  <table class="path-precepts">
+    <thead>
+      <tr>
+        <th scope="col">{{localize 'WOD6E.VAMPIRE.Precepts'}}</th>
+        <th scope="col">{{localize 'WOD6E.VAMPIRE.Violations'}}</th>
+        <th class="path-precept-actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each path.precepts as |row index|}}
+      <tr>
+        <td>
+          <textarea
+            name="system.precepts.{{ index }}.precept"
+            rows="2"
+            aria-label="{{localize 'WOD6E.VAMPIRE.Precepts'}}"
+            >{{ row.precept }}</textarea>
+        </td>
+        <td>
+          <textarea
+            name="system.precepts.{{ index }}.violation"
+            rows="2"
+            aria-label="{{localize 'WOD6E.VAMPIRE.Violations'}}"
+            >{{ row.violation }}</textarea>
+        </td>
+        <td class="path-precept-actions">
+          <button
+            type="button"
+            data-action="removePathPrecept"
+            data-index="{{ index }}"
+            title="{{localize 'WOD6E.VAMPIRE.RemovePrecept'}}"
+            aria-label="{{localize 'WOD6E.VAMPIRE.RemovePrecept'}}"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <div class="path-precept-footer">
+    <button
+      type="button"
+      data-action="addPathPrecept"
+    >
+      <i
+        class="fa-solid fa-plus"
+        aria-hidden="true"
+      ></i>
+      {{localize 'WOD6E.VAMPIRE.AddPrecept'}}
+    </button>
+  </div>
+</section>

@@ -17,8 +17,29 @@
 
     <hr />
 
+    <label class="form-group">
+      <input
+        type="checkbox"
+        name="system.test.resistBeast"
+        {{checked
+        test.resistBeast}}
+      />
+      {{localize 'WOD6E.VAMPIRE.ResistingBeast'}}
+    </label>
+    <label class="form-group">
+      <input
+        type="checkbox"
+        name="system.test.humanityModifier"
+        {{checked
+        test.humanityModifier}}
+      />
+      {{localize 'WOD6E.VAMPIRE.ApplyRankModifier'}}
+    </label>
+
     <div class="form-group">
-      <label><b>{{localize 'WOD6E.ROLL.BeastsBargain'}}</b></label>
+      <label>
+        <b>{{localize 'WOD6E.ROLL.BeastsBargain'}}</b>
+      </label>
       <select name="system.test.bargainRule">
         {{selectOptions test.bargainRuleOptions selected=test.bargainRule localize=true}}
       </select>

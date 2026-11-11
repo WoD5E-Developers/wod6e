@@ -2,8 +2,13 @@ import { attributeFields } from './fields/attribute-fields.js'
 import { skillFields } from './fields/skill-fields.js'
 import { coreActorFields } from './fields/core-actor-fields.js'
 import { vampireFields } from '../../../splats/vampire/actors/data-models/vampire-fields.js'
+import { migrateHumanityData } from '../../../splats/vampire/scripts/humanity.js'
 
 export class WoDPlayerActorModel extends foundry.abstract.TypeDataModel {
+  static migrateData(source) {
+    return super.migrateData(migrateHumanityData(source))
+  }
+
   static defineSchema() {
     const fields = foundry.data.fields
 

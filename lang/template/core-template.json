@@ -15,8 +15,8 @@
       "_flaw": "",
       "_lifepath": "",
       "_merit": "",
-      "_nature": "",
       "_npcAbility": "",
+      "_path": "",
       "_resource": ""
     }
   },
@@ -255,6 +255,7 @@
       "_ConsoleLog": "",
       "_InitializingSchreckNet": "",
       "_LoadingSubroutines": "",
+      "_ObsoleteItemsMigrationFailed": "",
       "_ShreckNetInitialized": ""
     },
     "NPC": {

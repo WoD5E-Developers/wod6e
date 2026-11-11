@@ -1,0 +1,22 @@
+{{#> "systems/wod6e/templates/core/chat/base-item.hbs"}}
+<section class="item-card-section">
+  <h5>{{localize 'WOD6E.VAMPIRE.Teachings'}}</h5>
+  <p>{{ system.teachings }}</p>
+</section>
+<table>
+  <thead>
+    <tr>
+      <th>{{localize 'WOD6E.VAMPIRE.Precepts'}}</th>
+      <th>{{localize 'WOD6E.VAMPIRE.Violations'}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each system.precepts as |row|}}
+    <tr>
+      <td>{{ row.precept }}</td>
+      <td>{{ row.violation }}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+{{/"systems/wod6e/templates/core/chat/base-item.hbs"}}

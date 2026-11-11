@@ -40,7 +40,7 @@ export const prepareConditionEffectsContext = async function (context, item) {
 
   const modifierTraitGroups = groupSelectOptions(
     await getTargetOptions({
-      types: ['attributes', 'skills', 'disciplines', 'generationModifiers'],
+      types: ['attributes', 'skills', 'disciplines', 'generationModifiers', 'humanity'],
       usePaths: true,
       actor: item.actor
     })

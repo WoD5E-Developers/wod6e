@@ -1,6 +1,7 @@
 import { generateVitaeMax, hasBeast } from './vitae.js'
+import { getActivePath, markViolations } from '../../../splats/vampire/scripts/humanity.js'
 
-export async function feedActor(actor, { amount, killedHuman = false }) {
+export async function feedActor(actor, { amount, killedHuman = false, endangeredHuman = false }) {
   if (!actor?.isOwner || !actor.system.vitae || !Number.isInteger(amount) || amount < 1) {
     throw new Error(game.i18n.localize('WOD6E.RESOURCES.InvalidFeeding'))
   }
@@ -12,6 +13,16 @@ export async function feedActor(actor, { amount, killedHuman = false }) {
   }
   if (restoresWillpower) {
     update['system.willpower.value'] = Math.min(actor.system.willpower.max, previousWillpower + 1)
+  }
+  if (
+    hasBeast(actor) &&
+    actor.system.vampire?.humanity &&
+    getActivePath(actor).system.pathType === 'humanity' &&
+    (killedHuman || endangeredHuman)
+  ) {
+    const humanity = markViolations(actor.system.vampire.humanity, killedHuman ? 2 : 1)
+    update['system.vampire.humanity.value'] = humanity.value
+    update['system.vampire.humanity.violations'] = humanity.violations
   }
   await actor.update(update)
 
@@ -65,6 +76,16 @@ export async function _onFeed(event) {
     Object.assign(checkbox, { type: 'checkbox', name: 'killedHuman' })
     label.append(checkbox, localize('DrainHuman'))
     content.append(label)
+    if (getActivePath(actor).system.pathType === 'humanity') {
+      const endangeredLabel = document.createElement('label')
+      endangeredLabel.className = 'form-group'
+      const endangeredInput = document.createElement('input')
+      Object.assign(endangeredInput, { type: 'checkbox', name: 'endangeredHuman' })
+      endangeredLabel.append(endangeredInput, game.i18n.localize('WOD6E.VAMPIRE.EndangeredHuman'))
+      const hint = document.createElement('p')
+      hint.textContent = game.i18n.localize('WOD6E.VAMPIRE.FeedingViolations')
+      content.append(endangeredLabel, hint)
+    }
   }
   return foundry.applications.api.DialogV2.wait({
     window: { title: localize('Feed') },
@@ -80,7 +101,8 @@ export async function _onFeed(event) {
           try {
             await feedActor(actor, {
               amount: button.form.elements.amount.valueAsNumber,
-              killedHuman: button.form.elements.killedHuman?.checked ?? false
+              killedHuman: button.form.elements.killedHuman?.checked ?? false,
+              endangeredHuman: button.form.elements.endangeredHuman?.checked ?? false
             })
             await dialog.close()
             return true

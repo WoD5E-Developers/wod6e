@@ -53,6 +53,9 @@ import { EffectTypes } from './core/config/effect-types.js'
 import { GenerationCategories } from './splats/vampire/config/generations-categories.js'
 import { CoterieTypes } from './splats/vampire/config/coterie-types.js'
 import { WoDChatLog } from './core/ui/wod-chat-log.js'
+import { initializeHumanityPaths } from './splats/vampire/scripts/humanity.js'
+import { createPathItemData } from './splats/vampire/scripts/paths.js'
+import { obsoleteItemsSetting, removeObsoleteItems } from './core/scripts/obsolete-items.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -109,6 +112,25 @@ Hooks.on('dropCanvasData', ActorUX._onDropCanvasItem.bind(ActorUX))
 
 // Anything that needs to be ran alongside the initialisation of the world
 Hooks.once('init', async function () {
+  game.settings.register('wod6e', obsoleteItemsSetting, {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  })
+
+  Hooks.on('preCreateItem', (document, data) => {
+    if (data.type !== 'path' || !document.parent?.items) return
+    if (document.parent.items.some((item) => item.type === 'path' && item.id !== document.id)) {
+      ui.notifications.warn(game.i18n.localize('WOD6E.VAMPIRE.OnePathOnly'))
+      return false
+    }
+    if (foundry.utils.isEmpty(data.system ?? {})) {
+      const { img, system, flags } = createPathItemData()
+      document.updateSource({ img: data.img ?? img, system, flags })
+    }
+  })
+
   // Custom document classes
   CONFIG.Actor.documentClass = WoDActor
   CONFIG.Dice.rolls.push(WOD6eRoll)
@@ -168,6 +190,15 @@ Hooks.once('init', async function () {
 
 // Anything that needs to run once the world is fully loaded
 Hooks.once('ready', async function () {
+  try {
+    await removeObsoleteItems()
+  } catch (error) {
+    console.error('WOD6E | Retired item migration failed', error)
+    ui.notifications.error(game.i18n.localize('WOD6E.NOTIFICATIONS.ObsoleteItemsMigrationFailed'))
+  }
+
+  await initializeHumanityPaths()
+
   // Flavourtext
   console.log(
     game.i18n.format('WOD6E.NOTIFICATIONS.ConsoleLog', {

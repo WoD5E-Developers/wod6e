@@ -15,8 +15,8 @@
       "flaw": "Flaw",
       "lifepath": "Lifepath",
       "merit": "Merit",
-      "nature": "Nature",
       "npcAbility": "NPC Ability",
+      "path": "Path",
       "resource": "Resource"
     }
   },
@@ -255,6 +255,7 @@
       "ConsoleLog": "World of Darkness 6th Edition | {string}",
       "InitializingSchreckNet": "Initializing SchreckNet",
       "LoadingSubroutines": "SchreckNet: Loading subroutines",
+      "ObsoleteItemsMigrationFailed": "Some retired items could not be removed. Foundry will retry the next time the GM opens the world.",
       "ShreckNetInitialized": "ShreckNet Initialized - Welcome to the World of Darkness."
     },
     "NPC": {

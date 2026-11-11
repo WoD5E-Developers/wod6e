@@ -51,11 +51,10 @@
       "resource": {},
       "condition": {},
       "npcAbility": {},
-
       "clan": {},
       "clanTrait": {},
-      "nature": {},
-      "discipline": {}
+      "discipline": {},
+      "path": {}
     }
   },
   "flags": {
@@ -117,6 +116,17 @@
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
       }
+    },
+    {
+      "label": "Paths of Enlightenment",
+      "type": "Item",
+      "name": "paths",
+      "path": "packs/paths",
+      "system": "wod6e",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
   "packFolders": [
@@ -126,7 +136,8 @@
       "packs": [
         "clans",
         "actions",
-        "conditions"
+        "conditions",
+        "paths"
       ],
       "color": "#8c0303"
     }

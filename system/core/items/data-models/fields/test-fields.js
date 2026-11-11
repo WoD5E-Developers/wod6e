@@ -12,6 +12,8 @@ export function testFields() {
     attributeMode: new fields.StringField({ initial: 'any', choices: ['any', 'all'] }),
     skillMode: new fields.StringField({ initial: 'any', choices: ['any', 'all'] }),
     disciplineMode: new fields.StringField({ initial: 'any', choices: ['any', 'all'] }),
+    resistBeast: new fields.BooleanField({ initial: false }),
+    humanityModifier: new fields.BooleanField({ initial: false }),
     bargainRule: new fields.StringField({
       initial: 'standard',
       choices: ['standard', 'forbidden']

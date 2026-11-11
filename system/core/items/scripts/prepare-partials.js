@@ -57,6 +57,8 @@ export async function prepareTestContext(context, item) {
     attributeMode: test.attributeMode ?? 'any',
     skillMode: test.skillMode ?? 'any',
     disciplineMode: test.disciplineMode ?? 'any',
+    resistBeast: test.resistBeast ?? false,
+    humanityModifier: test.humanityModifier ?? false,
     bargainRule: test.bargainRule ?? 'standard',
     bargainRuleOptions: {
       standard: 'WOD6E.ROLL.BargainStandard',
@@ -83,7 +85,7 @@ export async function prepareTestContext(context, item) {
     modifierTraitGroups: groupSelectOptions(
       (
         await getTargetOptions({
-          types: ['attributes', 'skills', 'disciplines', 'generationModifiers'],
+          types: ['attributes', 'skills', 'disciplines', 'generationModifiers', 'humanity'],
           usePaths: true,
           actor: item.actor
         })
