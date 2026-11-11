@@ -26,7 +26,7 @@ export function generateHealthMax(actor) {
   // Custom actor types without Attributes retain their configured maximum
   if (!Number.isFinite(stamina)) return actor.system.health?.max ?? 1
 
-  const healthMaximum = 10 + stamina
+  const healthMaximum = 5 + stamina
 
   return healthMaximum
 }
@@ -47,7 +47,7 @@ export function generateWillpowerMax(actor) {
   if (!Number.isFinite(composure) || !Number.isFinite(resolve)) {
     return actor.system.willpower?.max ?? 1
   }
-  const willpowerMaximum = 5 + composure + resolve
+  const willpowerMaximum = composure + resolve
 
   return willpowerMaximum
 }
