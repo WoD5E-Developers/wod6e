@@ -1,7 +1,7 @@
 import { RollDialog } from '../dialogs/roll-dialog.js'
 import { WOD6eRoll } from './wod6e-roll.js'
-
-const pendingBargains = new Set()
+import { pendingTestUpdates } from './test-locks.js'
+import { canRerollWithWillpower, promptWillpowerReroll } from './willpower-reroll.js'
 
 // Follow-ups are Storyteller decisions; the original dice and margin remain recorded.
 export function getFollowupRoll(message) {
@@ -26,12 +26,16 @@ export function renderTestFollowupButtons(message, html) {
   const content = html.querySelector('.message-content')
   if (!content) return
   content.querySelector(':scope > .wod6e-test-actions')?.remove()
-  const available = getAvailableFollowups(message)
+  const available = {
+    ...getAvailableFollowups(message),
+    willpower: canRerollWithWillpower(message)
+  }
   const footer = document.createElement('div')
   footer.className = 'wod6e-test-actions'
   for (const [action, label, description, handler] of [
     ['bargain', 'BeastsBargain', 'BeastsBargainHint', promptBeastsBargain],
-    ['retry', 'Retry', 'RetryRules', openRetry]
+    ['retry', 'Retry', 'RetryRules', openRetry],
+    ['willpower', 'WillpowerReroll', 'WillpowerRerollHint', promptWillpowerReroll]
   ]) {
     const denied = action === 'bargain' && available.bargainDenied
     if (!available[action] && !denied) continue
@@ -60,14 +64,14 @@ export function renderTestFollowupButtons(message, html) {
 }
 
 export async function denyBeastsBargain(message) {
-  if (!getAvailableFollowups(message).bargain || pendingBargains.has(message.id)) {
+  if (!getAvailableFollowups(message).bargain || pendingTestUpdates.has(message.id)) {
     throw new Error(game.i18n.localize('WOD6E.ROLL.BargainUnavailable'))
   }
-  pendingBargains.add(message.id)
+  pendingTestUpdates.add(message.id)
   try {
     await message.setFlag('wod6e', 'beastsBargainDenied', true)
   } finally {
-    pendingBargains.delete(message.id)
+    pendingTestUpdates.delete(message.id)
   }
 }
 
@@ -91,14 +95,14 @@ export async function applyBeastsBargain(message, { cost, acceptedByPlayer }) {
     cost: cost.trim(),
     originalMarginOfFailure: roll.marginOfFailure
   }
-  if (pendingBargains.has(message.id)) {
+  if (pendingTestUpdates.has(message.id)) {
     throw new Error(game.i18n.localize('WOD6E.ROLL.BargainUnavailable'))
   }
-  pendingBargains.add(message.id)
+  pendingTestUpdates.add(message.id)
   try {
     await message.update({ rolls: [JSON.stringify(data)] })
   } finally {
-    pendingBargains.delete(message.id)
+    pendingTestUpdates.delete(message.id)
   }
 }
 

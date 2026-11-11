@@ -326,6 +326,7 @@
       "_RollingString": "",
       "_RollResolution": "",
       "_SelectSkillForFocus": "",
+      "_SpendWillpower": "",
       "_SuccessBy": "",
       "_Successes": "",
       "_SuccessSingular": "",
@@ -333,7 +334,12 @@
       "_TakingHalfHint": "",
       "_TakingHalfPool": "",
       "_TakingHalfUnavailable": "",
-      "_VsDifficulty": ""
+      "_VsDifficulty": "",
+      "_WillpowerReroll": "",
+      "_WillpowerRerollHint": "",
+      "_WillpowerRerollMessage": "",
+      "_WillpowerRerollMessageSingular": "",
+      "_WillpowerRerollUnavailable": ""
     },
     "Settings": {
       "_CustomActionGroups": "",

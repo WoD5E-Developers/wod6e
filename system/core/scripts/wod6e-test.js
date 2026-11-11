@@ -1,12 +1,14 @@
 import { ActorEffects } from '../actors/scripts/actor-effects.js'
 import { WOD6eRoll } from './wod6e-roll.js'
 import { hasDifferentApproach } from './test-resolution.js'
+import { getHunger, hasBeast } from '../actors/scripts/vitae.js'
+import { getItemCost, withResourceSpend } from '../actors/scripts/resource-spending.js'
+import { pendingTestUpdates } from './test-locks.js'
 
 export class WOD6eTest {
-  static pendingRetries = new Set()
-
   static async executeTest({
     actor,
+    item = null,
     context,
     title = '',
     flavor = '',
@@ -19,7 +21,7 @@ export class WOD6eTest {
       if (
         !game.user.isGM ||
         !previous?.canRetry ||
-        this.pendingRetries.has(context.retryOf) ||
+        pendingTestUpdates.has(context.retryOf) ||
         retrySource.getFlag('wod6e', 'retryUsed') ||
         retrySource.speakerActor?.uuid !== actor?.uuid ||
         context.testType !== 'standard' ||
@@ -60,44 +62,58 @@ export class WOD6eTest {
       string: `${context.dicePool}d10`
     })
 
-    const roll = new WOD6eRoll(
-      context.dicePool,
-      {},
-      {
-        ...context
-      }
-    )
-
-    // Consume the retry when it is actually attempted, not when its dialog opens.
-    if (retrySource) {
-      this.pendingRetries.add(retrySource.id)
-      try {
-        await retrySource.setFlag('wod6e', 'retryUsed', true)
-      } finally {
-        this.pendingRetries.delete(retrySource.id)
-      }
-    }
-    await roll.evaluate({ allowInteractive: messageMode !== 'blind' })
-
-    if (createMessage) {
-      const whisper = retrySource ? [...retrySource.whisper] : []
-      if (whisper.length && !retrySource.blind && retrySource.author?.id) {
-        whisper.push(retrySource.author.id)
-      }
-      await roll.toMessage(
+    const costItem = item ?? (context.itemUuid ? fromUuidSync(context.itemUuid) : null)
+    return withResourceSpend(actor, getItemCost(costItem), async () => {
+      // Re-read Vitae after paying the cost, including changes while the dialog was open.
+      if (actor?.system?.vitae) context.hungerDice = getHunger(actor)
+      if (actor?.system) context.hasBeast = hasBeast(actor)
+      const roll = new WOD6eRoll(
+        context.dicePool,
+        {},
         {
-          speaker: ChatMessage.getSpeaker({ actor }),
-          title,
-          flavor,
-          ...(retrySource ? { whisper: [...new Set(whisper)], blind: retrySource.blind } : {})
-        },
-        {
-          messageMode
+          ...context
         }
       )
-    }
 
-    return roll
+      // Consume the retry when it is actually attempted, not when its dialog opens.
+      if (retrySource) {
+        // Paying an item cost yields; the original may have changed in the meantime.
+        if (
+          !retrySource.rolls[0]?.canRetry ||
+          retrySource.getFlag('wod6e', 'retryUsed') ||
+          pendingTestUpdates.has(retrySource.id)
+        ) {
+          throw new Error(game.i18n.localize('WOD6E.ROLL.RetryUnavailable'))
+        }
+        pendingTestUpdates.add(retrySource.id)
+        try {
+          await retrySource.setFlag('wod6e', 'retryUsed', true)
+        } finally {
+          pendingTestUpdates.delete(retrySource.id)
+        }
+      }
+      await roll.evaluate({ allowInteractive: messageMode !== 'blind' })
+
+      if (createMessage) {
+        const whisper = retrySource ? [...retrySource.whisper] : []
+        if (whisper.length && !retrySource.blind && retrySource.author?.id) {
+          whisper.push(retrySource.author.id)
+        }
+        await roll.toMessage(
+          {
+            speaker: ChatMessage.getSpeaker({ actor }),
+            title,
+            flavor,
+            ...(retrySource ? { whisper: [...new Set(whisper)], blind: retrySource.blind } : {})
+          },
+          {
+            messageMode
+          }
+        )
+      }
+
+      return roll
+    })
   }
 
   static applyEffects(actor, test) {

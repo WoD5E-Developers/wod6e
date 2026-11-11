@@ -326,6 +326,7 @@
       "RollingString": "Rolling {string}",
       "RollResolution": "Roll Resolution",
       "SelectSkillForFocus": "Select a skill with a focus to use it.",
+      "SpendWillpower": "Spend 1 Willpower",
       "SuccessBy": "Success by {margin}",
       "Successes": "successes",
       "SuccessSingular": "success",
@@ -333,7 +334,12 @@
       "TakingHalfHint": "PCs may Take Half outside stressful situations. The Storyteller may Take Half for NPC opposition, including in conflicts.",
       "TakingHalfPool": "Taking Half of {pool} dice",
       "TakingHalfUnavailable": "PCs cannot Take Half in conflicts or other stressful situations.",
-      "VsDifficulty": "vs Difficulty"
+      "VsDifficulty": "vs Difficulty",
+      "WillpowerReroll": "Willpower Reroll",
+      "WillpowerRerollHint": "Spend 1 Willpower to reroll one to three ordinary dice. Hunger dice cannot be rerolled. Once per test.",
+      "WillpowerRerollMessage": "{character} spent 1 Willpower to reroll {number} dice.",
+      "WillpowerRerollMessageSingular": "{character} spent 1 Willpower to reroll {number} die.",
+      "WillpowerRerollUnavailable": "This Willpower reroll is no longer available. Select one to three ordinary dice on an eligible test with at least 1 Willpower remaining."
     },
     "Settings": {
       "CustomActionGroups": "Custom Action Groups",

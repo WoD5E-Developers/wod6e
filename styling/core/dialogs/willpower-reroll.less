@@ -1,0 +1,68 @@
+.willpower-reroll-dialog .willpower-dice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  .willpower-die-choice {
+    --willpower-die-fill: var(--color-text-primary);
+    --willpower-die-text: var(--fa-inverse);
+    display: inline-grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    margin: 0;
+    padding: 8px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: transparent;
+    box-shadow: none;
+    cursor: pointer;
+
+    &:hover:not(:disabled),
+    &:focus-visible {
+      border-color: var(--color-warm-1);
+    }
+
+    &.die-selected {
+      --willpower-die-fill: var(--color-warm-1);
+      --willpower-die-text: var(--color-dark-1);
+      border-color: var(--color-warm-1);
+      background: color-mix(in srgb, var(--color-warm-1) 15%, transparent);
+      box-shadow: inset 0 0 0 1px var(--color-warm-1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+
+  .willpower-die {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    color: var(--willpower-die-fill);
+    pointer-events: none;
+
+    > i {
+      width: 100%;
+      font-size: 36px;
+      line-height: 1;
+      text-align: center;
+    }
+  }
+
+  .willpower-die-value {
+    position: absolute;
+    padding: 1px 2px;
+    border-radius: 2px;
+    background: var(--willpower-die-fill);
+    color: var(--willpower-die-text);
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+}
