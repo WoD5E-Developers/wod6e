@@ -12,6 +12,10 @@ export function testFields() {
     attributeMode: new fields.StringField({ initial: 'any', choices: ['any', 'all'] }),
     skillMode: new fields.StringField({ initial: 'any', choices: ['any', 'all'] }),
     disciplineMode: new fields.StringField({ initial: 'any', choices: ['any', 'all'] }),
+    bargainRule: new fields.StringField({
+      initial: 'standard',
+      choices: ['standard', 'forbidden']
+    }),
 
     modifier: new fields.SchemaField({
       valueSource: new fields.StringField({

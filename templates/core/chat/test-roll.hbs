@@ -28,5 +28,17 @@
         </strong>
       </div>
     {{/if}}
+    {{#if resolution.isPainfulFailure}}
+      <div class="wod6e-test-result"><strong>{{localize 'WOD6E.ROLL.PainfulFailure'}}</strong></div>
+    {{/if}}
+    {{#if resolution.isBestialFailure}}
+      <div class="wod6e-test-result"><strong>{{localize 'WOD6E.ROLL.BestialFailure'}}</strong></div>
+    {{/if}}
+    {{#if resolution.bargainCost}}
+      <div class="wod6e-test-result">{{resolution.bargainCost}}</div>
+    {{/if}}
+    {{#if resolution.isRetry}}
+      <p class="wod6e-test-guidance">{{localize 'WOD6E.ROLL.RetryAttempt'}}</p>
+    {{/if}}
   </div>
 </div>

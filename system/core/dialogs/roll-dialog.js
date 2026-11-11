@@ -9,6 +9,7 @@ import { _calculateDicePool } from './scripts/calculate-dice-pool.js'
 import { _getTestText } from './scripts/get-test-text.js'
 import { resolveModifierValue } from '../actors/scripts/resolve-modifier-value.js'
 import { ActorEffects } from '../actors/scripts/actor-effects.js'
+import { hasDifferentApproach } from '../scripts/test-resolution.js'
 
 const { DialogV2 } = foundry.applications.api
 const { renderTemplate } = foundry.applications.handlebars
@@ -148,13 +149,17 @@ export class RollDialog {
       disciplineMode: testData?.disciplineMode ?? (item ? 'any' : 'all'),
       testType: testData?.testType ?? 'standard',
       resolutionMode: 'roll',
+      hungerDice: testData?.hungerDice ?? actor.system?.hunger?.value ?? 0,
+      bargainRule: testData?.bargainRule ?? 'standard',
+      retryOf: testData?.retryOf ?? '',
       isAttack: testData?.isAttack ?? item?.system?.role === 'attack',
       isDefense: testData?.isDefense ?? item?.system?.role === 'defense',
       inConflict: testData?.inConflict ?? false,
       difficulty: Math.max(difficulty ?? 1, 0),
-      itemModifier:
-        resolveModifierValue(actor, testData?.modifier) *
-        (testData?.modifier?.mode === 'subtract' ? -1 : 1),
+      itemModifier: testData?.retryOf
+        ? (testData.itemModifier ?? 0)
+        : resolveModifierValue(actor, testData?.modifier) *
+          (testData?.modifier?.mode === 'subtract' ? -1 : 1),
       conditionEffectIds: null,
       focus: ''
     }
@@ -240,7 +245,19 @@ export class RollDialog {
       { ...data, focus: selectedFocus },
       { clamp: false }
     )
-    const difficulty = Math.max(data?.difficulty ?? 1, 0)
+    const retrySource = data.retryOf ? game.messages.get(data.retryOf) : null
+    const previous = retrySource?.rolls?.[0]
+    if (data.retryOf) {
+      canRoll &&= Boolean(
+        game.user.isGM &&
+        previous?.canRetry &&
+        !retrySource.getFlag('wod6e', 'retryUsed') &&
+        hasDifferentApproach(previous.options, data)
+      )
+    }
+    const difficulty = previous
+      ? previous.options.difficulty + 1
+      : Math.max(data?.difficulty ?? 1, 0)
     const testType = (data?.testType ?? 'standard') === 'standard' ? 'standard' : 'unopposed'
     const resolutionMode = data?.resolutionMode === 'takeHalf' ? 'takeHalf' : 'roll'
     const effectTest = {
@@ -278,6 +295,13 @@ export class RollDialog {
 
     const dicePool = Math.max(effectTest.dicePool, 0)
     const dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', { string: `${dicePool}d10` })
+    const hasBeast =
+      actor.type === 'vampire' ||
+      ['vampire', 'duskborn'].includes(
+        String(actor.system?.creatureType ?? '')
+          .trim()
+          .toLowerCase()
+      )
 
     return {
       actor,
@@ -293,6 +317,11 @@ export class RollDialog {
         disciplineMode: data?.disciplineMode ?? 'all',
         testType,
         resolutionMode,
+        hungerDice: Math.max(0, Math.min(5, Math.floor(Number(data.hungerDice) || 0))),
+        hasBeast,
+        showHunger: hasBeast || data.hungerDice > 0,
+        bargainRule: data.bargainRule ?? 'standard',
+        retryOf: data.retryOf ?? '',
         isAttack: data?.isAttack ?? false,
         isDefense: data?.isDefense ?? false,
         inConflict: data?.inConflict ?? false,
@@ -576,6 +605,9 @@ export class RollDialog {
       disciplineMode: rollForm?.dataset.disciplineMode ?? 'all',
       testType,
       resolutionMode: 'roll',
+      hungerDice: form.querySelector('[name="hungerDice"]')?.valueAsNumber ?? 0,
+      bargainRule: rollForm?.dataset.bargainRule ?? 'standard',
+      retryOf: rollForm?.dataset.retryOf ?? '',
       isAttack: rollForm?.dataset.isAttack === 'true',
       isDefense: rollForm?.dataset.isDefense === 'true',
       inConflict: rollForm?.dataset.inConflict === 'true',

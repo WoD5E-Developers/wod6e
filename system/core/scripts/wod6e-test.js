@@ -1,7 +1,10 @@
 import { ActorEffects } from '../actors/scripts/actor-effects.js'
 import { WOD6eRoll } from './wod6e-roll.js'
+import { hasDifferentApproach } from './test-resolution.js'
 
 export class WOD6eTest {
+  static pendingRetries = new Set()
+
   static async executeTest({
     actor,
     context,
@@ -10,6 +13,25 @@ export class WOD6eTest {
     messageMode = game.settings.get('core', 'messageMode'),
     createMessage = true
   }) {
+    const retrySource = context.retryOf ? game.messages.get(context.retryOf) : null
+    if (context.retryOf) {
+      const previous = retrySource?.rolls?.[0]
+      if (
+        !game.user.isGM ||
+        !previous?.canRetry ||
+        this.pendingRetries.has(context.retryOf) ||
+        retrySource.getFlag('wod6e', 'retryUsed') ||
+        retrySource.speakerActor?.uuid !== actor?.uuid ||
+        context.testType !== 'standard' ||
+        context.difficulty !== previous.options.difficulty + 1 ||
+        !hasDifferentApproach(previous.options, context)
+      ) {
+        throw new Error(game.i18n.localize('WOD6E.ROLL.RetryUnavailable'))
+      }
+    }
+    if (retrySource) {
+      messageMode = retrySource.blind ? 'blind' : retrySource.whisper.length ? 'gm' : 'public'
+    }
     const test = {
       attribute: context.attributes,
       skill: context.skills,
@@ -46,14 +68,28 @@ export class WOD6eTest {
       }
     )
 
+    // Consume the retry when it is actually attempted, not when its dialog opens.
+    if (retrySource) {
+      this.pendingRetries.add(retrySource.id)
+      try {
+        await retrySource.setFlag('wod6e', 'retryUsed', true)
+      } finally {
+        this.pendingRetries.delete(retrySource.id)
+      }
     }
+    await roll.evaluate({ allowInteractive: messageMode !== 'blind' })
 
     if (createMessage) {
+      const whisper = retrySource ? [...retrySource.whisper] : []
+      if (whisper.length && !retrySource.blind && retrySource.author?.id) {
+        whisper.push(retrySource.author.id)
+      }
       await roll.toMessage(
         {
           speaker: ChatMessage.getSpeaker({ actor }),
           title,
-          flavor
+          flavor,
+          ...(retrySource ? { whisper: [...new Set(whisper)], blind: retrySource.blind } : {})
         },
         {
           messageMode
@@ -62,21 +98,6 @@ export class WOD6eTest {
     }
 
     return roll
-  }
-
-  static async _processRollEffects(actor, roll) {
-    await this._processQuickening(actor, roll)
-  }
-
-  static async _processQuickening(actor, roll) {
-    const user = game.user
-
-    if (user.character?.id !== actor.id) return
-
-    // Quickening spent is displayed before the roll message is sent.
-    if (roll.quickeningSpent > 0) {
-      await adjustQuickening(user, -roll.quickeningSpent)
-    }
   }
 
   static applyEffects(actor, test) {

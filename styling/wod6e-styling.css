@@ -1128,6 +1128,116 @@
   font-size: var(--font-size-12);
   font-style: italic;
 }
+.chat-message .wod6e-test-actions {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+.chat-message .wod6e-test-actions button {
+  flex: 1;
+}
+.chat-message .wod6e-test-actions button[data-action='bargain']:disabled {
+  opacity: 0.5;
+}
+
+.application.beasts-bargain-dialog {
+  --bargain-accent: #b99b65;
+  --bargain-text: #e4ddcf;
+  --bargain-surface: #2d2631;
+  --input-focus-outline-color: var(--bargain-accent);
+  max-width: calc(100vw - 24px);
+  background: #0c0a13;
+  border: 1px solid var(--bargain-accent);
+  border-radius: 8px;
+  color: var(--bargain-text);
+}
+.application.beasts-bargain-dialog .window-header {
+  background: #08070b;
+  border-bottom: 1px solid var(--bargain-accent);
+}
+.application.beasts-bargain-dialog .window-content {
+  padding: 24px;
+  overflow-y: auto;
+}
+.application.beasts-bargain-dialog .dialog-form,
+.application.beasts-bargain-dialog .dialog-content {
+  gap: 20px;
+}
+.application.beasts-bargain-dialog .bargain-instruction {
+  margin: 0 0 4px;
+  color: #bdb6ad;
+  line-height: 1.6;
+}
+.application.beasts-bargain-dialog .bargain-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--bargain-text);
+  font-weight: bold;
+}
+.application.beasts-bargain-dialog .bargain-field textarea {
+  width: 100%;
+  background: var(--bargain-surface);
+  border: 1px solid var(--bargain-accent);
+  border-radius: 5px;
+  color: var(--bargain-text);
+  font-family: inherit;
+  font-weight: normal;
+  min-height: 120px;
+  padding: 12px;
+  line-height: 1.5;
+  resize: vertical;
+}
+.application.beasts-bargain-dialog .bargain-confirmation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bargain-surface);
+  border: 1px solid #514650;
+  border-radius: 5px;
+  color: var(--bargain-text);
+  line-height: 1.5;
+  cursor: pointer;
+}
+.application.beasts-bargain-dialog .bargain-confirmation input[type='checkbox'] {
+  --checkbox-background-color: #716675;
+  --checkbox-checked-color: var(--bargain-accent);
+  --checkbox-checkmark-color: #0c0a13;
+  flex: 0 0 var(--checkbox-size);
+  margin: 0;
+}
+.application.beasts-bargain-dialog .form-footer {
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid #66563e;
+}
+.application.beasts-bargain-dialog .form-footer button {
+  --button-background-color: transparent;
+  --button-border-color: var(--bargain-accent);
+  --button-text-color: var(--bargain-text);
+  --button-hover-background-color: var(--bargain-surface);
+  --button-hover-border-color: var(--bargain-accent);
+  --button-hover-text-color: var(--bargain-text);
+  --button-focus-outline-color: var(--bargain-accent);
+  flex: 0 1 auto;
+  min-height: 40px;
+  height: auto;
+  padding: 8px 20px;
+  white-space: normal;
+}
+.application.beasts-bargain-dialog .form-footer button:disabled {
+  opacity: 0.45;
+}
+.application.beasts-bargain-dialog .form-footer button[data-action='accept'] {
+  --button-background-color: var(--bargain-accent);
+  --button-text-color: #0c0a13;
+  --button-hover-background-color: #ccb17f;
+  --button-hover-text-color: #0c0a13;
+  min-width: 160px;
+  font-weight: bold;
+}
 
 .application.dialog .skill-configuration-list,
 .application.dialog .power-visibility-list {

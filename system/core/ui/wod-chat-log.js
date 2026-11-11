@@ -1,4 +1,5 @@
 import { _onRoll } from '../actors/scripts/on-roll.js'
+import { renderTestFollowupButtons } from '../scripts/test-followups.js'
 
 export class WoDChatLog extends foundry.applications.sidebar.tabs.ChatLog {
   /** @inheritDoc */
@@ -8,3 +9,5 @@ export class WoDChatLog extends foundry.applications.sidebar.tabs.ChatLog {
     }
   }
 }
+
+Hooks.on('renderChatMessageHTML', renderTestFollowupButtons)

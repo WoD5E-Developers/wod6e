@@ -57,6 +57,11 @@ export async function prepareTestContext(context, item) {
     attributeMode: test.attributeMode ?? 'any',
     skillMode: test.skillMode ?? 'any',
     disciplineMode: test.disciplineMode ?? 'any',
+    bargainRule: test.bargainRule ?? 'standard',
+    bargainRuleOptions: {
+      standard: 'WOD6E.ROLL.BargainStandard',
+      forbidden: 'WOD6E.ROLL.BargainForbidden'
+    },
     traitModeOptions: {
       any: 'WOD6E.ROLL.ChooseOne',
       all: 'WOD6E.ROLL.AddSelected'

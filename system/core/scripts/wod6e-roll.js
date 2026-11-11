@@ -1,4 +1,4 @@
-import { countSuccesses, resolveTest } from './test-resolution.js'
+import { classifyFailure, countSuccesses, resolveTest } from './test-resolution.js'
 
 export class WOD6eRoll extends foundry.dice.Roll {
   static CHAT_TEMPLATE = 'systems/wod6e/templates/core/chat/test-roll.hbs'
@@ -15,19 +15,28 @@ export class WOD6eRoll extends foundry.dice.Roll {
   constructor(formulaOrPool = 0, data = {}, options = {}) {
     const isFormula = typeof formulaOrPool === 'string'
 
-    const pool = Math.max(isFormula ? options.dicePool : formulaOrPool)
+    const pool = Math.max(Math.floor(Number(isFormula ? options.dicePool : formulaOrPool) || 0), 0)
+    const hunger = Math.min(pool, Math.max(0, Math.floor(Number(options.hungerDice) || 0)))
+    const diceFormula = [
+      pool > hunger ? `${pool - hunger}d10cs>=6` : '',
+      hunger ? `${hunger}d10cs>=6[Hunger]` : ''
+    ]
+      .filter(Boolean)
+      .join(' + ')
     const takeHalf = options.resolutionMode === 'takeHalf'
     const formula = isFormula
       ? formulaOrPool
       : takeHalf
         ? String(Math.ceil(pool / 2))
         : pool > 0
-          ? `${pool}d10cs>=6`
+          ? diceFormula
           : '0'
 
     super(formula, data, options)
 
     this.options.resolutionVersion ??= 2
+    this.options.failureRulesVersion ??= 2
+    this.options.hungerDice ??= hunger
     this.options.dicePool ??= isFormula
       ? this.dice.reduce((total, die) => total + die.number, 0)
       : pool
@@ -38,6 +47,8 @@ export class WOD6eRoll extends foundry.dice.Roll {
     this.options.difficulty = Math.max(this.options.difficulty ?? 1, 0)
     this.options.resolutionMode ??= 'roll'
     this.options.basicSuccesses ??= 0
+    this.options.hasBeast ??= false
+    this.options.bargainRule ??= 'standard'
 
     this.options.automaticFailure ??= false
 
@@ -117,7 +128,16 @@ export class WOD6eRoll extends foundry.dice.Roll {
   }
 
   get resolution() {
-    return resolveTest(this.successes, this.options)
+    const resolution = resolveTest(this.successes, this.options)
+    if (!this.options.beastsBargain?.accepted) return resolution
+    return {
+      ...resolution,
+      isSuccess: true,
+      isResolved: true,
+      margin: 0,
+      marginOfSuccess: 0,
+      marginOfFailure: 0
+    }
   }
 
   get marginOfSuccess() {
@@ -138,6 +158,11 @@ export class WOD6eRoll extends foundry.dice.Roll {
     return this.results.filter((result) => result.result === 10).length
   }
 
+  get hungerOnes() {
+    return this.dice
+      .filter((die) => die.faces === 10 && (die.options.hunger || die.options.flavor === 'Hunger'))
+      .flatMap((die) => die.results)
+      .filter((result) => result.active && result.result === 1).length
   }
 
   // Some success-determining logic; this is just whether the
@@ -146,25 +171,37 @@ export class WOD6eRoll extends foundry.dice.Roll {
     return this.resolution.isSuccess
   }
 
-  // The failure categories are retained until the separate failure-rules update.
+  get failure() {
+    return classifyFailure(this.successes, this.options, {
+      hungerOnes: this.hungerOnes,
+      hasDice: this.results.length > 0
+    })
+  }
+
   get isFailure() {
-    return this.isSuccess === false && !this.isPainfulFailure
+    return !this.options.beastsBargain?.accepted && this.failure.isFailure
   }
 
-  // Whether the test is a painful failure, which means
-  // no successes and at least one 1 (1 one?)
+  // Zero successes, or any failed retry. Ordinary 1s are irrelevant.
   get isPainfulFailure() {
-    if (this.automaticFailure || this.isSuccess !== false) {
-      return false
-    }
-
-    return this.successes === 0 && this.ones > 0
+    return this.failure.isPainfulFailure
   }
 
-  // Whether this roll can potentially use Devil's Bargain
-  // Normal failure and no 1s rolled
-  get canDevilsBargain() {
-    return !this.automaticFailure && this.isFailure && !this.isPainfulFailure
+  get isBestialFailure() {
+    return this.failure.isBestialFailure
+  }
+
+  get canBeastsBargain() {
+    return this.options.failureRulesVersion === 2 && this.failure.canBeastsBargain
+  }
+
+  get canRetry() {
+    return (
+      this.options.failureRulesVersion === 2 &&
+      this.options.testType === 'standard' &&
+      this.isSuccess === false &&
+      !this.options.retryOf
+    )
   }
 
   get automaticFailure() {
@@ -191,7 +228,12 @@ export class WOD6eRoll extends foundry.dice.Roll {
       isFailure: this.isFailure,
       isPainfulFailure: this.isPainfulFailure,
 
-      canDevilsBargain: this.canDevilsBargain,
+      isBestialFailure: this.isBestialFailure,
+      hungerOnes: this.hungerOnes,
+      canBeastsBargain: this.canBeastsBargain,
+      canRetry: this.canRetry,
+      beastsBargain: this.options.beastsBargain ?? null,
+      retryOf: this.options.retryOf ?? null,
       automaticFailure: this.automaticFailure,
 
       testType: this.options.testType,
@@ -208,12 +250,16 @@ export class WOD6eRoll extends foundry.dice.Roll {
 
     const resolution = this.resolution
     const unopposed = this.options.testType !== 'standard'
-    const outcomeLabel =
+    let outcomeLabel =
       !unopposed && resolution.isResolved
         ? game.i18n.format(`WOD6E.ROLL.${resolution.isSuccess ? 'SuccessBy' : 'FailureBy'}`, {
             margin: resolution.isSuccess ? resolution.marginOfSuccess : resolution.marginOfFailure
           })
         : null
+    const currentFailures = this.options.failureRulesVersion === 2
+    if (currentFailures && this.options.beastsBargain?.accepted) {
+      outcomeLabel = game.i18n.localize('WOD6E.ROLL.BeastsBargainWin')
+    }
     return {
       ...context,
       formula:
@@ -223,6 +269,10 @@ export class WOD6eRoll extends foundry.dice.Roll {
       resolution: {
         ...resolution,
         outcomeLabel,
+        isPainfulFailure: currentFailures && this.isPainfulFailure,
+        isBestialFailure: currentFailures && this.isBestialFailure,
+        isRetry: currentFailures && Boolean(this.options.retryOf),
+        bargainCost: currentFailures ? this.options.beastsBargain?.cost : null,
         automaticFailure: this.automaticFailure,
         unopposed,
         difficulty: this.options.difficulty
@@ -233,7 +283,11 @@ export class WOD6eRoll extends foundry.dice.Roll {
   static fromData(data) {
     return super.fromData({
       ...data,
-      options: { ...data.options, resolutionVersion: data.options?.resolutionVersion ?? 1 }
+      options: {
+        ...data.options,
+        resolutionVersion: data.options?.resolutionVersion ?? 1,
+        failureRulesVersion: data.options?.failureRulesVersion ?? 1
+      }
     })
   }
 

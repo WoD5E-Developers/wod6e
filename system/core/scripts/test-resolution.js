@@ -1,9 +1,37 @@
-// Count number of successes returned for a role
+// Count successes from active dice; a 10 counts twice.
 export function countSuccesses(results) {
   return results.reduce((total, die) => {
     if (!die.active) return total
     return total + (die.result === 10 ? 2 : die.result >= 6 ? 1 : 0)
   }, 0)
+}
+
+// PG 97–98, 103; ST 14. Painful and bestial failure can occur together.
+export function classifyFailure(successes, options, { hungerOnes = 0, hasDice = true } = {}) {
+  const failed = resolveTest(successes, options).isSuccess === false
+  const automatic = options.automaticFailure || options.dicePool === 0
+  const isPainfulFailure =
+    failed && (Boolean(options.retryOf) || (!automatic && hasDice && successes === 0))
+  const isBestialFailure = failed && !automatic && hungerOnes > 0
+  const isFailure = failed && !isPainfulFailure && !isBestialFailure
+  const canBeastsBargain =
+    isFailure &&
+    !automatic &&
+    options.hasBeast === true &&
+    options.bargainRule !== 'forbidden' &&
+    !options.beastsBargain?.accepted &&
+    !options.retryOf
+
+  return { isFailure, isPainfulFailure, isBestialFailure, canBeastsBargain }
+}
+
+// A retry is a new attempt, not a reroll of the same pool (PG 98).
+export function hasDifferentApproach(previous, next) {
+  return ['attributes', 'skills'].some((group) => {
+    const before = new Set(previous[group] ?? [])
+    const after = new Set(next[group] ?? [])
+    return [...after].some((trait) => !before.has(trait))
+  })
 }
 
 // Resolve what the outcome of the test is

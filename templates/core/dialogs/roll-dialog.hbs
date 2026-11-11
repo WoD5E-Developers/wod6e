@@ -9,6 +9,8 @@
   data-is-attack="{{ test.isAttack }}"
   data-is-defense="{{ test.isDefense }}"
   data-in-conflict="{{ test.inConflict }}"
+  data-bargain-rule="{{ test.bargainRule }}"
+  data-retry-of="{{ test.retryOf }}"
 >
   <header class="roll-dialog-header">
     <div class="roll-pool">
@@ -33,6 +35,7 @@
           value="{{ test.difficulty }}"
           min="0"
           step="1"
+          {{#if test.retryOf}}readonly{{/if}}
         />
       </label>
     </div>
@@ -45,7 +48,7 @@
       </label>
 
       <div class="roll-resolution-select">
-        <select name="testType" title="{{localize 'WOD6E.ROLL.RollResolution'}}">
+        <select name="testType" title="{{localize 'WOD6E.ROLL.RollResolution'}}" {{disabled test.retryOf}}>
           {{selectOptions test.testTypeOptions selected=test.testType localize=true}}
         </select>
         <i class="fa-solid fa-chevron-down"></i>
