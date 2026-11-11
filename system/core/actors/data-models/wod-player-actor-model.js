@@ -9,7 +9,13 @@ export class WoDPlayerActorModel extends foundry.abstract.TypeDataModel {
 
     const schema = {}
 
-    Object.assign(schema, coreActorFields())
+    Object.assign(schema, coreActorFields({ includeVitae: true }))
+
+    schema.creatureType = new fields.StringField({
+      initial: 'vampire',
+      choices: ['vampire', 'duskborn', 'ghoul'],
+      nullable: false
+    })
 
     // Determines whether an actor sheet has attribute data for processing
     schema.hasAttributeData = new fields.BooleanField({ initial: true, nullable: false })

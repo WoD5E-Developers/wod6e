@@ -4,6 +4,7 @@ import { hasDifferentApproach } from './test-resolution.js'
 import { getHunger, hasBeast } from '../actors/scripts/vitae.js'
 import { getItemCost, withResourceSpend } from '../actors/scripts/resource-spending.js'
 import { pendingTestUpdates } from './test-locks.js'
+import { postItemCostMessage } from './item-cost.js'
 
 export class WOD6eTest {
   static async executeTest({
@@ -63,7 +64,9 @@ export class WOD6eTest {
     })
 
     const costItem = item ?? (context.itemUuid ? fromUuidSync(context.itemUuid) : null)
-    return withResourceSpend(actor, getItemCost(costItem), async () => {
+    const cost = getItemCost(costItem)
+    let message
+    const roll = await withResourceSpend(actor, cost, async () => {
       // Re-read Vitae after paying the cost, including changes while the dialog was open.
       if (actor?.system?.vitae) context.hungerDice = getHunger(actor)
       if (actor?.system) context.hasBeast = hasBeast(actor)
@@ -99,7 +102,7 @@ export class WOD6eTest {
         if (whisper.length && !retrySource.blind && retrySource.author?.id) {
           whisper.push(retrySource.author.id)
         }
-        await roll.toMessage(
+        message = await roll.toMessage(
           {
             speaker: ChatMessage.getSpeaker({ actor }),
             title,
@@ -114,6 +117,8 @@ export class WOD6eTest {
 
       return roll
     })
+    if (cost && message) await postItemCostMessage({ actor, item: costItem, cost, message })
+    return roll
   }
 
   static applyEffects(actor, test) {

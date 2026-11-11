@@ -2,11 +2,28 @@
   {{#if test.retryOf}}
   <p class="roll-panel-empty">{{localize 'WOD6E.ROLL.RetryRules'}}</p>
   {{/if}}
+  {{#if test.costAmount}}
+  <p>{{localize 'WOD6E.ITEMS.Cost'}}: {{ test.costAmount }} {{localize test.costLabel}}</p>
+  {{#unless test.canAffordCost}}
+  <p>{{localize 'WOD6E.RESOURCES.CostUnavailable'}}</p>
+  {{/unless}}
+  {{/if}}
   {{#if test.showHunger}}
   <section>
     <label>
       {{localize 'WOD6E.ROLL.HungerDice'}}
-      <input type="number" name="hungerDice" value="{{ test.hungerDice }}" min="0" max="5" step="1" />
+      {{#if test.hungerAutomatic}}
+      <output>{{ test.hungerDice }}</output>
+      {{else}}
+      <input
+        type="number"
+        name="hungerDice"
+        value="{{ test.hungerDice }}"
+        min="0"
+        max="5"
+        step="1"
+      />
+      {{/if}}
     </label>
   </section>
   {{/if}}

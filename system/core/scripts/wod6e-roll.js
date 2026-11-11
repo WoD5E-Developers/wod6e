@@ -95,6 +95,23 @@ export class WOD6eRoll extends foundry.dice.Roll {
     this._total = this.successes
   }
 
+  async getTooltip() {
+    const parts = this.dice.map((die) => {
+      const part = die.getTooltipData()
+      if (die.options.hunger || die.options.flavor === 'Hunger') {
+        part.flavor = game.i18n.localize('WOD6E.ROLL.HungerDice')
+        part.rolls = part.rolls.map((roll) => ({
+          ...roll,
+          classes: `${roll.classes} wod6e-hunger-die`
+        }))
+      }
+      return part
+    })
+    return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, {
+      parts
+    })
+  }
+
   // All results from d10s belonging to this roll
   get results() {
     return this.dice

@@ -25,6 +25,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/actors/parts/attributes.hbs',
     'systems/wod6e/templates/core/actors/parts/health-willpower.hbs',
     'systems/wod6e/templates/core/actors/parts/health.hbs',
+    'systems/wod6e/templates/core/actors/parts/vitae.hbs',
     'systems/wod6e/templates/core/actors/parts/willpower.hbs',
     'systems/wod6e/templates/core/actors/parts/settings.hbs',
     'systems/wod6e/templates/core/actors/parts/limited-sheet.hbs',

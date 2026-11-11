@@ -13,9 +13,7 @@
         {{localize health.label}}
       </span>
 
-      <span class="resource-tracker-total">({{ health.value }} / {{ health.max }})</span>
-
-      {{> "systems/wod6e/templates/splats/vampire/actors/parts/blood-surge.hbs"}}
+      <span class="resource-tracker-total">{{ health.value }} / {{ health.max }}</span>
     </header>
 
     <div class="resource-tracker-spaces">

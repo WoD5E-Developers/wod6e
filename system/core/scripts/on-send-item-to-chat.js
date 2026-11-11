@@ -59,6 +59,9 @@ async function prepareChatContext(item) {
   const system = item.system
   const actor = item.actor
   const canRoll = Boolean(system.test && actor && (game.user.isGM || actor.isOwner))
+  const hasTest =
+    system.test?.attributes?.size + system.test?.skills?.size + system.test?.disciplines?.size > 0
+  const hasCost = Boolean(system.activation?.cost?.type && system.activation.cost.type !== 'none')
   const difficultyDefinition = WOD6E.configs.Difficulties.getList({})[system.difficulty?.type]
   const conditionContext = {}
   let conditionSourceName = ''
@@ -88,18 +91,18 @@ async function prepareChatContext(item) {
     conditionSourceName,
     conditionTargetName,
     canRoll,
-    test:
-      system.test?.attributes?.size + system.test?.skills?.size + system.test?.disciplines?.size > 0
-        ? {
-            text: generateTestTextFromItem(item),
-            description: system.test.description,
-            attributes: selectedLabels(WOD6E.configs.Attributes, system.test.attributes),
-            skills: selectedLabels(WOD6E.configs.Skills, system.test.skills),
-            disciplines: selectedLabels(WOD6E.configs.Disciplines, system.test.disciplines)
-          }
-        : null,
+    canPayActivation: !hasTest && actor?.isOwner && hasCost && system.activation.cost.amount > 0,
+    test: hasTest
+      ? {
+          text: generateTestTextFromItem(item),
+          description: system.test.description,
+          attributes: selectedLabels(WOD6E.configs.Attributes, system.test.attributes),
+          skills: selectedLabels(WOD6E.configs.Skills, system.test.skills),
+          disciplines: selectedLabels(WOD6E.configs.Disciplines, system.test.disciplines)
+        }
+      : null,
     activation:
-      system?.activation && system?.activation?.activationType !== 'none'
+      system?.activation && (system.activation.activationType !== 'none' || hasCost)
         ? {
             ...system.activation,
             typeLabel: definitionLabel(WOD6E.configs.Activations, system.activation.activationType),
@@ -107,6 +110,7 @@ async function prepareChatContext(item) {
             distanceLabel: definitionLabel(WOD6E.configs.Distances, system.activation.distance),
             showDuration: system?.activation?.duration !== 'none',
             durationLabel: definitionLabel(WOD6E.configs.Durations, system.activation.duration),
+            showCost: hasCost,
             costLabel: definitionLabel(WOD6E.configs.CostTypes, system.activation.cost?.type),
             damageResourceLabel: definitionLabel(
               WOD6E.configs.ResourceTypes,

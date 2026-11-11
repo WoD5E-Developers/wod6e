@@ -1,5 +1,6 @@
 import { ActorEffects } from './scripts/actor-effects.js'
 import { generateHealthMax, generateWillpowerMax } from './scripts/resource-max-calculations.js'
+import { generateVitaeMax, getHunger } from './scripts/vitae.js'
 
 /**
  * Extend the base ActorSheet document and put all our base functionality here
@@ -96,6 +97,13 @@ export class WoDActor extends Actor {
         0,
         Math.max(0, systemData.willpower.max - systemData.willpower.disabled)
       )
+    }
+
+    if (systemData.vitae) {
+      systemData.vitae.max = generateVitaeMax(this)
+      systemData.vitae.disabled = 0
+      systemData.vitae.value = Math.clamp(systemData.vitae.value, 0, systemData.vitae.max)
+      systemData.hunger = { value: getHunger(this) }
     }
 
     // If the actor is a player, update the default permissions to limited

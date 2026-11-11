@@ -66,6 +66,14 @@
   --tracker-filled: #fdfdfd;
   --tracker-disabled: #fdfdfdde;
   --tracker-disabled-dark: #fff;
+  --resource-panel-background: #101015;
+  --resource-panel-border: #92887d;
+  --resource-panel-text: #e9e5db;
+  --resource-health-fill: #e5e1d7;
+  --resource-health-border: #bdb6aa;
+  --resource-vitae-border: #dd9da4;
+  --resource-willpower-fill: #a08cbe;
+  --resource-willpower-border: #c8bddb;
   --modified-color: #e61c01;
   --multiselect-background: #333332;
   --multiselect-border: #ccc;
@@ -105,6 +113,14 @@
   --tracker-filled: #000;
   --tracker-disabled: #000000de;
   --tracker-disabled-dark: #fff;
+  --resource-panel-background: #e9e4da;
+  --resource-panel-border: #7c7167;
+  --resource-panel-text: #322a26;
+  --resource-health-fill: #746e64;
+  --resource-health-border: #443d33;
+  --resource-vitae-border: #76182a;
+  --resource-willpower-fill: #9580b6;
+  --resource-willpower-border: #685282;
   --modified-color: #851010;
   --multiselect-background: #d5cbab;
   --multiselect-border: #000;
@@ -191,7 +207,8 @@
 .actor.sheet.vampire .window-content {
   overflow-y: scroll;
 }
-.actor.sheet.vampire .blood-surge-button {
+.actor.sheet.vampire .blood-surge-button,
+.actor.sheet.vampire .feed-button {
   font-size: 12px;
 }
 .actor.sheet.vampire .vampire-sheet-body {
@@ -840,7 +857,15 @@
 .actor.sheet [data-actor-section="healthWillpower"] {
   grid-area: healthWillpower;
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.actor.sheet [data-actor-section="healthWillpower"].has-vitae {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr);
+}
+.actor.sheet [data-actor-section="healthWillpower"] > .sheet-part {
+  min-width: 0;
+  padding: 0;
 }
 .actor.sheet [data-actor-section="attributes"] {
   grid-area: attributes;
@@ -978,9 +1003,133 @@
 .resource-tracker .resource-tracker-space.tracker-disabled:focus-visible {
   box-shadow: none;
 }
-.willpower-tracker .resource-tracker-header,
-.willpower-tracker .resource-tracker-spaces {
-  justify-content: flex-end;
+.actor.sheet .resource-panels .resource-tracker {
+  --tracker-background: var(--resource-panel-background);
+  --tracker-text: var(--resource-panel-text);
+  --tracker-disabled: var(--resource-panel-text);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  padding: 12px;
+  border: 1px solid var(--resource-panel-border);
+  border-radius: 6px;
+  background: var(--resource-panel-background);
+  color: var(--resource-panel-text);
+}
+.actor.sheet .resource-panels .health-tracker {
+  --tracker-filled: var(--resource-health-fill);
+  --tracker-border: var(--resource-health-border);
+}
+.actor.sheet .resource-panels .vitae-tracker {
+  --tracker-filled: #991d32;
+  --tracker-border: var(--resource-vitae-border);
+}
+.actor.sheet .resource-panels .willpower-tracker {
+  --tracker-filled: var(--resource-willpower-fill);
+  --tracker-border: var(--resource-willpower-border);
+}
+.actor.sheet .resource-panels .resource-tracker-header {
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--resource-panel-border);
+  line-height: 1.2;
+}
+.actor.sheet .resource-panels .resource-tracker-label {
+  overflow-wrap: anywhere;
+}
+.actor.sheet .resource-panels .resource-tracker-total {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.actor.sheet .resource-panels .resource-tracker-spaces {
+  justify-content: flex-start;
+  gap: 10px 12px;
+}
+.actor.sheet .resource-panels .resource-tracker-group {
+  gap: 3px;
+}
+.actor.sheet .resource-panels .resource-tracker-space {
+  flex: 0 0 20px;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  min-height: 20px;
+}
+.actor.sheet .resource-panels .resource-tracker-space.filled {
+  box-shadow: inset 0 0 0 1px var(--resource-panel-background);
+}
+.actor.sheet .resource-panels .resource-tracker-space.tracker-disabled::before,
+.actor.sheet .resource-panels .resource-tracker-space.tracker-disabled::after {
+  background: var(--resource-panel-text);
+}
+.actor.sheet .resource-panels .resource-tracker-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+}
+.actor.sheet .resource-panels .vitae-hunger,
+.actor.sheet .resource-panels .vitae-actions button {
+  min-height: 26px;
+  padding: 3px 7px;
+  border: 1px solid var(--resource-panel-border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--resource-panel-text);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.actor.sheet .resource-panels .vitae-hunger {
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+}
+.actor.sheet .resource-panels .vitae-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.actor.sheet .resource-panels .vitae-actions button {
+  width: auto;
+  margin: 0;
+}
+.actor.sheet .resource-panels .vitae-actions button:hover,
+.actor.sheet .resource-panels .vitae-actions button:focus-visible {
+  border-color: var(--resource-panel-text);
+  background: color-mix(in srgb, var(--resource-panel-text) 10%, transparent);
+}
+.actor.sheet .resource-panels .feed-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.actor.sheet .resource-panels .feed-button .vampire-fangs {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  gap: 0.25em;
+  pointer-events: none;
+}
+.actor.sheet .resource-panels .feed-button .vampire-fangs::before,
+.actor.sheet .resource-panels .feed-button .vampire-fangs::after {
+  content: '';
+  width: 0.375em;
+  height: 1em;
+  border-radius: 0.1em 0.1em 0 0;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 0, 86% 28%, 84% 52%, 90% 76%, 100% 100%, 54% 79%, 24% 53%, 7% 26%);
+}
+.actor.sheet .resource-panels .feed-button .vampire-fangs::after {
+  transform: scaleX(-1);
 }
 
 .compendium-browser .window-content {
@@ -1138,6 +1287,13 @@
 }
 .chat-message .wod6e-test-actions button[data-action='bargain']:disabled {
   opacity: 0.5;
+}
+
+.dice-tooltip .dice-rolls .roll.wod6e-hunger-die {
+  background-color: #8c1623;
+  color: #fff;
+  border-radius: 4px;
+  text-shadow: 0 1px 2px #000;
 }
 
 .application.beasts-bargain-dialog {
@@ -1364,6 +1520,68 @@
   --roll-resolution-background: rgba(0, 0, 0, 0.1);
   --roll-resolution-border: var(--color-dark-5);
   --roll-resolution-text: var(--color-dark-1);
+}
+
+.willpower-reroll-dialog .willpower-dice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.willpower-reroll-dialog .willpower-dice .willpower-die-choice {
+  --willpower-die-fill: var(--color-text-primary);
+  --willpower-die-text: var(--fa-inverse);
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+}
+.willpower-reroll-dialog .willpower-dice .willpower-die-choice:hover:not(:disabled),
+.willpower-reroll-dialog .willpower-dice .willpower-die-choice:focus-visible {
+  border-color: var(--color-warm-1);
+}
+.willpower-reroll-dialog .willpower-dice .willpower-die-choice.die-selected {
+  --willpower-die-fill: var(--color-warm-1);
+  --willpower-die-text: var(--color-dark-1);
+  border-color: var(--color-warm-1);
+  background: color-mix(in srgb, var(--color-warm-1) 15%, transparent);
+  box-shadow: inset 0 0 0 1px var(--color-warm-1);
+}
+.willpower-reroll-dialog .willpower-dice .willpower-die-choice:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.willpower-reroll-dialog .willpower-dice .willpower-die {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--willpower-die-fill);
+  pointer-events: none;
+}
+.willpower-reroll-dialog .willpower-dice .willpower-die > i {
+  width: 100%;
+  font-size: 36px;
+  line-height: 1;
+  text-align: center;
+}
+.willpower-reroll-dialog .willpower-dice .willpower-die-value {
+  position: absolute;
+  padding: 1px 2px;
+  border-radius: 2px;
+  background: var(--willpower-die-fill);
+  color: var(--willpower-die-text);
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .multi-select-section .multi-select {

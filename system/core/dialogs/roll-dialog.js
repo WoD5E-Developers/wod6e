@@ -10,6 +10,8 @@ import { _getTestText } from './scripts/get-test-text.js'
 import { resolveModifierValue } from '../actors/scripts/resolve-modifier-value.js'
 import { ActorEffects } from '../actors/scripts/actor-effects.js'
 import { hasDifferentApproach } from '../scripts/test-resolution.js'
+import { getHunger, hasBeast } from '../actors/scripts/vitae.js'
+import { canPayCost, getItemCost } from '../actors/scripts/resource-spending.js'
 
 const { DialogV2 } = foundry.applications.api
 const { renderTemplate } = foundry.applications.handlebars
@@ -117,7 +119,7 @@ export class RollDialog {
     const context = this._prepareContext({ actor, item, data }).test
     if (!context.canRoll || (resolutionMode === 'takeHalf' && !context.canTakeHalf)) return
 
-    return WOD6eTest.executeTest({ actor, context, flavor: context.testText })
+    return WOD6eTest.executeTest({ actor, item, context, flavor: context.testText })
   }
 
   /**
@@ -151,6 +153,7 @@ export class RollDialog {
       resolutionMode: 'roll',
       hungerDice: testData?.hungerDice ?? actor.system?.hunger?.value ?? 0,
       bargainRule: testData?.bargainRule ?? 'standard',
+      itemUuid: item?.uuid ?? testData?.itemUuid ?? '',
       retryOf: testData?.retryOf ?? '',
       isAttack: testData?.isAttack ?? item?.system?.role === 'attack',
       isDefense: testData?.isDefense ?? item?.system?.role === 'defense',
@@ -295,13 +298,12 @@ export class RollDialog {
 
     const dicePool = Math.max(effectTest.dicePool, 0)
     const dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', { string: `${dicePool}d10` })
-    const hasBeast =
-      actor.type === 'vampire' ||
-      ['vampire', 'duskborn'].includes(
-        String(actor.system?.creatureType ?? '')
-          .trim()
-          .toLowerCase()
-      )
+    const costItem = item ?? (data.itemUuid ? fromUuidSync(data.itemUuid) : null)
+    const cost = getItemCost(costItem)
+    canRoll &&= canPayCost(actor, cost)
+    const hungerDice = actor.system.vitae
+      ? getHunger(actor, actor.system.vitae.value - (cost?.resource === 'vitae' ? cost.amount : 0))
+      : Math.max(0, Math.min(5, Math.floor(Number(data.hungerDice) || 0)))
 
     return {
       actor,
@@ -317,9 +319,16 @@ export class RollDialog {
         disciplineMode: data?.disciplineMode ?? 'all',
         testType,
         resolutionMode,
-        hungerDice: Math.max(0, Math.min(5, Math.floor(Number(data.hungerDice) || 0))),
-        hasBeast,
-        showHunger: hasBeast || data.hungerDice > 0,
+        hungerDice,
+        hasBeast: hasBeast(actor),
+        showHunger: hasBeast(actor) || hungerDice > 0,
+        hungerAutomatic: Boolean(actor.system.vitae),
+        itemUuid: costItem?.uuid ?? data.itemUuid ?? '',
+        costAmount: cost?.amount ?? 0,
+        costLabel: cost
+          ? `WOD6E.RESOURCES.${cost.resource[0].toUpperCase()}${cost.resource.slice(1)}`
+          : '',
+        canAffordCost: canPayCost(actor, cost),
         bargainRule: data.bargainRule ?? 'standard',
         retryOf: data.retryOf ?? '',
         isAttack: data?.isAttack ?? false,
@@ -607,6 +616,7 @@ export class RollDialog {
       resolutionMode: 'roll',
       hungerDice: form.querySelector('[name="hungerDice"]')?.valueAsNumber ?? 0,
       bargainRule: rollForm?.dataset.bargainRule ?? 'standard',
+      itemUuid: rollForm?.dataset.itemUuid ?? '',
       retryOf: rollForm?.dataset.retryOf ?? '',
       isAttack: rollForm?.dataset.isAttack === 'true',
       isDefense: rollForm?.dataset.isDefense === 'true',
