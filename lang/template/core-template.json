@@ -304,8 +304,15 @@
       "_Willpower": ""
     },
     "ROLL": {
+      "_AddSelected": "",
+      "_AutomaticFailure": "",
+      "_ChooseOne": "",
+      "_ChooseOneTrait": "",
       "_ConditionEffects": "",
+      "_CountSuccesses": "",
       "_CustomModifier": "",
+      "_FailureBy": "",
+      "_FixedDifficulty": "",
       "_NoConditionEffects": "",
       "_NotNormallyApplicable": "",
       "_NoTraitsSelected": "",
@@ -313,8 +320,16 @@
       "_QuickeningUnavailable": "",
       "_Roll": "",
       "_RollingString": "",
+      "_RollResolution": "",
       "_SelectSkillForFocus": "",
       "_SpendQuickening": "",
+      "_SuccessBy": "",
+      "_Successes": "",
+      "_SuccessSingular": "",
+      "_TakeHalf": "",
+      "_TakingHalfHint": "",
+      "_TakingHalfPool": "",
+      "_TakingHalfUnavailable": "",
       "_VsDifficulty": ""
     },
     "Settings": {

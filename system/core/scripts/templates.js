@@ -12,6 +12,7 @@ export const preloadHandlebarsTemplates = async function () {
 
     // Dialog partials
     'systems/wod6e/templates/core/dialogs/roll-dialog-side-panel.hbs',
+    'systems/wod6e/templates/core/dialogs/roll-dialog-trait-select.hbs',
 
     // Item chat card partials
     'systems/wod6e/templates/core/chat/base-item.hbs',

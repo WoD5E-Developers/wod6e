@@ -7,6 +7,12 @@ export function testFields() {
       initial: ''
     }),
 
+    // Existing item lists are alternatives, matching their displayed "or" labels.
+    // "all" also supports additive tests such as Composure + Resolve.
+    attributeMode: new fields.StringField({ initial: 'any', choices: ['any', 'all'] }),
+    skillMode: new fields.StringField({ initial: 'any', choices: ['any', 'all'] }),
+    disciplineMode: new fields.StringField({ initial: 'any', choices: ['any', 'all'] }),
+
     modifier: new fields.SchemaField({
       valueSource: new fields.StringField({
         required: true,

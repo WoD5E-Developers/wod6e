@@ -1306,6 +1306,58 @@
   width: 35px;
   text-align: center;
 }
+.roll-dialog .roll-dialog-header .difficulty-section {
+  border: 0;
+  padding: 0;
+  margin: 4px 0 0;
+}
+.roll-dialog .roll-dialog-header .difficulty-section label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.roll-dialog .roll-dialog-body {
+  margin-top: 16px;
+}
+.roll-dialog .roll-resolution-select,
+.roll-dialog .roll-trait-select {
+  position: relative;
+  width: 100%;
+  color: var(--roll-resolution-text, var(--color-light-3));
+}
+.roll-dialog .roll-resolution-select select,
+.roll-dialog .roll-trait-select select {
+  appearance: none;
+  width: 100%;
+  height: var(--input-height);
+  padding: 0 2rem 0 0.5rem;
+  background: var(--roll-resolution-background, var(--color-cool-5-50));
+  border: 1px solid var(--roll-resolution-border, var(--color-light-5));
+  border-radius: 4px;
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-14);
+  line-height: normal;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.roll-dialog .roll-resolution-select:hover,
+.roll-dialog .roll-trait-select:hover {
+  background: var(--multiselect-hover-background);
+  color: var(--multiselect-hover-color);
+}
+.roll-dialog .roll-resolution-select > i,
+.roll-dialog .roll-trait-select > i {
+  position: absolute;
+  right: calc(0.5rem + 1px);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: var(--font-size-14);
+  transition: color 0.5s;
+}
 .roll-dialog .roll-dialog-side-panel {
   position: absolute;
   right: -275px;
@@ -1314,15 +1366,18 @@
   border: 1px solid;
   padding: 10px;
 }
-.roll-dialog .roll-dialog-side-panel h3 {
-  margin: 0 0 8px;
-  padding-bottom: 4px;
-}
 .roll-dialog .roll-dialog-side-panel section + section {
   margin-top: 16px;
 }
 .roll-dialog .roll-dialog-side-panel select {
   width: 100%;
+}
+.roll-dialog [data-resolution-section][hidden] {
+  display: none;
+}
+.roll-dialog .form-footer button[data-action='roll'],
+.roll-dialog .form-footer button[data-action='takeHalf'] {
+  flex: 1;
 }
 .roll-dialog .roll-condition-effect {
   align-items: center;
@@ -1357,6 +1412,16 @@
 .roll-dialog .roll-panel-empty {
   font-style: italic;
   opacity: 0.7;
+}
+.theme-dark {
+  --roll-resolution-background: var(--color-cool-5-50);
+  --roll-resolution-border: var(--color-light-5);
+  --roll-resolution-text: var(--color-light-3);
+}
+.theme-light {
+  --roll-resolution-background: rgba(0, 0, 0, 0.1);
+  --roll-resolution-border: var(--color-dark-5);
+  --roll-resolution-text: var(--color-dark-1);
 }
 
 .multi-select-section .multi-select {

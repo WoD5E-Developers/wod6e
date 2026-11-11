@@ -31,9 +31,17 @@ export class WOD6eTest {
     test.dicePool += test.quickeningSpent
     context.quickeningSpent = test.quickeningSpent
 
-    context.dicePool = test.dicePool
+    context.dicePool = Math.max(test.dicePool, 0)
+    if (
+      context.resolutionMode === 'takeHalf' &&
+      actor?.type !== 'npc' &&
+      (context.inConflict || context.isAttack || context.isDefense)
+    ) {
+      throw new Error(game.i18n.localize('WOD6E.ROLL.TakingHalfUnavailable'))
+    }
+
     context.dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', {
-      string: `${test.dicePool}d10`
+      string: `${context.dicePool}d10`
     })
 
     const roll = new WOD6eRoll(
@@ -44,7 +52,7 @@ export class WOD6eTest {
       }
     )
 
-    await roll.evaluate()
+    await roll.evaluate({ allowInteractive: messageMode !== 'blind' })
 
     if (actor) {
       await this._processRollEffects(actor, roll)

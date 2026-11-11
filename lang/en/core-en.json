@@ -304,8 +304,15 @@
       "Willpower": "Willpower"
     },
     "ROLL": {
+      "AddSelected": "Add selected traits",
+      "AutomaticFailure": "Automatic failure (no dice)",
+      "ChooseOne": "Choose one trait",
+      "ChooseOneTrait": "Choose only one trait from each group of alternatives.",
       "ConditionEffects": "Condition Effects",
+      "CountSuccesses": "Count successes only",
       "CustomModifier": "Custom Modifier",
+      "FailureBy": "Failure by {margin}",
+      "FixedDifficulty": "Fixed Difficulty",
       "NoConditionEffects": "No condition effects are available for this roll.",
       "NotNormallyApplicable": "Not normally applicable",
       "NoTraitsSelected": "No Traits Selected",
@@ -313,8 +320,16 @@
       "QuickeningUnavailable": "Quickening is unavailable for this test.",
       "Roll": "Roll",
       "RollingString": "Rolling {string}",
+      "RollResolution": "Roll Resolution",
       "SelectSkillForFocus": "Select a skill with a focus to use it.",
       "SpendQuickening": "Quickening to spend",
+      "SuccessBy": "Success by {margin}",
+      "Successes": "successes",
+      "SuccessSingular": "success",
+      "TakeHalf": "Take Half",
+      "TakingHalfHint": "PCs may Take Half outside stressful situations. The Storyteller may Take Half for NPC opposition, including in conflicts.",
+      "TakingHalfPool": "Taking Half of {pool} dice",
+      "TakingHalfUnavailable": "PCs cannot Take Half in conflicts or other stressful situations.",
       "VsDifficulty": "vs Difficulty"
     },
     "Settings": {

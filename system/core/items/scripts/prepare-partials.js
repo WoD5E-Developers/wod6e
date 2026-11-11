@@ -54,7 +54,18 @@ export async function prepareTestContext(context, item) {
     disciplineOptions: disciplines.options,
     selectedDisciplinesText: disciplines.selectedText,
 
-    testText: formatTest(attributes.labels, skills.labels, disciplines.labels),
+    attributeMode: test.attributeMode ?? 'any',
+    skillMode: test.skillMode ?? 'any',
+    disciplineMode: test.disciplineMode ?? 'any',
+    traitModeOptions: {
+      any: 'WOD6E.ROLL.ChooseOne',
+      all: 'WOD6E.ROLL.AddSelected'
+    },
+    testText: formatTest(
+      { labels: attributes.labels, mode: test.attributeMode },
+      { labels: skills.labels, mode: test.skillMode },
+      { labels: disciplines.labels, mode: test.disciplineMode }
+    ),
     modifier: test.modifier,
     modifierSourceOptions: {
       flat: 'WOD6E.MODIFIERS.Flat',

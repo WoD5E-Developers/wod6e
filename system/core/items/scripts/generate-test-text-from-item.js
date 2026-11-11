@@ -42,5 +42,9 @@ export const generateTestTextFromItem = function (item) {
     .filter((discipline) => discipline.selected)
     .map((discipline) => discipline.label)
 
-  return formatTest(selectedAttributeLabels, selectedSkillLabels, selectedDisciplineLabels)
+  return formatTest(
+    { labels: selectedAttributeLabels, mode: test.attributeMode },
+    { labels: selectedSkillLabels, mode: test.skillMode },
+    { labels: selectedDisciplineLabels, mode: test.disciplineMode }
+  )
 }

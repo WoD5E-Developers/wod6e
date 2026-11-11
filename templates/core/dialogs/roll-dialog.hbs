@@ -1,8 +1,14 @@
-<form
+<div
   class="roll-dialog"
   data-item-modifier="{{ test.itemModifier }}"
   data-test-action="{{ test.action }}"
   data-test-category="{{ test.category }}"
+  data-attribute-mode="{{ test.attributeMode }}"
+  data-skill-mode="{{ test.skillMode }}"
+  data-discipline-mode="{{ test.disciplineMode }}"
+  data-is-attack="{{ test.isAttack }}"
+  data-is-defense="{{ test.isDefense }}"
+  data-in-conflict="{{ test.inConflict }}"
 >
   <header class="roll-dialog-header">
     <div class="roll-pool">
@@ -15,7 +21,9 @@
 
     <div
       class="difficulty-section"
-      data-field-path="difficulty"
+      data-resolution-section="standard"
+      {{ifThen test.isStandard '' 'hidden'}}
+      {{disabled (not test.isStandard)}}
     >
       <label>
         {{localize 'WOD6E.ROLL.VsDifficulty'}}
@@ -31,15 +39,30 @@
   </header>
 
   <div class="roll-dialog-body">
+    <div class="form-group">
+      <label>
+        <b>{{localize 'WOD6E.ROLL.RollResolution'}}</b>
+      </label>
+
+      <div class="roll-resolution-select">
+        <select name="testType" title="{{localize 'WOD6E.ROLL.RollResolution'}}">
+          {{selectOptions test.testTypeOptions selected=test.testType localize=true}}
+        </select>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
+
     <div class="form-group multi-select-section attribute-multi-select">
       <label>
         <b>{{localize 'WOD6E.ATTRIBUTES.Attributes'}}</b>
       </label>
 
-      {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
+      {{> 'systems/wod6e/templates/core/dialogs/roll-dialog-trait-select.hbs'
         fieldPath='attributes'
         options=test.attributeOptions
         selectedText=test.selectedAttributesText
+        mode=test.attributeMode
+        label='WOD6E.ATTRIBUTES.Attributes'
       }}
     </div>
 
@@ -48,10 +71,12 @@
         <b>{{localize 'WOD6E.SKILLS.Skills'}}</b>
       </label>
 
-      {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
+      {{> 'systems/wod6e/templates/core/dialogs/roll-dialog-trait-select.hbs'
         fieldPath='skills'
         options=test.skillOptions
         selectedText=test.selectedSkillsText
+        mode=test.skillMode
+        label='WOD6E.SKILLS.Skills'
       }}
     </div>
 
@@ -60,10 +85,12 @@
         <b>{{localize 'WOD6E.VAMPIRE.Disciplines'}}</b>
       </label>
 
-      {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
+      {{> 'systems/wod6e/templates/core/dialogs/roll-dialog-trait-select.hbs'
         fieldPath='disciplines'
         options=test.disciplineOptions
         selectedText=test.selectedDisciplinesText
+        mode=test.disciplineMode
+        label='WOD6E.VAMPIRE.Disciplines'
       }}
     </div>
 
@@ -86,4 +113,4 @@
     </div>
   </div>
   {{> 'systems/wod6e/templates/core/dialogs/roll-dialog-side-panel.hbs'}}
-</form>
+</div>

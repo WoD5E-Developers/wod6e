@@ -1,4 +1,8 @@
+import { countSuccesses, resolveTest } from './test-resolution.js'
+
 export class WOD6eRoll extends foundry.dice.Roll {
+  static CHAT_TEMPLATE = 'systems/wod6e/templates/core/chat/test-roll.hbs'
+
   /**
    * Create a WOD6E roll
    *
@@ -11,23 +15,31 @@ export class WOD6eRoll extends foundry.dice.Roll {
   constructor(formulaOrPool = 0, data = {}, options = {}) {
     const isFormula = typeof formulaOrPool === 'string'
 
-    const pool = isFormula
-      ? Math.max(Number(options.dicePool) || 0, 0)
-      : Math.max(Number(formulaOrPool) || 0, 0)
-
-    const formula = isFormula ? formulaOrPool : `${pool}d10cs>=8`
+    const pool = Math.max(isFormula ? options.dicePool : formulaOrPool)
+    const takeHalf = options.resolutionMode === 'takeHalf'
+    const formula = isFormula
+      ? formulaOrPool
+      : takeHalf
+        ? String(Math.ceil(pool / 2))
+        : pool > 0
+          ? `${pool}d10cs>=6`
+          : '0'
 
     super(formula, data, options)
 
-    this.options.dicePool ??= this.dice.reduce((total, die) => total + die.number, 0)
+    this.options.resolutionVersion ??= 2
+    this.options.dicePool ??= isFormula
+      ? this.dice.reduce((total, die) => total + die.number, 0)
+      : pool
+    this.options.dicePool = Math.max(this.options.dicePool, 0)
 
     this.options.baseDicePool ??= this.options.dicePool
 
-    this.options.difficulty ??= 0
+    this.options.difficulty = Math.max(this.options.difficulty ?? 1, 0)
+    this.options.resolutionMode ??= 'roll'
     this.options.basicSuccesses ??= 0
     this.options.quickeningSpent ??= 0
 
-    this.options.automaticSuccess ??= false
     this.options.automaticFailure ??= false
 
     this.options.testType ??= 'standard'
@@ -36,16 +48,53 @@ export class WOD6eRoll extends foundry.dice.Roll {
 
     this.options.modifiers ??= []
     this.options.restrictions ??= []
+
+    // Formula callers must also avoid rolling dice when Taking Half or automatically
+    // failing. The parsed formula supplies the pool when none was provided.
+    if (
+      isFormula &&
+      this.options.resolutionVersion === 2 &&
+      this.dice.length &&
+      (takeHalf || this.automaticFailure)
+    ) {
+      this.terms = this.constructor.parse(String(this.successes), data)
+      this._formula = this.resetFormula()
+    }
+  }
+
+  async _evaluate(options = {}) {
+    await super._evaluate(options)
+    this._scoreDice()
+    return this
+  }
+
+  _evaluateSync(options = {}) {
+    super._evaluateSync(options)
+    this._scoreDice()
+    return this
+  }
+
+  _scoreDice() {
+    // Keep Foundry's total, serialized dice, and tooltip totals in agreement.
+    for (const die of this.dice.filter((die) => die.faces === 10)) {
+      for (const result of die.results) {
+        result.count = result.result === 10 ? 2 : result.result >= 6 ? 1 : 0
+        result.success = result.count > 0
+      }
+    }
+    this._total = this.successes
   }
 
   // All results from d10s belonging to this roll
   get results() {
-    return this.dice.flatMap((die) => die.results.filter((result) => result.active))
+    return this.dice
+      .filter((die) => die.faces === 10)
+      .flatMap((die) => die.results.filter((result) => result.active))
   }
 
   // Number of successes actually rolled on the dice
   get rolledSuccesses() {
-    return this.results.filter((result) => result.result >= 8).length
+    return countSuccesses(this.results)
   }
 
   // Number of guaranteed basic successes supplied by game effects
@@ -59,17 +108,25 @@ export class WOD6eRoll extends foundry.dice.Roll {
   // directly to rolled successes
   get successes() {
     if (this.automaticFailure) return 0
-
-    if (this.automaticSuccess) {
-      return Math.max(this.rolledSuccesses, 1)
-    }
-
+    if (this.options.resolutionMode === 'takeHalf') return Math.ceil(this.options.dicePool / 2)
     return Math.max(this.rolledSuccesses, this.basicSuccesses)
   }
 
-  // Number of successes beyond the first
+  // Compatibility alias for effects which previously used "extra successes".
   get extraSuccesses() {
-    return Math.max(this.successes - 1, 0)
+    return this.marginOfSuccess
+  }
+
+  get resolution() {
+    return resolveTest(this.successes, this.options)
+  }
+
+  get marginOfSuccess() {
+    return this.resolution.marginOfSuccess
+  }
+
+  get marginOfFailure() {
+    return this.resolution.marginOfFailure
   }
 
   // Number of 1s rolled
@@ -95,22 +152,18 @@ export class WOD6eRoll extends foundry.dice.Roll {
   // Some success-determining logic; this is just whether the
   // test succeeded in general
   get isSuccess() {
-    if (this.automaticFailure) return false
-    if (this.automaticSuccess) return true
-
-    return this.successes > 0
+    return this.resolution.isSuccess
   }
 
-  // Whether the test failed normally
-  // Normal failure is no successes and no 1s
+  // The failure categories are retained until the separate failure-rules update.
   get isFailure() {
-    return !this.isSuccess && !this.isPainfulFailure
+    return this.isSuccess === false && !this.isPainfulFailure
   }
 
   // Whether the test is a painful failure, which means
   // no successes and at least one 1 (1 one?)
   get isPainfulFailure() {
-    if (this.automaticFailure) {
+    if (this.automaticFailure || this.isSuccess !== false) {
       return false
     }
 
@@ -120,21 +173,11 @@ export class WOD6eRoll extends foundry.dice.Roll {
   // Whether this roll can potentially use Devil's Bargain
   // Normal failure and no 1s rolled
   get canDevilsBargain() {
-    return this.isFailure && !this.isPainfulFailure
-  }
-
-  // Whether the test qualifies for Overqualified
-  // Overqualified uses the final dice pool after subtracting difficulty
-  get isOverqualified() {
-    return this.options.dicePool >= 4 && !this.options.isAttack && !this.options.isDefense
-  }
-
-  get automaticSuccess() {
-    return Boolean(this.options.automaticSuccess)
+    return !this.automaticFailure && this.isFailure && !this.isPainfulFailure
   }
 
   get automaticFailure() {
-    return Boolean(this.options.automaticFailure)
+    return Boolean(this.options.automaticFailure) || this.options.dicePool === 0
   }
 
   // Convenient representation for chat cards, callbacks, hooks, etc
@@ -148,6 +191,7 @@ export class WOD6eRoll extends foundry.dice.Roll {
       basicSuccesses: this.basicSuccesses,
       successes: this.successes,
       extraSuccesses: this.extraSuccesses,
+      ...this.resolution,
 
       ones: this.ones,
       tens: this.tens,
@@ -160,9 +204,6 @@ export class WOD6eRoll extends foundry.dice.Roll {
       isPainfulFailure: this.isPainfulFailure,
 
       canDevilsBargain: this.canDevilsBargain,
-      isOverqualified: this.isOverqualified,
-
-      automaticSuccess: this.automaticSuccess,
       automaticFailure: this.automaticFailure,
 
       testType: this.options.testType,
@@ -172,14 +213,43 @@ export class WOD6eRoll extends foundry.dice.Roll {
     }
   }
 
-  // Restore a WOD6eRoll from serialized roll data
+  async _prepareChatRenderContext(options = {}) {
+    const context = await super._prepareChatRenderContext(options)
+    // Historical messages retain their stored totals and do not acquire new outcomes.
+    if (options.isPrivate || this.options.resolutionVersion !== 2) return context
+
+    const resolution = this.resolution
+    const unopposed = this.options.testType !== 'standard'
+    const outcomeLabel =
+      !unopposed && resolution.isResolved
+        ? game.i18n.format(`WOD6E.ROLL.${resolution.isSuccess ? 'SuccessBy' : 'FailureBy'}`, {
+            margin: resolution.isSuccess ? resolution.marginOfSuccess : resolution.marginOfFailure
+          })
+        : null
+    return {
+      ...context,
+      formula:
+        this.options.resolutionMode === 'takeHalf'
+          ? game.i18n.format('WOD6E.ROLL.TakingHalfPool', { pool: this.options.dicePool })
+          : context.formula,
+      resolution: {
+        ...resolution,
+        outcomeLabel,
+        automaticFailure: this.automaticFailure,
+        unopposed,
+        difficulty: this.options.difficulty
+      }
+    }
+  }
+
+  static fromData(data) {
+    return super.fromData({
+      ...data,
+      options: { ...data.options, resolutionVersion: data.options?.resolutionVersion ?? 1 }
+    })
+  }
+
   static fromJSON(data) {
-    const parsed = typeof data === 'string' ? JSON.parse(data) : data
-
-    const roll = foundry.dice.Roll.fromData(parsed)
-
-    Object.setPrototypeOf(roll, WOD6eRoll.prototype)
-
-    return roll
+    return this.fromData(typeof data === 'string' ? JSON.parse(data) : data)
   }
 }
