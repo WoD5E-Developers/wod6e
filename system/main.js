@@ -55,6 +55,8 @@ import { CoterieTypes } from './splats/vampire/config/coterie-types.js'
 import { WoDChatLog } from './core/ui/wod-chat-log.js'
 import { initializeHumanityPaths } from './splats/vampire/scripts/humanity.js'
 import { createPathItemData } from './splats/vampire/scripts/paths.js'
+import { mountChronicleBar, registerChronicleSettings } from './core/ui/chronicle-bar.js'
+import { initializeChronicleTime } from './core/scripts/chronicle.js'
 import { obsoleteItemsSetting, removeObsoleteItems } from './core/scripts/obsolete-items.js'
 
 // Register the WOD6E global
@@ -112,6 +114,7 @@ Hooks.on('dropCanvasData', ActorUX._onDropCanvasItem.bind(ActorUX))
 
 // Anything that needs to be ran alongside the initialisation of the world
 Hooks.once('init', async function () {
+  registerChronicleSettings()
   game.settings.register('wod6e', obsoleteItemsSetting, {
     scope: 'world',
     config: false,
@@ -190,6 +193,10 @@ Hooks.once('init', async function () {
 
 // Anything that needs to run once the world is fully loaded
 Hooks.once('ready', async function () {
+  void initializeChronicleTime()
+    .catch((error) => console.error('WOD6E | Chronicle time initialization', error))
+    .then(mountChronicleBar)
+    .catch((error) => console.error('WOD6E | Chronicle bar', error))
   try {
     await removeObsoleteItems()
   } catch (error) {

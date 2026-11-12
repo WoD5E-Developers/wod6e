@@ -18,14 +18,14 @@
           <textarea
             name="system.precepts.{{ index }}.precept"
             rows="2"
-            aria-label="{{localize 'WOD6E.VAMPIRE.Precepts'}}"
+            title="{{localize 'WOD6E.VAMPIRE.Precepts'}}"
             >{{ row.precept }}</textarea>
         </td>
         <td>
           <textarea
             name="system.precepts.{{ index }}.violation"
             rows="2"
-            aria-label="{{localize 'WOD6E.VAMPIRE.Violations'}}"
+            title="{{localize 'WOD6E.VAMPIRE.Violations'}}"
             >{{ row.violation }}</textarea>
         </td>
         <td class="path-precept-actions">
@@ -34,7 +34,7 @@
             data-action="removePathPrecept"
             data-index="{{ index }}"
             title="{{localize 'WOD6E.VAMPIRE.RemovePrecept'}}"
-            aria-label="{{localize 'WOD6E.VAMPIRE.RemovePrecept'}}"
+            title="{{localize 'WOD6E.VAMPIRE.RemovePrecept'}}"
           >
             <i class="fa-solid fa-trash"></i>
           </button>
@@ -48,10 +48,7 @@
       type="button"
       data-action="addPathPrecept"
     >
-      <i
-        class="fa-solid fa-plus"
-        aria-hidden="true"
-      ></i>
+      <i class="fa-solid fa-plus"></i>
       {{localize 'WOD6E.VAMPIRE.AddPrecept'}}
     </button>
   </div>

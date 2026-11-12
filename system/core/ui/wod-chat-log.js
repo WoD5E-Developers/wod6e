@@ -1,6 +1,7 @@
 import { _onRoll } from '../actors/scripts/on-roll.js'
 import { renderTestFollowupButtons } from '../scripts/test-followups.js'
 import { payItemCost, renderItemCostButton } from '../scripts/item-cost.js'
+import { renderMasqueradeReference } from './chronicle-bar.js'
 
 export class WoDChatLog extends foundry.applications.sidebar.tabs.ChatLog {
   /** @inheritDoc */
@@ -14,3 +15,4 @@ export class WoDChatLog extends foundry.applications.sidebar.tabs.ChatLog {
 
 Hooks.on('renderChatMessageHTML', renderTestFollowupButtons)
 Hooks.on('renderChatMessageHTML', renderItemCostButton)
+Hooks.on('renderChatMessageHTML', renderMasqueradeReference)

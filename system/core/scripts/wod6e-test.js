@@ -113,6 +113,10 @@ export class WOD6eTest {
             speaker: ChatMessage.getSpeaker({ actor }),
             title,
             flavor,
+            ...(costItem?.system.activation?.activationType === 'downtime' ||
+            costItem?.system.group === 'downtime'
+              ? { flags: { wod6e: { masqueradeDowntime: true } } }
+              : {}),
             ...(retrySource ? { whisper: [...new Set(whisper)], blind: retrySource.blind } : {})
           },
           {

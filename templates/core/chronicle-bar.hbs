@@ -1,0 +1,76 @@
+<section
+  id="wod6e-chronicle-bar"
+  title="{{localize 'WOD6E.CHRONICLE.Controls'}}"
+>
+  <fieldset class="chronicle-masquerade">
+    <legend>- {{localize 'WOD6E.CHRONICLE.MasqueradeTracker'}} -</legend>
+    <div class="chronicle-controls">
+      {{#if isGM}}
+      <button
+        type="button"
+        data-action="scopes"
+        title="{{localize 'WOD6E.CHRONICLE.Scopes'}}"
+      >
+        <i class="fa-solid fa-gear"></i>
+      </button>
+      <select title="{{localize 'WOD6E.CHRONICLE.Scope'}}"></select>
+      {{/if}}
+      <output
+        class="{{#if isGM}}chronicle-scope-announcement{{else}}chronicle-readout{{/if}}"
+      ></output>
+      <div class="chronicle-marks">
+        {{#if isGM}}
+        <button
+          type="button"
+          data-action="clear"
+          title="{{localize 'WOD6E.CHRONICLE.Clear'}}"
+        >
+          −
+        </button>
+        {{/if}}
+        <span class="chronicle-pips">
+          {{#each pips as |pip|}}
+          <span data-pip="{{ pip }}"></span>
+          {{/each}}
+        </span>
+        {{#if isGM}}
+        <button
+          type="button"
+          data-action="mark"
+          title="{{localize 'WOD6E.CHRONICLE.Mark'}}"
+        >
+          +
+        </button>
+        {{/if}}
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="chronicle-boundaries">
+    <legend>- {{localize 'WOD6E.CHRONICLE.Timekeeping'}} -</legend>
+    <div class="chronicle-controls">
+      {{#if isGM}}
+      <button
+        type="button"
+        class="chronicle-clock"
+        data-action="time"
+        data-clock
+        title="{{localize 'WOD6E.CHRONICLE.SetTime'}}"
+      ></button>
+      {{#each boundaries as |boundary|}}
+      <button
+        type="button"
+        data-action="{{ boundary.id }}"
+        title="{{ boundary.title }}"
+      >
+        {{ boundary.label }}
+      </button>
+      {{/each}}
+      {{else}}
+      <span
+        class="chronicle-clock chronicle-readout"
+        data-clock
+      ></span>
+      {{/if}}
+    </div>
+  </fieldset>
+</section>

@@ -198,6 +198,9 @@ export const _onSendItemToChat = async function (event, target) {
     speaker: ChatMessage.getSpeaker({
       actor: item.actor
     }),
+    ...(item.system.activation?.activationType === 'downtime' || item.system.group === 'downtime'
+      ? { flags: { wod6e: { masqueradeDowntime: true } } }
+      : {}),
     content
   })
 }
