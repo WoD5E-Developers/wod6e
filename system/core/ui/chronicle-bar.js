@@ -102,7 +102,8 @@ function updateBar() {
 }
 
 function updateClock() {
-  if (!bar) return
+  const clock = bar?.querySelector('[data-clock]')
+  if (!clock) return
   const { calendar, components } = game.time
   const month = calendar.months?.values?.[components.month]
   const date = month
@@ -114,7 +115,7 @@ function updateClock() {
   const time = useAMPM
     ? `${components.hour % 12 || 12}:${minute} ${label(components.hour < 12 ? 'AM' : 'PM')}`
     : `${String(components.hour).padStart(2, '0')}:${minute}`
-  bar.querySelector('[data-clock]').textContent = `${date} · ${time}`
+  clock.textContent = `${date} · ${time}`
 }
 
 async function run(action) {
@@ -389,17 +390,60 @@ export function registerChronicleSettings() {
   })
 }
 
+function positionBelowCalendar(host, chronicleBar) {
+  const baseMargin = Number.parseFloat(window.getComputedStyle(chronicleBar).marginTop) || 0
+  let calendar
+
+  const updatePosition = () => {
+    if (!calendar?.offsetHeight || !host.offsetHeight) {
+      chronicleBar.style.marginTop = ''
+      return
+    }
+
+    const hostBounds = host.getBoundingClientRect()
+    const scale = hostBounds.height / host.offsetHeight
+    if (!scale) return
+    const calendarBottom = calendar.getBoundingClientRect().bottom
+    const offset = Math.max(0, (calendarBottom - hostBounds.top) / scale)
+    chronicleBar.style.marginTop = `${baseMargin + offset}px`
+  }
+
+  const resizeObserver = new window.ResizeObserver(updatePosition)
+  const findCalendar = () => {
+    const current = host.querySelector(':scope > #simple-timekeeping')
+    if (current === calendar) return
+
+    resizeObserver.disconnect()
+    calendar = current
+    if (calendar) resizeObserver.observe(calendar, { box: 'border-box' })
+    updatePosition()
+  }
+
+  const mountObserver = new window.MutationObserver(() => {
+    if (chronicleBar.parentElement === host) findCalendar()
+    else {
+      mountObserver.disconnect()
+      resizeObserver.disconnect()
+    }
+  })
+  mountObserver.observe(host, { childList: true })
+  findCalendar()
+}
+
 export async function mountChronicleBar() {
   if (bar?.isConnected) return
 
   const host = document.getElementById('ui-top')
   if (!host) return
 
+  const useExternalClock = game.modules.get('simple-timekeeping')?.active ?? false
   const template = element('template')
   template.innerHTML = await foundry.applications.handlebars.renderTemplate(
     'systems/wod6e/templates/core/chronicle-bar.hbs',
     {
       isGM: game.user.isGM,
+      useExternalClock,
+      showTimekeeping: game.user.isGM || !useExternalClock,
       boundaries: boundaries.map((id) => ({
         id,
         label: label(boundaryLabels[id]),
@@ -410,6 +454,7 @@ export async function mountChronicleBar() {
   )
   bar = template.content.firstElementChild
   host.prepend(bar)
+  if (useExternalClock) positionBelowCalendar(host, bar)
 
   const select = bar.querySelector('select')
   if (select) {

@@ -45,9 +45,11 @@
       </div>
     </div>
   </fieldset>
+  {{#if showTimekeeping}}
   <fieldset class="chronicle-boundaries">
     <legend>- {{localize 'WOD6E.CHRONICLE.Timekeeping'}} -</legend>
     <div class="chronicle-controls">
+      {{#unless useExternalClock}}
       {{#if isGM}}
       <button
         type="button"
@@ -56,6 +58,14 @@
         data-clock
         title="{{localize 'WOD6E.CHRONICLE.SetTime'}}"
       ></button>
+      {{else}}
+      <span
+        class="chronicle-clock chronicle-readout"
+        data-clock
+      ></span>
+      {{/if}}
+      {{/unless}}
+      {{#if isGM}}
       {{#each boundaries as |boundary|}}
       <button
         type="button"
@@ -65,12 +75,8 @@
         {{ boundary.label }}
       </button>
       {{/each}}
-      {{else}}
-      <span
-        class="chronicle-clock chronicle-readout"
-        data-clock
-      ></span>
       {{/if}}
     </div>
   </fieldset>
+  {{/if}}
 </section>
