@@ -175,14 +175,6 @@ export const prepareConditionsContext = async function (context, actor) {
 }
 
 export const prepareSettingsContext = async function (context, actor) {
-  if (actor.type === 'vampire') {
-    context.creatureType = actor.system.creatureType
-    context.creatureTypeOptions = {
-      vampire: 'TYPES.Actor.vampire',
-      duskborn: 'WOD6E.VAMPIRE.Duskborn',
-      ghoul: 'WOD6E.VAMPIRE.Ghoul'
-    }
-  }
   const actorSettings = actor.system.settings ?? {}
   context.settings = actorSettings
   context.limitedSettingFields = [

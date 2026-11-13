@@ -16,6 +16,7 @@ export class WoDPlayerActorModel extends foundry.abstract.TypeDataModel {
 
     Object.assign(schema, coreActorFields({ includeVitae: true }))
 
+    // Retain saved creature types from the former player sheet setting.
     schema.creatureType = new fields.StringField({
       initial: 'vampire',
       choices: ['vampire', 'duskborn', 'ghoul'],
