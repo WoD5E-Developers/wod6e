@@ -3,14 +3,6 @@
   data-group="primary"
   data-tab="settings"
 >
-  {{#if creatureTypeOptions}}
-  <div class="form-group">
-    <label>{{localize 'WOD6E.NPC.CreatureType'}}</label>
-    <select name="system.creatureType">
-      {{selectOptions creatureTypeOptions selected=creatureType localize=true}}
-    </select>
-  </div>
-  {{/if}}
   <header class="sheet-section-header">
     <span class="sheet-section-name">{{localize "WOD6E.LimitedVisibility"}}</span>
   </header>

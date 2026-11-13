@@ -5,19 +5,11 @@ export function hasBeast(actor) {
     return actor.system.creatureKind === 'vampire'
   }
 
-  const type = String(actor?.system?.creatureType || actor?.type || '')
-    .trim()
-    .toLowerCase()
-
-  return ['vampire', 'duskborn'].includes(type)
+  return actor?.type === 'vampire'
 }
 
 export function generateVitaeMax(actor) {
-  const creatureType =
-    actor?.type === 'npc' ? actor.system?.creatureKind : actor?.system?.creatureType
-  const type = String(creatureType || actor?.type || '')
-    .trim()
-    .toLowerCase()
+  const type = actor?.type === 'npc' ? actor.system?.creatureKind : actor?.type
   if (type === 'ghoul') return 5
   if (!hasBeast(actor)) return 0
   const generation = actor.system.vampire?.generation?.value ?? 13
