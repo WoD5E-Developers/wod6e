@@ -195,7 +195,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['discipline'],
     sheetClass: DisciplineItemSheet,
     sheetModel: DisciplineItemModel,
-    restrictedActorTypes: ['vampire'],
+    restrictedActorTypes: ['vampire', 'npc'],
     splat: 'vampire',
     subtypes: Disciplines,
     subtypePath: 'disciplineType'

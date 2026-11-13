@@ -2,7 +2,8 @@ import { createPathItemData } from './paths.js'
 import { hasBeast } from '../../../core/actors/scripts/vitae.js'
 
 export function getHumanityRank(actor) {
-  return Math.max(0, Math.min(10, Math.floor(Number(actor?.system?.vampire?.humanity?.value) || 0)))
+  const value = actor?.system?.vampire?.humanity?.value ?? (actor?.type === 'npc' ? 6 : 0)
+  return Math.max(0, Math.min(10, Math.floor(Number(value) || 0)))
 }
 
 export function getHumanityModifier(rank) {

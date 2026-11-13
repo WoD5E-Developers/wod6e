@@ -9,6 +9,10 @@ import { _calculateDicePool } from './scripts/calculate-dice-pool.js'
 import { _getTestText } from './scripts/get-test-text.js'
 import { resolveModifierValue } from '../actors/scripts/resolve-modifier-value.js'
 import { ActorEffects } from '../actors/scripts/actor-effects.js'
+import { npcCategories } from '../actors/data-models/fields/npc-fields.js'
+import { prepareNpcSkillPools } from '../actors/scripts/prepare-npc-partials.js'
+import { splitSpecializations } from '../actors/scripts/skill-entry-controls.js'
+import { NpcTiers } from '../config/npc-tiers.js'
 import { hasDifferentApproach } from '../scripts/test-resolution.js'
 import { getHunger, hasBeast } from '../actors/scripts/vitae.js'
 import { canPayCost, getItemCost } from '../actors/scripts/resource-spending.js'
@@ -160,6 +164,7 @@ export class RollDialog {
       bargainRule: testData?.bargainRule ?? 'standard',
       itemUuid: item?.uuid ?? testData?.itemUuid ?? '',
       retryOf: testData?.retryOf ?? '',
+      npcPool: testData?.npcPool ?? null,
       isAttack: testData?.isAttack ?? item?.system?.role === 'attack',
       isDefense: testData?.isDefense ?? item?.system?.role === 'defense',
       inConflict: testData?.inConflict ?? false,
@@ -196,6 +201,30 @@ export class RollDialog {
     const definitions = config.getList({})
 
     return Array.from(selected ?? [], (key) => definitions[key]?.path ?? key)
+  }
+
+  static _getNpcPool(actor, selection) {
+    if (actor.type !== 'npc' || NpcTiers.getDefinition(actor.system.tier).usesDetailedTraits) {
+      return null
+    }
+    const { type, key } = selection
+    if (type === 'skill') {
+      const skill = prepareNpcSkillPools(actor).find((entry) => entry.key === key && entry.active)
+      if (!skill) return null
+      return {
+        label: skill.label,
+        value: skill.value,
+        skills: [`system.skills.${key}`],
+        specialties: splitSpecializations(skill.specialization)
+      }
+    }
+    if (type !== 'attribute' || !npcCategories.includes(key)) return null
+    const group = WOD6E.configs.AttributeGroups.getList({})[key]
+    return {
+      label: group?.displayName ?? game.i18n.localize(group?.label ?? key),
+      value: actor.system.attributePools[key],
+      category: key
+    }
   }
 
   /**
@@ -248,12 +277,22 @@ export class RollDialog {
     const selectedAttributesText = this._getSelectedText(attributeOptions)
     const selectedSkillsText = this._getSelectedText(skillOptions)
     const selectedDisciplinesText = this._getSelectedText(disciplineOptions)
-    const focusOptions = this._prepareFocusOptions(actor, data?.skills, data?.focus)
-    const selectedFocus = focusOptions.some((focus) => focus.selected) ? data.focus : ''
+    const npcPool = data.npcPool ? this._getNpcPool(actor, data.npcPool) : null
+    canRoll &&= !data.npcPool || Boolean(npcPool)
+    const focusOptions = data.npcPool
+      ? (npcPool?.specialties ?? []).map((label) => ({
+          value: `${npcPool.skills[0]}:${label}`,
+          label,
+          specialty: label,
+          selected: `${npcPool.skills[0]}:${label}` === data.focus
+        }))
+      : this._prepareFocusOptions(actor, data?.skills, data?.focus)
+    const selectedFocusOption = focusOptions.find((focus) => focus.selected)
+    const selectedFocus = selectedFocusOption?.value ?? ''
 
     const baseDicePool = _calculateDicePool(
       actor,
-      { ...data, focus: selectedFocus },
+      { ...data, focus: selectedFocus, npcPoolValue: npcPool?.value },
       { clamp: false }
     )
     const retrySource = data.retryOf ? game.messages.get(data.retryOf) : null
@@ -273,10 +312,10 @@ export class RollDialog {
     const resolutionMode = data?.resolutionMode === 'takeHalf' ? 'takeHalf' : 'roll'
     const effectTest = {
       attribute: data?.attributes ?? [],
-      skill: data?.skills ?? [],
+      skill: npcPool?.skills ?? data?.skills ?? [],
       discipline: data?.disciplines ?? [],
       action: data?.action ?? null,
-      category: data?.category ?? null,
+      category: npcPool?.category ?? data?.category ?? null,
       dicePool: baseDicePool,
       resistBeast: data.resistBeast,
       frenzyType: data.frenzyType,
@@ -291,11 +330,12 @@ export class RollDialog {
       .map((effect) => effect.id)
 
     const testText = _getTestText({
+      npcPool,
       attributeOptions,
       skillOptions,
       disciplineOptions,
-      customModifier:
-        (data?.itemModifier ?? 0) + (data?.customModifier ?? 0) + (selectedFocus ? 1 : 0),
+      specialty: selectedFocusOption?.specialty,
+      customModifier: (data?.itemModifier ?? 0) + (data?.customModifier ?? 0),
       effects: conditionEffects.filter((effect) => effect.enabled),
 
       // By default we don't include difficulty, unless we're using context preparation for
@@ -310,7 +350,7 @@ export class RollDialog {
     const dicePool = Math.max(effectTest.dicePool, 0)
     const dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', { string: `${dicePool}d10` })
     const costItem = item ?? (data.itemUuid ? fromUuidSync(data.itemUuid) : null)
-    const cost = getItemCost(costItem)
+    const cost = getItemCost(costItem, actor)
     canRoll &&= canPayCost(actor, cost)
     const hungerDice = actor.system.vitae
       ? getHunger(actor, actor.system.vitae.value - (cost?.resource === 'vitae' ? cost.amount : 0))
@@ -323,7 +363,7 @@ export class RollDialog {
       test: {
         // Raw test data used by the rules engine
         attributes: data?.attributes ?? [],
-        skills: data?.skills ?? [],
+        skills: effectTest.skill,
         disciplines: data?.disciplines ?? [],
         attributeMode: data?.attributeMode ?? 'all',
         skillMode: data?.skillMode ?? 'all',
@@ -350,11 +390,12 @@ export class RollDialog {
         canAffordCost: canPayCost(actor, cost),
         bargainRule: data.bargainRule ?? 'standard',
         retryOf: data.retryOf ?? '',
+        npcPool: data.npcPool,
         isAttack: data?.isAttack ?? false,
         isDefense: data?.isDefense ?? false,
         inConflict: data?.inConflict ?? false,
         action: data?.action ?? null,
-        category: data?.category ?? null,
+        category: effectTest.category,
         itemModifier: data?.itemModifier ?? 0,
         focus: selectedFocus,
         conditionEffectIds: effectTest.conditionEffectIds,
@@ -366,6 +407,7 @@ export class RollDialog {
         skillOptions,
         disciplineOptions,
         focusOptions,
+        showFocusSection: !data.npcPool || focusOptions.length > 0,
         hasFocusOptions: focusOptions.length > 0,
         conditionEffects,
         hasConditionEffects: conditionEffects.length > 0,
@@ -439,6 +481,7 @@ export class RollDialog {
       return (skill?.focuses ?? []).map((focus) => ({
         value: `${skillPath}:${focus}`,
         label: skillPaths.length > 1 ? `${skillLabel}: ${focus}` : focus,
+        specialty: focus,
         selected: `${skillPath}:${focus}` === selectedFocus
       }))
     })
@@ -639,6 +682,9 @@ export class RollDialog {
       bargainRule: rollForm?.dataset.bargainRule ?? 'standard',
       itemUuid: rollForm?.dataset.itemUuid ?? '',
       retryOf: rollForm?.dataset.retryOf ?? '',
+      npcPool: rollForm?.dataset.npcPoolType
+        ? { type: rollForm.dataset.npcPoolType, key: rollForm.dataset.npcPoolKey }
+        : null,
       isAttack: rollForm?.dataset.isAttack === 'true',
       isDefense: rollForm?.dataset.isDefense === 'true',
       inConflict: rollForm?.dataset.inConflict === 'true',

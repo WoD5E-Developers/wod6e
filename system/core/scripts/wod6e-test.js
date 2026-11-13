@@ -70,7 +70,7 @@ export class WOD6eTest {
     })
 
     const costItem = item ?? (context.itemUuid ? fromUuidSync(context.itemUuid) : null)
-    const cost = getItemCost(costItem)
+    const cost = getItemCost(costItem, actor)
     let message
     const roll = await withResourceSpend(actor, cost, async () => {
       // Re-read Vitae after paying the cost, including changes while the dialog was open.

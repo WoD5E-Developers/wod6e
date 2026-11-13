@@ -217,6 +217,7 @@ export class WOD6eRoll extends foundry.dice.Roll {
       this.options.failureRulesVersion === 2 &&
       this.options.testType === 'standard' &&
       this.isSuccess === false &&
+      !this.options.npcPool &&
       !this.options.retryOf
     )
   }

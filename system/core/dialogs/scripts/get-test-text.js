@@ -1,7 +1,9 @@
 export const _getTestText = function ({
+  npcPool = null,
   attributeOptions = [],
   skillOptions = [],
   disciplineOptions = [],
+  specialty = '',
   customModifier = 0,
   effects = [],
   includeDifficulty = true,
@@ -12,7 +14,10 @@ export const _getTestText = function ({
     (option) => option.selected
   )
 
-  const testParts = selected.map((option) => `${option.label} (${option.value})`)
+  const testParts = (npcPool ? [npcPool] : selected).map(
+    (option) => `${option.label} (${option.value})`
+  )
+  if (specialty) testParts.push(`${specialty} (1)`)
 
   const testText = testParts.length
     ? testParts.join(' + ')

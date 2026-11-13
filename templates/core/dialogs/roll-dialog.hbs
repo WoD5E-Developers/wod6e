@@ -12,6 +12,8 @@
   data-bargain-rule="{{ test.bargainRule }}"
   data-item-uuid="{{ test.itemUuid }}"
   data-retry-of="{{ test.retryOf }}"
+  data-npc-pool-type="{{ test.npcPool.type }}"
+  data-npc-pool-key="{{ test.npcPool.key }}"
   data-frenzy-type="{{ test.frenzyType }}"
 >
   <header class="roll-dialog-header">
@@ -57,6 +59,7 @@
       </div>
     </div>
 
+    {{#unless test.npcPool}}
     <div class="form-group multi-select-section attribute-multi-select">
       <label>
         <b>{{localize 'WOD6E.ATTRIBUTES.Attributes'}}</b>
@@ -99,6 +102,7 @@
       }}
     </div>
 
+    {{/unless}}
     <div class="form-group">
       <label>
         <b>{{localize 'WOD6E.ROLL.CustomModifier'}}</b>

@@ -1,8 +1,10 @@
 const pendingActors = new Set()
 
-export function getItemCost(item) {
-  const cost = item?.system?.activation?.cost
-  if (!cost || cost.type === 'none' || !cost.amount) return null
+export function getItemCost(item, actor = item?.actor) {
+  const activation = item?.system?.activation
+  const cost =
+    actor?.type === 'npc' && item?.type === 'discipline' ? activation?.npcCost : activation?.cost
+  if (!cost?.type || cost.type === 'none' || !cost.amount) return null
   return { resource: cost.type, amount: cost.amount }
 }
 

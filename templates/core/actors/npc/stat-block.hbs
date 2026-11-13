@@ -1,0 +1,100 @@
+<section class="sheet-section npc-stat-section">
+  <header class="sheet-section-header">
+    <span class="sheet-section-name">
+      {{#if npc.usesDetailedTraits}}
+        {{localize "WOD6E.ATTRIBUTES.Attributes"}}
+      {{else}}
+        {{localize "WOD6E.NPC.AttributePools"}}
+      {{/if}}
+    </span>
+  </header>
+  <div class="npc-stat-columns">
+    {{#each attributeGroups as |group|}}
+    <div class="npc-stat-group">
+      {{#if @root.npc.usesDetailedTraits}}
+      <strong>{{group.label}}</strong>
+      {{#each group.attributes as |attribute|}}
+      <div class="npc-stat-row">
+        {{#if @root.isOwner}}
+        <button
+          type="button"
+          class="npc-pool-roll"
+          data-action="roll"
+          data-attribute="system.attributes.{{attribute.key}}"
+          title="{{localize 'WOD6E.ROLL.Roll'}}"
+        >{{attribute.label}}</button>
+        {{else}}
+        <span>{{attribute.label}}</span>
+        {{/if}}
+        <input type="number" name="{{attribute.path}}" value="{{attribute.value}}" min="0" step="1" />
+      </div>
+      {{/each}}
+      {{else}}
+      <div class="npc-stat-row">
+        {{#if @root.isOwner}}
+        <button type="button" class="npc-pool-roll" data-action="rollNpcPool" data-pool-type="attribute" data-pool-key="{{group.key}}" title="{{localize 'WOD6E.ROLL.Roll'}}">{{group.label}}</button>
+        {{else}}
+        <span>{{group.label}}</span>
+        {{/if}}
+        <input type="number" name="system.attributePools.{{group.key}}" value="{{group.pool}}" min="0" step="1" />
+      </div>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</section>
+
+<section class="sheet-section npc-stat-section">
+  <header class="sheet-section-header">
+    <span class="sheet-section-name">
+      {{#if npc.usesDetailedTraits}}{{localize "WOD6E.SKILLS.Skills"}}{{else}}{{localize "WOD6E.NPC.SkillPools"}}{{/if}}
+    </span>
+    {{#if npc.usesDetailedTraits}}
+    <button type="button" data-action="configureSkillFocuses" title="{{localize 'WOD6E.SKILLS.SkillFocuses'}}">
+      <i class="fa-solid fa-edit"></i>
+    </button>
+    {{else if isOwner}}
+    <button type="button" data-action="configureNpcSkillPools" title="{{localize 'WOD6E.NPC.ConfigureSkillPools'}}">
+      <i class="fa-solid fa-edit"></i>
+    </button>
+    {{/if}}
+  </header>
+  <div class="npc-stat-columns">
+    {{#if npc.usesDetailedTraits}}
+    {{#each skills as |skill|}}
+    <div class="npc-stat-row" {{#if skill.focuses}}title="{{skill.focuses}}"{{/if}}>
+      {{#if @root.isOwner}}
+      <button
+        type="button"
+        class="npc-pool-roll"
+        data-action="roll"
+        data-skill="system.skills.{{skill.key}}"
+      >{{skill.label}}</button>
+      {{else}}
+      <span>{{skill.label}}</span>
+      {{/if}}
+      <input type="number" name="{{skill.path}}" value="{{skill.value}}" min="0" step="1" />
+    </div>
+    {{/each}}
+    {{else}}
+    {{#each skillPoolColumns as |column|}}
+    <div class="npc-skill-pool-column">
+    {{#each column as |skill|}}
+    <div class="npc-stat-row">
+      {{#if @root.isOwner}}
+      <button type="button" class="npc-pool-roll" data-action="rollNpcPool" data-pool-type="skill" data-pool-key="{{skill.key}}" title="{{localize 'WOD6E.ROLL.Roll'}}">{{skill.label}}{{#if skill.specialization}} ({{skill.specialization}}){{/if}}</button>
+      {{else}}
+      <span>{{skill.label}}{{#if skill.specialization}} ({{skill.specialization}}){{/if}}</span>
+      {{/if}}
+      <input type="number" name="{{skill.path}}" value="{{skill.value}}" min="0" step="1" />
+    </div>
+    {{/each}}
+    </div>
+    {{else}}
+      {{#if isOwner}}
+      <p class="npc-stat-empty">{{localize 'WOD6E.NPC.ConfigureSkillPoolsEmpty'}}</p>
+      {{/if}}
+    {{/each}}
+    {{/if}}
+  </div>
+</section>

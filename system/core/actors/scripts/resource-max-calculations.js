@@ -1,24 +1,6 @@
-import { NpcTiers } from '../../config/npc-tiers.js'
-
-function getNpcTier(actor) {
-  const tiers = NpcTiers.getList({})
-
-  return tiers[actor.system.tier] ?? tiers.standard
-}
-
-function generateNpcResourceMax(actor, levelKeys, multiplier) {
-  const highestLevel = Math.max(...levelKeys.map((key) => actor.system.level[key]))
-
-  return highestLevel * multiplier
-}
-
 export function generateHealthMax(actor) {
   if (actor.type === 'npc') {
-    const tier = getNpcTier(actor)
-
-    if (!tier.showHealth) return 0
-
-    return generateNpcResourceMax(actor, tier.healthLevels, tier.healthMultiplier)
+    return actor.system.isMinion ? 1 : actor.system.health.max
   }
 
   const stamina = actor.system.attributes?.stamina?.value
@@ -32,13 +14,7 @@ export function generateHealthMax(actor) {
 }
 
 export function generateWillpowerMax(actor) {
-  if (actor.type === 'npc') {
-    const tier = getNpcTier(actor)
-
-    if (!tier.showWillpower) return 0
-
-    return generateNpcResourceMax(actor, tier.willpowerLevels, tier.willpowerMultiplier)
-  }
+  if (actor.type === 'npc') return actor.system.willpower.max
 
   const composure = actor.system.attributes?.composure?.value
   const resolve = actor.system.attributes?.resolve?.value

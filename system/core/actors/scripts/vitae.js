@@ -1,14 +1,21 @@
 import { generationDetailLookup } from '../../../splats/vampire/scripts/generation-detail-lookup.js'
 
 export function hasBeast(actor) {
+  if (actor?.type === 'npc' && actor.system?.creatureKind) {
+    return actor.system.creatureKind === 'vampire'
+  }
+
   const type = String(actor?.system?.creatureType || actor?.type || '')
     .trim()
     .toLowerCase()
+
   return ['vampire', 'duskborn'].includes(type)
 }
 
 export function generateVitaeMax(actor) {
-  const type = String(actor?.system?.creatureType || actor?.type || '')
+  const creatureType =
+    actor?.type === 'npc' ? actor.system?.creatureKind : actor?.system?.creatureType
+  const type = String(creatureType || actor?.type || '')
     .trim()
     .toLowerCase()
   if (type === 'ghoul') return 5

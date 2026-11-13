@@ -163,10 +163,16 @@ export async function prepareActivationContext(context, item) {
   context.durationSelected = itemData?.activation?.duration || ''
 
   // Cost type dropdown and cost amount input
+  context.useNpcDisciplineCost = item.type === 'discipline' && item.actor?.type === 'npc'
+  const cost = context.useNpcDisciplineCost
+    ? itemData.activation?.npcCost
+    : itemData.activation?.cost
+  context.costPath = context.useNpcDisciplineCost
+    ? 'system.activation.npcCost'
+    : 'system.activation.cost'
   context.costTypeOptions = WOD6E.configs.CostTypes.getList({})
-  context.costTypeSelected = itemData?.activation?.cost.type || ''
-
-  context.costAmount = itemData?.activation?.cost.amount || 0
+  context.costTypeSelected = cost?.type ?? 'none'
+  context.costAmount = cost?.amount ?? 0
 
   return context
 }

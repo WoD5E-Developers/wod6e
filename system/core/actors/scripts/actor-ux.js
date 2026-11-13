@@ -144,8 +144,6 @@ export class ActorUX {
         !foundry.utils.isEmpty(whitelist) &&
         // This is just a general check against the base actorType
         !whitelist.includes(actorType) &&
-        // If the actor is an NPC, check against the subtype
-        !(actorType === 'npc' && whitelist.includes(actor.system.subtype)) &&
         // If the actor is a Group sheet, check against the subtype
         !(actorType === 'group' && whitelist.includes(actor.system.subtype))
       ) {

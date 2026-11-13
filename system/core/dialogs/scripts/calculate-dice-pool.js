@@ -16,7 +16,7 @@ export const _calculateDicePool = function (actor, formData, { clamp = true } = 
 
   // Difficulty is a success target, never a dice modifier. Zero dice is allowed.
   const pool =
-    traitDice +
+    (formData.npcPoolValue ?? traitDice) +
     (Number(formData.itemModifier) || 0) +
     (Number(formData.customModifier) || 0) +
     (formData.focus ? 1 : 0)

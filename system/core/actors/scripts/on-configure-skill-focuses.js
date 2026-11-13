@@ -1,77 +1,61 @@
-export const _onConfigureSkillFocuses = async function (event) {
+import { attachSkillEntryControls, readSkillEntries } from './skill-entry-controls.js'
+
+export async function _onConfigureSkillFocuses(event) {
   event.preventDefault()
+  if (!this.isEditable) return
 
   const actor = this.actor
-  const actorSkills = actor.system.skills ?? {}
-
-  // Prepare skills that can be configured
-  const skills = Object.entries(WOD6E.configs.Skills.getList({}))
+  const traits = Object.entries(WOD6E.configs.Skills.getList({}))
     .filter(([, skill]) => !skill.hidden)
     .map(([key, skill]) => ({
       key,
-      label: skill.displayName,
-      focuses: actorSkills[key]?.focuses ?? []
+      label: skill.displayName ?? game.i18n.localize(skill.label),
+      active: true,
+      specializations: actor.system.skills?.[key]?.focuses ?? []
     }))
+  const removeEntryLabel = 'WOD6E.SKILLS.RemoveFocus'
+  const content = document.createElement('div')
+  content.innerHTML = await foundry.applications.handlebars.renderTemplate(
+    'systems/wod6e/templates/core/dialogs/npc-trait-visibility.hbs',
+    {
+      traits,
+      focusOnly: true,
+      showSpecializations: true,
+      addEntryLabel: 'WOD6E.SKILLS.AddFocus',
+      removeEntryLabel
+    }
+  )
 
-  // Build dialog content
-  const options = skills
-    .map(
-      ({ key, label, focuses }) => `
-      <div class="flexrow skill-pool">
-        <label>${label}</label>
-        <input
-          type="text"
-          name="${key}"
-          value="${focuses.join(', ')}"
-          placeholder="${game.i18n.localize('WOD6E.SKILLS.Focuses')}"
-        />
-      </div>
-    `
-    )
-    .join('')
-
-  const content = `
-    <form>
-      <div class="skill-configuration-label">
-        ${game.i18n.localize('WOD6E.SKILLS.ConfigureSkillFocusesHint')}
-      </div>
-      <div class="form-group skill-configuration-list">
-        ${options}
-      </div>
-    </form>
-  `
-
-  // Prompt the dialog
-  const updatedSkills = await foundry.applications.api.DialogV2.prompt({
+  const changes = await foundry.applications.api.DialogV2.prompt({
     window: {
       title: game.i18n.format('WOD6E.AddString', {
         string: game.i18n.localize('WOD6E.SKILLS.SkillFocuses')
       })
     },
+    classes: ['wod6e', 'skill-entries-dialog', 'skill-focus-dialog'],
+    position: { width: 500 },
     content,
-    ok: {
-      callback: (event, button) => {
-        const formData = new foundry.applications.ux.FormDataExtended(button.form).object
-
-        return Object.fromEntries(
-          skills.map(({ key }) => [
-            key,
-            {
-              focuses: String(formData[key] ?? '')
-                .split(',')
-                .map((focus) => focus.trim())
-                .filter(Boolean)
-            }
-          ])
-        )
-      }
+    modal: true,
+    buttons: [{ action: 'cancel', label: 'WOD6E.Cancel' }],
+    render: (_event, dialog) => {
+      attachSkillEntryControls(dialog.element.querySelector('.npc-trait-editor'), removeEntryLabel)
     },
-    modal: true
+    ok: {
+      callback: (_event, button) => {
+        const changes = {}
+        for (const { key, specializations } of traits) {
+          const focuses = readSkillEntries(button.form, key)
+          if (
+            focuses.length !== specializations.length ||
+            focuses.some((focus, index) => focus !== specializations[index])
+          ) {
+            changes[`system.skills.${key}.focuses`] = focuses
+          }
+        }
+        return changes
+      }
+    }
   })
 
-  if (!updatedSkills) return
-
-  await actor.update({
-    'system.skills': updatedSkills
-  })
+  if (changes && changes !== 'cancel' && Object.keys(changes).length) await actor.update(changes)
 }

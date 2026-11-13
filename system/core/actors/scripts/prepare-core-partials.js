@@ -206,11 +206,6 @@ export const prepareSettingsContext = async function (context, actor) {
         checked: actorSettings.limited?.creatureType
       },
       {
-        path: 'subtype',
-        label: 'WOD6E.NPC.Subtype',
-        checked: actorSettings.limited?.subtype
-      },
-      {
         path: 'motivation',
         label: 'WOD6E.NPC.Motivation',
         checked: actorSettings.limited?.motivation

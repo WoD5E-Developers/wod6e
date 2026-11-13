@@ -1,3 +1,10 @@
+function preserveNpcDisciplineCost(item, system) {
+  if (item.type !== 'discipline' || item.actor?.type !== 'npc' || !system.activation) return
+  const activation = { ...system.activation }
+  delete activation.npcCost
+  system.activation = activation
+}
+
 export const _onSyncFromDataItem = async function (event) {
   event.preventDefault()
 
@@ -55,6 +62,8 @@ export const _onSyncFromDataItem = async function (event) {
         ...itemToSyncFrom.system
       }
     }
+
+    preserveNpcDisciplineCost(item, updates.system)
 
     // Update the item with the data pulled
     item.update(updates)
@@ -143,6 +152,8 @@ export const _onSyncToDataItems = async function (event) {
             ...item.system
           }
         }
+
+        preserveNpcDisciplineCost(itemToUpdate, updates.system)
 
         // Update the item with the data pulled
         itemToUpdate.update(updates)

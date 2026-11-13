@@ -66,4 +66,71 @@
       {{/each}}
     </div>
   </section>
+  {{#if showDisciplines}}
+  <section
+    class="sheet-section npc-disciplines"
+    data-actor-section="disciplines"
+  >
+    <header class="sheet-section-header">
+      <span class="sheet-section-name">{{localize 'WOD6E.VAMPIRE.Disciplines'}}</span>
+      {{#if isOwner}}
+      <button
+        type="button"
+        data-action="configureNpcDisciplines"
+        title="{{localize 'WOD6E.NPC.ConfigureDisciplines'}}"
+      >
+        <i class="fa-solid fa-edit"></i>
+      </button>
+      {{/if}}
+    </header>
+    <div class="sheet-section-list">
+      {{#each disciplines as |discipline|}}
+      <section
+        class="npc-discipline"
+        data-discipline="{{ discipline.key }}"
+      >
+        <header class="sheet-subsection-header npc-discipline-header">
+          <label class="npc-stat-row">
+            <span>{{ discipline.label }}</span>
+            <input
+              type="number"
+              name="{{ discipline.path }}"
+              value="{{ discipline.value }}"
+              min="0"
+              step="1"
+            />
+          </label>
+          {{#if @root.isOwner}}
+          <div class="sheet-section-data-actions">
+            <a
+              class="search-data-item"
+              data-action="searchItem"
+              data-type="discipline"
+              data-subtype="{{ discipline.key }}"
+              title="{{localize 'WOD6E.Search'}}"
+            >
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+            <a
+              class="item-create"
+              data-action="createItem"
+              data-type="discipline"
+              data-subtype="{{ discipline.key }}"
+              title="{{localize 'WOD6E.Create'}}"
+            >
+              <i class="fas fa-plus"></i>
+            </a>
+          </div>
+          {{/if}}
+        </header>
+        {{> 'systems/wod6e/templates/core/actors/parts/discipline-powers.hbs' powers=discipline.powers}}
+      </section>
+      {{else}}
+      {{#if isOwner}}
+      <p class="npc-stat-empty">{{localize 'WOD6E.NPC.ConfigureDisciplinesEmpty'}}</p>
+      {{/if}}
+      {{/each}}
+    </div>
+  </section>
+  {{/if}}
 </section>

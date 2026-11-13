@@ -1,5 +1,10 @@
 import { WoDActorBase } from './wod-actor-base.js'
+import {
+  _onConfigureNpcDisciplines,
+  _onConfigureNpcSkillPools
+} from '../scripts/on-configure-npc-traits.js'
 import { prepareConditionsContext } from '../scripts/prepare-core-partials.js'
+import { _onRollNpcPool } from '../scripts/on-roll.js'
 import {
   prepareNpcAbilitiesContext,
   prepareNpcLimitedContext,
@@ -15,10 +20,39 @@ const { HandlebarsApplicationMixin } = foundry.applications.api
 export class NpcActorSheet extends HandlebarsApplicationMixin(WoDActorBase) {
   static DEFAULT_OPTIONS = {
     classes: ['wod6e', 'actor', 'sheet', 'npc'],
+    actions: {
+      configureNpcSkillPools: _onConfigureNpcSkillPools,
+      configureNpcDisciplines: _onConfigureNpcDisciplines,
+      rollNpcPool: _onRollNpcPool,
+      adjustNpcResourceMax: NpcActorSheet.#adjustResourceMax
+    },
     position: {
       width: 630,
-      height: 630
+      height: 750
     }
+  }
+
+  static async #adjustResourceMax(_event, target) {
+    const { actor } = this
+    const { resource, delta } = target.dataset
+    const change = Number(delta)
+    if (
+      !actor.isOwner ||
+      !['health', 'willpower'].includes(resource) ||
+      ![-1, 1].includes(change)
+    ) {
+      return
+    }
+    if (resource === 'health' && actor.system.isMinion) return
+
+    const tracker = actor.system[resource]
+    const max = Math.max(1, tracker.max + change)
+    if (max === tracker.max) return
+
+    const update = { [`system.${resource}.max`]: max }
+    const usableMax = Math.max(0, max - tracker.disabled)
+    if (tracker.value > usableMax) update[`system.${resource}.value`] = usableMax
+    await actor.update(update)
   }
 
   static PARTS = {

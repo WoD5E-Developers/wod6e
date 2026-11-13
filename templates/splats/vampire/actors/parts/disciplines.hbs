@@ -75,59 +75,7 @@
         </div>
       </div>
     </div>
-    {{#if discipline.powers}}
-    <div class="resource-tracker-items">
-      <div class="discipline-power discipline-power-header">
-        <div>{{localize 'WOD6E.Name'}}</div>
-        <div>{{localize 'WOD6E.ACTIONS.Test'}}</div>
-        <div>{{localize 'WOD6E.ITEMS.Cost'}}</div>
-        <div>{{localize 'WOD6E.ITEMS.Level'}}</div>
-        <div>{{localize 'WOD6E.ATTRIBUTES.Attribute'}}</div>
-      </div>
-
-      {{#each discipline.powers as |power|}}
-      <div
-        class="sheet-section-row discipline-power-row discipline-power"
-        data-drag="true"
-        data-type="Item"
-        data-document-uuid="{{ power.uuid }}"
-        data-item-id="{{ power.id }}"
-        data-resource="{{ power.uuid }}"
-      >
-        <div class="resource-name">
-          <a
-            class="item-open"
-            data-action="openItem"
-            title="{{localize 'WOD6E.ViewItem'}}"
-            data-uuid="{{ power.uuid }}"
-          >
-            <i class="fas fa-book"></i>
-          </a>
-
-          <button
-            type="button"
-            class="sheet-section-label"
-            data-action="sendItemToChat"
-            data-uuid="{{ power.uuid }}"
-            title="{{localize 'WOD6E.PostToChat'}}"
-          >
-            <span class="resource-name">{{ power.name }}</span>
-          </button>
-        </div>
-
-        <div
-          class="power-test-text"
-          title="{{ power.testText }}"
-        >
-          {{ power.testText }}
-        </div>
-        <div class="power-cost">{{ power.cost }}</div>
-        <div class="power-level">{{ power.system.level }}</div>
-        <div class="power-attribute">{{ power.attribute }}</div>
-      </div>
-      {{/each}}
-    </div>
-    {{/if}}
+    {{> "systems/wod6e/templates/core/actors/parts/discipline-powers.hbs" powers=discipline.powers}}
     {{/each}}
   </div>
 </section>

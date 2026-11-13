@@ -27,6 +27,7 @@
     </label>
   </section>
   {{/if}}
+  {{#if test.showFocusSection}}
   <section class="roll-focus-section">
     <h4>{{localize 'WOD6E.SKILLS.Focus'}}</h4>
     {{#if test.hasFocusOptions}}
@@ -57,6 +58,7 @@
     />
     {{/if}}
   </section>
+  {{/if}}
 
   <section class="roll-condition-section">
     <h4>{{localize 'WOD6E.ROLL.ConditionEffects'}}</h4>

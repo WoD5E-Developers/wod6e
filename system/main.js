@@ -57,6 +57,7 @@ import { initializeHumanityPaths } from './splats/vampire/scripts/humanity.js'
 import { createPathItemData } from './splats/vampire/scripts/paths.js'
 import { mountChronicleBar, registerChronicleSettings } from './core/ui/chronicle-bar.js'
 import { initializeChronicleTime } from './core/scripts/chronicle.js'
+import { migrateNpcStatBlocks } from './core/actors/scripts/migrate-npc-stat-blocks.js'
 import { obsoleteItemsSetting, removeObsoleteItems } from './core/scripts/obsolete-items.js'
 
 // Register the WOD6E global
@@ -204,6 +205,9 @@ Hooks.once('ready', async function () {
     ui.notifications.error(game.i18n.localize('WOD6E.NOTIFICATIONS.ObsoleteItemsMigrationFailed'))
   }
 
+  await migrateNpcStatBlocks().catch((error) =>
+    console.error('WOD6E | NPC stat block migration', error)
+  )
   await initializeHumanityPaths()
 
   // Flavourtext

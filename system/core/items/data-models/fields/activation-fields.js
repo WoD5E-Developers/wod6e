@@ -1,6 +1,13 @@
 const fields = foundry.data.fields
 
-export function activationFields() {
+function costFields() {
+  return new fields.SchemaField({
+    amount: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
+    type: new fields.StringField({ initial: 'none' })
+  })
+}
+
+export function activationFields({ includeNpcCost = false } = {}) {
   return new fields.SchemaField({
     activationType: new fields.StringField({
       initial: 'none'
@@ -25,11 +32,7 @@ export function activationFields() {
       })
     }),
 
-    cost: new fields.SchemaField({
-      amount: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
-      type: new fields.StringField({
-        initial: 'none'
-      })
-    })
+    cost: costFields(),
+    ...(includeNpcCost ? { npcCost: costFields() } : {})
   })
 }

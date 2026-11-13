@@ -1,7 +1,7 @@
 import { generateTrackers } from '../../../../../core/actors/scripts/generate-trackers.js'
 import { prepareResources } from '../../../../../core/actors/scripts/prepare-resources.js'
 import { prepareSkills } from '../../../../../core/actors/scripts/prepare-skills.js'
-import { generateTestTextFromItem } from '../../../../../core/items/scripts/generate-test-text-from-item.js'
+import { prepareDisciplinePowers } from '../../../../../core/actors/scripts/prepare-discipline-powers.js'
 import { formatOrdinals } from '../../../../../core/scripts/format-ordinals.js'
 import { generationDetailLookup } from '../../../scripts/generation-detail-lookup.js'
 import { getActivePath, getHumanityRank, getHumanityModifier } from '../../../scripts/humanity.js'
@@ -192,24 +192,7 @@ export function prepareDisciplinesContext(context, actor) {
       const max = Number.isFinite(configuredMaximum)
         ? configuredMaximum
         : (actorDiscipline?.max ?? 5)
-      const powers = actor.items
-        .filter((item) => item.type === 'discipline' && item.system?.disciplineType === key)
-        .sort((a, b) => a.sort - b.sort)
-        .map((item) => ({
-          ...item,
-          id: item.id,
-          uuid: item.uuid,
-          testText: generateTestTextFromItem(item),
-          cost:
-            item.system?.activation?.cost?.type === 'none'
-              ? game.i18n.localize('WOD6E.None')
-              : game.i18n.format('WOD6E.ITEMS.NumberStringResourceCost', {
-                  number: item.system?.activation?.cost?.amount,
-                  string: WOD6E.configs.CostTypes.getList({})[item.system?.activation?.cost?.type]
-                    .label
-                }),
-          attribute: WOD6E.configs.AttributeGroups.getList({})[item.system?.attribute].label
-        }))
+      const powers = prepareDisciplinePowers(actor, key)
 
       const trackers = generateTrackers({
         name: discipline.displayName,

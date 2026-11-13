@@ -38,7 +38,8 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/actors/parts/flaws.hbs',
     'systems/wod6e/templates/core/actors/parts/resources.hbs',
     'systems/wod6e/templates/core/actors/npc/header.hbs',
-    'systems/wod6e/templates/core/actors/npc/levels.hbs',
+    'systems/wod6e/templates/core/actors/npc/stat-block.hbs',
+    'systems/wod6e/templates/core/actors/parts/discipline-powers.hbs',
 
     // Group actor templates
     'systems/wod6e/templates/core/actors/group/group-overview.hbs',
