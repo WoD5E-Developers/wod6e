@@ -1,3 +1,30 @@
+import { NpcTiers } from '../../config/npc-tiers.js'
+import { createInitialAttributeValue } from '../data-models/fields/attribute-fields.js'
+
+export function getNpcResourceDefaults(system) {
+  const { tier, creatureKind, attributePools, attributes } = system
+  if (NpcTiers.getDefinition(tier).usesDetailedTraits) {
+    const { value: initialRank } = createInitialAttributeValue()
+    const stamina = attributes?.stamina?.value ?? initialRank
+    const composure = attributes?.composure?.value ?? initialRank
+    const resolve = attributes?.resolve?.value ?? initialRank
+    return {
+      health: 5 + stamina,
+      willpower: Math.max(1, composure + resolve)
+    }
+  }
+
+  const { physical, social, mental } = attributePools
+  const healthBase = creatureKind === 'vampire' ? 5 : 2
+  let health = healthBase + Math.ceil(physical / 2)
+
+  if (creatureKind === 'animal') health = Math.max(1, physical)
+
+  if (tier === 'minion' || (tier === 'minor' && system.minion)) health = 1
+
+  return { health, willpower: Math.max(1, social, mental) }
+}
+
 export function generateHealthMax(actor) {
   if (actor.type === 'npc') {
     return actor.system.isMinion ? 1 : actor.system.health.max

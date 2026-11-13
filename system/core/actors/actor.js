@@ -1,7 +1,25 @@
 import { ActorEffects } from './scripts/actor-effects.js'
-import { generateHealthMax, generateWillpowerMax } from './scripts/resource-max-calculations.js'
+import {
+  generateHealthMax,
+  generateWillpowerMax,
+  getNpcResourceDefaults
+} from './scripts/resource-max-calculations.js'
 import { generateVitaeMax, getHunger } from './scripts/vitae.js'
 import { createPathItemData } from '../../splats/vampire/scripts/paths.js'
+import { createInitialAttributes } from './data-models/fields/attribute-fields.js'
+import { NpcTiers } from '../config/npc-tiers.js'
+
+function addMissingNpcAttributes(system, updates) {
+  if (!NpcTiers.getDefinition(system.tier).usesDetailedTraits) return
+
+  for (const [key, initial] of Object.entries(createInitialAttributes())) {
+    if (system.attributes?.[key]) continue
+    system.attributes ??= {}
+    updates.attributes ??= {}
+    system.attributes[key] = initial
+    updates.attributes[key] = initial
+  }
+}
 
 /**
  * Extend the base ActorSheet document and put all our base functionality here
@@ -14,6 +32,28 @@ export class WoDActor extends Actor {
    */
   async _preCreate(data, context, user) {
     await super._preCreate(data, context, user)
+
+    // Set some default NPC values
+    if (this.type === 'npc') {
+      const system = this.toObject().system
+      const update = { system: {} }
+      addMissingNpcAttributes(system, update.system)
+      const defaults = getNpcResourceDefaults(system)
+
+      for (const [resource, defaultMax] of Object.entries(defaults)) {
+        const supplied = data.system?.[resource]
+        const max = supplied?.max ?? defaultMax
+        const effectiveMax = resource === 'health' && this.system.isMinion ? 1 : max
+        const usableMax = Math.max(0, effectiveMax - system[resource].disabled)
+
+        update.system[resource] = {
+          max,
+          value: Math.min(supplied?.value ?? usableMax, usableMax)
+        }
+      }
+
+      this.updateSource(update)
+    }
 
     if (data.type === 'vampire') {
       const items = data.items ?? []
@@ -34,6 +74,39 @@ export class WoDActor extends Actor {
 
     if (!foundry.utils.isEmpty(tokenUpdate)) {
       this.prototypeToken.updateSource(tokenUpdate)
+    }
+  }
+
+  // Check if the update includes NPC tier; if so, initialize defaults
+  // or constraints for NPCs
+  async _preUpdate(changed, options, user) {
+    // Cancel our updates if the parent function returns false too
+    const allowed = await super._preUpdate(changed, options, user)
+    if (allowed === false) return false
+
+    // Only proceed if this is an NPC
+    if (this.type !== 'npc' || (changed.type && changed.type !== 'npc') || !changed.system?.tier) {
+      return
+    }
+
+    // We don't need to do the below logic if the tier hasn't changed
+    const currentTier = this.system.isMinion ? 'minion' : this.system.tier
+    if (changed.system.tier === currentTier) return
+
+    const system = foundry.utils.mergeObject(this.toObject().system, changed.system)
+
+    // Check if the attributes are 0 like they are on older NPCs
+    addMissingNpcAttributes(system, changed.system)
+
+    // Get the defaults and update the actor
+    const defaults = getNpcResourceDefaults(system)
+    for (const [resource, defaultMax] of Object.entries(defaults)) {
+      const update = (changed.system[resource] ??= {})
+      update.max ??= defaultMax
+      const effectiveMax =
+        resource === 'health' && changed.system.tier === 'minion' ? 1 : update.max
+      const usableMax = Math.max(0, effectiveMax - system[resource].disabled)
+      update.value = Math.min(update.value ?? this.system[resource].value, usableMax)
     }
   }
 
