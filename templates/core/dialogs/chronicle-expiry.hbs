@@ -1,0 +1,10 @@
+<div class="chronicle-expiry">
+  <p>{{ hint }}</p>
+  {{#if entries.length}}
+  <ul>
+    {{#each entries}}
+    <li>{{ actorName }} - {{ itemName }}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>

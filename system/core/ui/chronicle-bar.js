@@ -32,35 +32,10 @@ function element(tag, options = {}) {
   return Object.assign(document.createElement(tag), options)
 }
 
-function selectFor(choices, value) {
-  const select = element('select')
-
-  for (const choice of choices) {
-    select.add(
-      element('option', {
-        textContent: choice.label,
-        value: choice.id,
-        defaultSelected: choice.id === value
-      })
-    )
-  }
-
-  return select
-}
-
-function field(labelText, input) {
-  const wrapper = element('label', { className: 'chronicle-field' })
-
-  wrapper.append(element('span', { textContent: labelText }), input)
-
-  return wrapper
-}
-
 function dialogOptions(title, content) {
   const wrapper = element('div')
 
-  if (typeof content === 'string') wrapper.innerHTML = content
-  else wrapper.append(content)
+  wrapper.innerHTML = content
 
   return {
     window: { title: label(title) },
@@ -143,46 +118,23 @@ async function submit(action) {
 }
 
 async function configureScopes() {
-  const content = element('div', { className: 'chronicle-scope-config' })
-  const list = element('div', { className: 'chronicle-scope-list' })
-  const add = element('button', {
-    type: 'button',
-    className: 'chronicle-add-location',
-    textContent: label('AddLocation')
-  })
-
-  content.append(element('strong', { textContent: label('Chronicle') }), list, add)
-
-  const addRow = (targetList, scope) => {
-    const row = element('div', { className: 'chronicle-scope-row' })
-    row.dataset.scopeId = scope.id
-
-    const name = element('input', { type: 'text', defaultValue: scope.name, maxLength: 64 })
-    name.setAttribute('title', label('LocationName'))
-
-    const remove = element('button', {
-      type: 'button',
-      className: 'chronicle-remove-location',
-      textContent: label('RemoveLocation')
-    })
-
-    row.append(name, remove)
-    targetList.append(row)
-    return name
-  }
-
-  for (const scope of getScopes().slice(1)) addRow(list, scope)
+  const content = await foundry.applications.handlebars.renderTemplate(
+    'systems/wod6e/templates/core/dialogs/chronicle-scopes.hbs',
+    { scopes: getScopes().slice(1) }
+  )
 
   await foundry.applications.api.DialogV2.confirm({
     ...dialogOptions('Scopes', content),
     render: (_event, dialog) => {
       const config = dialog.element.querySelector('.chronicle-scope-config')
       const liveList = config.querySelector('.chronicle-scope-list')
-      config
-        .querySelector('.chronicle-add-location')
-        .addEventListener('click', () =>
-          addRow(liveList, { id: foundry.utils.randomID(), name: '' }).focus()
-        )
+      const rowTemplate = config.querySelector('.chronicle-scope-row-template')
+      config.querySelector('.chronicle-add-location').addEventListener('click', () => {
+        const row = rowTemplate.content.firstElementChild.cloneNode(true)
+        row.dataset.scopeId = foundry.utils.randomID()
+        liveList.append(row)
+        row.querySelector('input').focus()
+      })
       liveList.addEventListener('click', (event) =>
         event.target
           .closest('.chronicle-remove-location')
@@ -290,17 +242,13 @@ async function configureTime() {
 
 async function endBoundary(boundary) {
   const entries = getExpiringConditions(boundary, game.scenes.current)
-  const content = element('div', { className: 'chronicle-expiry' })
-  content.append(
-    element('p', { textContent: label(entries.length ? 'Expiring' : 'NothingExpires') })
-  )
-  if (entries.length) {
-    const list = element('ul')
-    for (const { actor, item } of entries) {
-      list.append(element('li', { textContent: `${actor.name} - ${item.name}` }))
+  const content = await foundry.applications.handlebars.renderTemplate(
+    'systems/wod6e/templates/core/dialogs/chronicle-expiry.hbs',
+    {
+      hint: label(entries.length ? 'Expiring' : 'NothingExpires'),
+      entries: entries.map(({ actor, item }) => ({ actorName: actor.name, itemName: item.name }))
     }
-    content.append(list)
-  }
+  )
   await foundry.applications.api.DialogV2.confirm({
     ...dialogOptions(boundaryLabels[boundary], content),
     yes: {
@@ -316,11 +264,10 @@ async function reviewMasquerade(message, kind) {
   const preferred =
     scopes.find((scope) => scope.name === sceneName)?.id ?? bar?.querySelector('select').value
 
-  const select = selectFor(scopes, preferred ?? scopes[0].id)
-  select.name = 'scope'
-
-  const content = element('div')
-  content.append(element('p', { textContent: label(kind) }), field(label('Scope'), select))
+  const content = await foundry.applications.handlebars.renderTemplate(
+    'systems/wod6e/templates/core/dialogs/review-masquerade.hbs',
+    { scopes, selectedScope: preferred ?? scopes[0].id, hint: label(kind) }
+  )
 
   const actions = [
     ['mark', 1, 'Mark'],

@@ -1,0 +1,34 @@
+{{#*inline "scopeRow"}}
+<div
+  class="chronicle-scope-row"
+  data-scope-id="{{ id }}"
+>
+  <input
+    type="text"
+    value="{{ name }}"
+    maxlength="64"
+    title="{{localize 'WOD6E.CHRONICLE.LocationName'}}"
+  />
+  <button
+    type="button"
+    class="chronicle-remove-location"
+  >
+    {{localize 'WOD6E.CHRONICLE.RemoveLocation'}}
+  </button>
+</div>
+{{/inline}}
+<div class="chronicle-scope-config">
+  <strong>{{localize 'WOD6E.CHRONICLE.Chronicle'}}</strong>
+  <div class="chronicle-scope-list">
+    {{#each scopes}}
+    {{> scopeRow}}
+    {{/each}}
+  </div>
+  <button
+    type="button"
+    class="chronicle-add-location"
+  >
+    {{localize 'WOD6E.CHRONICLE.AddLocation'}}
+  </button>
+  <template class="chronicle-scope-row-template">{{> scopeRow}}</template>
+</div>
