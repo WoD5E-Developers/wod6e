@@ -8,8 +8,13 @@ export const formatOptionLabel = (labels) => {
 
 export const formatTest = (...options) => {
   const selected = options
-    .filter((option) => option?.length)
-    .map((option) => formatOptionLabel(option))
+    .map((option) => (Array.isArray(option) ? { labels: option, mode: 'any' } : option))
+    .filter((option) => option?.labels?.length)
+    .map(({ labels, mode }) => {
+      if (mode === 'all') return labels.join(' + ')
+      const text = formatOptionLabel(labels)
+      return labels.length > 1 ? `(${text})` : text
+    })
 
   if (!selected.length) {
     return game.i18n.localize('WOD6E.NoneSelected')

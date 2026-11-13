@@ -1,6 +1,7 @@
 import { generateTrackers } from './generate-trackers.js'
 import { getEffectLabel } from './get-effect-label.js'
 import { resolveModifierValue } from './resolve-modifier-value.js'
+import { getHunger, hasBeast } from './vitae.js'
 
 export const prepareAttributesContext = async function (context, actor) {
   const attributeGroups = WOD6E.configs.AttributeGroups.getList({})
@@ -29,15 +30,10 @@ export const prepareAttributesContext = async function (context, actor) {
 }
 
 export const prepareResourcesContext = async function (context, actor) {
-  // Switch for the health label; likely as more splats/actor types are added this will
-  // have to move to a configuration in ActorTypes, but for now this'll do
-  const healthLabel = actor.type === 'npc' ? 'WOD6E.NPC.Health' : 'WOD6E.RESOURCES.Vitae'
+  const healthLabel = 'WOD6E.RESOURCES.Health'
   const actorHealth = actor.system.health
   if (actorHealth) {
     context.health = {
-      // Other splats may call this "Health" in the future
-      // So let's think smartly and just make this a variable
-      // upfront instead of putting it on the sheet
       label: healthLabel,
       path: 'system.health.value',
       value: actorHealth.value,
@@ -53,6 +49,22 @@ export const prepareResourcesContext = async function (context, actor) {
     }
   }
 
+  const actorVitae = actor.system.vitae
+  if (actorVitae) {
+    context.vitae = {
+      path: 'system.vitae.value',
+      value: actorVitae.value,
+      max: actorVitae.max,
+      hunger: getHunger(actor),
+      hasBeast: hasBeast(actor),
+      trackers: generateTrackers({
+        name: game.i18n.localize('WOD6E.RESOURCES.Vitae'),
+        value: actorVitae.value,
+        max: actorVitae.max
+      })
+    }
+  }
+
   const actorWillpower = actor.system.willpower
   if (actorWillpower) {
     context.willpower = {
@@ -64,9 +76,7 @@ export const prepareResourcesContext = async function (context, actor) {
         name: game.i18n.localize('WOD6E.RESOURCES.Willpower'),
         value: actorWillpower.value,
         max: actorWillpower.max,
-        disabled: actorWillpower.disabled,
-        // Don't reverse the tracker if we're displaying it on an NPC
-        reverse: actor.type !== 'npc'
+        disabled: actorWillpower.disabled
       })
     }
   }
@@ -165,6 +175,14 @@ export const prepareConditionsContext = async function (context, actor) {
 }
 
 export const prepareSettingsContext = async function (context, actor) {
+  if (actor.type === 'vampire') {
+    context.creatureType = actor.system.creatureType
+    context.creatureTypeOptions = {
+      vampire: 'TYPES.Actor.vampire',
+      duskborn: 'WOD6E.VAMPIRE.Duskborn',
+      ghoul: 'WOD6E.VAMPIRE.Ghoul'
+    }
+  }
   const actorSettings = actor.system.settings ?? {}
   context.settings = actorSettings
   context.limitedSettingFields = [
@@ -186,11 +204,6 @@ export const prepareSettingsContext = async function (context, actor) {
         path: 'creatureType',
         label: 'WOD6E.NPC.CreatureType',
         checked: actorSettings.limited?.creatureType
-      },
-      {
-        path: 'subtype',
-        label: 'WOD6E.NPC.Subtype',
-        checked: actorSettings.limited?.subtype
       },
       {
         path: 'motivation',

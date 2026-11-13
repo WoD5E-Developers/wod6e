@@ -1,9 +1,12 @@
 <section
-  class="sheet-part sheet-section"
+  class="sheet-part sheet-section resource-panels {{#if vitae}}has-vitae{{/if}}"
   data-group="primary"
   data-tab="main"
   data-actor-section="healthWillpower"
 >
   {{> "systems/wod6e/templates/core/actors/parts/health.hbs"}}
+  {{#if vitae}}
+  {{> "systems/wod6e/templates/core/actors/parts/vitae.hbs"}}
+  {{/if}}
   {{> "systems/wod6e/templates/core/actors/parts/willpower.hbs"}}
 </section>

@@ -1,0 +1,23 @@
+{{#if (eq mode 'any')}}
+  <div class="roll-trait-select" data-field-path="{{ fieldPath }}">
+    <select name="{{ fieldPath }}" title="{{localize label}}" required {{disabled (not options.length)}}>
+      {{#if (gt options.length 1)}}
+        <option value="">{{localize 'WOD6E.ROLL.ChooseOne'}}</option>
+      {{/if}}
+      {{#each options as |option|}}
+        <option value="{{ option.key }}" {{#if option.selected}}selected{{/if}}>
+          {{ option.label }}
+        </option>
+      {{else}}
+        <option value="">{{localize 'WOD6E.None'}}</option>
+      {{/each}}
+    </select>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+{{else}}
+  {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
+    fieldPath=fieldPath
+    options=options
+    selectedText=selectedText
+  }}
+{{/if}}

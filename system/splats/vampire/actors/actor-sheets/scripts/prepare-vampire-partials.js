@@ -1,9 +1,11 @@
 import { generateTrackers } from '../../../../../core/actors/scripts/generate-trackers.js'
 import { prepareResources } from '../../../../../core/actors/scripts/prepare-resources.js'
 import { prepareSkills } from '../../../../../core/actors/scripts/prepare-skills.js'
-import { generateTestTextFromItem } from '../../../../../core/items/scripts/generate-test-text-from-item.js'
+import { prepareDisciplinePowers } from '../../../../../core/actors/scripts/prepare-discipline-powers.js'
 import { formatOrdinals } from '../../../../../core/scripts/format-ordinals.js'
 import { generationDetailLookup } from '../../../scripts/generation-detail-lookup.js'
+import { getActivePath, getHumanityRank, getHumanityModifier } from '../../../scripts/humanity.js'
+import { hasBeast } from '../../../../../core/actors/scripts/vitae.js'
 
 export const prepareHeaderContext = async function (context, actor) {
   const actorData = actor.system
@@ -33,40 +35,26 @@ export const prepareHeaderContext = async function (context, actor) {
 }
 
 export const prepareHumanityScaleContext = async function (context, actor) {
-  const actorData = actor.system
-
-  const humanity = actorData.vampire.humanity
+  const rank = getHumanityRank(actor)
+  const path = getActivePath(actor)
+  const violations = Math.min(10 - rank, actor.system.vampire.humanity.violations)
+  const modifier = getHumanityModifier(rank)
   context.humanity = {
-    trackers: generateTrackers({
-      name: game.i18n.localize('WOD6E.VAMPIRE.Humanity'),
-      value: humanity.value,
-      max: humanity.max,
-      groupSize: 100,
-      onlyCurrentValueSelected: true
-    })
+    hasBeast: hasBeast(actor),
+    violations,
+    modifier: modifier > 0 ? `+${modifier}` : String(modifier),
+    name: path.name,
+    uuid: path.uuid,
+    canEdit: actor.isOwner,
+    isWight: rank === 0,
+    boxes: Array.from({ length: 10 }, (_unused, index) => ({
+      position: index + 1,
+      filled: index < rank,
+      current: index + 1 === rank,
+      violated: index >= 10 - violations,
+      title: game.i18n.format('WOD6E.VAMPIRE.SetHumanityRank', { rank: index + 1 })
+    }))
   }
-
-  const nature = actorData.vampire.nature
-  context.natureTracker = {
-    trackers: generateTrackers({
-      name: game.i18n.localize('WOD6E.VAMPIRE.Nature'),
-      value: nature.value,
-      max: nature.max,
-      groupSize: 5
-    })
-  }
-
-  const beast = actorData.vampire.beast
-  context.beastTracker = {
-    trackers: generateTrackers({
-      name: game.i18n.localize('WOD6E.VAMPIRE.Beast'),
-      value: beast.value,
-      max: beast.max,
-      groupSize: 5,
-      reverse: true
-    })
-  }
-
   return context
 }
 
@@ -153,31 +141,6 @@ export const prepareRightColumnContext = async function (context, actor) {
     }))
   )
 
-  const nature = context.nature
-  if (nature) {
-    const natureData = nature?.system || {}
-    context.natureFeatures = [
-      {
-        uuid: nature?.uuid,
-        name: `${nature?.name}`,
-        img: nature?.img,
-        description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-          natureData?.description ?? ''
-        )
-      },
-      {
-        uuid: nature?.uuid,
-        name: `${nature?.name} Outburst: ${natureData?.outburst?.name || 'None'}`,
-        img: nature?.img,
-        description: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-          natureData?.outburst?.description ?? ''
-        )
-      }
-    ]
-  } else {
-    context.nature = []
-  }
-
   const clan = context.clan
   if (clan) {
     const clanData = clan?.system || {}
@@ -229,24 +192,7 @@ export function prepareDisciplinesContext(context, actor) {
       const max = Number.isFinite(configuredMaximum)
         ? configuredMaximum
         : (actorDiscipline?.max ?? 5)
-      const powers = actor.items
-        .filter((item) => item.type === 'discipline' && item.system?.disciplineType === key)
-        .sort((a, b) => a.sort - b.sort)
-        .map((item) => ({
-          ...item,
-          id: item.id,
-          uuid: item.uuid,
-          testText: generateTestTextFromItem(item),
-          cost:
-            item.system?.activation?.cost?.type === 'none'
-              ? game.i18n.localize('WOD6E.None')
-              : game.i18n.format('WOD6E.ITEMS.NumberStringResourceCost', {
-                  number: item.system?.activation?.cost?.amount,
-                  string: WOD6E.configs.CostTypes.getList({})[item.system?.activation?.cost?.type]
-                    .label
-                }),
-          attribute: WOD6E.configs.AttributeGroups.getList({})[item.system?.attribute].label
-        }))
+      const powers = prepareDisciplinePowers(actor, key)
 
       const trackers = generateTrackers({
         name: discipline.displayName,

@@ -1,5 +1,6 @@
 import { prepareConditionEffectsContext } from '../items/scripts/prepare-condition-partials.js'
 import { generateTestTextFromItem } from '../items/scripts/generate-test-text-from-item.js'
+import { getItemCost } from '../actors/scripts/resource-spending.js'
 
 function definitionLabel(config, key, fallback = key) {
   return config?.getList?.({})?.[key]?.displayName ?? fallback ?? game.i18n.localize('WOD6E.None')
@@ -59,6 +60,9 @@ async function prepareChatContext(item) {
   const system = item.system
   const actor = item.actor
   const canRoll = Boolean(system.test && actor && (game.user.isGM || actor.isOwner))
+  const hasTest =
+    system.test?.attributes?.size + system.test?.skills?.size + system.test?.disciplines?.size > 0
+  const cost = getItemCost(item, actor)
   const difficultyDefinition = WOD6E.configs.Difficulties.getList({})[system.difficulty?.type]
   const conditionContext = {}
   let conditionSourceName = ''
@@ -88,18 +92,18 @@ async function prepareChatContext(item) {
     conditionSourceName,
     conditionTargetName,
     canRoll,
-    test:
-      system.test?.attributes?.size + system.test?.skills?.size + system.test?.disciplines?.size > 0
-        ? {
-            text: generateTestTextFromItem(item),
-            description: system.test.description,
-            attributes: selectedLabels(WOD6E.configs.Attributes, system.test.attributes),
-            skills: selectedLabels(WOD6E.configs.Skills, system.test.skills),
-            disciplines: selectedLabels(WOD6E.configs.Disciplines, system.test.disciplines)
-          }
-        : null,
+    canPayActivation: !hasTest && actor?.isOwner && Boolean(cost),
+    test: hasTest
+      ? {
+          text: generateTestTextFromItem(item),
+          description: system.test.description,
+          attributes: selectedLabels(WOD6E.configs.Attributes, system.test.attributes),
+          skills: selectedLabels(WOD6E.configs.Skills, system.test.skills),
+          disciplines: selectedLabels(WOD6E.configs.Disciplines, system.test.disciplines)
+        }
+      : null,
     activation:
-      system?.activation && system?.activation?.activationType !== 'none'
+      system?.activation && (system.activation.activationType !== 'none' || cost)
         ? {
             ...system.activation,
             typeLabel: definitionLabel(WOD6E.configs.Activations, system.activation.activationType),
@@ -107,7 +111,9 @@ async function prepareChatContext(item) {
             distanceLabel: definitionLabel(WOD6E.configs.Distances, system.activation.distance),
             showDuration: system?.activation?.duration !== 'none',
             durationLabel: definitionLabel(WOD6E.configs.Durations, system.activation.duration),
-            costLabel: definitionLabel(WOD6E.configs.CostTypes, system.activation.cost?.type),
+            cost,
+            showCost: Boolean(cost),
+            costLabel: definitionLabel(WOD6E.configs.CostTypes, cost?.resource),
             damageResourceLabel: definitionLabel(
               WOD6E.configs.ResourceTypes,
               system.activation.damage?.resource
@@ -194,6 +200,9 @@ export const _onSendItemToChat = async function (event, target) {
     speaker: ChatMessage.getSpeaker({
       actor: item.actor
     }),
+    ...(item.system.activation?.activationType === 'downtime' || item.system.group === 'downtime'
+      ? { flags: { wod6e: { masqueradeDowntime: true } } }
+      : {}),
     content
   })
 }

@@ -34,24 +34,29 @@ export function vampireFields() {
       }),
 
       humanity: new fields.SchemaField({
-        max: new fields.NumberField({ initial: 7, min: 1, integer: true, nullable: false }),
-        value: new fields.NumberField({ initial: 4, min: 0, integer: true, nullable: false }),
-        disabled: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
-        canBeDisabled: new fields.BooleanField({ initial: false })
-      }),
-
-      nature: new fields.SchemaField({
-        max: new fields.NumberField({ initial: 5, min: 1, integer: true, nullable: false }),
-        value: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
-        disabled: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
-        canBeDisabled: new fields.BooleanField({ initial: false })
-      }),
-
-      beast: new fields.SchemaField({
-        max: new fields.NumberField({ initial: 5, min: 1, integer: true, nullable: false }),
-        value: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
-        disabled: new fields.NumberField({ initial: 0, min: 0, integer: true, nullable: false }),
-        canBeDisabled: new fields.BooleanField({ initial: false })
+        max: new fields.NumberField({
+          initial: 10,
+          min: 10,
+          max: 10,
+          integer: true,
+          nullable: false
+        }),
+        value: new fields.NumberField({
+          initial: 6,
+          min: 0,
+          max: 10,
+          integer: true,
+          nullable: false
+        }),
+        violations: new fields.NumberField({
+          initial: 0,
+          min: 0,
+          max: 10,
+          integer: true,
+          nullable: false
+        }),
+        rulesVersion: new fields.NumberField({ initial: 2, nullable: false }),
+        legacy: new fields.ObjectField({ initial: null, nullable: true })
       }),
 
       disciplines: disciplineFields()

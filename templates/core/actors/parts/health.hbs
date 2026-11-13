@@ -9,13 +9,35 @@
     data-path="{{ health.path }}"
   >
     <header class="resource-tracker-header">
+      {{#if showResourceAdjustments}}
+      <button
+        type="button"
+        class="npc-resource-adjust"
+        data-action="adjustNpcResourceMax"
+        data-resource="health"
+        data-delta="-1"
+        title="{{localize 'WOD6E.RESOURCES.DecreaseResource' resource=(localize 'WOD6E.RESOURCES.Health')}}"
+      >
+        −
+      </button>
+      {{/if}}
       <span class="resource-tracker-label">
         {{localize health.label}}
       </span>
 
-      <span class="resource-tracker-total">({{ health.value }} / {{ health.max }})</span>
-
-      {{> "systems/wod6e/templates/splats/vampire/actors/parts/blood-surge.hbs"}}
+      <span class="resource-tracker-total">{{ health.value }} / {{ health.max }}</span>
+      {{#if showResourceAdjustments}}
+      <button
+        type="button"
+        class="npc-resource-adjust"
+        data-action="adjustNpcResourceMax"
+        data-resource="health"
+        data-delta="1"
+        title="{{localize 'WOD6E.RESOURCES.IncreaseResource' resource=(localize 'WOD6E.RESOURCES.Health')}}"
+      >
+        +
+      </button>
+      {{/if}}
     </header>
 
     <div class="resource-tracker-spaces">

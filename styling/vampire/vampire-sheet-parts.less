@@ -4,7 +4,8 @@
     overflow-y: scroll;
   }
 
-  .blood-surge-button {
+  .blood-surge-button,
+  .feed-button {
     font-size: 12px;
   }
 
@@ -35,9 +36,11 @@
   grid-area: humanityScale;
 }
 
-[data-actor-section="disciplines"] {
+.vampire-sheet-body [data-actor-section="disciplines"] {
   grid-area: disciplines;
+}
 
+[data-actor-section="disciplines"] {
   .discipline-power {
     display: grid;
     grid-template-columns:

@@ -1,0 +1,44 @@
+<div class='dice-roll' data-action='expandRoll'>
+  {{#if flavor}}
+    <div class='dice-flavor'>{{flavor}}</div>
+  {{/if}}
+  <div class='dice-result'>
+    <div class='dice-formula'>
+      {{formula}}
+    </div>
+    {{{tooltip}}}
+    <h4 class='dice-total'>
+      {{#if resolution.outcomeLabel}}
+        {{resolution.outcomeLabel}}
+      {{else}}
+        {{total}}
+        {{#if resolution}}
+          {{#if (eq total 1)}}
+            {{localize 'WOD6E.ROLL.SuccessSingular'}}
+          {{else}}
+            {{localize 'WOD6E.ROLL.Successes'}}
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    </h4>
+    {{#if resolution.automaticFailure}}
+      <div class='wod6e-test-result'>
+        <strong>
+          {{localize 'WOD6E.ROLL.AutomaticFailure'}}
+        </strong>
+      </div>
+    {{/if}}
+    {{#if resolution.isPainfulFailure}}
+      <div class="wod6e-test-result"><strong>{{localize 'WOD6E.ROLL.PainfulFailure'}}</strong></div>
+    {{/if}}
+    {{#if resolution.isBestialFailure}}
+      <div class="wod6e-test-result"><strong>{{localize 'WOD6E.ROLL.BestialFailure'}}</strong></div>
+    {{/if}}
+    {{#if resolution.bargainCost}}
+      <div class="wod6e-test-result">{{resolution.bargainCost}}</div>
+    {{/if}}
+    {{#if resolution.isRetry}}
+      <p class="wod6e-test-guidance">{{localize 'WOD6E.ROLL.RetryAttempt'}}</p>
+    {{/if}}
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="form-group">
+  <label>{{localize 'WOD6E.VAMPIRE.Frenzy'}}</label>
+  <select name="frenzyType">
+    {{selectOptions types selected='hunger' localize=true}}
+  </select>
+</div>
+<div
+  data-frenzy-section="fear"
+  class="form-group"
+>
+  <label>{{localize 'WOD6E.VAMPIRE.FearExposure'}}</label>
+  <select name="fear">
+    <option value="1">1: {{localize 'WOD6E.VAMPIRE.Fear1'}}</option>
+    <option
+      value="2"
+      selected
+    >
+      2: {{localize 'WOD6E.VAMPIRE.Fear2'}}
+    </option>
+    <option value="3">3: {{localize 'WOD6E.VAMPIRE.Fear3'}}</option>
+    <option value="4">4: {{localize 'WOD6E.VAMPIRE.Fear4'}}</option>
+    <option value="5">5: {{localize 'WOD6E.VAMPIRE.Fear5'}}</option>
+  </select>
+</div>
+<div data-frenzy-section="rage">
+  {{#each rage as |option|}}
+  <label class="form-group">
+    <input
+      type="checkbox"
+      name="rage"
+      value="{{ option.index }}"
+    />
+    {{localize option.label}} ({{ option.modifier }})
+  </label>
+  {{/each}}
+</div>
+<p>
+  {{localize 'WOD6E.TABS.Difficulty'}}:
+  <strong data-frenzy-difficulty></strong>
+</p>

@@ -6,6 +6,14 @@ import {
 } from '../../../../core/actors/scripts/prepare-core-partials.js'
 import { _onConfigureVisibleDisciplines } from './scripts/on-configure-visible-disciplines.js'
 import { _onBloodSurge } from './scripts/on-blood-surge.js'
+import { _onFeed } from '../../../../core/actors/scripts/feeding.js'
+import {
+  _onHumanityRank,
+  _onMarkViolations,
+  _onEraseViolation,
+  _onOpenPath
+} from './scripts/on-humanity.js'
+import { _onResistFrenzy } from './scripts/on-frenzy.js'
 import {
   prepareDisciplinesContext,
   prepareHeaderContext,
@@ -26,6 +34,12 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     classes: ['wod6e', 'actor', 'sheet', 'vampire'],
     actions: {
       bloodSurge: _onBloodSurge,
+      feed: _onFeed,
+      setHumanityRank: _onHumanityRank,
+      markViolations: _onMarkViolations,
+      eraseViolation: _onEraseViolation,
+      openPath: _onOpenPath,
+      resistFrenzy: _onResistFrenzy,
       configureVisibleDisciplines: _onConfigureVisibleDisciplines
     }
   }
@@ -101,7 +115,6 @@ export class VampireActorSheet extends HandlebarsApplicationMixin(WoDActorBase) 
     context.tabs = this._prepareTabs('primary')
 
     context.clan = actor.items.filter((item) => item.type === 'clan')[0]
-    context.nature = actor.items.filter((item) => item.type === 'nature')[0]
 
     return context
   }

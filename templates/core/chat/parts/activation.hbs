@@ -18,7 +18,7 @@
       <div class="item-card-field-value">{{ activation.durationLabel }}</div>
     </div>
     {{/if}}
-    {{#if activation.cost.amount}}
+    {{#if activation.showCost}}
     <div class="item-card-fields">
       <div class="item-card-field-name">{{localize "WOD6E.ITEMS.Cost"}}:</div>
       <div class="item-card-field-value">
@@ -39,5 +39,10 @@
     </div>
     {{/if}}
   </div>
+  {{#if canPayActivation}}
+  <button type="button" data-action="payItemCost" data-item-uuid="{{ item.uuid }}">
+    {{localize "WOD6E.RESOURCES.PayCost"}}
+  </button>
+  {{/if}}
 </section>
 {{/if}}

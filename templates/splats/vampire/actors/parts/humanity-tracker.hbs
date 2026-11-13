@@ -1,0 +1,27 @@
+{{#if humanity.hasBeast}}
+<section class="sheet-part humanity-tracker" data-actor-section="humanityScale">
+  <header class="humanity-tracker-header">
+    <div class="humanity-path-heading">
+      <button type="button" class="humanity-view-path" data-action="openPath" title="{{localize 'WOD6E.VAMPIRE.ViewPath'}}"><i class="fas fa-book"></i></button>
+      <button type="button" class="humanity-path-name" data-action="sendItemToChat" data-uuid="{{humanity.uuid}}" title="{{localize 'WOD6E.PostToChat'}}">{{humanity.name}}</button>
+    </div>
+  </header>
+  <div class="humanity-status">
+    <span>{{localize 'WOD6E.VAMPIRE.Violations'}}: {{humanity.violations}}</span>
+    <span>{{localize 'WOD6E.VAMPIRE.RankModifier'}}: {{humanity.modifier}}</span>
+  </div>
+  <div class="humanity-boxes">
+    {{#each humanity.boxes as |box|}}
+    <button type="button" class="humanity-box {{#if box.filled}}filled{{/if}} {{#if box.violated}}violated{{/if}} {{#if box.current}}current{{/if}}" data-action="setHumanityRank" data-value="{{box.position}}" title="{{box.title}}" {{disabled (not ../humanity.canEdit)}}>{{#if box.current}}<span>{{box.position}}</span>{{/if}}</button>
+    {{/each}}
+  </div>
+  {{#if humanity.canEdit}}
+  <div class="humanity-controls">
+    <button type="button" data-action="markViolations" title="{{localize 'WOD6E.VAMPIRE.ViolationHint'}}" {{disabled humanity.isWight}}>{{localize 'WOD6E.VAMPIRE.MarkViolations'}}</button>
+    <button type="button" class="humanity-erase" data-action="eraseViolation" title="{{localize 'WOD6E.VAMPIRE.EraseViolationHint'}}" {{disabled (not humanity.violations)}}>{{localize 'WOD6E.VAMPIRE.EraseViolation'}}</button>
+    <button type="button" data-action="resistFrenzy">{{localize 'WOD6E.VAMPIRE.ResistFrenzy'}}</button>
+  </div>
+  {{/if}}
+  {{#if humanity.isWight}}<p class="humanity-wight">{{localize 'WOD6E.VAMPIRE.Wight'}}</p>{{/if}}
+</section>
+{{/if}}

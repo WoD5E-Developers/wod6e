@@ -38,7 +38,7 @@ export class DisciplineItemModel extends WoDItemModel {
       }
     )
 
-    schema.activation = activationFields()
+    schema.activation = activationFields({ includeNpcCost: true })
     schema.test = testFields()
     schema.difficulty = difficultyFields()
     schema.prerequisites = prerequisiteFields()

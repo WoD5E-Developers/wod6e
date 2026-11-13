@@ -1,22 +1,23 @@
 export const _getTestText = function ({
+  npcPool = null,
   attributeOptions = [],
   skillOptions = [],
   disciplineOptions = [],
-  quickeningSpent = 0,
+  specialty = '',
   customModifier = 0,
   effects = [],
   includeDifficulty = true,
-  difficulty = 0
+  difficulty = 1,
+  testType = 'standard'
 }) {
   const selected = [...attributeOptions, ...skillOptions, ...disciplineOptions].filter(
     (option) => option.selected
   )
 
-  const testParts = selected.map((option) => `${option.label} (${option.value})`)
-
-  if (quickeningSpent > 0) {
-    testParts.push(`${game.i18n.localize('WOD6E.RESOURCES.Quickening')} (${quickeningSpent})`)
-  }
+  const testParts = (npcPool ? [npcPool] : selected).map(
+    (option) => `${option.label} (${option.value})`
+  )
+  if (specialty) testParts.push(`${specialty} (1)`)
 
   const testText = testParts.length
     ? testParts.join(' + ')
@@ -27,9 +28,10 @@ export const _getTestText = function ({
     : ''
 
   const effectText = effects.map((effect) => ` + ${effect.name} (${effect.modifier})`).join('')
-  const difficultyText = includeDifficulty
-    ? ` ${game.i18n.localize('WOD6E.ROLL.VsDifficulty')} (${difficulty})`
-    : ''
+  const difficultyText =
+    !includeDifficulty || testType !== 'standard'
+      ? ''
+      : ` ${game.i18n.localize('WOD6E.ROLL.VsDifficulty')} (${difficulty})`
 
   return `${testText}${modifierText}${effectText}${difficultyText}`
 }

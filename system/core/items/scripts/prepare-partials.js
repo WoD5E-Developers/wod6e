@@ -54,7 +54,25 @@ export async function prepareTestContext(context, item) {
     disciplineOptions: disciplines.options,
     selectedDisciplinesText: disciplines.selectedText,
 
-    testText: formatTest(attributes.labels, skills.labels, disciplines.labels),
+    attributeMode: test.attributeMode ?? 'any',
+    skillMode: test.skillMode ?? 'any',
+    disciplineMode: test.disciplineMode ?? 'any',
+    resistBeast: test.resistBeast ?? false,
+    humanityModifier: test.humanityModifier ?? false,
+    bargainRule: test.bargainRule ?? 'standard',
+    bargainRuleOptions: {
+      standard: 'WOD6E.ROLL.BargainStandard',
+      forbidden: 'WOD6E.ROLL.BargainForbidden'
+    },
+    traitModeOptions: {
+      any: 'WOD6E.ROLL.ChooseOne',
+      all: 'WOD6E.ROLL.AddSelected'
+    },
+    testText: formatTest(
+      { labels: attributes.labels, mode: test.attributeMode },
+      { labels: skills.labels, mode: test.skillMode },
+      { labels: disciplines.labels, mode: test.disciplineMode }
+    ),
     modifier: test.modifier,
     modifierSourceOptions: {
       flat: 'WOD6E.MODIFIERS.Flat',
@@ -67,7 +85,7 @@ export async function prepareTestContext(context, item) {
     modifierTraitGroups: groupSelectOptions(
       (
         await getTargetOptions({
-          types: ['attributes', 'skills', 'disciplines', 'generationModifiers'],
+          types: ['attributes', 'skills', 'disciplines', 'generationModifiers', 'humanity'],
           usePaths: true,
           actor: item.actor
         })
@@ -145,10 +163,16 @@ export async function prepareActivationContext(context, item) {
   context.durationSelected = itemData?.activation?.duration || ''
 
   // Cost type dropdown and cost amount input
+  context.useNpcDisciplineCost = item.type === 'discipline' && item.actor?.type === 'npc'
+  const cost = context.useNpcDisciplineCost
+    ? itemData.activation?.npcCost
+    : itemData.activation?.cost
+  context.costPath = context.useNpcDisciplineCost
+    ? 'system.activation.npcCost'
+    : 'system.activation.cost'
   context.costTypeOptions = WOD6E.configs.CostTypes.getList({})
-  context.costTypeSelected = itemData?.activation?.cost.type || ''
-
-  context.costAmount = itemData?.activation?.cost.amount || 0
+  context.costTypeSelected = cost?.type ?? 'none'
+  context.costAmount = cost?.amount ?? 0
 
   return context
 }

@@ -8,7 +8,7 @@ export const _onBloodSurge = async function (event) {
   if (!actor.isOwner || !actor.system.canBloodSurge) return
 
   // If the user doesn't have any vitae, warn the user
-  const availableVitae = actor.system.health?.value ?? 0
+  const availableVitae = actor.system.vitae?.value ?? 0
   if (availableVitae < 1) {
     ui.notifications.warn(game.i18n.localize('WOD6E.VAMPIRE.BloodSurgeNoVitae'))
     return
@@ -70,7 +70,7 @@ export const _onBloodSurge = async function (event) {
   const currentTargetList = [...currentTargets.attributes, ...currentTargets.disciplines]
   const target = currentTargetList.find((entry) => `${entry.type}:${entry.key}` === result.target)
   const vitae = Number(result.vitae)
-  const currentVitae = actor.system.health?.value ?? 0
+  const currentVitae = actor.system.vitae?.value ?? 0
   if (!target || !Number.isInteger(vitae) || vitae < 1 || vitae > currentVitae) {
     ui.notifications.warn(game.i18n.localize('WOD6E.VAMPIRE.BloodSurgeInvalidSelection'))
     return
@@ -92,7 +92,7 @@ export const _onBloodSurge = async function (event) {
     return
   }
 
-  await actor.update({ 'system.health.value': currentVitae - vitae })
+  await actor.update({ 'system.vitae.value': currentVitae - vitae })
   try {
     await actor.createEmbeddedDocuments('Item', [
       {
@@ -133,8 +133,25 @@ export const _onBloodSurge = async function (event) {
       }
     ])
   } catch (error) {
-    await actor.update({ 'system.health.value': currentVitae })
+    await actor.update({ 'system.vitae.value': currentVitae })
     throw error
+  }
+
+  const message = document.createElement('p')
+  message.textContent = game.i18n.format('WOD6E.VAMPIRE.BloodSurgeMessage', {
+    character: actor.name,
+    vitae,
+    trait: target.label,
+    bonus
+  })
+  try {
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor }),
+      content: message.outerHTML
+    })
+  } catch (error) {
+    // A chat failure must not refund a Blood Surge that was already applied.
+    ui.notifications.warn(error.message)
   }
 }
 
