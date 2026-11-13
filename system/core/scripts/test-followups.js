@@ -108,29 +108,12 @@ export async function applyBeastsBargain(message, { cost, acceptedByPlayer }) {
 
 export async function promptBeastsBargain(message) {
   if (!getAvailableFollowups(message).bargain) return
-  const content = document.createElement('div')
   const localize = (key) => game.i18n.localize(`WOD6E.ROLL.${key}`)
-  const instruction = document.createElement('p')
-  instruction.className = 'bargain-instruction'
-  instruction.textContent = localize('BeastsBargainHint')
-  content.append(instruction)
-
-  const addField = (name, label, type) => {
-    const wrapper = document.createElement('label')
-    const checkbox = type === 'checkbox'
-    wrapper.className = checkbox ? 'bargain-confirmation' : 'bargain-field'
-    const text = document.createElement('span')
-    text.textContent = localize(label)
-    const input = document.createElement(type === 'textarea' ? 'textarea' : 'input')
-    if (type !== 'textarea') input.type = type
-    else input.rows = 5
-    input.name = name
-    input.required = true
-    wrapper.append(...(checkbox ? [input, text] : [text, input]))
-    content.append(wrapper)
-  }
-  addField('cost', 'BargainCost', 'textarea')
-  addField('acceptedByPlayer', 'BargainPlayerAccepted', 'checkbox')
+  const content = document.createElement('div')
+  content.innerHTML = await foundry.applications.handlebars.renderTemplate(
+    'systems/wod6e/templates/core/dialogs/beasts-bargain.hbs',
+    {}
+  )
 
   return foundry.applications.api.DialogV2.wait({
     window: { title: localize('BeastsBargain') },
