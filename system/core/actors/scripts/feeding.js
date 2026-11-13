@@ -54,39 +54,12 @@ export async function _onFeed(event) {
   const actor = this.actor
   if (!actor.isOwner || !actor.system.vitae) return
   const localize = (key) => game.i18n.localize(`WOD6E.RESOURCES.${key}`)
+  const beast = hasBeast(actor)
   const content = document.createElement('div')
-  const amountLabel = document.createElement('label')
-  amountLabel.className = 'form-group'
-  amountLabel.textContent = localize('VitaeGained')
-  const input = document.createElement('input')
-  Object.assign(input, {
-    type: 'number',
-    name: 'amount',
-    min: '1',
-    step: '1',
-    value: '1',
-    required: true
-  })
-  amountLabel.append(input)
-  content.append(amountLabel)
-  if (hasBeast(actor)) {
-    const label = document.createElement('label')
-    label.className = 'form-group'
-    const checkbox = document.createElement('input')
-    Object.assign(checkbox, { type: 'checkbox', name: 'killedHuman' })
-    label.append(checkbox, localize('DrainHuman'))
-    content.append(label)
-    if (getActivePath(actor).system.pathType === 'humanity') {
-      const endangeredLabel = document.createElement('label')
-      endangeredLabel.className = 'form-group'
-      const endangeredInput = document.createElement('input')
-      Object.assign(endangeredInput, { type: 'checkbox', name: 'endangeredHuman' })
-      endangeredLabel.append(endangeredInput, game.i18n.localize('WOD6E.VAMPIRE.EndangeredHuman'))
-      const hint = document.createElement('p')
-      hint.textContent = game.i18n.localize('WOD6E.VAMPIRE.FeedingViolations')
-      content.append(endangeredLabel, hint)
-    }
-  }
+  content.innerHTML = await foundry.applications.handlebars.renderTemplate(
+    'systems/wod6e/templates/core/dialogs/feed.hbs',
+    { hasBeast: beast, isHumanity: beast && getActivePath(actor).system.pathType === 'humanity' }
+  )
   return foundry.applications.api.DialogV2.wait({
     window: { title: localize('Feed') },
     content,
