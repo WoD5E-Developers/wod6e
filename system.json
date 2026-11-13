@@ -2,10 +2,10 @@
   "id": "wod6e",
   "title": "World of Darkness 6e",
   "description": "World of Darkness 6th Edition system for Foundry VTT",
-  "version": "1.0.11",
+  "version": "1.1.0",
   "compatibility": {
     "minimum": "14",
-    "verified": "14.369",
+    "verified": "14.370",
     "maximum": ""
   },
   "authors": [
@@ -29,13 +29,13 @@
   },
   "initiative": "@attributes.wits.effective",
   "socket": true,
-  "changelog": "https://github.com/wod5e-Developers/wod6e/releases/tag/1.0.11",
+  "changelog": "https://github.com/wod5e-Developers/wod6e/releases/tag/1.1.0",
   "license": "./LICENSE.md",
   "url": "https://github.com/wod5e-Developers/wod6e",
   "bugs": "https://github.com/wod5e-Developers/wod6e/issues",
   "background": "systems/wod6e/assets/dark-pack/images/Locations43.webp",
-  "manifest": "https://github.com/wod5e-Developers/wod6e/releases/download/1.0.11/system.json",
-  "download": "https://github.com/wod5e-Developers/wod6e/releases/download/1.0.11/wod6e.zip",
+  "manifest": "https://github.com/wod5e-Developers/wod6e/releases/download/1.1.0/system.json",
+  "download": "https://github.com/wod5e-Developers/wod6e/releases/download/1.1.0/wod6e.zip",
   "documentTypes": {
     "Actor": {
       "group": {},
@@ -51,11 +51,10 @@
       "resource": {},
       "condition": {},
       "npcAbility": {},
-
       "clan": {},
       "clanTrait": {},
-      "nature": {},
-      "discipline": {}
+      "discipline": {},
+      "path": {}
     }
   },
   "flags": {
@@ -117,6 +116,17 @@
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
       }
+    },
+    {
+      "label": "Paths of Enlightenment",
+      "type": "Item",
+      "name": "paths",
+      "path": "packs/paths",
+      "system": "wod6e",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
   "packFolders": [
@@ -126,7 +136,8 @@
       "packs": [
         "clans",
         "actions",
-        "conditions"
+        "conditions",
+        "paths"
       ],
       "color": "#8c0303"
     }

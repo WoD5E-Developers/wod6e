@@ -1,0 +1,44 @@
+<section class="sheet-part vitae-section">
+  <div
+    class="resource-tracker vitae-tracker"
+    data-resource="vitae"
+    data-path="{{ vitae.path }}"
+  >
+    <header class="resource-tracker-header">
+      <span class="resource-tracker-label">{{localize 'WOD6E.RESOURCES.Vitae'}}</span>
+      <span class="resource-tracker-total">{{ vitae.value }} / {{ vitae.max }}</span>
+    </header>
+    <div class="resource-tracker-spaces">
+      {{#each vitae.trackers as |group|}}
+      <div class="resource-tracker-group">
+        {{#each group as |space|}}
+        <button
+          type="button"
+          class="resource-tracker-space {{#if space.filled}}filled{{/if}}"
+          data-action="setTrackerValue"
+          data-resource-path="system.vitae"
+          data-value="{{ space.position }}"
+          title="{{ space.title }}"
+        ></button>
+        {{/each}}
+      </div>
+      {{/each}}
+    </div>
+    <footer class="resource-tracker-controls">
+      {{#if vitae.hasBeast}}
+      <span class="vitae-hunger">{{localize 'WOD6E.ROLL.HungerDice'}}: {{ vitae.hunger }}</span>
+      {{/if}}
+      <div class="vitae-actions">
+        {{> "systems/wod6e/templates/splats/vampire/actors/parts/blood-surge.hbs"}}
+        <button
+          type="button"
+          class="feed-button"
+          data-action="feed"
+        >
+          <span class="vampire-fangs"></span>
+          {{localize 'WOD6E.RESOURCES.Feed'}}
+        </button>
+      </div>
+    </footer>
+  </div>
+</section>

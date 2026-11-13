@@ -9,13 +9,23 @@ import { _calculateDicePool } from './scripts/calculate-dice-pool.js'
 import { _getTestText } from './scripts/get-test-text.js'
 import { resolveModifierValue } from '../actors/scripts/resolve-modifier-value.js'
 import { ActorEffects } from '../actors/scripts/actor-effects.js'
+import { npcCategories } from '../actors/data-models/fields/npc-fields.js'
+import { prepareNpcSkillPools } from '../actors/scripts/prepare-npc-partials.js'
+import { splitSpecializations } from '../actors/scripts/skill-entry-controls.js'
+import { NpcTiers } from '../config/npc-tiers.js'
+import { hasDifferentApproach } from '../scripts/test-resolution.js'
+import { getHunger, hasBeast } from '../actors/scripts/vitae.js'
+import { canPayCost, getItemCost } from '../actors/scripts/resource-spending.js'
+import {
+  getActivePath,
+  getHumanityRank,
+  getHumanityModifier
+} from '../../splats/vampire/scripts/humanity.js'
 
 const { DialogV2 } = foundry.applications.api
 const { renderTemplate } = foundry.applications.handlebars
 
 export class RollDialog {
-  static customModifier = 0
-
   /**
    * Method to open the roll dialog
    *
@@ -76,25 +86,20 @@ export class RollDialog {
           default: true,
           icon: 'fa-solid fa-dice-d10',
           label: game.i18n.localize('WOD6E.ROLL.Roll'),
-
-          callback: async (_event, button) => {
-            const data = this._getDataFromForm(button.form)
-
-            // Explicit callout to include difficulty when we're pulling the
-            // context for the chat card
-            data.includeDifficulty = true
-
-            const rollContext = this._prepareContext({ actor, data }).test
-
-            return WOD6eTest.executeTest({
-              actor,
-              context: rollContext,
-              flavor: rollContext.testText
-            })
-          }
+          disabled: !context.test.canRoll,
+          callback: (_event, button) => this._submitTest(button.form, actor, 'roll', item)
+        },
+        {
+          action: 'takeHalf',
+          icon: 'fa-solid fa-divide',
+          label: game.i18n.localize('WOD6E.ROLL.TakeHalf'),
+          tooltip: 'WOD6E.ROLL.TakingHalfHint',
+          disabled: !context.test.canTakeHalf,
+          callback: (_event, button) => this._submitTest(button.form, actor, 'takeHalf', item)
         },
         {
           action: 'cancel',
+          type: 'button',
           icon: 'fa-solid fa-xmark',
           label: game.i18n.localize('WOD6E.Cancel')
         }
@@ -114,6 +119,16 @@ export class RollDialog {
         ItemUX._restoreDropdownStates(this)
       }
     })
+  }
+
+  static async _submitTest(form, actor, resolutionMode, item) {
+    const data = this._getDataFromForm(form)
+    data.includeDifficulty = true
+    data.resolutionMode = resolutionMode
+    const context = this._prepareContext({ actor, item, data }).test
+    if (!context.canRoll || (resolutionMode === 'takeHalf' && !context.canTakeHalf)) return
+
+    return WOD6eTest.executeTest({ actor, item, context, flavor: context.testText })
   }
 
   /**
@@ -140,12 +155,37 @@ export class RollDialog {
         item?.system?.category ??
         item?.system?.attribute ??
         null,
-      difficulty: Math.max(Number(difficulty) || 0, 0),
-      itemModifier:
-        resolveModifierValue(actor, testData?.modifier) *
-        (testData?.modifier?.mode === 'subtract' ? -1 : 1),
+      attributeMode: testData?.attributeMode ?? (item ? 'any' : 'all'),
+      skillMode: testData?.skillMode ?? (item ? 'any' : 'all'),
+      disciplineMode: testData?.disciplineMode ?? (item ? 'any' : 'all'),
+      testType: testData?.testType ?? 'standard',
+      resolutionMode: 'roll',
+      hungerDice: testData?.hungerDice ?? actor.system?.hunger?.value ?? 0,
+      bargainRule: testData?.bargainRule ?? 'standard',
+      itemUuid: item?.uuid ?? testData?.itemUuid ?? '',
+      retryOf: testData?.retryOf ?? '',
+      npcPool: testData?.npcPool ?? null,
+      isAttack: testData?.isAttack ?? item?.system?.role === 'attack',
+      isDefense: testData?.isDefense ?? item?.system?.role === 'defense',
+      inConflict: testData?.inConflict ?? false,
+      resistBeast: testData?.resistBeast ?? false,
+      frenzyType: testData?.frenzyType ?? '',
+      humanityModifier: testData?.humanityModifier ?? false,
+      difficulty: Math.max(difficulty ?? 1, 0),
+      itemModifier: testData?.retryOf
+        ? (testData.itemModifier ?? 0)
+        : resolveModifierValue(actor, testData?.modifier) *
+          (testData?.modifier?.mode === 'subtract' ? -1 : 1),
       conditionEffectIds: null,
       focus: ''
+    }
+
+    for (const [group, mode] of [
+      ['attributes', 'attributeMode'],
+      ['skills', 'skillMode'],
+      ['disciplines', 'disciplineMode']
+    ]) {
+      if (selectedTraits[mode] === 'any') selectedTraits[group] = []
     }
 
     return selectedTraits
@@ -163,6 +203,30 @@ export class RollDialog {
     return Array.from(selected ?? [], (key) => definitions[key]?.path ?? key)
   }
 
+  static _getNpcPool(actor, selection) {
+    if (actor.type !== 'npc' || NpcTiers.getDefinition(actor.system.tier).usesDetailedTraits) {
+      return null
+    }
+    const { type, key } = selection
+    if (type === 'skill') {
+      const skill = prepareNpcSkillPools(actor).find((entry) => entry.key === key && entry.active)
+      if (!skill) return null
+      return {
+        label: skill.label,
+        value: skill.value,
+        skills: [`system.skills.${key}`],
+        specialties: splitSpecializations(skill.specialization)
+      }
+    }
+    if (type !== 'attribute' || !npcCategories.includes(key)) return null
+    const group = WOD6E.configs.AttributeGroups.getList({})[key]
+    return {
+      label: group?.displayName ?? game.i18n.localize(group?.label ?? key),
+      value: actor.system.attributePools[key],
+      category: key
+    }
+  }
+
   /**
    * Context preparation function for the entire roll dialog;
    *
@@ -176,44 +240,86 @@ export class RollDialog {
    * conditions.
    */
   static _prepareContext({ actor, item, data }) {
-    const attributeOptions = this._prepareOptions({
-      actor,
-      definitions: WOD6E.configs.Attributes.getList({ usePath: true }),
-      selected: data?.attributes || []
-    })
+    data = { ...data }
+    const traitOptions = {}
+    let canRoll = true
+    for (const [group, mode, config] of [
+      ['attributes', 'attributeMode', WOD6E.configs.Attributes],
+      ['skills', 'skillMode', WOD6E.configs.Skills],
+      ['disciplines', 'disciplineMode', WOD6E.configs.Disciplines]
+    ]) {
+      const singleSelect = data[mode] === 'any'
+      const options = this._prepareOptions({
+        actor,
+        definitions: config.getList({ usePath: true }),
+        selected: data[group] ?? [],
+        allowed:
+          item && singleSelect
+            ? this._prepareSelectedTraits(config, item.system?.test?.[group])
+            : null
+      })
 
-    const skillOptions = this._prepareOptions({
-      actor,
-      definitions: WOD6E.configs.Skills.getList({ usePath: true }),
-      selected: data?.skills || []
-    })
-
-    const disciplineOptions = this._prepareOptions({
-      actor,
-      definitions: WOD6E.configs.Disciplines.getList({ usePath: true }),
-      selected: data?.disciplines || []
-    })
+      if (singleSelect) {
+        const selected =
+          options.length === 1 ? options[0] : options.find((option) => option.selected)
+        for (const option of options) option.selected = option === selected
+        data[group] = selected ? [selected.key] : []
+        if (options.length && !selected) canRoll = false
+      }
+      traitOptions[group] = options
+    }
+    const {
+      attributes: attributeOptions,
+      skills: skillOptions,
+      disciplines: disciplineOptions
+    } = traitOptions
 
     const selectedAttributesText = this._getSelectedText(attributeOptions)
     const selectedSkillsText = this._getSelectedText(skillOptions)
     const selectedDisciplinesText = this._getSelectedText(disciplineOptions)
-    const focusOptions = this._prepareFocusOptions(actor, data?.skills, data?.focus)
-    const selectedFocus = focusOptions.some((focus) => focus.selected) ? data.focus : ''
-    const quickeningValue = Number(game.user.getFlag('wod6e', 'quickening') ?? 0)
-    const canSpendQuickening = game.user.character?.id === actor.id && quickeningValue >= 1
-    const quickeningSpent = canSpendQuickening
-      ? Math.clamp(Math.floor(Number(data?.quickeningSpent) || 0), 0, quickeningValue)
-      : 0
+    const npcPool = data.npcPool ? this._getNpcPool(actor, data.npcPool) : null
+    canRoll &&= !data.npcPool || Boolean(npcPool)
+    const focusOptions = data.npcPool
+      ? (npcPool?.specialties ?? []).map((label) => ({
+          value: `${npcPool.skills[0]}:${label}`,
+          label,
+          specialty: label,
+          selected: `${npcPool.skills[0]}:${label}` === data.focus
+        }))
+      : this._prepareFocusOptions(actor, data?.skills, data?.focus)
+    const selectedFocusOption = focusOptions.find((focus) => focus.selected)
+    const selectedFocus = selectedFocusOption?.value ?? ''
 
-    const baseDicePool = _calculateDicePool(actor, { ...data, focus: selectedFocus })
-    const difficulty = Math.max(Number(data?.difficulty) || 0, 0)
+    const baseDicePool = _calculateDicePool(
+      actor,
+      { ...data, focus: selectedFocus, npcPoolValue: npcPool?.value },
+      { clamp: false }
+    )
+    const retrySource = data.retryOf ? game.messages.get(data.retryOf) : null
+    const previous = retrySource?.rolls?.[0]
+    if (data.retryOf) {
+      canRoll &&= Boolean(
+        game.user.isGM &&
+        previous?.canRetry &&
+        !retrySource.getFlag('wod6e', 'retryUsed') &&
+        hasDifferentApproach(previous.options, data)
+      )
+    }
+    const difficulty = previous
+      ? previous.options.difficulty + 1
+      : Math.max(data?.difficulty ?? 1, 0)
+    const testType = (data?.testType ?? 'standard') === 'standard' ? 'standard' : 'unopposed'
+    const resolutionMode = data?.resolutionMode === 'takeHalf' ? 'takeHalf' : 'roll'
     const effectTest = {
       attribute: data?.attributes ?? [],
-      skill: data?.skills ?? [],
+      skill: npcPool?.skills ?? data?.skills ?? [],
       discipline: data?.disciplines ?? [],
       action: data?.action ?? null,
-      category: data?.category ?? null,
+      category: npcPool?.category ?? data?.category ?? null,
       dicePool: baseDicePool,
+      resistBeast: data.resistBeast,
+      frenzyType: data.frenzyType,
+      humanityModifier: data.humanityModifier,
       difficulty
     }
 
@@ -224,27 +330,31 @@ export class RollDialog {
       .map((effect) => effect.id)
 
     const testText = _getTestText({
+      npcPool,
       attributeOptions,
       skillOptions,
       disciplineOptions,
-      quickeningSpent,
-      customModifier: (data?.itemModifier ?? 0) + this.customModifier + (selectedFocus ? 1 : 0),
+      specialty: selectedFocusOption?.specialty,
+      customModifier: (data?.itemModifier ?? 0) + (data?.customModifier ?? 0),
       effects: conditionEffects.filter((effect) => effect.enabled),
 
       // By default we don't include difficulty, unless we're using context preparation for
       // the chat card, then we pass true for this
       includeDifficulty: data.includeDifficulty ?? false,
-      difficulty
+      difficulty,
+      testType
     })
 
     WOD6eTest.applyEffects(actor, effectTest)
 
-    effectTest.dicePool += quickeningSpent
-
-    const dicePool = effectTest.dicePool
-    const dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', {
-      string: `${dicePool}d10`
-    })
+    const dicePool = Math.max(effectTest.dicePool, 0)
+    const dicePoolText = game.i18n.format('WOD6E.ROLL.RollingString', { string: `${dicePool}d10` })
+    const costItem = item ?? (data.itemUuid ? fromUuidSync(data.itemUuid) : null)
+    const cost = getItemCost(costItem, actor)
+    canRoll &&= canPayCost(actor, cost)
+    const hungerDice = actor.system.vitae
+      ? getHunger(actor, actor.system.vitae.value - (cost?.resource === 'vitae' ? cost.amount : 0))
+      : Math.max(0, Math.min(5, Math.floor(Number(data.hungerDice) || 0)))
 
     return {
       actor,
@@ -253,14 +363,42 @@ export class RollDialog {
       test: {
         // Raw test data used by the rules engine
         attributes: data?.attributes ?? [],
-        skills: data?.skills ?? [],
+        skills: effectTest.skill,
         disciplines: data?.disciplines ?? [],
+        attributeMode: data?.attributeMode ?? 'all',
+        skillMode: data?.skillMode ?? 'all',
+        disciplineMode: data?.disciplineMode ?? 'all',
+        testType,
+        resolutionMode,
+        hungerDice,
+        hasBeast: hasBeast(actor),
+        hasHumanity: hasBeast(actor) && Boolean(actor.system.vampire?.humanity),
+        humanityName: getActivePath(actor).name,
+        humanityRank: getHumanityRank(actor),
+        humanityRankModifier: getHumanityModifier(getHumanityRank(actor)),
+        humanityModifier: data.humanityModifier ?? false,
+        humanityCap: effectTest.humanityCap,
+        resistBeast: Boolean(data.resistBeast || data.frenzyType),
+        frenzyType: data.frenzyType ?? '',
+        showHunger: hasBeast(actor) || hungerDice > 0,
+        hungerAutomatic: Boolean(actor.system.vitae),
+        itemUuid: costItem?.uuid ?? data.itemUuid ?? '',
+        costAmount: cost?.amount ?? 0,
+        costLabel: cost
+          ? `WOD6E.RESOURCES.${cost.resource[0].toUpperCase()}${cost.resource.slice(1)}`
+          : '',
+        canAffordCost: canPayCost(actor, cost),
+        bargainRule: data.bargainRule ?? 'standard',
+        retryOf: data.retryOf ?? '',
+        npcPool: data.npcPool,
+        isAttack: data?.isAttack ?? false,
+        isDefense: data?.isDefense ?? false,
+        inConflict: data?.inConflict ?? false,
         action: data?.action ?? null,
-        category: data?.category ?? null,
+        category: effectTest.category,
         itemModifier: data?.itemModifier ?? 0,
         focus: selectedFocus,
         conditionEffectIds: effectTest.conditionEffectIds,
-        quickeningSpent,
         difficulty,
         baseDicePool,
 
@@ -269,15 +407,20 @@ export class RollDialog {
         skillOptions,
         disciplineOptions,
         focusOptions,
+        showFocusSection: !data.npcPool || focusOptions.length > 0,
         hasFocusOptions: focusOptions.length > 0,
         conditionEffects,
         hasConditionEffects: conditionEffects.length > 0,
-
-        showQuickening:
-          !game.user.getFlag('wod6e', 'tracker.quickeningHidden') &&
-          game.user.character?.id === actor.id,
-        canSpendQuickening,
-        quickeningValue,
+        isStandard: testType === 'standard',
+        canRoll,
+        canTakeHalf:
+          canRoll &&
+          (actor.type === 'npc' ||
+            !(data?.inConflict || data?.isAttack || data?.isDefense || data?.frenzyType)),
+        testTypeOptions: {
+          standard: 'WOD6E.ROLL.FixedDifficulty',
+          unopposed: 'WOD6E.ROLL.CountSuccesses'
+        },
 
         selectedAttributesText,
         selectedSkillsText,
@@ -294,11 +437,12 @@ export class RollDialog {
    * Little helper to prevent having to do write this out three times
    * for each set of options from a given selection and definition config
    */
-  static _prepareOptions({ actor, definitions, selected = [] }) {
+  static _prepareOptions({ actor, definitions, selected = [], allowed = null }) {
     const selectedKeys = new Set(selected)
+    const allowedKeys = allowed === null ? null : new Set(allowed)
 
     return Object.entries(definitions)
-      .filter(([, def]) => !def.hidden)
+      .filter(([key, def]) => !def.hidden && (!allowedKeys || allowedKeys.has(key)))
       .map(([key, def]) => ({
         key,
         label: def.displayName,
@@ -337,6 +481,7 @@ export class RollDialog {
       return (skill?.focuses ?? []).map((focus) => ({
         value: `${skillPath}:${focus}`,
         label: skillPaths.length > 1 ? `${skillLabel}: ${focus}` : focus,
+        specialty: focus,
         selected: `${skillPath}:${focus}` === selectedFocus
       }))
     })
@@ -377,7 +522,7 @@ export class RollDialog {
    *
    * Choose your battles
    */
-  static _activateListeners(dialog, { actor }) {
+  static _activateListeners(dialog, { actor, item }) {
     const element = dialog.element
 
     if (!element) return
@@ -386,14 +531,17 @@ export class RollDialog {
       // List of things we consider valid inputs
       if (
         event.target.matches('.multi-select-section input') ||
+        event.target.matches('.roll-trait-select select') ||
         event.target.matches('.custom-modifier-section input') ||
         event.target.matches('.difficulty-section input') ||
+        event.target.matches('[name="testType"]') ||
         event.target.matches('.roll-focus-select') ||
         event.target.matches('.condition-effect-toggle') ||
-        event.target.matches('.quickening-spent')
+        event.target.matches('[name="humanityModifier"], [name="resistBeast"]') ||
+        event.target.matches('[name="hungerDice"]')
       ) {
         // Update the preview if any of the above inputs changed
-        this._updatePreview(element, actor)
+        this._updatePreview(element, actor, item)
       }
     })
   }
@@ -407,12 +555,12 @@ export class RollDialog {
    * If we find performance issues with this later, we can likely batch all these updates and just
    * replace the entire window (or just the window content)
    */
-  static _updatePreview(element, actor) {
+  static _updatePreview(element, actor, item) {
     if (!element || !actor) return
 
     const data = this._getDataFromForm(element)
 
-    const previewContext = this._prepareContext({ actor, data }).test
+    const previewContext = this._prepareContext({ actor, item, data }).test
 
     const testTextElement = element.querySelector('.roll-test')
     testTextElement.textContent = previewContext.testText
@@ -420,14 +568,24 @@ export class RollDialog {
     const dicePoolElement = element.querySelector('.roll-pool-value')
     dicePoolElement.textContent = previewContext.dicePoolText
 
+    for (const fieldset of element.querySelectorAll('[data-resolution-section]')) {
+      const active = fieldset.dataset.resolutionSection === previewContext.testType
+      fieldset.hidden = !active
+      fieldset.disabled = !active
+    }
+    const rollButton = element.querySelector('button[data-action="roll"]')
+    if (rollButton) rollButton.disabled = !previewContext.canRoll
+    const takeHalfButton = element.querySelector('button[data-action="takeHalf"]')
+    if (takeHalfButton) takeHalfButton.disabled = !previewContext.canTakeHalf
+
     const attributeElement = element.querySelector('.attribute-multi-select .multi-select-value')
-    attributeElement.textContent = previewContext.selectedAttributesText
+    if (attributeElement) attributeElement.textContent = previewContext.selectedAttributesText
 
     const skillElement = element.querySelector('.skill-multi-select .multi-select-value')
-    skillElement.textContent = previewContext.selectedSkillsText
+    if (skillElement) skillElement.textContent = previewContext.selectedSkillsText
 
     const disciplineElement = element.querySelector('.discipline-multi-select .multi-select-value')
-    disciplineElement.textContent = previewContext.selectedDisciplinesText
+    if (disciplineElement) disciplineElement.textContent = previewContext.selectedDisciplinesText
 
     this._replaceSidePanel(element, previewContext)
   }
@@ -441,13 +599,18 @@ export class RollDialog {
    * the roll dialog
    */
   static async _replaceSidePanel(element, context) {
-    const currentPanel = element.querySelector('.roll-dialog-side-panel')
-    if (!currentPanel) return
+    if (!element.querySelector('.roll-dialog-side-panel')) return
+    const requestId = (Number(element.dataset.sidePanelRequestId) || 0) + 1
+    element.dataset.sidePanelRequestId = String(requestId)
 
     const rendered = await renderTemplate(
       'systems/wod6e/templates/core/dialogs/roll-dialog-side-panel.hbs',
       { test: context }
     )
+    if (element.dataset.sidePanelRequestId !== String(requestId)) return
+
+    const currentPanel = element.querySelector('.roll-dialog-side-panel')
+    if (!currentPanel) return
     const wrapper = document.createElement('div')
     wrapper.innerHTML = rendered
     currentPanel.replaceWith(wrapper.firstElementChild)
@@ -479,42 +642,61 @@ export class RollDialog {
    * If something breaks, it's probably here
    */
   static _getDataFromForm(form) {
-    const attributes = Array.from(
-      form.querySelectorAll('[data-field-path="attributes"] .multi-select-option input:checked')
-    ).map((input) => input.value)
-    const skills = Array.from(
-      form.querySelectorAll('[data-field-path="skills"] .multi-select-option input:checked')
-    ).map((input) => input.value)
-    const disciplines = Array.from(
-      form.querySelectorAll('[data-field-path="disciplines"] .multi-select-option input:checked')
-    ).map((input) => input.value)
+    const readTraits = (group) => {
+      const field = form.querySelector(`[data-field-path="${group}"]`)
+      const select = field?.querySelector('select')
+      if (select) return select.value ? [select.value] : []
+      return Array.from(field?.querySelectorAll('.multi-select-option input:checked') ?? []).map(
+        (input) => input.value
+      )
+    }
+    const attributes = readTraits('attributes')
+    const skills = readTraits('skills')
+    const disciplines = readTraits('disciplines')
     const customModifier = form.querySelector(
       '[data-field-path="customModifier"] input'
     ).valueAsNumber
-    const difficulty = form.querySelector('[data-field-path="difficulty"] input').valueAsNumber
+    const difficulty = form.querySelector('[name="difficulty"]').valueAsNumber
     const focus = form.querySelector('[name="focus"]')?.value ?? ''
     const conditionEffectIds = Array.from(
       form.querySelectorAll('.condition-effect-toggle:checked')
     ).map((input) => input.value)
-    const quickeningSpent = form.querySelector('.quickening-spent')?.valueAsNumber ?? 0
-    const rollForm = form.matches('form') ? form : form.querySelector('form')
+    const rollForm = form.matches('[data-item-modifier]')
+      ? form
+      : form.querySelector('[data-item-modifier]')
     const itemModifier = Number(rollForm?.dataset.itemModifier) || 0
     const action = rollForm?.dataset.testAction || null
     const category = rollForm?.dataset.testCategory || null
-
-    this.customModifier = customModifier
+    const testType = form.querySelector('select[name="testType"]')?.value ?? 'standard'
 
     return {
       attributes,
       skills,
       disciplines,
+      attributeMode: rollForm?.dataset.attributeMode ?? 'all',
+      skillMode: rollForm?.dataset.skillMode ?? 'all',
+      disciplineMode: rollForm?.dataset.disciplineMode ?? 'all',
+      testType,
+      resolutionMode: 'roll',
+      hungerDice: form.querySelector('[name="hungerDice"]')?.valueAsNumber ?? 0,
+      bargainRule: rollForm?.dataset.bargainRule ?? 'standard',
+      itemUuid: rollForm?.dataset.itemUuid ?? '',
+      retryOf: rollForm?.dataset.retryOf ?? '',
+      npcPool: rollForm?.dataset.npcPoolType
+        ? { type: rollForm.dataset.npcPoolType, key: rollForm.dataset.npcPoolKey }
+        : null,
+      isAttack: rollForm?.dataset.isAttack === 'true',
+      isDefense: rollForm?.dataset.isDefense === 'true',
+      inConflict: rollForm?.dataset.inConflict === 'true',
+      resistBeast: form.querySelector('[name="resistBeast"]')?.checked ?? false,
+      humanityModifier: form.querySelector('[name="humanityModifier"]')?.checked ?? false,
+      frenzyType: rollForm?.dataset.frenzyType ?? '',
       itemModifier,
       action,
       category,
       customModifier,
       focus,
       conditionEffectIds,
-      quickeningSpent,
       difficulty: Math.max(Number(difficulty) || 0, 0)
     }
   }

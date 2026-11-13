@@ -14,8 +14,13 @@ export class CostTypes extends BaseDefinitionClass {
   }
 
   static health = {
-    label: 'WOD6E.RESOURCES.Vitae',
+    label: 'WOD6E.RESOURCES.Health',
     resourcePath: 'health'
+  }
+
+  static vitae = {
+    label: 'WOD6E.RESOURCES.Vitae',
+    resourcePath: 'vitae'
   }
 
   static willpower = {

@@ -1,4 +1,5 @@
 import { generationDetailLookup } from '../../../splats/vampire/scripts/generation-detail-lookup.js'
+import { getHumanityModifier, getHumanityRank } from '../../../splats/vampire/scripts/humanity.js'
 
 /** Resolve a configured flat or actor-derived modifier to a finite number. */
 export function resolveModifierValue(actor, modifier = {}) {
@@ -10,6 +11,10 @@ export function resolveModifierValue(actor, modifier = {}) {
     modifier.valueSource === 'sourceTrait' ? resolveSourceActor(modifier.sourceActorUuid) : actor
 
   if (!valueActor || !modifier.valueTrait) return 0
+
+  if (modifier.valueTrait === 'system.vampire.humanity.modifier') {
+    return getHumanityModifier(getHumanityRank(valueActor))
+  }
 
   if (modifier.valueTrait === 'system.vampire.generation.modifier') {
     return finiteNumber(

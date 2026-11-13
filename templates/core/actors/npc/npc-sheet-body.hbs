@@ -1,33 +1,33 @@
 <section
-  class="sheet-part tab npc-sheet-body{{#if npc.defeated}} defeated{{/if}} {{ tabs.main.cssClass }}"
+  class="sheet-part tab npc-sheet-body {{ tabs.main.cssClass }}"
   data-group="primary"
   data-tab="main"
 >
   {{> "systems/wod6e/templates/core/actors/npc/header.hbs"}}
 
-  {{> "systems/wod6e/templates/core/actors/npc/levels.hbs"}}
-  <div class="flexcol">
-    {{#if npc.showHealth}}
-    {{> "systems/wod6e/templates/core/actors/parts/health.hbs"}}
-    {{/if}}
-
-    {{#if npc.showWillpower}}
-    {{> "systems/wod6e/templates/core/actors/parts/willpower.hbs"}}
-    {{/if}}
+  <div class="npc-resources">
+    {{> "systems/wod6e/templates/core/actors/parts/health.hbs" showResourceAdjustments=canAdjustHealthMax}}
+    {{> "systems/wod6e/templates/core/actors/parts/willpower.hbs" showResourceAdjustments=isOwner}}
   </div>
+  {{> "systems/wod6e/templates/core/actors/npc/stat-block.hbs"}}
 
   <section
     class="sheet-section npc-motivation"
     data-actor-section="motivation"
   >
-    <div class="prose-mirror-section">
-      <div class="prose-mirror-header">
+    <header class="sheet-section-header">
+      <span class="sheet-section-name">
         {{localize "WOD6E.NPC.Motivation"}}
-      </div>
-
-      <prose-mirror name="system.motivation" value="{{npc.motivation}}"
-        toggled="true" compact="true">
-        {{{enrichedMotivation}}}
+      </span>
+    </header>
+    <div class="prose-mirror-section">
+      <prose-mirror
+        name="system.motivation"
+        value="{{ npc.motivation }}"
+        toggled="true"
+        compact="true"
+      >
+        {{{ enrichedMotivation }}}
       </prose-mirror>
     </div>
   </section>

@@ -52,6 +52,21 @@ export const getTargetOptions = async ({ types = [], usePaths, actor = null }) =
     ]
   }
 
+  if (types.includes('humanity')) {
+    targetGroups.humanity = [
+      {
+        key: 'system.vampire.humanity.value',
+        label: game.i18n.localize('WOD6E.VAMPIRE.HumanityPathRank'),
+        type: 'humanity'
+      },
+      {
+        key: 'system.vampire.humanity.modifier',
+        label: game.i18n.localize('WOD6E.VAMPIRE.RankModifier'),
+        type: 'humanity'
+      }
+    ]
+  }
+
   if (types.includes('items')) {
     targetGroups.items = await getItemOptions({ actor })
   }

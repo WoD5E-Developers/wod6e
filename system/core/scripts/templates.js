@@ -12,6 +12,7 @@ export const preloadHandlebarsTemplates = async function () {
 
     // Dialog partials
     'systems/wod6e/templates/core/dialogs/roll-dialog-side-panel.hbs',
+    'systems/wod6e/templates/core/dialogs/roll-dialog-trait-select.hbs',
 
     // Item chat card partials
     'systems/wod6e/templates/core/chat/base-item.hbs',
@@ -24,6 +25,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/actors/parts/attributes.hbs',
     'systems/wod6e/templates/core/actors/parts/health-willpower.hbs',
     'systems/wod6e/templates/core/actors/parts/health.hbs',
+    'systems/wod6e/templates/core/actors/parts/vitae.hbs',
     'systems/wod6e/templates/core/actors/parts/willpower.hbs',
     'systems/wod6e/templates/core/actors/parts/settings.hbs',
     'systems/wod6e/templates/core/actors/parts/limited-sheet.hbs',
@@ -36,7 +38,8 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/actors/parts/flaws.hbs',
     'systems/wod6e/templates/core/actors/parts/resources.hbs',
     'systems/wod6e/templates/core/actors/npc/header.hbs',
-    'systems/wod6e/templates/core/actors/npc/levels.hbs',
+    'systems/wod6e/templates/core/actors/npc/stat-block.hbs',
+    'systems/wod6e/templates/core/actors/parts/discipline-powers.hbs',
 
     // Group actor templates
     'systems/wod6e/templates/core/actors/group/group-overview.hbs',
@@ -59,17 +62,15 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/wod6e/templates/core/applications/compendium-browser/body.hbs',
     'systems/wod6e/templates/core/applications/compendium-browser/parts/filter-splats.hbs',
     'systems/wod6e/templates/core/applications/compendium-browser/parts/filter-types.hbs',
-    'systems/wod6e/templates/core/applications/quickening-drama-tracker/body.hbs',
 
     // Vampire actor templates
     'systems/wod6e/templates/splats/vampire/actors/parts/header.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/blood-surge.hbs',
-    'systems/wod6e/templates/splats/vampire/actors/parts/humanity-scale.hbs',
+    'systems/wod6e/templates/splats/vampire/actors/parts/humanity-tracker.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/left-column.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/middle-column.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/right-column.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/disciplines.hbs',
-    'systems/wod6e/templates/splats/vampire/actors/parts/nature.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/beast.hbs',
     'systems/wod6e/templates/splats/vampire/actors/parts/clan-traits.hbs',
 

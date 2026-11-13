@@ -48,12 +48,17 @@ import { Difficulties } from './core/config/difficulties.js'
 import { Distances } from './core/config/distances.js'
 import { Durations } from './core/config/durations.js'
 import { WOD6eRoll } from './core/scripts/wod6e-roll.js'
-import { QuickeningDramaTrackerApplication } from './core/applications/quickening-drama-tracker/quickening-drama-tracker.js'
 import { CostTypes } from './core/config/cost-types.js'
 import { EffectTypes } from './core/config/effect-types.js'
 import { GenerationCategories } from './splats/vampire/config/generations-categories.js'
 import { CoterieTypes } from './splats/vampire/config/coterie-types.js'
 import { WoDChatLog } from './core/ui/wod-chat-log.js'
+import { initializeHumanityPaths } from './splats/vampire/scripts/humanity.js'
+import { createPathItemData } from './splats/vampire/scripts/paths.js'
+import { mountChronicleBar, registerChronicleSettings } from './core/ui/chronicle-bar.js'
+import { initializeChronicleTime } from './core/scripts/chronicle.js'
+import { migrateNpcStatBlocks } from './core/actors/scripts/migrate-npc-stat-blocks.js'
+import { obsoleteItemsSetting, removeObsoleteItems } from './core/scripts/obsolete-items.js'
 
 // Register the WOD6E global
 window.WOD6E = {
@@ -110,6 +115,26 @@ Hooks.on('dropCanvasData', ActorUX._onDropCanvasItem.bind(ActorUX))
 
 // Anything that needs to be ran alongside the initialisation of the world
 Hooks.once('init', async function () {
+  registerChronicleSettings()
+  game.settings.register('wod6e', obsoleteItemsSetting, {
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  })
+
+  Hooks.on('preCreateItem', (document, data) => {
+    if (data.type !== 'path' || !document.parent?.items) return
+    if (document.parent.items.some((item) => item.type === 'path' && item.id !== document.id)) {
+      ui.notifications.warn(game.i18n.localize('WOD6E.VAMPIRE.OnePathOnly'))
+      return false
+    }
+    if (foundry.utils.isEmpty(data.system ?? {})) {
+      const { img, system, flags } = createPathItemData()
+      document.updateSource({ img: data.img ?? img, system, flags })
+    }
+  })
+
   // Custom document classes
   CONFIG.Actor.documentClass = WoDActor
   CONFIG.Dice.rolls.push(WOD6eRoll)
@@ -119,7 +144,6 @@ Hooks.once('init', async function () {
   CONFIG.ui.settings = WoDSettings
   CONFIG.ui.compendium = WoDCompendiumDirectory
   CONFIG.ui.pause = WoDPause
-  window.WOD6E.applications.quickeningDramaTracker = null
 
   // Loop through each entry in the actorTypesList and register their sheet classes
   const actorTypesList = ActorTypes.getList({})
@@ -170,6 +194,22 @@ Hooks.once('init', async function () {
 
 // Anything that needs to run once the world is fully loaded
 Hooks.once('ready', async function () {
+  void initializeChronicleTime()
+    .catch((error) => console.error('WOD6E | Chronicle time initialization', error))
+    .then(mountChronicleBar)
+    .catch((error) => console.error('WOD6E | Chronicle bar', error))
+  try {
+    await removeObsoleteItems()
+  } catch (error) {
+    console.error('WOD6E | Retired item migration failed', error)
+    ui.notifications.error(game.i18n.localize('WOD6E.NOTIFICATIONS.ObsoleteItemsMigrationFailed'))
+  }
+
+  await migrateNpcStatBlocks().catch((error) =>
+    console.error('WOD6E | NPC stat block migration', error)
+  )
+  await initializeHumanityPaths()
+
   // Flavourtext
   console.log(
     game.i18n.format('WOD6E.NOTIFICATIONS.ConsoleLog', {
@@ -192,14 +232,6 @@ Hooks.once('ready', async function () {
   // Apply the currently selected language as a CSS class so we can
   // modify elements based on locale if needed
   document.body.classList.add(game.settings.get('core', 'language'))
-
-  // Start the Quickening/Drama Tracker and show it
-  window.WOD6E.applications.quickeningDramaTracker = new QuickeningDramaTrackerApplication()
-  if (game.user.isGM || game.user.character) {
-    window.WOD6E.applications.quickeningDramaTracker.render({
-      force: true
-    })
-  }
 
   // Flavourtext
   console.log(

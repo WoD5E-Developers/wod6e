@@ -1,24 +1,33 @@
 import { NpcTiers } from '../../config/npc-tiers.js'
+import { createInitialAttributeValue } from '../data-models/fields/attribute-fields.js'
 
-function getNpcTier(actor) {
-  const tiers = NpcTiers.getList({})
+export function getNpcResourceDefaults(system) {
+  const { tier, creatureKind, attributePools, attributes } = system
+  if (NpcTiers.getDefinition(tier).usesDetailedTraits) {
+    const { value: initialRank } = createInitialAttributeValue()
+    const stamina = attributes?.stamina?.value ?? initialRank
+    const composure = attributes?.composure?.value ?? initialRank
+    const resolve = attributes?.resolve?.value ?? initialRank
+    return {
+      health: 5 + stamina,
+      willpower: Math.max(1, composure + resolve)
+    }
+  }
 
-  return tiers[actor.system.tier] ?? tiers.standard
-}
+  const { physical, social, mental } = attributePools
+  const healthBase = creatureKind === 'vampire' ? 5 : 2
+  let health = healthBase + Math.ceil(physical / 2)
 
-function generateNpcResourceMax(actor, levelKeys, multiplier) {
-  const highestLevel = Math.max(...levelKeys.map((key) => actor.system.level[key]))
+  if (creatureKind === 'animal') health = Math.max(1, physical)
 
-  return highestLevel * multiplier
+  if (tier === 'minion' || (tier === 'minor' && system.minion)) health = 1
+
+  return { health, willpower: Math.max(1, social, mental) }
 }
 
 export function generateHealthMax(actor) {
   if (actor.type === 'npc') {
-    const tier = getNpcTier(actor)
-
-    if (!tier.showHealth) return 0
-
-    return generateNpcResourceMax(actor, tier.healthLevels, tier.healthMultiplier)
+    return actor.system.isMinion ? 1 : actor.system.health.max
   }
 
   const stamina = actor.system.attributes?.stamina?.value
@@ -26,19 +35,13 @@ export function generateHealthMax(actor) {
   // Custom actor types without Attributes retain their configured maximum
   if (!Number.isFinite(stamina)) return actor.system.health?.max ?? 1
 
-  const healthMaximum = 10 + stamina
+  const healthMaximum = 5 + stamina
 
   return healthMaximum
 }
 
 export function generateWillpowerMax(actor) {
-  if (actor.type === 'npc') {
-    const tier = getNpcTier(actor)
-
-    if (!tier.showWillpower) return 0
-
-    return generateNpcResourceMax(actor, tier.willpowerLevels, tier.willpowerMultiplier)
-  }
+  if (actor.type === 'npc') return actor.system.willpower.max
 
   const composure = actor.system.attributes?.composure?.value
   const resolve = actor.system.attributes?.resolve?.value
@@ -47,7 +50,7 @@ export function generateWillpowerMax(actor) {
   if (!Number.isFinite(composure) || !Number.isFinite(resolve)) {
     return actor.system.willpower?.max ?? 1
   }
-  const willpowerMaximum = 5 + composure + resolve
+  const willpowerMaximum = composure + resolve
 
   return willpowerMaximum
 }

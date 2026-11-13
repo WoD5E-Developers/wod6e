@@ -32,9 +32,9 @@ import { LifepathItemModel } from '../items/data-models/lifepath-item-model.js'
 // Merit
 import { MeritItemSheet } from '../items/item-sheets/merit-item-sheet.js'
 import { MeritItemModel } from '../items/data-models/merit-item-model.js'
-// Nature
-import { NatureItemSheet } from '../../splats/vampire/items/item-sheets/nature-item-sheet.js'
-import { NatureItemModel } from '../../splats/vampire/items/data-models/nature-item-model.js'
+// Path
+import { PathItemModel } from '../../splats/vampire/items/data-models/path-item-model.js'
+import { PathItemSheet } from '../../splats/vampire/items/item-sheets/path-item-sheet.js'
 // Condition
 import { ConditionItemSheet } from '../items/item-sheets/condition-item-sheet.js'
 import { ConditionItemModel } from '../items/data-models/condition-item-model.js'
@@ -153,15 +153,15 @@ export class ItemTypes extends BaseDefinitionClass {
     splat: 'core'
   }
 
-  static nature = {
-    label: 'TYPES.Item.nature',
-    chatTemplate: 'systems/wod6e/templates/core/chat/nature-item.hbs',
-    img: '',
-    types: ['nature'],
-    sheetClass: NatureItemSheet,
-    sheetModel: NatureItemModel,
-    limitOnePerActor: true,
+  static path = {
+    label: 'TYPES.Item.path',
+    chatTemplate: 'systems/wod6e/templates/core/chat/path-item.hbs',
+    img: 'systems/wod6e/assets/actors/VampireSymbol.webp',
+    types: ['path'],
+    sheetClass: PathItemSheet,
+    sheetModel: PathItemModel,
     restrictedActorTypes: ['vampire'],
+    limitOnePerActor: true,
     splat: 'vampire'
   }
 
@@ -195,7 +195,7 @@ export class ItemTypes extends BaseDefinitionClass {
     types: ['discipline'],
     sheetClass: DisciplineItemSheet,
     sheetModel: DisciplineItemModel,
-    restrictedActorTypes: ['vampire'],
+    restrictedActorTypes: ['vampire', 'npc'],
     splat: 'vampire',
     subtypes: Disciplines,
     subtypePath: 'disciplineType'

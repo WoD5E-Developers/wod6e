@@ -106,6 +106,31 @@ export class ActorUX {
     const itemType = itemData.type
     const itemsList = ItemTypes.getList({})
 
+    // Sorting an owned item must never replace or delete it.
+    if (actor.uuid === item.parent?.uuid) return _onSortItem(event, actor, itemData)
+
+    // Preserve the existing Path document's identity when replacing its philosophy.
+    if (itemType === 'path' && actor.type === 'vampire') {
+      const sourceUuid = item.parent
+        ? (item.getFlag('wod6e', 'pathSourceUuid') ?? item._stats?.compendiumSource ?? null)
+        : item.uuid
+      foundry.utils.setProperty(itemData, 'flags.wod6e.pathSourceUuid', sourceUuid)
+      foundry.utils.setProperty(
+        itemData,
+        'flags.wod6e.dataItemId',
+        item.getFlag('wod6e', 'dataItemId') ?? ''
+      )
+      const currentPath = actor.items.find((owned) => owned.type === 'path')
+      if (currentPath) {
+        return currentPath.update({
+          name: itemData.name,
+          img: itemData.img,
+          system: itemData.system,
+          flags: itemData.flags
+        })
+      }
+    }
+
     // Check whether we should allow this item type to be placed on this actor type
     if (itemsList[itemType]) {
       const whitelist = itemsList[itemType].restrictedActorTypes
@@ -119,8 +144,6 @@ export class ActorUX {
         !foundry.utils.isEmpty(whitelist) &&
         // This is just a general check against the base actorType
         !whitelist.includes(actorType) &&
-        // If the actor is an NPC, check against the subtype
-        !(actorType === 'npc' && whitelist.includes(actor.system.subtype)) &&
         // If the actor is a Group sheet, check against the subtype
         !(actorType === 'group' && whitelist.includes(actor.system.subtype))
       ) {
@@ -156,9 +179,6 @@ export class ActorUX {
         actor.deleteEmbeddedDocuments('Item', duplicateItemTypeInstances)
       }
     }
-
-    // Handle item sorting within the same Actor
-    if (actor.uuid === item.parent?.uuid) return _onSortItem(event, actor, itemData)
 
     // Conditions whose effects read a trait from their source actor need that
     // source to be chosen when a GM assigns the condition.

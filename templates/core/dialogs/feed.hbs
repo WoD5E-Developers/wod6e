@@ -1,0 +1,32 @@
+<div>
+  <label class="form-group">
+    {{localize 'WOD6E.RESOURCES.VitaeGained'}}
+    <input
+      type="number"
+      name="amount"
+      min="1"
+      step="1"
+      value="1"
+      required
+    />
+  </label>
+  {{#if hasBeast}}
+  <label class="form-group">
+    <input
+      type="checkbox"
+      name="killedHuman"
+    />
+    {{localize 'WOD6E.RESOURCES.DrainHuman'}}
+  </label>
+  {{#if isHumanity}}
+  <label class="form-group">
+    <input
+      type="checkbox"
+      name="endangeredHuman"
+    />
+    {{localize 'WOD6E.VAMPIRE.EndangeredHuman'}}
+  </label>
+  <p>{{localize 'WOD6E.VAMPIRE.FeedingViolations'}}</p>
+  {{/if}}
+  {{/if}}
+</div>

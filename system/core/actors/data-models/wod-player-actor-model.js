@@ -2,14 +2,26 @@ import { attributeFields } from './fields/attribute-fields.js'
 import { skillFields } from './fields/skill-fields.js'
 import { coreActorFields } from './fields/core-actor-fields.js'
 import { vampireFields } from '../../../splats/vampire/actors/data-models/vampire-fields.js'
+import { migrateHumanityData } from '../../../splats/vampire/scripts/humanity.js'
 
 export class WoDPlayerActorModel extends foundry.abstract.TypeDataModel {
+  static migrateData(source) {
+    return super.migrateData(migrateHumanityData(source))
+  }
+
   static defineSchema() {
     const fields = foundry.data.fields
 
     const schema = {}
 
-    Object.assign(schema, coreActorFields())
+    Object.assign(schema, coreActorFields({ includeVitae: true }))
+
+    // Retain saved creature types from the former player sheet setting.
+    schema.creatureType = new fields.StringField({
+      initial: 'vampire',
+      choices: ['vampire', 'duskborn', 'ghoul'],
+      nullable: false
+    })
 
     // Determines whether an actor sheet has attribute data for processing
     schema.hasAttributeData = new fields.BooleanField({ initial: true, nullable: false })

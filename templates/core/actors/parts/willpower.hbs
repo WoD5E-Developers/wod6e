@@ -9,11 +9,35 @@
     data-path="{{ willpower.path }}"
   >
     <header class="resource-tracker-header">
+      {{#if showResourceAdjustments}}
+      <button
+        type="button"
+        class="npc-resource-adjust"
+        data-action="adjustNpcResourceMax"
+        data-resource="willpower"
+        data-delta="-1"
+        title="{{localize 'WOD6E.RESOURCES.DecreaseResource' resource=(localize 'WOD6E.RESOURCES.Willpower')}}"
+      >
+        −
+      </button>
+      {{/if}}
       <span class="resource-tracker-label">
         {{localize 'WOD6E.RESOURCES.Willpower'}}
       </span>
 
-      <span class="resource-tracker-total">({{ willpower.value }} / {{ willpower.max }})</span>
+      <span class="resource-tracker-total">{{ willpower.value }} / {{ willpower.max }}</span>
+      {{#if showResourceAdjustments}}
+      <button
+        type="button"
+        class="npc-resource-adjust"
+        data-action="adjustNpcResourceMax"
+        data-resource="willpower"
+        data-delta="1"
+        title="{{localize 'WOD6E.RESOURCES.IncreaseResource' resource=(localize 'WOD6E.RESOURCES.Willpower')}}"
+      >
+        +
+      </button>
+      {{/if}}
     </header>
 
     <div class="resource-tracker-spaces">

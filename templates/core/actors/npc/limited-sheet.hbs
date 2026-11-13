@@ -10,30 +10,17 @@
     {{#if npc.showCreatureType}}
     <div>
       <strong>{{localize "WOD6E.NPC.CreatureType"}}:</strong>
-      {{#if npc.creatureType}}
       {{ npc.creatureType }}
-      {{else}}
-      <span>{{ localize 'WOD6E.None' }}</span>
-      {{/if}}
     </div>
-    {{/if}}
-
-    {{#if npc.showSubtype}}
-    {{#if npc.subtype}}
-    <div>
-      <strong>{{localize "WOD6E.NPC.Subtype"}}:</strong>
-      {{ npc.subtype }}
-    </div>
-    {{/if}}
     {{/if}}
 
     {{#if npc.showMotivation}}
     <section class="motivation-section">
       <h4>{{localize "WOD6E.NPC.Motivation"}}</h4>
       {{#if npc.motivation}}
-      <div>{{{ npc.motivation }}}</div>
+        <div>{{{ npc.motivation }}}</div>
       {{else}}
-      <div>{{ localize 'WOD6E.None' }}</div>
+        <div>{{ localize 'WOD6E.None' }}</div>
       {{/if}}
     </section>
     {{/if}}
@@ -42,9 +29,9 @@
     <section>
       <h4>{{localize "WOD6E.Appearance"}}</h4>
       {{#if enrichedAppearance}}
-      <div>{{{enrichedAppearance}}}</div>
+        <div>{{{enrichedAppearance}}}</div>
       {{else}}
-      <div>{{ localize 'WOD6E.None' }}</div>
+        <div>{{ localize 'WOD6E.None' }}</div>
       {{/if}}
     </section>
     {{/if}}
@@ -53,9 +40,9 @@
     <section>
       <h4>{{localize "WOD6E.Biography"}}</h4>
       {{#if enrichedBiography}}
-      <div>{{{enrichedBiography}}}</div>
+        <div>{{{enrichedBiography}}}</div>
       {{else}}
-      <div>{{ localize 'WOD6E.None' }}</div>
+        <div>{{ localize 'WOD6E.None' }}</div>
       {{/if}}
     </section>
     {{/if}}

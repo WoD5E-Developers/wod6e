@@ -1,0 +1,83 @@
+<div class="chronicle-time-fields">
+  <label class="chronicle-field">
+    <span>{{localize 'WOD6E.CHRONICLE.Year'}}</span>
+    <input
+      type="number"
+      name="year"
+      value="{{ year }}"
+      step="1"
+      required
+    />
+  </label>
+  {{#if monthOptions.length}}
+  <label class="chronicle-field">
+    <span>{{localize 'WOD6E.CHRONICLE.Month'}}</span>
+    <select name="month">
+      {{selectOptions monthOptions selected=month localize=true}}
+    </select>
+  </label>
+  {{/if}}
+  <label class="chronicle-field">
+    <span>{{localize 'WOD6E.CHRONICLE.Day'}}</span>
+    <input
+      type="number"
+      name="day"
+      value="{{ day }}"
+      min="1"
+      step="1"
+      required
+    />
+  </label>
+  <label class="chronicle-field">
+    <span>{{localize 'WOD6E.CHRONICLE.Hour'}}</span>
+    <input
+      type="number"
+      name="hour"
+      value="{{ hour }}"
+      min="0"
+      max="{{ maxHour }}"
+      step="1"
+      required
+    />
+  </label>
+  <label class="chronicle-field">
+    <span>{{localize 'WOD6E.CHRONICLE.Minute'}}</span>
+    <input
+      type="number"
+      name="minute"
+      value="{{ minute }}"
+      min="0"
+      max="{{ maxMinute }}"
+      step="1"
+      required
+    />
+  </label>
+  {{#if clockFormats}}
+  <label class="chronicle-field">
+    <span>{{localize 'WOD6E.CHRONICLE.ClockFormat'}}</span>
+    <select name="clockFormat">
+      {{selectOptions clockFormats selected=clockFormat localize=true}}
+    </select>
+  </label>
+  {{/if}}
+  <div class="chronicle-time-shortcuts">
+    <button
+      type="button"
+      data-time-advance="minutes"
+    >
+      {{localize 'WOD6E.CHRONICLE.AdvanceMinutes'}}
+    </button>
+    <button
+      type="button"
+      data-time-advance="hour"
+    >
+      {{localize 'WOD6E.CHRONICLE.AdvanceHour'}}
+    </button>
+    <button
+      type="button"
+      data-time-advance="day"
+    >
+      {{localize 'WOD6E.CHRONICLE.AdvanceDay'}}
+    </button>
+  </div>
+</div>

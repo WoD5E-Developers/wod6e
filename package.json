@@ -9,10 +9,11 @@
     "check-highest-changes": "node system/core/scripts/maintenance/check-highest-changes.js",
     "test": "vitest",
     "audit": "npm audit --json > audit.json",
-    "convert-clans": "fvtt package unpack -n Clans --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_clans && fvtt package pack -n Clans --inputDirectory ./packs/unpacked/_clans --outputDirectory ./packs --nedb",
-    "convert-actions": "fvtt package unpack -n Actions --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_actions && fvtt package pack -n Actions --inputDirectory ./packs/unpacked/_actions --outputDirectory ./packs --nedb",
-    "convert-conditions": "fvtt package unpack -n Conditions --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_conditions && fvtt package pack -n Conditions --inputDirectory ./packs/unpacked/_conditions --outputDirectory ./packs --nedb",
-    "convert-packs": "npm run convert-clans && npm run convert-actions && npm run convert-conditions"
+    "convert-clans": "fvtt package unpack -n Clans --clean --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_clans && fvtt package pack -n Clans --inputDirectory ./packs/unpacked/_clans --outputDirectory ./packs --nedb",
+    "convert-actions": "fvtt package unpack -n Actions --clean --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_actions && fvtt package pack -n Actions --inputDirectory ./packs/unpacked/_actions --outputDirectory ./packs --nedb",
+    "convert-conditions": "fvtt package unpack -n Conditions --clean --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_conditions && fvtt package pack -n Conditions --inputDirectory ./packs/unpacked/_conditions --outputDirectory ./packs --nedb",
+    "convert-paths": "fvtt package unpack -n Paths --clean --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_paths && fvtt package pack -n Paths --inputDirectory ./packs/unpacked/_paths --outputDirectory ./packs --nedb",
+    "convert-packs": "npm run convert-clans && npm run convert-actions && npm run convert-conditions && npm run convert-paths"
   },
   "browserslist": [
     "last 3 versions"

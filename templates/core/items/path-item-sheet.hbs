@@ -1,0 +1,23 @@
+<header class="item-header">
+  {{> "systems/wod6e/templates/core/items/parts/item-image.hbs"}}
+  {{> "systems/wod6e/templates/core/items/parts/item-name.hbs"}}
+  <div class="header-fields path-replacement">
+    <label class="path-source-field">
+      {{localize 'WOD6E.VAMPIRE.Path'}}
+      <select
+        data-path-source
+        data-current-path="{{ currentPath }}"
+      >
+        {{selectOptions pathOptions selected=currentPath}}
+      </select>
+    </label>
+    <button
+      type="button"
+      data-action="replacePath"
+      title="{{localize 'WOD6E.VAMPIRE.ReplacePathHint'}}"
+      disabled
+    >
+      {{localize 'WOD6E.VAMPIRE.ReplacePath'}}
+    </button>
+  </div>
+</header>

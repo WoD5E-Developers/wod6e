@@ -1,0 +1,19 @@
+<div>
+  <p>{{localize 'WOD6E.ROLL.WillpowerRerollHint'}}</p>
+  <div class="willpower-dice">
+    {{#each dice}}
+    <button
+      type="button"
+      name="dice"
+      value="{{ id }}"
+      class="willpower-die-choice"
+      title="{{ title }}"
+    >
+      <span class="willpower-die">
+        <i class="fa-solid fa-dice-d10"></i>
+        <span class="willpower-die-value">{{ value }}</span>
+      </span>
+    </button>
+    {{/each}}
+  </div>
+</div>

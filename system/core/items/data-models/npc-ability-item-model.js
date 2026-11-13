@@ -8,7 +8,7 @@ export class WoDNpcAbilityItemModel extends WoDItemModel {
   static defineSchema() {
     const schema = super.defineSchema()
 
-    // Limited-use abilities that can be restored through Drama
+    // Limited-use abilities and their recovery period
     schema.uses = new fields.SchemaField({
       enabled: new fields.BooleanField({
         initial: false,

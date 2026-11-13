@@ -11,31 +11,26 @@ export class NpcTiers extends BaseDefinitionClass {
 
   static minion = {
     label: 'WOD6E.NPC.Minion',
-    levels: ['value'],
-    showHealth: false,
-    showWillpower: false
+    usesDetailedTraits: false
+  }
+
+  static minor = {
+    label: 'WOD6E.NPC.Minor',
+    usesDetailedTraits: false
   }
 
   static standard = {
     label: 'WOD6E.NPC.Standard',
-    levels: ['value'],
-    showHealth: true,
-    showWillpower: true,
-    healthLevels: ['value'],
-    healthMultiplier: 3,
-    willpowerLevels: ['value'],
-    willpowerMultiplier: 3
+    usesDetailedTraits: false
   }
 
-  static elite = {
-    label: 'WOD6E.NPC.Elite',
-    levels: ['physical', 'social', 'mental'],
-    showHealth: true,
-    showWillpower: true,
-    healthLevels: ['physical'],
-    healthMultiplier: 5,
-    willpowerLevels: ['social', 'mental'],
-    willpowerMultiplier: 5
+  static major = {
+    label: 'WOD6E.NPC.Major',
+    usesDetailedTraits: true
+  }
+
+  static getDefinition(tier) {
+    return this.getList({ disableSort: true })[tier] ?? this.standard
   }
 }
 

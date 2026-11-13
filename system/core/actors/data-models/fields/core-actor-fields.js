@@ -14,7 +14,11 @@ function trackerFields({ canBeDisabled }) {
 // Fields shared by player and NPC actors
 // NPC health has an editable maximum because NPCs do not have Stamina
 // Include health and willpower by default (since most actors will need it)
-export function coreActorFields({ includeHealth = true, includeWillpower = true } = {}) {
+export function coreActorFields({
+  includeHealth = true,
+  includeWillpower = true,
+  includeVitae = false
+} = {}) {
   // We can assume these fields will be present (on all actors) eventually but as of writing this code
   // they don't, I just need to get the actual core mechanics in the system before I can
   // start doing things like biography, etc.
@@ -33,6 +37,10 @@ export function coreActorFields({ includeHealth = true, includeWillpower = true 
 
   if (includeWillpower) {
     schema.willpower = trackerFields({ canBeDisabled: false })
+  }
+
+  if (includeVitae) {
+    schema.vitae = trackerFields({ canBeDisabled: false })
   }
 
   return schema

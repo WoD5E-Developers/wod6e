@@ -1,0 +1,61 @@
+<div class="npc-trait-editor">
+  {{#unless focusOnly}}
+  <section class="npc-trait-selection">
+    {{#if showSpecializations}}
+    <header class="npc-trait-panel-header">
+      <h3>{{localize 'WOD6E.SKILLS.Skills'}}</h3>
+      <output class="npc-trait-count"></output>
+    </header>
+    {{/if}}
+    <div class="npc-trait-options">
+      {{#each traits as |trait|}}
+      <label>
+        <span>{{ trait.label }}</span>
+        <input type="checkbox" name="trait.{{ trait.key }}" data-trait="{{ trait.key }}" {{checked trait.active}} />
+      </label>
+      {{/each}}
+    </div>
+    {{#if showSpecializations}}
+    <footer class="npc-trait-bulk">
+      <button type="button" data-select-traits="all">
+        <i class="fa-regular fa-square-check"></i> {{localize 'WOD6E.NPC.SelectAllSkills'}}
+      </button>
+      <button type="button" data-select-traits="none">
+        <i class="fa-regular fa-square"></i> {{localize 'WOD6E.NPC.ClearAllSkills'}}
+      </button>
+    </footer>
+    {{/if}}
+  </section>
+  {{/unless}}
+  {{#if showSpecializations}}
+  <aside class="npc-pool-specializations">
+    <header class="npc-trait-panel-header">
+      {{#if focusOnly}}
+      <h3>{{localize 'WOD6E.SKILLS.SkillFocuses'}}</h3>
+      {{else}}
+      <h3>{{localize 'WOD6E.NPC.Specializations'}}</h3>
+      <p>{{localize 'WOD6E.NPC.SpecializationsHint'}}</p>
+      {{/if}}
+    </header>
+    <div class="npc-specialization-rows">
+      {{#each traits as |trait|}}
+      <div class="npc-specialization-row" {{#unless trait.active}}hidden{{/unless}}>
+        <label>
+          <span>{{ trait.label }}</span>
+          <input type="text" name="specialization.{{ trait.key }}" placeholder="{{localize @root.addEntryLabel}}…" />
+        </label>
+        <button type="button" class="npc-specialization-add" data-add-specialization title="{{localize @root.addEntryLabel}}">+</button>
+        <ul class="npc-specialization-list">
+          {{#each trait.specializations as |specialization|}}
+          <li>
+            <span data-specialization title="{{ specialization }}">{{ specialization }}</span>
+            <button type="button" data-remove-specialization title="{{localize @root.removeEntryLabel}}">×</button>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+      {{/each}}
+    </div>
+  </aside>
+  {{/if}}
+</div>

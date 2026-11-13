@@ -51,6 +51,14 @@ export class Durations extends BaseDefinitionClass {
     label: 'WOD6E.ACTIONS.OneNight'
   }
 
+  static day = {
+    label: 'WOD6E.CHRONICLE.OneDay'
+  }
+
+  static session = {
+    label: 'WOD6E.CHRONICLE.OneSession'
+  }
+
   static permanent = {
     label: 'WOD6E.ACTIONS.Permanent'
   }

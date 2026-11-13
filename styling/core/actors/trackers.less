@@ -108,9 +108,164 @@
   }
 }
 
-.willpower-tracker {
-  .resource-tracker-header,
+.actor.sheet .resource-panels {
+  .resource-tracker {
+    --tracker-background: var(--resource-panel-background);
+    --tracker-text: var(--resource-panel-text);
+    --tracker-disabled: var(--resource-panel-text);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: 100%;
+    padding: 12px;
+    border: 1px solid var(--resource-panel-border);
+    border-radius: 6px;
+    background: var(--resource-panel-background);
+    color: var(--resource-panel-text);
+  }
+
+  .health-tracker {
+    --tracker-filled: var(--resource-health-fill);
+    --tracker-border: var(--resource-health-border);
+  }
+
+  .vitae-tracker {
+    --tracker-filled: #991d32;
+    --tracker-border: var(--resource-vitae-border);
+  }
+
+  .willpower-tracker {
+    --tracker-filled: var(--resource-willpower-fill);
+    --tracker-border: var(--resource-willpower-border);
+  }
+
+  .resource-tracker-header {
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--resource-panel-border);
+    line-height: 1.2;
+  }
+
+  .resource-tracker-label {
+    overflow-wrap: anywhere;
+  }
+
+  .resource-tracker-total {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
   .resource-tracker-spaces {
-    justify-content: flex-end;
+    justify-content: flex-start;
+    gap: 10px 12px;
+  }
+
+  .resource-tracker-group {
+    gap: 3px;
+  }
+
+  .resource-tracker-space {
+    flex: 0 0 20px;
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    min-height: 20px;
+
+    &.filled {
+      box-shadow: inset 0 0 0 1px var(--resource-panel-background);
+    }
+
+    &.tracker-disabled::before,
+    &.tracker-disabled::after {
+      background: var(--resource-panel-text);
+    }
+  }
+
+  .resource-tracker-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .vitae-hunger,
+  .vitae-actions button {
+    min-height: 26px;
+    padding: 3px 7px;
+    border: 1px solid var(--resource-panel-border);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--resource-panel-text);
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .vitae-hunger {
+    display: inline-flex;
+    align-items: center;
+    text-transform: uppercase;
+  }
+
+  .vitae-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .vitae-actions button {
+    width: auto;
+    margin: 0;
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--resource-panel-text);
+      background: color-mix(in srgb, var(--resource-panel-text) 10%, transparent);
+    }
+  }
+
+  .feed-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    .vampire-fangs {
+      display: inline-flex;
+      flex-shrink: 0;
+      width: 1em;
+      height: 1em;
+      gap: 0.25em;
+      pointer-events: none;
+
+      &::before,
+      &::after {
+        content: '';
+        width: 0.375em;
+        height: 1em;
+        border-radius: 0.1em 0.1em 0 0;
+        background: currentColor;
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          86% 28%,
+          84% 52%,
+          90% 76%,
+          100% 100%,
+          54% 79%,
+          24% 53%,
+          7% 26%
+        );
+      }
+
+      &::after {
+        transform: scaleX(-1);
+      }
+    }
   }
 }
