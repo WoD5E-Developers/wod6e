@@ -31,10 +31,11 @@ export async function feedActor(actor, { amount, killedHuman = false, endangered
     character: actor.name,
     number: Math.max(0, actor.system.vitae.value - previousVitae)
   })
-  if (restoresWillpower) {
+  const willpowerGained = (actor.system.willpower?.value ?? 0) - previousWillpower
+  if (restoresWillpower && willpowerGained > 0) {
     content.append(
       ` ${game.i18n.format('WOD6E.RESOURCES.FeedingWillpowerRestored', {
-        number: Math.max(0, actor.system.willpower.value - previousWillpower)
+        number: willpowerGained
       })}`
     )
   }
