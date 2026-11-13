@@ -108,31 +108,15 @@ export async function promptWillpowerReroll(message) {
   if (!canRerollWithWillpower(message)) return
   const snapshot = JSON.stringify(message.rolls[0])
   const localize = (key) => game.i18n.localize(`WOD6E.ROLL.${key}`)
+  const dice = getOrdinaryDice(message.rolls[0]).map((die, index) => ({
+    ...die,
+    title: game.i18n.format('WOD6E.ROLL.RerollDie', { number: index + 1, value: die.value })
+  }))
   const content = document.createElement('div')
-  const hint = document.createElement('p')
-  hint.textContent = localize('WillpowerRerollHint')
-  const choices = document.createElement('div')
-  choices.className = 'willpower-dice'
-  getOrdinaryDice(message.rolls[0]).forEach((die, index) => {
-    const choice = document.createElement('button')
-    Object.assign(choice, { type: 'button', name: 'dice', value: die.id })
-    choice.className = 'willpower-die-choice'
-    choice.setAttribute(
-      'title',
-      game.i18n.format('WOD6E.ROLL.RerollDie', { number: index + 1, value: die.value })
-    )
-    const face = document.createElement('span')
-    face.className = 'willpower-die'
-    const icon = document.createElement('i')
-    icon.className = 'fa-solid fa-dice-d10'
-    const value = document.createElement('span')
-    value.className = 'willpower-die-value'
-    value.textContent = String(die.value)
-    face.append(icon, value)
-    choice.append(face)
-    choices.append(choice)
-  })
-  content.append(hint, choices)
+  content.innerHTML = await foundry.applications.handlebars.renderTemplate(
+    'systems/wod6e/templates/core/dialogs/willpower-reroll.hbs',
+    { dice }
+  )
   return foundry.applications.api.DialogV2.wait({
     window: { title: localize('WillpowerReroll') },
     classes: ['wod6e', 'willpower-reroll-dialog'],
