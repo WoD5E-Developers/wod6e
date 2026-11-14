@@ -13,7 +13,13 @@
     "convert-actions": "fvtt package unpack -n Actions --clean --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_actions && fvtt package pack -n Actions --inputDirectory ./packs/unpacked/_actions --outputDirectory ./packs --nedb",
     "convert-conditions": "fvtt package unpack -n Conditions --clean --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_conditions && fvtt package pack -n Conditions --inputDirectory ./packs/unpacked/_conditions --outputDirectory ./packs --nedb",
     "convert-paths": "fvtt package unpack -n Paths --clean --inputDirectory ./packs/ --outputDirectory ./packs/unpacked/_paths && fvtt package pack -n Paths --inputDirectory ./packs/unpacked/_paths --outputDirectory ./packs --nedb",
-    "convert-packs": "npm run convert-clans && npm run convert-actions && npm run convert-conditions && npm run convert-paths"
+    "convert-packs": "npm run convert-clans && npm run convert-actions && npm run convert-conditions && npm run convert-paths",
+    "lint": "npm run lint:js && npm run lint:less && npm run lint:hbs && npm run format:check",
+    "lint:js": "eslint . --config eslint.config.js --ext .ts,.tsx,.js,.jsx",
+    "lint:less": "stylelint \"styling/**/*.less\" --max-warnings 0",
+    "lint:hbs": "node scripts/lint-hbs.js",
+    "format:check": "prettier --check \"templates/**/*.{hbs,handlebars}\" \"styling/**/*.less\"",
+    "format:write": "prettier --write \"templates/**/*.{hbs,handlebars}\" \"styling/**/*.less\""
   },
   "browserslist": [
     "last 3 versions"
@@ -28,19 +34,26 @@
   "devDependencies": {
     "@babel/core": "^8",
     "@babel/eslint-parser": "^8",
+    "@eslint/compat": "^2.1.0",
+    "@eslint/js": "9.39.5",
+    "@poliklot/prettier-plugin-handlebars": "0.4.1",
+    "archiver": "^8.0.0",
     "eslint": "^9",
     "eslint-plugin-hbs": "^1.0.3",
     "eslint-plugin-import": "^2",
     "eslint-plugin-prettier": "^5.5.4",
-    "@eslint/compat": "^2.1.0",
     "globals": "^15.9.0",
     "gulp": "^5.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-less": "^5.0.0",
+    "handlebars": "4.7.10",
     "jsdom": "^28.0.0",
     "less": "^4.2.0",
-    "vitest": "^4.0.18",
-    "archiver": "^8.0.0"
+    "postcss-less": "6.0.0",
+    "prettier": "3.9.6",
+    "stylelint": "16.26.1",
+    "stylelint-config-recommended": "16.0.0",
+    "vitest": "^4.0.18"
   },
   "main": "gulpfile.js",
   "repository": {

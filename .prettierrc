@@ -8,13 +8,19 @@
   "endOfLine": "auto",
   "overrides": [
     {
-      "files": ["*.hbs"],
+      "files": [
+        "*.hbs",
+        "*.handlebars"
+      ],
       "options": {
-        "parser": "angular",
-        "htmlWhitespaceSensitivity": "ignore",
+        "parser": "handlebars",
+        "htmlWhitespaceSensitivity": "strict",
         "bracketSameLine": false,
-        "singleAttributePerLine": true
+        "singleQuote": false
       }
     }
+  ],
+  "plugins": [
+    "@poliklot/prettier-plugin-handlebars"
   ]
 }
