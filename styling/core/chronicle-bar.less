@@ -42,10 +42,14 @@
     overflow-x: auto;
     white-space: nowrap;
 
-    > * { flex: none; }
+    > * {
+      flex: none;
+    }
   }
 
-  .chronicle-clock { font-variant-numeric: tabular-nums; }
+  .chronicle-clock {
+    font-variant-numeric: tabular-nums;
+  }
   .chronicle-readout {
     display: inline-flex;
     align-items: center;
@@ -71,7 +75,16 @@
     height: var(--chronicle-control-height);
     padding-inline: 2px;
     background: #08080b;
-    clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px), 0 5px);
+    clip-path: polygon(
+      5px 0,
+      calc(100% - 5px) 0,
+      100% 5px,
+      100% calc(100% - 5px),
+      calc(100% - 5px) 100%,
+      5px 100%,
+      0 calc(100% - 5px),
+      0 5px
+    );
 
     [data-pip] {
       position: relative;
@@ -101,8 +114,13 @@
       background: var(--resource-vitae-border);
     }
   }
-  select { width: auto; max-width: 100%; font-variant-numeric: tabular-nums; }
-  button, select {
+  select {
+    width: auto;
+    max-width: 100%;
+    font-variant-numeric: tabular-nums;
+  }
+  button,
+  select {
     height: var(--chronicle-control-height);
     min-height: 0;
     font: inherit;
@@ -113,7 +131,6 @@
     padding: 0 6px;
     margin: 0;
   }
-
 }
 
 .chronicle-dialog {
@@ -123,12 +140,35 @@
     min-width: 0;
   }
 
-  .chronicle-scope-config, .chronicle-scope-list { display: grid; gap: 8px; }
-  .chronicle-scope-row, .chronicle-time-shortcuts { display: flex; gap: 6px; flex-wrap: wrap; }
-  .chronicle-scope-row input { flex: 1; min-width: 120px; }
-  .chronicle-scope-row button, .chronicle-time-shortcuts button { width: auto; }
-  .chronicle-time-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-  .chronicle-time-shortcuts { grid-column: 1 / -1; }
+  .chronicle-scope-config,
+  .chronicle-scope-list {
+    display: grid;
+    gap: 8px;
+  }
+  .chronicle-scope-row,
+  .chronicle-time-shortcuts {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .chronicle-scope-row input {
+    flex: 1;
+    min-width: 120px;
+  }
+  .chronicle-scope-row button,
+  .chronicle-time-shortcuts button {
+    width: auto;
+  }
+  .chronicle-time-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .chronicle-time-shortcuts {
+    grid-column: 1 / -1;
+  }
 }
 
-.wod6e-masquerade-reference { margin-top: 5px; }
+.wod6e-masquerade-reference {
+  margin-top: 5px;
+}

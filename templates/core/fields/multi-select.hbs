@@ -1,62 +1,45 @@
-<div
-  class="multi-select"
-  data-multi-select
-  data-field-path="{{ fieldPath }}"
->
-  <button
-    type="button"
-    class="multi-select-trigger"
-    data-action="toggleMultiSelect"
-  >
-    <span class="multi-select-value">
-      {{ selectedText }}
-    </span>
+<div class="multi-select" data-multi-select data-field-path="{{ fieldPath }}">
+  <button class="multi-select-trigger" type="button" data-action="toggleMultiSelect">
+    <span class="multi-select-value">{{ selectedText }}</span>
 
     <i class="fa-solid fa-chevron-down multi-select-icon"></i>
   </button>
 
-  <div
-    class="multi-select-dropdown"
-    popover="manual"
-  >
+  <div class="multi-select-dropdown" popover="manual">
     {{#if groups}}
-    {{#each groups as |group|}}
-    <div class="multi-select-group">
-      <div class="multi-select-group-label">
-        {{ group.label }}
-      </div>
+      {{#each groups as |group|}}
+        <div class="multi-select-group">
+          <div class="multi-select-group-label">{{ group.label }}</div>
 
-      <div class="multi-select-group-options">
-        {{#each group.options as |option|}}
+          <div class="multi-select-group-options">
+            {{#each group.options as |option|}}
+              <label class="multi-select-option">
+                <input
+                  type="checkbox"
+                  value="{{ option.key }}"
+                  data-action="toggleMultiSelectOption"
+                  {{checked option.selected}}
+                />
+
+                <span>{{ option.label }}</span>
+              </label>
+            {{/each}}
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      {{#each options as |option|}}
         <label class="multi-select-option">
           <input
             type="checkbox"
             value="{{ option.key }}"
             data-action="toggleMultiSelectOption"
-            {{checked
-            option.selected}}
+            {{checked option.selected}}
           />
 
           <span>{{ option.label }}</span>
         </label>
-        {{/each}}
-      </div>
-    </div>
-    {{/each}}
-    {{else}}
-    {{#each options as |option|}}
-    <label class="multi-select-option">
-      <input
-        type="checkbox"
-        value="{{ option.key }}"
-        data-action="toggleMultiSelectOption"
-        {{checked
-        option.selected}}
-      />
-
-      <span>{{ option.label }}</span>
-    </label>
-    {{/each}}
+      {{/each}}
     {{/if}}
   </div>
 </div>

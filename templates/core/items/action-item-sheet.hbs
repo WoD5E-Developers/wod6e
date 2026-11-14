@@ -4,32 +4,35 @@
 
   <div class="header-fields">
     <div class="flexcol action-category flex-center item-resource">
-      <label>
-        <b>{{localize "WOD6E.ACTIONS.Category"}}</b>
-      </label>
+      <label><b>{{localize "WOD6E.ACTIONS.Category"}}</b></label>
 
       <select name="system.group">
-        {{selectOptions actionGroupOptions selected=actionGroupSelected}}
+        {{selectOptions
+          actionGroupOptions
+          selected=actionGroupSelected
+        }}
       </select>
     </div>
 
     <div class="flexcol action-role flex-center item-resource">
-      <label>
-        <b>{{localize "WOD6E.ACTIONS.Role"}}</b>
-      </label>
+      <label><b>{{localize "WOD6E.ACTIONS.Role"}}</b></label>
 
       <select name="system.role">
-        {{selectOptions actionRoleOptions selected=actionRoleSelected}}
+        {{selectOptions
+          actionRoleOptions
+          selected=actionRoleSelected
+        }}
       </select>
     </div>
 
     <div class="flexcol action-type flex-center item-resource">
-      <label>
-        <b>{{localize "WOD6E.ACTIONS.ActionType"}}</b>
-      </label>
+      <label><b>{{localize "WOD6E.ACTIONS.ActionType"}}</b></label>
 
       <select name="system.actionType">
-        {{selectOptions actionTypeOptions selected=actionTypeSelected}}
+        {{selectOptions
+          actionTypeOptions
+          selected=actionTypeSelected
+        }}
       </select>
     </div>
   </div>

@@ -21,9 +21,7 @@
       <span class="roll-pool-value">{{ test.dicePoolText }}</span>
     </div>
 
-    <div class="roll-test">
-      {{ test.testText }}
-    </div>
+    <div class="roll-test">{{ test.testText }}</div>
 
     <div
       class="difficulty-section"
@@ -39,7 +37,9 @@
           value="{{ test.difficulty }}"
           min="0"
           step="1"
-          {{#if test.retryOf}}readonly{{/if}}
+          {{#if test.retryOf}}
+            readonly
+          {{/if}}
         />
       </label>
     </div>
@@ -47,77 +47,65 @@
 
   <div class="roll-dialog-body">
     <div class="form-group">
-      <label>
-        <b>{{localize 'WOD6E.ROLL.RollResolution'}}</b>
-      </label>
+      <label><b>{{localize 'WOD6E.ROLL.RollResolution'}}</b></label>
 
       <div class="roll-resolution-select">
-        <select name="testType" title="{{localize 'WOD6E.ROLL.RollResolution'}}" {{disabled test.retryOf}}>
-          {{selectOptions test.testTypeOptions selected=test.testType localize=true}}
+        <select
+          name="testType"
+          title="{{localize 'WOD6E.ROLL.RollResolution'}}"
+          {{disabled test.retryOf}}
+        >
+          {{selectOptions
+            test.testTypeOptions
+            selected=test.testType
+            localize=true
+          }}
         </select>
         <i class="fa-solid fa-chevron-down"></i>
       </div>
     </div>
 
     {{#unless test.npcPool}}
-    <div class="form-group multi-select-section attribute-multi-select">
-      <label>
-        <b>{{localize 'WOD6E.ATTRIBUTES.Attributes'}}</b>
-      </label>
+      <div class="form-group multi-select-section attribute-multi-select">
+        <label><b>{{localize 'WOD6E.ATTRIBUTES.Attributes'}}</b></label>
 
-      {{> 'systems/wod6e/templates/core/dialogs/roll-dialog-trait-select.hbs'
-        fieldPath='attributes'
-        options=test.attributeOptions
-        selectedText=test.selectedAttributesText
-        mode=test.attributeMode
-        label='WOD6E.ATTRIBUTES.Attributes'
-      }}
-    </div>
+        {{> 'systems/wod6e/templates/core/dialogs/roll-dialog-trait-select.hbs'
+          fieldPath='attributes'
+          options=test.attributeOptions
+          selectedText=test.selectedAttributesText
+          mode=test.attributeMode
+          label='WOD6E.ATTRIBUTES.Attributes'
+        }}
+      </div>
 
-    <div class="form-group multi-select-section skill-multi-select">
-      <label>
-        <b>{{localize 'WOD6E.SKILLS.Skills'}}</b>
-      </label>
+      <div class="form-group multi-select-section skill-multi-select">
+        <label><b>{{localize 'WOD6E.SKILLS.Skills'}}</b></label>
 
-      {{> 'systems/wod6e/templates/core/dialogs/roll-dialog-trait-select.hbs'
-        fieldPath='skills'
-        options=test.skillOptions
-        selectedText=test.selectedSkillsText
-        mode=test.skillMode
-        label='WOD6E.SKILLS.Skills'
-      }}
-    </div>
+        {{> 'systems/wod6e/templates/core/dialogs/roll-dialog-trait-select.hbs'
+          fieldPath='skills'
+          options=test.skillOptions
+          selectedText=test.selectedSkillsText
+          mode=test.skillMode
+          label='WOD6E.SKILLS.Skills'
+        }}
+      </div>
 
-    <div class="form-group multi-select-section discipline-multi-select">
-      <label>
-        <b>{{localize 'WOD6E.VAMPIRE.Disciplines'}}</b>
-      </label>
+      <div class="form-group multi-select-section discipline-multi-select">
+        <label><b>{{localize 'WOD6E.VAMPIRE.Disciplines'}}</b></label>
 
-      {{> 'systems/wod6e/templates/core/dialogs/roll-dialog-trait-select.hbs'
-        fieldPath='disciplines'
-        options=test.disciplineOptions
-        selectedText=test.selectedDisciplinesText
-        mode=test.disciplineMode
-        label='WOD6E.VAMPIRE.Disciplines'
-      }}
-    </div>
-
+        {{> 'systems/wod6e/templates/core/dialogs/roll-dialog-trait-select.hbs'
+          fieldPath='disciplines'
+          options=test.disciplineOptions
+          selectedText=test.selectedDisciplinesText
+          mode=test.disciplineMode
+          label='WOD6E.VAMPIRE.Disciplines'
+        }}
+      </div>
     {{/unless}}
     <div class="form-group">
-      <label>
-        <b>{{localize 'WOD6E.ROLL.CustomModifier'}}</b>
-      </label>
-      <div
-        class="custom-modifier-section"
-        data-field-path="customModifier"
-      >
-        <input
-          type="number"
-          name="customModifier"
-          value="0"
-          min="0"
-          step="1"
-        />
+      <label><b>{{localize 'WOD6E.ROLL.CustomModifier'}}</b></label>
+      <div class="custom-modifier-section" data-field-path="customModifier">
+        <input type="number" name="customModifier" value="0" min="0" step="1" />
       </div>
     </div>
   </div>

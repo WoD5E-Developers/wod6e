@@ -8,14 +8,13 @@
   </header>
   <p>{{localize "WOD6E.LimitedVisibilityHint"}}</p>
   {{#each limitedSettingFields as |field|}}
-  <label>
-    <input
-      type="checkbox"
-      name="system.settings.limited.{{ field.path }}"
-      {{checked
-      field.checked}}
-    />
-    <span>{{localize field.label}}</span>
-  </label>
+    <label>
+      <input
+        type="checkbox"
+        name="system.settings.limited.{{ field.path }}"
+        {{checked field.checked}}
+      />
+      <span>{{localize field.label}}</span>
+    </label>
   {{/each}}
 </section>

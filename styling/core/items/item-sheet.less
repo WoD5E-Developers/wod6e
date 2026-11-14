@@ -7,110 +7,108 @@
       minmax(150px, 1fr)
       minmax(150px, 1fr);
     grid-template-areas:
-      "itemImage itemName itemName"
-      "itemImage itemHeaderFields itemHeaderFields";
+      'itemImage itemName itemName'
+      'itemImage itemHeaderFields itemHeaderFields';
   }
 
-	.item-image {
-		grid-area: itemImage;
-	}
+  .item-image {
+    grid-area: itemImage;
+  }
 
-	.item-name {
-		grid-area: itemName;
-	}
+  .item-name {
+    grid-area: itemName;
+  }
 
-	.header-fields {
-		grid-area: itemHeaderFields;
-	}
+  .header-fields {
+    grid-area: itemHeaderFields;
+  }
 }
 
-
 .item.sheet {
-	.window-content {
-		padding: 5px;
-	}
+  .window-content {
+    padding: 5px;
+  }
 
-	.item-header {
-		.item-name {
-			padding: 10px;
-			display: flex;
-			flex-direction: row;
+  .item-header {
+    .item-name {
+      padding: 10px;
+      display: flex;
+      flex-direction: row;
 
-			.item-delete {
-				font-size: 15pt;
-				max-width: 15px;
-			}
-		}
+      .item-delete {
+        font-size: 15pt;
+        max-width: 15px;
+      }
+    }
 
-		.item-image {
-			background-color: var(--image-background-color);
+    .item-image {
+      background-color: var(--image-background-color);
       border: 1px solid var(--tracker-border);
-			max-width: 100px;
-			max-height: 100px;
-			height: fit-content;
-			width: fit-content;
-			margin-right: 0;
+      max-width: 100px;
+      max-height: 100px;
+      height: fit-content;
+      width: fit-content;
       margin: 5px;
-		}
+    }
 
-		.header-fields {
-			display: flex;
-			flex-direction: row;
-			padding: 10px;
-			gap: 8px;
-		}
+    .header-fields {
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      gap: 8px;
+    }
 
-		.item-resource {
-			flex-grow: 1;
-			text-wrap: nowrap;
-			flex-basis: min-content;
-		}
-	}
+    .item-resource {
+      flex-grow: 1;
+      text-wrap: nowrap;
+      flex-basis: min-content;
+    }
+  }
 
-	section.tab {
-		padding: 10px 10px 0px 10px;
-		overflow-y: scroll;
-		height: 100%;
-	}
+  section.tab {
+    padding: 10px 10px 0px 10px;
+    overflow-y: scroll;
+    height: 100%;
+  }
 
-	.action-test-header {
-		.action-test-header-label {
-			font-size: 18pt;
-		}
-	}
+  .action-test-header {
+    .action-test-header-label {
+      font-size: 18pt;
+    }
+  }
 
   .setting-field {
     padding: 5px;
   }
 
-	.source-page-input {
-		min-width: 75px;
-	}
+  .source-page-input {
+    min-width: 75px;
+  }
 
-	input[type="number"] {
-		max-width: 40px;
-		text-align: center;
-	}
+  input[type='number'] {
+    max-width: 40px;
+    text-align: center;
+  }
 
-	.condition-effect {
-		display: grid;
-		grid-template-rows: max-content;
-			grid-template-columns:
-				minmax(150px, 1fr)
-				minmax(150px, 1fr);
-		gap: 8px;
-	}
+  .condition-effect {
+    display: grid;
+    grid-template-rows: max-content;
+    grid-template-columns:
+      minmax(150px, 1fr)
+      minmax(150px, 1fr);
+    gap: 8px;
+  }
 
-	.no-effect-listed {
-		padding: 8px;
-	}
+  .no-effect-listed {
+    padding: 8px;
+  }
 
-	.form-group {
-		margin-top: 5px;
-		margin-bottom: 5px;
+  .form-group {
+    margin-top: 5px;
+    margin-bottom: 5px;
 
-		&.shared-group-row {
-			column-gap: 5px;
-		}
-	}
+    &.shared-group-row {
+      column-gap: 5px;
+    }
+  }
 }

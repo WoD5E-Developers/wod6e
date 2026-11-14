@@ -1,58 +1,63 @@
-<section
-  class="tab {{ tab.cssClass }}"
-  data-tab="{{ tab.id }}"
-  data-group="{{ tab.group }}"
->
+<section class="tab {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
   <div class="flexcol action-activation flex-center item-resource">
-    <label>
-      <b>{{localize "WOD6E.ACTIONS.ActivationType"}}</b>
-    </label>
+    <label><b>{{localize "WOD6E.ACTIONS.ActivationType"}}</b></label>
     <select name="system.activation.activationType">
-      {{selectOptions activationOptions selected=activationSelected}}
+      {{selectOptions
+        activationOptions
+        selected=activationSelected
+      }}
     </select>
   </div>
 
   <div class="flexcol action-distance flex-center item-resource">
-    <label>
-      <b>{{localize "WOD6E.ACTIONS.Distance"}}</b>
-    </label>
+    <label><b>{{localize "WOD6E.ACTIONS.Distance"}}</b></label>
 
     <select name="system.activation.distance">
-      {{selectOptions distanceOptions selected=distanceSelected}}
+      {{selectOptions
+        distanceOptions
+        selected=distanceSelected
+      }}
     </select>
   </div>
 
   <div class="flexcol action-duration flex-center item-resource">
-    <label>
-      <b>{{localize "WOD6E.ACTIONS.Duration"}}</b>
-    </label>
+    <label><b>{{localize "WOD6E.ACTIONS.Duration"}}</b></label>
 
     <select name="system.activation.duration">
-      {{selectOptions durationOptions selected=durationSelected}}
+      {{selectOptions
+        durationOptions
+        selected=durationSelected
+      }}
     </select>
   </div>
 
   <div class="flexcol action-cost flex-center item-resource">
     <label>
       <b>
-        {{#if useNpcDisciplineCost}}{{localize "WOD6E.ITEMS.NpcCost"}}{{else
-        }}{{localize "WOD6E.ITEMS.Cost"}}{{/if}}
+        {{#if useNpcDisciplineCost}}
+          {{localize "WOD6E.ITEMS.NpcCost"}}
+        {{else}}
+          {{localize "WOD6E.ITEMS.Cost"}}
+        {{/if}}
       </b>
     </label>
 
     <div class="flex-group-center flexrow">
       {{#ifnoteq costTypeSelected 'none'}}
-      <input
-        class="cost-amount"
-        type="number"
-        name="{{ costPath }}.amount"
-        value="{{ costAmount }}"
-        min="0"
-        step="1"
-      />
+        <input
+          class="cost-amount"
+          type="number"
+          name="{{ costPath }}.amount"
+          value="{{ costAmount }}"
+          min="0"
+          step="1"
+        />
       {{/ifnoteq}}
       <select name="{{ costPath }}.type">
-        {{selectOptions costTypeOptions selected=costTypeSelected}}
+        {{selectOptions
+          costTypeOptions
+          selected=costTypeSelected
+        }}
       </select>
     </div>
   </div>

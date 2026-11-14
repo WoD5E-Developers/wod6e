@@ -5,9 +5,7 @@
   data-actor-section="flaws"
 >
   <header class="sheet-section-header">
-    <div class="sheet-section-name align-left">
-      {{localize 'WOD6E.FLAWS.Flaws'}}
-    </div>
+    <div class="sheet-section-name align-left">{{localize 'WOD6E.FLAWS.Flaws'}}</div>
     <div class="sheet-section-data-actions align-right">
       <a
         class="search-data-item"
@@ -30,35 +28,37 @@
 
   <div class="sheet-section-list">
     {{#each flaws as |flaw|}}
-    <div
-      class="sheet-section-row item-section"
-      data-drag="true"
-      data-type="Item"
-      data-document-uuid="{{ flaw.uuid }}"
-      data-item-id="{{ flaw.id }}"
-      data-flaw="{{ flaw.uuid }}"
-    >
-      <a
-        class="item-open"
-        data-action="openItem"
-        title="{{localize 'WOD6E.ViewItem'}}"
-        data-uuid="{{ flaw.uuid }}"
+      <div
+        class="sheet-section-row item-section"
+        data-drag="true"
+        data-type="Item"
+        data-document-uuid="{{ flaw.uuid }}"
+        data-item-id="{{ flaw.id }}"
+        data-flaw="{{ flaw.uuid }}"
       >
-        <i class="fas fa-book"></i>
-      </a>
-      <button
-        type="button"
-        class="sheet-section-label"
-        data-action="sendItemToChat"
-        data-uuid="{{ flaw.uuid }}"
-        title="{{localize 'WOD6E.PostToChat'}}"
-      >
-        <span class="item-name bolded">{{ flaw.name }}.</span>
-      </button>
-      {{#if flaw.description}}
-      <span class="item-description">{{ descriptionShort flaw.description }}</span>
-      {{/if}}
-    </div>
+        <a
+          class="item-open"
+          data-action="openItem"
+          title="{{localize 'WOD6E.ViewItem'}}"
+          data-uuid="{{ flaw.uuid }}"
+        >
+          <i class="fas fa-book"></i>
+        </a>
+        <button
+          class="sheet-section-label"
+          type="button"
+          data-action="sendItemToChat"
+          data-uuid="{{ flaw.uuid }}"
+          title="{{localize 'WOD6E.PostToChat'}}"
+        >
+          <span class="item-name bolded">{{ flaw.name }}.</span>
+        </button>
+        {{#if flaw.description}}
+          <span class="item-description">
+            {{descriptionShort flaw.description}}
+          </span>
+        {{/if}}
+      </div>
     {{/each}}
   </div>
 </section>

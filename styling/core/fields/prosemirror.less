@@ -1,4 +1,5 @@
-.actor.sheet, .item.sheet {
+.actor.sheet,
+.item.sheet {
   .prose-mirror-section {
     height: stretch;
     min-height: 200px;
@@ -17,7 +18,8 @@
       .editor-content {
         padding: 0 3px 0 3px;
         height: 100%;
-        overflow-y: auto;
+        // Preserve the editor's existing wrapping behavior.
+        // stylelint-disable-next-line declaration-property-value-keyword-no-deprecated
         word-break: break-word;
         overflow: hidden auto;
       }

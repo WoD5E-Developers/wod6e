@@ -1,20 +1,10 @@
-<section
-  class="tab {{ tab.cssClass }}"
-  data-tab="{{ tab.id }}"
-  data-group="{{ tab.group }}"
->
+<section class="tab {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
   <div class="form-group">
-    <label>
-      <b>{{localize 'WOD6E.Description'}}</b>
-    </label>
-    <input
-      type="text"
-      name="system.difficulty.description"
-      value="{{ difficulty.description }}"
-    />
+    <label><b>{{localize 'WOD6E.Description'}}</b></label>
+    <input type="text" name="system.difficulty.description" value="{{ difficulty.description }}" />
   </div>
 
-  <hr>
+  <hr />
 
   <div class="form-group">
     <label>{{localize "WOD6E.ACTIONS.DifficultyType"}}</label>
@@ -28,80 +18,78 @@
   </div>
 
   {{#if difficultyUsesFixedValue}}
-  <div class="form-group">
-    <label>{{localize "WOD6E.ACTIONS.FixedValue"}}</label>
+    <div class="form-group">
+      <label>{{localize "WOD6E.ACTIONS.FixedValue"}}</label>
 
-    <input
-      type="number"
-      name="system.difficulty.fixed"
-      value="{{ difficulty.fixed }}"
-      min="0"
-      step="1"
-    />
-  </div>
+      <input
+        type="number"
+        name="system.difficulty.fixed"
+        value="{{ difficulty.fixed }}"
+        min="0"
+        step="1"
+      />
+    </div>
   {{/if}}
 
   {{#if difficultyUsesTargetsTrait}}
-  <div class="form-group">
-    <label>{{localize "WOD6E.ACTIONS.TargetsTrait"}}</label>
+    <div class="form-group">
+      <label>{{localize "WOD6E.ACTIONS.TargetsTrait"}}</label>
 
-    <select name="system.difficulty.targetsTrait">
-      {{#each traitGroups as |group|}}
-        <optgroup label="{{ group.label }}">
-          {{#each group.options as |option|}}
-            <option
-              value="{{ option.key }}"
-              {{#if (eq option.key ../../selectedTrait)}}selected{{/if}}
-            >
-              {{ option.label }}
-            </option>
-          {{/each}}
-        </optgroup>
-      {{/each}}
-    </select>
-  </div>
+      <select name="system.difficulty.targetsTrait">
+        {{#each traitGroups as |group|}}
+          <optgroup label="{{ group.label }}">
+            {{#each group.options as |option|}}
+              <option
+                value="{{ option.key }}"
+                {{#if (eq option.key ../../selectedTrait)}}
+                  selected
+                {{/if}}
+              >
+                {{ option.label }}
+              </option>
+            {{/each}}
+          </optgroup>
+        {{/each}}
+      </select>
+    </div>
   {{/if}}
 
   {{#if difficultyUsesAttribute}}
-  <div class="form-group multi-select-section">
-    <label>
-      {{#if difficultyUsesMultipleAttributes}}
-      {{localize "WOD6E.ATTRIBUTES.Attributes"}}
-      {{else}}
-      {{localize "WOD6E.ATTRIBUTES.Attribute"}}
-      {{/if}}
-    </label>
+    <div class="form-group multi-select-section">
+      <label>
+        {{#if difficultyUsesMultipleAttributes}}
+          {{localize "WOD6E.ATTRIBUTES.Attributes"}}
+        {{else}}
+          {{localize "WOD6E.ATTRIBUTES.Attribute"}}
+        {{/if}}
+      </label>
 
-    {{#if difficultyUsesMultipleAttributes}}
-    {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
-      fieldPath='system.difficulty.attributes'
-      options=attributeOptions
-      selectedText=selectedAttributesText
-    }}
-    {{else}}
-    <select name="system.difficulty.singleAttribute">
-      {{selectOptions
-        attributeOptions
-        selected=difficulty.singleAttribute
-      }}
-    </select>
-    {{/if}}
-  </div>
+      {{#if difficultyUsesMultipleAttributes}}
+        {{> 'systems/wod6e/templates/core/fields/multi-select.hbs'
+          fieldPath='system.difficulty.attributes'
+          options=attributeOptions
+          selectedText=selectedAttributesText
+        }}
+      {{else}}
+        <select name="system.difficulty.singleAttribute">
+          {{selectOptions
+            attributeOptions
+            selected=difficulty.singleAttribute
+          }}
+        </select>
+      {{/if}}
+    </div>
   {{/if}}
 
   {{#if difficultyUsesNpcLevel}}
-  <div class="form-group">
-    <p class="hint">
-      {{localize "WOD6E.ACTIONS.UsesNPCLevel"}}
-    </p>
-  </div>
+    <div class="form-group">
+      <p class="hint">{{localize "WOD6E.ACTIONS.UsesNPCLevel"}}</p>
+    </div>
   {{/if}}
 
   {{#if difficultyDeterminedByStoryteller}}
-  <div class="form-group">
-    <p class="hint">
-      {{localize "WOD6E.ACTIONS.DifficultyDeterminedByStoryteller"}}
-    </p>
-  </div>
+    <div class="form-group">
+      <p class="hint">{{localize "WOD6E.ACTIONS.DifficultyDeterminedByStoryteller"}}</p>
+    </div>
   {{/if}}
 </section>

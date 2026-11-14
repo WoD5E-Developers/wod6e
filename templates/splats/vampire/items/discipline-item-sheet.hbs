@@ -7,28 +7,24 @@
       <div>
         <b>{{localize "WOD6E.ITEMS.Level"}}</b>
       </div>
-      <input
-        name="system.level"
-        value="{{ level }}"
-        type="number"
-        min="0"
-        max="10"
-      />
+      <input name="system.level" value="{{ level }}" type="number" min="0" max="10" />
     </div>
     <div class="flexcol item-resource">
-      <label>
-        <b>{{localize "WOD6E.VAMPIRE.DisciplineType"}}</b>
-      </label>
+      <label><b>{{localize "WOD6E.VAMPIRE.DisciplineType"}}</b></label>
       <select name="system.disciplineType">
-        {{selectOptions disciplineTypeOptions selected=disciplineTypeSelected}}
+        {{selectOptions
+          disciplineTypeOptions
+          selected=disciplineTypeSelected
+        }}
       </select>
     </div>
     <div class="flexcol item-resource">
-      <label>
-        <b>{{localize "WOD6E.ATTRIBUTES.Attribute"}}</b>
-      </label>
+      <label><b>{{localize "WOD6E.ATTRIBUTES.Attribute"}}</b></label>
       <select name="system.attribute">
-        {{selectOptions attributeOptions selected=attributeSelected}}
+        {{selectOptions
+          attributeOptions
+          selected=attributeSelected
+        }}
       </select>
     </div>
   </div>

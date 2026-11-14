@@ -7,8 +7,8 @@
     <img
       class="actor-avatar"
       {{#if isOwner}}
-      data-action="editImage"
-      data-edit="img"
+        data-action="editImage"
+        data-edit="img"
       {{/if}}
       src="{{ img }}"
       title="{{ name }}"
@@ -22,37 +22,61 @@
           type="text"
           name="name"
           value="{{ name }}"
-          {{#unless isOwner}}disabled{{/unless}}
+          {{#unless isOwner}}
+            disabled
+          {{/unless}}
         />
       </label>
 
       <label>
         <span>{{localize "WOD6E.GROUPS.GroupType"}}</span>
-        <select name="system.subtype" {{#unless isOwner}}disabled{{/unless}}>
-          {{selectOptions subtypeOptions selected=subtypeSelected valueAttr="key" labelAttr="label"}}
+        <select
+          name="system.subtype"
+          {{#unless isOwner}}
+            disabled
+          {{/unless}}
+        >
+          {{selectOptions
+            subtypeOptions
+            selected=subtypeSelected
+            valueAttr="key"
+            labelAttr="label"
+          }}
         </select>
       </label>
 
       {{#if showCoterieFields}}
-      <label>
-        <span>{{localize "WOD6E.VAMPIRE.CoterieType"}}</span>
-        <select name="system.coterieType" {{#unless isOwner}}disabled{{/unless}}>
-          <option value="">{{localize "WOD6E.NoneSelected"}}</option>
-          {{selectOptions coterieTypeOptions selected=coterieTypeSelected valueAttr="key" labelAttr="label"}}
-        </select>
-      </label>
+        <label>
+          <span>{{localize "WOD6E.VAMPIRE.CoterieType"}}</span>
+          <select
+            name="system.coterieType"
+            {{#unless isOwner}}
+              disabled
+            {{/unless}}
+          >
+            <option value="">{{localize "WOD6E.NoneSelected"}}</option>
+            {{selectOptions
+              coterieTypeOptions
+              selected=coterieTypeSelected
+              valueAttr="key"
+              labelAttr="label"
+            }}
+          </select>
+        </label>
 
-      {{#if showCustomCoterieType}}
-      <label>
-        <span>{{localize "WOD6E.VAMPIRE.CustomCoterieType"}}</span>
-        <input
-          type="text"
-          name="system.customCoterieType"
-          value="{{ customCoterieType }}"
-          {{#unless isOwner}}disabled{{/unless}}
-        />
-      </label>
-      {{/if}}
+        {{#if showCustomCoterieType}}
+          <label>
+            <span>{{localize "WOD6E.VAMPIRE.CustomCoterieType"}}</span>
+            <input
+              type="text"
+              name="system.customCoterieType"
+              value="{{ customCoterieType }}"
+              {{#unless isOwner}}
+                disabled
+              {{/unless}}
+            />
+          </label>
+        {{/if}}
       {{/if}}
     </div>
   </header>
@@ -62,15 +86,13 @@
       <h4>{{localize "WOD6E.GROUPS.Goals"}}</h4>
     </div>
     {{#if isOwner}}
-    <prose-mirror
-      name="system.goals"
-      value="{{ goals.value }}"
-      toggled="true"
-    >
-      {{{ goals.enriched }}}
-    </prose-mirror>
+      <prose-mirror name="system.goals" value="{{ goals.value }}" toggled="true">
+        {{{ goals.enriched }}}
+      </prose-mirror>
     {{else}}
-    <div class="group-readonly-prose">{{{ goals.enriched }}}</div>
+      <div class="group-readonly-prose">
+        {{{ goals.enriched }}}
+      </div>
     {{/if}}
   </div>
 
@@ -79,15 +101,13 @@
       <h4>{{localize "WOD6E.GROUPS.Domain"}}</h4>
     </div>
     {{#if isOwner}}
-    <prose-mirror
-      name="system.domain"
-      value="{{ domain.value }}"
-      toggled="true"
-    >
-      {{{ domain.enriched }}}
-    </prose-mirror>
+      <prose-mirror name="system.domain" value="{{ domain.value }}" toggled="true">
+        {{{ domain.enriched }}}
+      </prose-mirror>
     {{else}}
-    <div class="group-readonly-prose">{{{ domain.enriched }}}</div>
+      <div class="group-readonly-prose">
+        {{{ domain.enriched }}}
+      </div>
     {{/if}}
   </div>
 </section>

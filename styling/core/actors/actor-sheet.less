@@ -48,7 +48,8 @@
     font-size: 20px;
   }
 
-  .sheet-section-header, .sheet-subsection-header {
+  .sheet-section-header,
+  .sheet-subsection-header {
     display: flex;
     flex-direction: row;
     margin: 0;
@@ -59,7 +60,8 @@
     line-height: 1;
     text-transform: uppercase;
 
-    .sheet-section-name, .sheet-section-data-actions {
+    .sheet-section-name,
+    .sheet-section-data-actions {
       flex-grow: 1;
     }
 
@@ -101,6 +103,8 @@
   }
 
   .item-description {
+    // Preserve the sheet's existing wrapping behavior.
+    // stylelint-disable-next-line declaration-property-value-keyword-no-deprecated
     word-break: break-word;
   }
 }

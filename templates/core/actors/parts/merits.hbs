@@ -5,9 +5,7 @@
   data-actor-section="merits"
 >
   <header class="sheet-section-header">
-    <div class="sheet-section-name align-left">
-      {{localize 'WOD6E.MERITS.Merits'}}
-    </div>
+    <div class="sheet-section-name align-left">{{localize 'WOD6E.MERITS.Merits'}}</div>
     <div class="sheet-section-data-actions align-right">
       <a
         class="search-data-item"
@@ -30,35 +28,37 @@
 
   <div class="sheet-section-list">
     {{#each merits as |merit|}}
-    <div
-      class="sheet-section-row item-section"
-      data-drag="true"
-      data-type="Item"
-      data-document-uuid="{{ merit.uuid }}"
-      data-item-id="{{ merit.id }}"
-      data-merit="{{ merit.uuid }}"
-    >
-      <a
-        class="item-open"
-        data-action="openItem"
-        title="{{localize 'WOD6E.ViewItem'}}"
-        data-uuid="{{ merit.uuid }}"
+      <div
+        class="sheet-section-row item-section"
+        data-drag="true"
+        data-type="Item"
+        data-document-uuid="{{ merit.uuid }}"
+        data-item-id="{{ merit.id }}"
+        data-merit="{{ merit.uuid }}"
       >
-        <i class="fas fa-book"></i>
-      </a>
-      <button
-        type="button"
-        class="sheet-section-label"
-        data-action="sendItemToChat"
-        data-uuid="{{ merit.uuid }}"
-        title="{{localize 'WOD6E.PostToChat'}}"
-      >
-        <span class="item-name bolded">{{ merit.name }}.</span>
-      </button>
-      {{#if merit.description}}
-      <span class="item-description">{{ descriptionShort merit.description }}</span>
-      {{/if}}
-    </div>
+        <a
+          class="item-open"
+          data-action="openItem"
+          title="{{localize 'WOD6E.ViewItem'}}"
+          data-uuid="{{ merit.uuid }}"
+        >
+          <i class="fas fa-book"></i>
+        </a>
+        <button
+          class="sheet-section-label"
+          type="button"
+          data-action="sendItemToChat"
+          data-uuid="{{ merit.uuid }}"
+          title="{{localize 'WOD6E.PostToChat'}}"
+        >
+          <span class="item-name bolded">{{ merit.name }}.</span>
+        </button>
+        {{#if merit.description}}
+          <span class="item-description">
+            {{descriptionShort merit.description}}
+          </span>
+        {{/if}}
+      </div>
     {{/each}}
   </div>
 </section>
