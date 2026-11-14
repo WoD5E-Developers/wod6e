@@ -5,17 +5,13 @@
 >
   <label class="path-field">
     {{localize 'WOD6E.VAMPIRE.Teachings'}}
-    <textarea
-      name="system.teachings"
-      rows="3"
-      >{{ path.teachings }}</textarea>
+    <textarea name="system.teachings" rows="3">{{ path.teachings }}</textarea>
   </label>
   <label class="path-resistance-teaching">
     <input
       type="checkbox"
       name="system.resistanceTeaching"
-      {{checked
-      path.resistanceTeaching}}
+      {{checked path.resistanceTeaching}}
     />
     <span>{{localize 'WOD6E.VAMPIRE.ResistanceTeaching'}}</span>
   </label>

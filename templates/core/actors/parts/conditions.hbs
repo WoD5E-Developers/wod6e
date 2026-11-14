@@ -4,24 +4,14 @@
   data-tab="conditions"
 >
   <header class="sheet-section-header">
-    <div class="sheet-section-name align-left">
-      {{localize 'WOD6E.TABS.Conditions'}}
-    </div>
+    <div class="sheet-section-name align-left">{{localize 'WOD6E.TABS.Conditions'}}</div>
 
     <div class="sheet-section-data-actions align-right">
-      <a
-        data-action="searchItem"
-        data-type="condition"
-        title="{{localize 'WOD6E.Search'}}"
-      >
+      <a data-action="searchItem" data-type="condition" title="{{localize 'WOD6E.Search'}}">
         <i class="fa-solid fa-magnifying-glass"></i>
       </a>
 
-      <a
-        data-action="createItem"
-        data-type="condition"
-        title="{{localize 'WOD6E.Create'}}"
-      >
+      <a data-action="createItem" data-type="condition" title="{{localize 'WOD6E.Create'}}">
         <i class="fas fa-plus"></i>
       </a>
     </div>
@@ -47,15 +37,7 @@
             <i class="fas fa-book"></i>
           </a>
 
-          <button
-            type="button"
-            class="condition-name"
-            data-action="sendItemToChat"
-            data-uuid="{{ condition.uuid }}"
-            title="{{localize 'WOD6E.PostToChat'}}"
-          >
-            {{ condition.name }}
-          </button>
+          <button class="condition-name" type="button" data-action="sendItemToChat" data-uuid="{{ condition.uuid }}" title="{{localize 'WOD6E.PostToChat'}}">{{ condition.name }}</button>
 
           <span class="condition-duration">
             <i class="fa-solid fa-clock"></i>
@@ -71,17 +53,13 @@
 
         {{#if condition.hasEffects}}
           <div class="condition-effects">
-            <div class="condition-subheader">
-              {{localize 'WOD6E.TABS.Effects'}}
-            </div>
+            <div class="condition-subheader">{{localize 'WOD6E.TABS.Effects'}}</div>
 
             <div class="condition-effects-table">
               {{#each condition.effects as |effect|}}
                 <div class="condition-effect-row">
                   <div class="condition-effect-main">
-                    <span class="condition-effect-type">
-                      {{ effect.type }}
-                    </span>
+                    <span class="condition-effect-type">{{ effect.type }}</span>
 
                     <span class="condition-effect-value">
                       {{#if (eq effect.mode "add")}}
@@ -95,20 +73,14 @@
                   </div>
 
                   <div class="condition-effect-targets flexcol">
-                    <span class="condition-effect-label">
-                      Applies To
-                    </span>
+                    <span class="condition-effect-label">Applies To</span>
 
-                    <span class="condition-tag">
-                      {{ effect.targets }}
-                    </span>
+                    <span class="condition-tag">{{ effect.targets }}</span>
                   </div>
 
                   <div class="condition-effect-predicates flexcol">
                     {{#if effect.predicates.length}}
-                      <span class="condition-effect-label">
-                        Predicates
-                      </span>
+                      <span class="condition-effect-label">Predicates</span>
 
                       <span class="condition-tag">
                         {{ effect.predicates }}
@@ -118,9 +90,7 @@
 
                   <div class="condition-effect-exclusions flexcol">
                     {{#if effect.exclusions.length}}
-                      <span class="condition-effect-label">
-                        Exclusions
-                      </span>
+                      <span class="condition-effect-label">Exclusions</span>
 
                       <span class="condition-tag">
                         {{ effect.exclusions }}

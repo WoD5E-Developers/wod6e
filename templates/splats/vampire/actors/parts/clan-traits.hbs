@@ -5,9 +5,7 @@
   data-actor-section="clanTraits"
 >
   <header class="sheet-section-header">
-    <div class="sheet-section-name align-left">
-      {{localize 'WOD6E.VAMPIRE.ClanTraits'}}
-    </div>
+    <div class="sheet-section-name align-left">{{localize 'WOD6E.VAMPIRE.ClanTraits'}}</div>
     <div class="sheet-section-data-actions align-right">
       <a
         class="search-data-item"
@@ -30,35 +28,37 @@
 
   <div class="sheet-section-list">
     {{#each clanTraits as |trait|}}
-    <div
-      class="sheet-section-row item-section"
-      data-drag="true"
-      data-type="Item"
-      data-document-uuid="{{ trait.uuid }}"
-      data-item-id="{{ trait.id }}"
-      data-lifepath="{{ trait.uuid }}"
-    >
-      <a
-        class="item-open"
-        data-action="openItem"
-        title="{{localize 'WOD6E.ViewItem'}}"
-        data-uuid="{{ trait.uuid }}"
+      <div
+        class="sheet-section-row item-section"
+        data-drag="true"
+        data-type="Item"
+        data-document-uuid="{{ trait.uuid }}"
+        data-item-id="{{ trait.id }}"
+        data-lifepath="{{ trait.uuid }}"
       >
-        <i class="fas fa-book"></i>
-      </a>
-      <button
-        type="button"
-        class="sheet-section-label"
-        data-action="sendItemToChat"
-        data-uuid="{{ trait.uuid }}"
-        title="{{localize 'WOD6E.PostToChat'}}"
-      >
-        <span class="item-name bolded">{{ trait.name }}.</span>
-      </button>
-      {{#if trait.description}}
-      <span class="item-description">{{ descriptionShort trait.description }}</span>
-      {{/if}}
-    </div>
+        <a
+          class="item-open"
+          data-action="openItem"
+          title="{{localize 'WOD6E.ViewItem'}}"
+          data-uuid="{{ trait.uuid }}"
+        >
+          <i class="fas fa-book"></i>
+        </a>
+        <button
+          class="sheet-section-label"
+          type="button"
+          data-action="sendItemToChat"
+          data-uuid="{{ trait.uuid }}"
+          title="{{localize 'WOD6E.PostToChat'}}"
+        >
+          <span class="item-name bolded">{{ trait.name }}.</span>
+        </button>
+        {{#if trait.description}}
+          <span class="item-description">
+            {{descriptionShort trait.description}}
+          </span>
+        {{/if}}
+      </div>
     {{/each}}
   </div>
 </section>

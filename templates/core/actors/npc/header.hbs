@@ -1,7 +1,4 @@
-<section
-  class="sheet-section npc-header"
-  data-actor-section="npcHeader"
->
+<section class="sheet-section npc-header" data-actor-section="npcHeader">
   {{> "systems/wod6e/templates/core/actors/parts/avatar.hbs"}}
 
   <div class="npc-identity">
@@ -16,57 +13,70 @@
       <div class="sheet-field">
         <label>{{localize "WOD6E.NPC.CreatureType"}}</label>
         <select name="system.creatureKind">
-          {{selectOptions creatureKindOptions selected=npc.creatureKind valueAttr="value" labelAttr="label"}}
+          {{selectOptions
+            creatureKindOptions
+            selected=npc.creatureKind
+            valueAttr="value"
+            labelAttr="label"
+          }}
         </select>
       </div>
 
       <div class="sheet-field">
         <label>{{localize "WOD6E.NPC.Tier"}}</label>
         <select name="system.tier">
-          {{selectOptions tierOptions selected=npc.tier valueAttr="value" labelAttr="label"}}
+          {{selectOptions
+            tierOptions
+            selected=npc.tier
+            valueAttr="value"
+            labelAttr="label"
+          }}
         </select>
       </div>
 
       {{#if npc.isVampire}}
-      <div class="npc-vampire-details">
-        <label class="sheet-field">
-          <span>{{localize "TYPES.Item.clan"}}</span>
-          <input
-            type="text"
-            name="system.vampire.clan"
-            value="{{ npc.vampire.clan }}"
-          />
-        </label>
-        <label class="sheet-field">
-          <span>{{localize "WOD6E.NPC.GenerationModifier"}}</span>
-          <input
-            type="number"
-            name="system.vampire.generationModifier"
-            value="{{ npc.vampire.generationModifier }}"
-            min="1"
-            step="1"
-          />
-        </label>
-        <label class="sheet-field">
-          <span>{{localize "TYPES.Item.path"}}</span>
-          <input
-            type="text"
-            name="system.vampire.path"
-            value="{{ npc.vampire.path }}"
-            placeholder="{{localize 'WOD6E.VAMPIRE.Humanity'}}"
-          />
-        </label>
-        <label class="sheet-field">
-          <span>{{localize "WOD6E.NPC.HumanityRank"}}</span>
-          <select name="system.vampire.humanity.value">
-            {{selectOptions humanityRankOptions selected=humanityRank valueAttr="value" labelAttr="label"}}
-          </select>
-        </label>
-      </div>
+        <div class="npc-vampire-details">
+          <label class="sheet-field">
+            <span>{{localize "TYPES.Item.clan"}}</span>
+            <input type="text" name="system.vampire.clan" value="{{ npc.vampire.clan }}" />
+          </label>
+          <label class="sheet-field">
+            <span>{{localize "WOD6E.NPC.GenerationModifier"}}</span>
+            <input
+              type="number"
+              name="system.vampire.generationModifier"
+              value="{{ npc.vampire.generationModifier }}"
+              min="1"
+              step="1"
+            />
+          </label>
+          <label class="sheet-field">
+            <span>{{localize "TYPES.Item.path"}}</span>
+            <input
+              type="text"
+              name="system.vampire.path"
+              value="{{ npc.vampire.path }}"
+              placeholder="{{localize 'WOD6E.VAMPIRE.Humanity'}}"
+            />
+          </label>
+          <label class="sheet-field">
+            <span>{{localize "WOD6E.NPC.HumanityRank"}}</span>
+            <select name="system.vampire.humanity.value">
+              {{selectOptions
+                humanityRankOptions
+                selected=humanityRank
+                valueAttr="value"
+                labelAttr="label"
+              }}
+            </select>
+          </label>
+        </div>
       {{/if}}
 
       {{#if npc.needsMajorReview}}
-      <p class="npc-review">{{localize "WOD6E.NPC.LegacyEliteReview"}}</p>
+        <p class="npc-review">
+          {{localize "WOD6E.NPC.LegacyEliteReview"}}
+        </p>
       {{/if}}
     </div>
   </div>

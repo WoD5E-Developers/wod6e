@@ -1,120 +1,118 @@
 <div class="roll-dialog-side-panel application dialog">
   {{#if test.retryOf}}
-  <p class="roll-panel-empty">{{localize 'WOD6E.ROLL.RetryRules'}}</p>
+    <p class="roll-panel-empty">
+      {{localize 'WOD6E.ROLL.RetryRules'}}
+    </p>
   {{/if}}
   {{#if test.costAmount}}
-  <p>{{localize 'WOD6E.ITEMS.Cost'}}: {{ test.costAmount }} {{localize test.costLabel}}</p>
-  {{#unless test.canAffordCost}}
-  <p>{{localize 'WOD6E.RESOURCES.CostUnavailable'}}</p>
-  {{/unless}}
+    <p>{{localize 'WOD6E.ITEMS.Cost'}}: {{ test.costAmount }} {{localize test.costLabel}}</p>
+    {{#unless test.canAffordCost}}
+      <p>
+        {{localize 'WOD6E.RESOURCES.CostUnavailable'}}
+      </p>
+    {{/unless}}
   {{/if}}
   {{#if test.showHunger}}
-  <section>
-    <label>
-      {{localize 'WOD6E.ROLL.HungerDice'}}
-      {{#if test.hungerAutomatic}}
-      <output>{{ test.hungerDice }}</output>
-      {{else}}
-      <input
-        type="number"
-        name="hungerDice"
-        value="{{ test.hungerDice }}"
-        min="0"
-        max="5"
-        step="1"
-      />
-      {{/if}}
-    </label>
-  </section>
+    <section>
+      <label>
+        {{localize 'WOD6E.ROLL.HungerDice'}}
+        {{#if test.hungerAutomatic}}
+          <output>
+            {{ test.hungerDice }}
+          </output>
+        {{else}}
+          <input
+            type="number"
+            name="hungerDice"
+            value="{{ test.hungerDice }}"
+            min="0"
+            max="5"
+            step="1"
+          />
+        {{/if}}
+      </label>
+    </section>
   {{/if}}
   {{#if test.showFocusSection}}
-  <section class="roll-focus-section">
-    <h4>{{localize 'WOD6E.SKILLS.Focus'}}</h4>
-    {{#if test.hasFocusOptions}}
-    <select
-      class="roll-focus-select"
-      name="focus"
-    >
-      <option value="">{{localize 'WOD6E.None'}}</option>
-      {{#each test.focusOptions as |focus|}}
-      {{#if focus.selected}}
-      <option
-        value="{{ focus.value }}"
-        selected
-      >
-        {{ focus.label }} (+1)
-      </option>
+    <section class="roll-focus-section">
+      <h4>{{localize 'WOD6E.SKILLS.Focus'}}</h4>
+      {{#if test.hasFocusOptions}}
+        <select class="roll-focus-select" name="focus">
+          <option value="">{{localize 'WOD6E.None'}}</option>
+          {{#each test.focusOptions as |focus|}}
+            {{#if focus.selected}}
+              <option value="{{ focus.value }}" selected>{{ focus.label }} (+1)</option>
+            {{else}}
+              <option value="{{ focus.value }}">{{ focus.label }} (+1)</option>
+            {{/if}}
+          {{/each}}
+        </select>
       {{else}}
-      <option value="{{ focus.value }}">{{ focus.label }} (+1)</option>
+        <p class="roll-panel-empty">
+          {{localize 'WOD6E.ROLL.SelectSkillForFocus'}}
+        </p>
+        <input type="hidden" name="focus" value="" />
       {{/if}}
-      {{/each}}
-    </select>
-    {{else}}
-    <p class="roll-panel-empty">{{localize 'WOD6E.ROLL.SelectSkillForFocus'}}</p>
-    <input
-      type="hidden"
-      name="focus"
-      value=""
-    />
-    {{/if}}
-  </section>
+    </section>
   {{/if}}
 
   <section class="roll-condition-section">
     <h4>{{localize 'WOD6E.ROLL.ConditionEffects'}}</h4>
     {{#each test.conditionEffects as |effect|}}
-    <label
-      class="roll-condition-effect {{#unless effect.normallyApplies}}not-applicable{{/unless}}"
-    >
-      <input
-        class="condition-effect-toggle"
-        type="checkbox"
-        value="{{ effect.id }}"
-        {{checked
-        effect.enabled}}
-      />
-      <span class="condition-effect-name">{{ effect.name }}</span>
-      <span class="condition-effect-modifier">{{ effect.modifier }}</span>
-      {{#unless effect.normallyApplies}}
-      <small>{{localize 'WOD6E.ROLL.NotNormallyApplicable'}}</small>
-      {{/unless}}
-    </label>
+      <label
+        class="
+          roll-condition-effect
+          {{#unless effect.normallyApplies}}
+            not-applicable
+          {{/unless}}
+        "
+      >
+        <input
+          class="condition-effect-toggle"
+          type="checkbox"
+          value="{{ effect.id }}"
+          {{checked effect.enabled}}
+        />
+        <span class="condition-effect-name">{{ effect.name }}</span>
+        <span class="condition-effect-modifier">{{ effect.modifier }}</span>
+        {{#unless effect.normallyApplies}}
+          <small>
+            {{localize 'WOD6E.ROLL.NotNormallyApplicable'}}
+          </small>
+        {{/unless}}
+      </label>
     {{else}}
-    <p class="roll-panel-empty">{{localize 'WOD6E.ROLL.NoConditionEffects'}}</p>
+      <p class="roll-panel-empty">
+        {{localize 'WOD6E.ROLL.NoConditionEffects'}}
+      </p>
     {{/each}}
   </section>
   {{#if test.hasHumanity}}
-  <section>
-    <h4>{{ test.humanityName }} ({{ test.humanityRank }})</h4>
-    <label
-      class="form-group"
-      title="{{localize 'WOD6E.VAMPIRE.RankModifierHint'}}"
-    >
-      <input
-        type="checkbox"
-        name="humanityModifier"
-        {{checked
-        test.humanityModifier}}
-      />
-      {{localize 'WOD6E.VAMPIRE.ApplyRankModifier'}} ({{ test.humanityRankModifier }})
-    </label>
-    <label
-      class="form-group"
-      title="{{localize 'WOD6E.VAMPIRE.ResistanceCapHint'}}"
-    >
-      <input
-        type="checkbox"
-        name="resistBeast"
-        {{checked
-        test.resistBeast}}
-        {{disabled
-        test.frenzyType}}
-      />
-      {{localize 'WOD6E.VAMPIRE.ResistingBeast'}}
-    </label>
-    {{#if test.resistBeast}}
-    <p>{{localize 'WOD6E.VAMPIRE.ResistanceCap'}}: {{ test.humanityCap }}</p>
-    {{/if}}
-  </section>
+    <section>
+      <h4>{{ test.humanityName }} ({{ test.humanityRank }})</h4>
+      <label class="form-group" title="{{localize 'WOD6E.VAMPIRE.RankModifierHint'}}">
+        <input
+          type="checkbox"
+          name="humanityModifier"
+          {{checked test.humanityModifier}}
+        />
+        {{localize 'WOD6E.VAMPIRE.ApplyRankModifier'}}
+        (
+        {{ test.humanityRankModifier }}
+        )
+      </label>
+      <label class="form-group" title="{{localize 'WOD6E.VAMPIRE.ResistanceCapHint'}}">
+        <input
+          type="checkbox"
+          name="resistBeast"
+          {{checked test.resistBeast}}
+          {{disabled test.frenzyType}}
+        />
+        {{localize 'WOD6E.VAMPIRE.ResistingBeast'}}
+      </label>
+      {{#if test.resistBeast}}
+        <p>{{localize 'WOD6E.VAMPIRE.ResistanceCap'}}: {{ test.humanityCap }}</p>
+      {{/if}}
+    </section>
   {{/if}}
 </div>

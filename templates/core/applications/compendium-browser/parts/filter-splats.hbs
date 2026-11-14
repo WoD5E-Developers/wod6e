@@ -12,8 +12,16 @@
       <div class="compendium-filter-dropdown">
         {{#each splatFilterOptions as |option|}}
           <label class="compendium-filter-option flexrow">
-            <input type="checkbox" data-id="{{option.id}}" data-filter-priority="primary" data-action="updateFilter"{{#if option.enabled}} checked{{/if}}/>
-            <span>{{option.label}}</span>
+            <input
+              type="checkbox"
+              data-id="{{ option.id }}"
+              data-filter-priority="primary"
+              data-action="updateFilter"
+              {{#if option.enabled}}
+                checked
+              {{/if}}
+            />
+            <span>{{ option.label }}</span>
           </label>
         {{/each}}
       </div>

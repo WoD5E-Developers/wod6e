@@ -5,9 +5,7 @@
   data-actor-section="equipment"
 >
   <header class="sheet-section-header">
-    <div class="sheet-section-name align-left">
-      {{localize 'WOD6E.EQUIPMENT.Equipment'}}
-    </div>
+    <div class="sheet-section-name align-left">{{localize 'WOD6E.EQUIPMENT.Equipment'}}</div>
     <div class="sheet-section-data-actions align-right">
       <a
         class="search-data-item"
@@ -30,32 +28,32 @@
 
   <div class="sheet-section-list">
     {{#each equipment as |item|}}
-    <div
-      class="sheet-section-row item-section"
-      data-drag="true"
-      data-type="Item"
-      data-document-uuid="{{ item.uuid }}"
-      data-item-id="{{ item.id }}"
-      data-flaw="{{ item.uuid }}"
-    >
-      <a
-        class="item-open"
-        data-action="openItem"
-        title="{{localize 'WOD6E.ViewItem'}}"
-        data-uuid="{{ item.uuid }}"
+      <div
+        class="sheet-section-row item-section"
+        data-drag="true"
+        data-type="Item"
+        data-document-uuid="{{ item.uuid }}"
+        data-item-id="{{ item.id }}"
+        data-flaw="{{ item.uuid }}"
       >
-        <i class="fas fa-book"></i>
-      </a>
-      <button
-        type="button"
-        class="sheet-section-label"
-        data-action="sendItemToChat"
-        data-uuid="{{ item.uuid }}"
-        title="{{localize 'WOD6E.PostToChat'}}"
-      >
-        <span class="item-name">{{ item.name }}</span>
-      </button>
-    </div>
+        <a
+          class="item-open"
+          data-action="openItem"
+          title="{{localize 'WOD6E.ViewItem'}}"
+          data-uuid="{{ item.uuid }}"
+        >
+          <i class="fas fa-book"></i>
+        </a>
+        <button
+          class="sheet-section-label"
+          type="button"
+          data-action="sendItemToChat"
+          data-uuid="{{ item.uuid }}"
+          title="{{localize 'WOD6E.PostToChat'}}"
+        >
+          <span class="item-name">{{ item.name }}</span>
+        </button>
+      </div>
     {{/each}}
   </div>
 </section>

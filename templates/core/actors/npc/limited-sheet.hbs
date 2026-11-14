@@ -1,50 +1,57 @@
 <section class="sheet-part actor-limited-sheet">
-  <img
-    class="actor-avatar"
-    src="{{ img }}"
-    title="{{ name }}"
-    alt="{{ name }}"
-  />
+  <img class="actor-avatar" src="{{ img }}" title="{{ name }}" alt="{{ name }}" />
   <div class="limited-details">
     <h3>{{ name }}</h3>
     {{#if npc.showCreatureType}}
-    <div>
-      <strong>{{localize "WOD6E.NPC.CreatureType"}}:</strong>
-      {{ npc.creatureType }}
-    </div>
+      <div>
+        <strong>{{localize "WOD6E.NPC.CreatureType"}}:</strong>
+        {{ npc.creatureType }}
+      </div>
     {{/if}}
 
     {{#if npc.showMotivation}}
-    <section class="motivation-section">
-      <h4>{{localize "WOD6E.NPC.Motivation"}}</h4>
-      {{#if npc.motivation}}
-        <div>{{{ npc.motivation }}}</div>
-      {{else}}
-        <div>{{ localize 'WOD6E.None' }}</div>
-      {{/if}}
-    </section>
+      <section class="motivation-section">
+        <h4>{{localize "WOD6E.NPC.Motivation"}}</h4>
+        {{#if npc.motivation}}
+          <div>
+            {{{ npc.motivation }}}
+          </div>
+        {{else}}
+          <div>
+            {{localize 'WOD6E.None'}}
+          </div>
+        {{/if}}
+      </section>
     {{/if}}
 
     {{#if settings.limited.appearance}}
-    <section>
-      <h4>{{localize "WOD6E.Appearance"}}</h4>
-      {{#if enrichedAppearance}}
-        <div>{{{enrichedAppearance}}}</div>
-      {{else}}
-        <div>{{ localize 'WOD6E.None' }}</div>
-      {{/if}}
-    </section>
+      <section>
+        <h4>{{localize "WOD6E.Appearance"}}</h4>
+        {{#if enrichedAppearance}}
+          <div>
+            {{{ enrichedAppearance }}}
+          </div>
+        {{else}}
+          <div>
+            {{localize 'WOD6E.None'}}
+          </div>
+        {{/if}}
+      </section>
     {{/if}}
 
     {{#if settings.limited.biography}}
-    <section>
-      <h4>{{localize "WOD6E.Biography"}}</h4>
-      {{#if enrichedBiography}}
-        <div>{{{enrichedBiography}}}</div>
-      {{else}}
-        <div>{{ localize 'WOD6E.None' }}</div>
-      {{/if}}
-    </section>
+      <section>
+        <h4>{{localize "WOD6E.Biography"}}</h4>
+        {{#if enrichedBiography}}
+          <div>
+            {{{ enrichedBiography }}}
+          </div>
+        {{else}}
+          <div>
+            {{localize 'WOD6E.None'}}
+          </div>
+        {{/if}}
+      </section>
     {{/if}}
   </div>
 </section>

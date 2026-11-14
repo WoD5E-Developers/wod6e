@@ -16,11 +16,12 @@
       />
     </div>
     <div class="flexcol feature-type flex-center item-resource">
-      <label>
-        <b>{{localize "WOD6E.RESOURCES.ResourceType"}}</b>
-      </label>
+      <label><b>{{localize "WOD6E.RESOURCES.ResourceType"}}</b></label>
       <select name="system.resourceType">
-        {{selectOptions resourceTypeOptions selected=resourceTypeSelected}}
+        {{selectOptions
+          resourceTypeOptions
+          selected=resourceTypeSelected
+        }}
       </select>
     </div>
   </div>

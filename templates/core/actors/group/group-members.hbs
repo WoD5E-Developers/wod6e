@@ -6,7 +6,9 @@
   <header class="sheet-section-header">
     <span class="sheet-section-name">{{localize "WOD6E.GROUPS.Members"}}</span>
     {{#if isOwner}}
-    <span class="group-drop-hint">{{localize "WOD6E.GROUPS.DropActorsHere"}}</span>
+      <span class="group-drop-hint">
+        {{localize "WOD6E.GROUPS.DropActorsHere"}}
+      </span>
     {{/if}}
   </header>
   <div class="group-member-list">
@@ -16,40 +18,46 @@
       <span>{{localize "WOD6E.ACTIONS.Actions"}}</span>
     </div>
     {{#each groupMembers as |member|}}
-    <div class="group-member {{#unless member.exists}}missing{{/unless}}">
-      <img
-        src="{{ member.img }}"
-        alt="{{ member.name }}"
-      />
-      <div class="group-member-details">
-        <strong>{{ member.name }}</strong>
-        <span>{{ member.typeLabel }}</span>
+      <div
+        class="
+          group-member
+          {{#unless member.exists}}
+            missing
+          {{/unless}}
+        "
+      >
+        <img src="{{ member.img }}" alt="{{ member.name }}" />
+        <div class="group-member-details">
+          <strong>{{ member.name }}</strong>
+          <span>{{ member.typeLabel }}</span>
+        </div>
+        <div class="group-member-actions">
+          {{#if member.canOpen}}
+            <button
+              type="button"
+              data-action="openMember"
+              data-uuid="{{ member.uuid }}"
+              title="{{localize 'WOD6E.GROUPS.OpenMember'}}"
+            >
+              <i class="fa-solid fa-user"></i>
+            </button>
+          {{/if}}
+          {{#if ../isOwner}}
+            <button
+              type="button"
+              data-action="removeMember"
+              data-uuid="{{ member.uuid }}"
+              title="{{localize 'WOD6E.GROUPS.RemoveMember'}}"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          {{/if}}
+        </div>
       </div>
-      <div class="group-member-actions">
-        {{#if member.canOpen}}
-        <button
-          type="button"
-          data-action="openMember"
-          data-uuid="{{ member.uuid }}"
-          title="{{localize 'WOD6E.GROUPS.OpenMember'}}"
-        >
-          <i class="fa-solid fa-user"></i>
-        </button>
-        {{/if}}
-        {{#if ../isOwner}}
-        <button
-          type="button"
-          data-action="removeMember"
-          data-uuid="{{ member.uuid }}"
-          title="{{localize 'WOD6E.GROUPS.RemoveMember'}}"
-        >
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-        {{/if}}
-      </div>
-    </div>
     {{else}}
-    <p class="empty-list">{{localize "WOD6E.GROUPS.NoMembers"}}</p>
+      <p class="empty-list">
+        {{localize "WOD6E.GROUPS.NoMembers"}}
+      </p>
     {{/each}}
   </div>
 

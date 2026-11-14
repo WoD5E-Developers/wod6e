@@ -1,5 +1,7 @@
 .actor.sheet.group {
-  .group-overview, .group-members-page, .group-resources-page {
+  .group-overview,
+  .group-members-page,
+  .group-resources-page {
     padding: 8px;
   }
 
@@ -35,7 +37,8 @@
     text-transform: none;
   }
 
-  .group-member-list, .group-resource-list {
+  .group-member-list,
+  .group-resource-list {
     display: grid;
     gap: 6px;
     margin: 8px 0 20px;
@@ -69,12 +72,15 @@
     text-align: center;
   }
 
-  .group-member-details, .resource-contributor {
+  .group-member-details,
+  .resource-contributor {
     display: flex;
     flex-direction: column;
   }
 
-  .group-member-actions, .group-resource-header, .group-relationship-actions {
+  .group-member-actions,
+  .group-resource-header,
+  .group-relationship-actions {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -119,7 +125,7 @@
     }
 
     &::before {
-      content: "\f0da";
+      content: '\f0da';
       font: var(--fa-font-solid);
       transition: transform 100ms ease-in-out;
     }

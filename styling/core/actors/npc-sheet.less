@@ -37,7 +37,9 @@
         margin-bottom: 4px;
       }
 
-      .resource-tracker-total { font-size: inherit; }
+      .resource-tracker-total {
+        font-size: inherit;
+      }
       .npc-resource-adjust {
         align-self: center;
         flex: 0 0 22px;
@@ -47,7 +49,9 @@
         padding: 0;
       }
 
-      .resource-tracker-spaces { gap: 4px 8px; }
+      .resource-tracker-spaces {
+        gap: 4px 8px;
+      }
       .resource-tracker-space {
         width: 20px;
         height: 20px;
@@ -84,7 +88,9 @@
     gap: 4px;
   }
 
-  .npc-stat-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .npc-stat-columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 
   .npc-name {
     height: 27px;
@@ -108,19 +114,20 @@
       padding: 1px 0;
       border-bottom-color: var(--resource-panel-border);
 
-      label, span {
+      label,
+      span {
         font-weight: bold;
         white-space: normal;
       }
 
-      input, select {
+      input,
+      select {
         width: 100%;
         min-width: 0;
         height: 24px;
         min-height: 0;
       }
     }
-
   }
 
   .npc-stat-section > .npc-stat-columns,
@@ -163,7 +170,10 @@
     border: 0;
     background: transparent;
 
-    &:hover, &:focus-visible { text-decoration: underline; }
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
   }
 
   .npc-stat-row {
@@ -182,20 +192,28 @@
     }
   }
 
-  .npc-review { margin: 4px 0; }
+  .npc-review {
+    margin: 4px 0;
+  }
 
   .npc-disciplines {
     margin-top: 12px;
 
-    .sheet-section-list { gap: 8px; }
+    .sheet-section-list {
+      gap: 8px;
+    }
 
     .npc-discipline-header {
       align-items: center;
       gap: 8px;
       padding: 4px 5px;
 
-      label { flex: 1; }
-      .sheet-section-data-actions { flex: none; }
+      label {
+        flex: 1;
+      }
+      .sheet-section-data-actions {
+        flex: none;
+      }
     }
   }
 
@@ -219,7 +237,6 @@
       gap: 4px;
     }
   }
-
 }
 
 .skill-entries-dialog {
@@ -249,8 +266,12 @@
   .npc-trait-panel-header {
     padding-bottom: 8px;
     border-bottom: 1px solid var(--resource-panel-border);
-    h3 { margin: 0; }
-    p { margin: 4px 0 0; }
+    h3 {
+      margin: 0;
+    }
+    p {
+      margin: 4px 0 0;
+    }
   }
 
   .npc-trait-selection .npc-trait-panel-header {
@@ -298,7 +319,9 @@
       overflow-wrap: anywhere;
     }
 
-    input::placeholder { font-style: italic; }
+    input::placeholder {
+      font-style: italic;
+    }
   }
 
   .npc-specialization-add {
@@ -316,7 +339,9 @@
     margin: 0;
     list-style: none;
 
-    &:not(:has(li)) { display: none; }
+    &:not(:has(li)) {
+      display: none;
+    }
 
     li {
       display: inline-flex;
@@ -347,17 +372,23 @@
     }
   }
 
-  [hidden] { display: none; }
+  [hidden] {
+    display: none;
+  }
 
   .form-footer {
     justify-content: center;
     border-top: 1px solid var(--resource-panel-border);
     padding-top: 12px;
 
-    > button { max-width: 260px; }
+    > button {
+      max-width: 260px;
+    }
   }
 
   @media (max-width: 720px) {
-    .npc-trait-editor { grid-template-columns: minmax(0, 1fr); }
+    .npc-trait-editor {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 }

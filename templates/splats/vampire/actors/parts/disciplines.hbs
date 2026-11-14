@@ -20,62 +20,68 @@
 
   <div class="sheet-section-list">
     {{#each disciplines as |discipline|}}
-    <div
-      class="sheet-section-row resource-tracker"
-      data-discipline="{{ discipline.key }}"
-    >
-      <div class="sheet-subsection-header">
-        <button
-          type="button"
-          class="sheet-section-label"
-          data-action="roll"
-          data-discipline="system.vampire.disciplines.{{ discipline.key }}"
-          title="{{localize discipline.label}}"
-        >
-          <span class="discipline-name">
-            {{ discipline.label }}
-          </span>
-        </button>
-        <div class="sheet-section-data-actions">
-          <a
-            class="search-data-item"
-            data-action="searchItem"
-            title="{{localize 'WOD6E.Search'}}"
-            data-type="discipline"
-            data-subtype="{{ discipline.key }}"
+      <div class="sheet-section-row resource-tracker" data-discipline="{{ discipline.key }}">
+        <div class="sheet-subsection-header">
+          <button
+            class="sheet-section-label"
+            type="button"
+            data-action="roll"
+            data-discipline="system.vampire.disciplines.{{ discipline.key }}"
+            title="{{localize discipline.label}}"
           >
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </a>
-          <a
-            class="item-create"
-            data-action="createItem"
-            title="{{localize 'WOD6E.Create'}}"
-            data-type="discipline"
-            data-subtype="{{ discipline.key }}"
-          >
-            <i class="fas fa-plus"></i>
-          </a>
-        </div>
+            <span class="discipline-name">{{ discipline.label }}</span>
+          </button>
+          <div class="sheet-section-data-actions">
+            <a
+              class="search-data-item"
+              data-action="searchItem"
+              title="{{localize 'WOD6E.Search'}}"
+              data-type="discipline"
+              data-subtype="{{ discipline.key }}"
+            >
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+            <a
+              class="item-create"
+              data-action="createItem"
+              title="{{localize 'WOD6E.Create'}}"
+              data-type="discipline"
+              data-subtype="{{ discipline.key }}"
+            >
+              <i class="fas fa-plus"></i>
+            </a>
+          </div>
 
-        <div class="dot-tracker resource-tracker-spaces align-right">
-          {{#each discipline.trackers as |group|}}
-          <div class="dot-tracker-group resource-tracker-group">
-            {{#each group as |space|}}
-            <button
-              type="button"
-              class="dot-tracker-space resource-tracker-space{{#if space.filled}} filled{{/if}}{{#if space.modified}} modified{{/if}}"
-              data-action="setTrackerValue"
-              data-resource-path="system.vampire.disciplines.{{ discipline.key }}"
-              data-value="{{ space.trackerValue }}"
-              title="{{ space.title }}"
-            ></button>
+          <div class="dot-tracker resource-tracker-spaces align-right">
+            {{#each discipline.trackers as |group|}}
+              <div class="dot-tracker-group resource-tracker-group">
+                {{#each group as |space|}}
+                  <button
+                    class="
+                      dot-tracker-space
+                      resource-tracker-space
+                      {{#if space.filled}}
+                        filled
+                      {{/if}}
+                      {{#if space.modified}}
+                        modified
+                      {{/if}}
+                    "
+                    type="button"
+                    data-action="setTrackerValue"
+                    data-resource-path="system.vampire.disciplines.{{ discipline.key }}"
+                    data-value="{{ space.trackerValue }}"
+                    title="{{ space.title }}"
+                  ></button>
+                {{/each}}
+              </div>
             {{/each}}
           </div>
-          {{/each}}
         </div>
       </div>
-    </div>
-    {{> "systems/wod6e/templates/core/actors/parts/discipline-powers.hbs" powers=discipline.powers}}
+      {{> "systems/wod6e/templates/core/actors/parts/discipline-powers.hbs"
+        powers=discipline.powers
+      }}
     {{/each}}
   </div>
 </section>
